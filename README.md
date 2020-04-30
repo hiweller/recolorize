@@ -1,7 +1,7 @@
 # recolorize v 0.0
 
-"As we computer programmers put it, if it doesn't have to work, I can make it run as fast as you want."  
-> *Maciej Cegłowski*
+> "As we computer programmers put it, if it doesn't have to work, I can make it run as fast as you want."  
+> —*Maciej Cegłowski*
 
 THIS PACKAGE IS STILL A BABY. THIS IS A HALF-THING. 
 
