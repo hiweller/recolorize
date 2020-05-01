@@ -1,3 +1,12 @@
+# source all these functions!
+source("https://raw.githubusercontent.com/hiweller/recolorize/master/R/backgroundCondition.R")
+source("https://raw.githubusercontent.com/hiweller/recolorize/master/R/backgroundIndex.R")
+source("https://raw.githubusercontent.com/hiweller/recolorize/master/R/colorClusters.R")
+source("https://raw.githubusercontent.com/hiweller/recolorize/master/R/plotColorPalette.R")
+source("https://raw.githubusercontent.com/hiweller/recolorize/master/R/plotImageArray.R")
+source("https://raw.githubusercontent.com/hiweller/recolorize/master/R/plotRecolorized.R")
+source("https://raw.githubusercontent.com/hiweller/recolorize/master/R/recolorImage.R")
+
 recolorize <- function(img.path, method = "kmeans",
                        bins = 3, n = 10,
                        lower = NULL, upper = NULL,
