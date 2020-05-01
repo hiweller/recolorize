@@ -18,6 +18,9 @@ recolorImage <- function(bg.indexed, color.clusters,
   # copy non-background pixels to change them
   pix.recolor <- bg.indexed$non.bg
 
+  # index for removing empty centers
+  core.removal <- c()
+
   # for every color cluster:
   for (i in 1:nrow(color.clusters$centers)) {
 
@@ -29,13 +32,18 @@ recolorImage <- function(bg.indexed, color.clusters,
     # the indices of bg.indexed$non.bg
     pix.idx <- which(color.clusters$pixel.assignments == i)
 
-    # repeat the new color for a substitute matrix
-    replacements <- matrix(new.color, ncol = 3, byrow = TRUE,
-                           nrow = length(pix.idx))
+    if (length(pix.idx) == 0) {
+      core.removal <- c(core.removal, i)
+      next
+    } else {
+      # repeat the new color for a substitute matrix
+      replacements <- matrix(new.color, ncol = 3, byrow = TRUE,
+                             nrow = length(pix.idx))
 
-    # and stick it back in!
-    pix.recolor[pix.idx, 1:3] <- replacements
+      # and stick it back in!
+      pix.recolor[pix.idx, 1:3] <- replacements
 
+    }
   }
 
   # slot new pixels back in
@@ -81,7 +89,12 @@ recolorImage <- function(bg.indexed, color.clusters,
   }
 
   # make returnables
+  if (length(core.removal) > 0) {
+    centers <- color.clusters$centers[-core.removal, ]
+  } else {
+    centers <- color.clusters$centers
+  }
   return(list(recolored.img = recolored.img,
-              centers = color.clusters$centers))
+              centers = centers))
 
 }

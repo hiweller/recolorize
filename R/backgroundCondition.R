@@ -11,21 +11,29 @@ backgroundCondition <- function(lower = NULL, upper = NULL,
                                 alpha.channel = FALSE,
                                 quietly = TRUE) {
 
+  # shut up...this makes sense
+  if (!isTRUE(alpha.channel)) {
+    alpha.channel <- NULL
+  }
+
   # put potential background conditions into a list
   args.list <- list(lower = lower, upper = upper,
-                       center = center, radius = radius,
-                       transparent = transparent)
+                    center = center, radius = radius,
+                    transparent = transparent,
+                    alpha.channel = alpha.channel)
 
   # make a vector of which values are NOT NULL
   null.count <- which(!unlist(lapply(args.list, is.null)))
   null.count <- paste(null.count, collapse = "")
 
   # these combinations are allowed:
-  combos <- data.frame(vec = c("",
-                               "12", "34",
-                               "5", "125", "345"),
+  combos <- data.frame(vec = c("", # no background
+                               "12", "34", # rectangle | sphere
+                               "5", "125", "345", # oops: no transparency channel
+                               "56", "1256", "3456"), # transparency reigns
                        category = c("none",
                                     "rect", "sphere",
+                                    "none", "rect", "sphere",
                                     rep("transparent", 3)))
 
 
