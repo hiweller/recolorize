@@ -18,7 +18,7 @@ plotColorPalette <- function(color.centers,
           ...)
 
   # text colors - black if the color is light, white if the color is dark
-  hsv.exp <- rgb2hsv(t(color.clusters$centers), maxColorValue = 1)
+  hsv.exp <- rgb2hsv(t(color.centers), maxColorValue = 1)
   text.colors <- round(hsv.exp[3, ]) + 1
 
   if (horiz == FALSE) {
