@@ -53,7 +53,7 @@ recolorize <- function(img.path, method = "kmeans",
                                   n = n, bins = bins)
 
   # recolor based on assignments/centers
-  recolored <- recolorImage(bg.indexed, color.clusters, plotting = T)
+  recolored <- recolorImage(bg.indexed, color.clusters, plotting = FALSE)
 
   # plot result
   if (plotting) {
