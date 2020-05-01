@@ -4,7 +4,8 @@ recolorize <- function(img.path, method = "kmeans",
                        lower = NULL, upper = NULL,
                        transparent = TRUE,
                        resize = NULL, rotate = NULL,
-                       plotting = TRUE, horiz = TRUE) {
+                       plotting = TRUE, horiz = TRUE,
+                       cex.text = 1.5) {
 
   # get method
   method <- match.arg(tolower(method), c("kmeans", "histogram"))
@@ -58,7 +59,8 @@ recolorize <- function(img.path, method = "kmeans",
   # plot result
   if (plotting) {
     plotRecolorized(recolored$recolored.img,
-                    recolored$centers, horiz = horiz)
+                    recolored$centers, horiz = horiz,
+                    cex.text = cex.text)
   }
 
   # returnables:

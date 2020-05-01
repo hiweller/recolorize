@@ -1,5 +1,6 @@
 # plots a recolored image + its color palette
-plotRecolorized <- function(recolored.img, color.centers, horiz = FALSE) {
+plotRecolorized <- function(recolored.img, color.centers, horiz = FALSE,
+                            cex.text = 2) {
 
   # for resetting
   user.par <- par(no.readonly = TRUE)
@@ -19,7 +20,7 @@ plotRecolorized <- function(recolored.img, color.centers, horiz = FALSE) {
 
   # plotting palette
   par(mar = rep(0.5, 4))
-  plotColorPalette(color.centers, horiz = horiz)
+  plotColorPalette(color.centers, horiz = horiz, cex.text = cex.text)
 
   # reset parameters
   par(user.par)
