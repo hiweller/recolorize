@@ -112,13 +112,12 @@ colorClustersHist <- function(pixel.matrix, bins = 3) {
 
     # extract all the pixels in that bin
     pix.temp <- pixel.matrix[which(pixel.assignments == j), ]
-    bin.match <- which(apply(possible.bins, 1, function(x) all(x == d[j, ])))
 
     # if more than one pixel, use the average
     if (is.matrix(pix.temp)) {
-      centers[bin.match, 1:3] <- colMeans(pix.temp)
+      centers[j, 1:3] <- colMeans(pix.temp)
     } else {
-      centers[bin.match, 1:3] <- pix.temp
+      centers[j, 1:3] <- pix.temp
     }
   }
 

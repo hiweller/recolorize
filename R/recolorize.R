@@ -42,6 +42,7 @@ recolorize <- function(img.path, method = "kmeans",
   # another reason to switch to all cimg objects!
   # imager is just not friendly to me
   temp[ , , ] <- apply(temp, 3, function(mat) mat[ , ncol(mat):1, drop=FALSE])
+  img <- temp
   rm(temp)
 
   # make background condition

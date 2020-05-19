@@ -25,4 +25,5 @@ Imports:
     stats,
     jpeg,
     png,
-    pavo
+    pavo,
+    magick
