@@ -14,23 +14,32 @@ plotColorPalette <- function(color.centers, sizes = NULL,
     colorbar <- rep(1, nrow(color.centers))
     setNames(colorbar, as.character(1:nrow(color.centers)))
 
+    # we're making the palettes in different ways, so horizontal plotting is
+    # reversed; this makes it consistent
+    horiz <- !horiz
+
   } else {
 
     # if so, make a fake "table" with counts
     # this is a bit hacky, but it does make the bars adjacent instead of stacked
+    sizes <- sizes / sum(sizes)
     sizes <- round(sizes * 1000)
     colorbar <- unlist(sapply(1:length(sizes),
                               function(j) rep(j, sizes[j])))
     colorbar <- table(colorbar, rep("", length(colorbar)))
-    rownames(colorbar) <- as.character(1:nrow(color.centers))
+
+    # remove any empty values
+    if (any(sizes == 0)) {
+      rgb.exp <- rgb.exp[-which(sizes == 0)]
+    }
+
   }
 
 
   # plot the colors as a uniform bar
   barplot(colorbar, col = rgb.exp,
           axes = FALSE, space = 0, horiz = horiz,
-          border = NA, axisnames = FALSE,
-          ...)
+          border = NA, axisnames = FALSE, ...)
 
   # text colors - black if the color is light, white if the color is dark
   hsv.exp <- rgb2hsv(t(color.centers), maxColorValue = 1)
@@ -46,7 +55,7 @@ plotColorPalette <- function(color.centers, sizes = NULL,
   }
 
   # only plot numbers if the sizes are equal
-  # when they're distorted by sizes it gets unpredictable
+  # when they're distorted by sizes it gets too wacky
   if (is.null(sizes)) {
     text(text.x, text.y,
          cex = cex.text,

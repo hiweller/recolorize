@@ -43,23 +43,24 @@ colorClustersKMeans <- function(pixel.matrix, n = 10) {
   # start with 10 iterations and try clustering
   iter.max <- 10L
 
-  img.k <- stats::kmeans(pixel.matrix, n)
+  img.k <- stats::kmeans(pixel.matrix, n, iter.max = iter.max)
 
   # if that doesn't converge, up the number of iterations
-  while (img.k$ifault == 4) {
-
-    # up the number of iterations
-    iter.max <- iter.max + 10L
-    img.k <- stats::kmeans(pixel.matrix, n, iter.max = iter.max)
-
-    # but let's not get ridiculous
-    if (iter.max > 100) { break }
-
-  }
+  # while (img.k$ifault == 4) {
+  #
+  #   # up the number of iterations
+  #   iter.max <- iter.max + 10L
+  #   img.k <- stats::kmeans(pixel.matrix, n, iter.max = iter.max)
+  #
+  #   # but let's not get ridiculous
+  #   if (iter.max > 100) { break }
+  #
+  # }
 
   # return
   return(list(pixel.assignments = img.k$cluster,
-              centers = img.k$centers))
+              centers = img.k$centers,
+              sizes = img.k$size))
 
 }
 
@@ -100,12 +101,16 @@ colorClustersHist <- function(pixel.matrix, bins = 3) {
   break.means <- lapply(breaks, function(i) sapply(2:length(i),
                                 function(m) mean(c(i[m-1], i[m]))))
   centers <- as.matrix(expand.grid(break.means))
+  colnames(centers) <- c("R", "G", "B")
 
   # how many pixels in each bin?
   d <- mgcv::uniquecombs(binned.image)
 
   # which bin does each pixel go in?
   pixel.assignments <- attr(d, "index")
+
+  # make a vector for sizes
+  sizes <- rep(0, prod(bins))
 
   # for every color center...
   for (j in 1:dim(d)[1]) {
@@ -116,13 +121,16 @@ colorClustersHist <- function(pixel.matrix, bins = 3) {
     # if more than one pixel, use the average
     if (is.matrix(pix.temp)) {
       centers[j, 1:3] <- colMeans(pix.temp)
+      sizes[j] <- nrow(pix.temp)
     } else {
       centers[j, 1:3] <- pix.temp
+      sizes[j] <- 1
     }
   }
 
   # return pixel assignments and centers
   return(list(pixel.assignments = pixel.assignments,
-              centers = centers))
+              centers = centers,
+              sizes = sizes))
 
 }

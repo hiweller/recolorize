@@ -1,6 +1,7 @@
 
 recolorImage <- function(bg.indexed, color.clusters,
                          plotting = FALSE, main = "",
+                         remove.empty.clusters = FALSE,
                          bg.recolor = "transparent") {
 
   # just in case...
@@ -25,13 +26,14 @@ recolorImage <- function(bg.indexed, color.clusters,
   for (i in 1:nrow(color.clusters$centers)) {
 
     # get the new color
-    new.color <- color.clusters$centers[i, ]
+    new.color <- as.vector(color.clusters$centers[i, ])
 
     # find which pixels should be changed
     # IMPORTANT: we're assuming that color.clusters$pixel.assignments matches
     # the indices of bg.indexed$non.bg
     pix.idx <- which(color.clusters$pixel.assignments == i)
 
+    # if no pixels were assigned to that cluster, mark it
     if (length(pix.idx) == 0) {
       core.removal <- c(core.removal, i)
       next
@@ -89,7 +91,7 @@ recolorImage <- function(bg.indexed, color.clusters,
   }
 
   # make returnables
-  if (length(core.removal) > 0) {
+  if (length(core.removal) > 0 & isTRUE(remove.empty.clusters)) {
     centers <- color.clusters$centers[-core.removal, ]
   } else {
     centers <- color.clusters$centers

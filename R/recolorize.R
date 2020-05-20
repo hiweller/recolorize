@@ -5,7 +5,7 @@ recolorize <- function(img.path, method = "kmeans",
                        transparent = TRUE,
                        resize = NULL, rotate = NULL,
                        plotting = TRUE, horiz = TRUE,
-                       cex.text = 1.5) {
+                       cex.text = 1.5, scale.palette = TRUE) {
 
   # get method
   method <- match.arg(tolower(method), c("kmeans", "histogram"))
@@ -60,13 +60,20 @@ recolorize <- function(img.path, method = "kmeans",
                                   n = n, bins = bins)
 
   # recolor based on assignments/centers
-  recolored <- recolorImage(bg.indexed, color.clusters, plotting = FALSE)
+  recolored <- recolorImage(bg.indexed, color.clusters,
+                            plotting = FALSE,
+                            remove.empty.clusters = FALSE)
+
+  # get sizes vector
+  sizes <- color.clusters$sizes
+  if (scale.palette) { s <- sizes } else { s <- NULL }
 
   # plot result
   if (plotting) {
     plotRecolorized(recolored$recolored.img,
                     recolored$centers, horiz = horiz,
-                    cex.text = cex.text)
+                    cex.text = cex.text,
+                    sizes = s)
   }
 
   # returnables:
@@ -79,7 +86,6 @@ recolorize <- function(img.path, method = "kmeans",
   }
   color.space <- "RGB"
   centers <- color.clusters$centers
-  sizes <- table(color.clusters$pixel.assignments)
   pixel.assignments <- color.clusters$pixel.assignments
 
   # return em
