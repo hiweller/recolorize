@@ -36,7 +36,8 @@ imposeClusters <- function(img.path, color.centers,
 
   # plot result
   if (plotting) {
-    plotRecolorized(recolored$recolored.img,
+    plotRecolorized(recolored$recolored.img, img,
+                    plot.original = TRUE,
                     recolored$centers, horiz = horiz,
                     cex.text = cex.text,
                     sizes = s)
