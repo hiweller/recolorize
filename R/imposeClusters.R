@@ -1,14 +1,12 @@
-
-recolorize <- function(img.path, method = "kmeans",
-                       bins = 3, n = 10,
-                       lower = NULL, upper = NULL,
-                       transparent = TRUE,
-                       resize = NULL, rotate = NULL,
-                       plotting = TRUE, horiz = TRUE,
-                       cex.text = 1.5, scale.palette = TRUE) {
-
-  # get method
-  method <- match.arg(tolower(method), c("kmeans", "histogram"))
+# similar to recolorize, but you specify color centers instead of getting them
+# from the image
+imposeClusters <- function(img.path, color.centers,
+                           adjust.centers = TRUE,
+                           lower = NULL, upper = NULL,
+                           transparent = TRUE,
+                           resize = NULL, rotate = NULL,
+                           plotting = TRUE, horiz = TRUE,
+                           cex.text = 1.5, scale.palette = TRUE) {
 
   # read in image
   img <- readImage(img.path, resize = resize, rotate = rotate)
@@ -24,8 +22,8 @@ recolorize <- function(img.path, method = "kmeans",
   bg.indexed <- backgroundIndex(img, bg.condition)
 
   # color clusters & assign pixels
-  color.clusters <- colorClusters(bg.indexed$non.bg, method = method,
-                                  n = n, bins = bins)
+  color.clusters <- assignPixels(color.centers, bg.indexed$non.bg,
+                                 adjust.centers = adjust.centers)
 
   # recolor based on assignments/centers
   recolored <- recolorImage(bg.indexed, color.clusters,
@@ -48,13 +46,6 @@ recolorize <- function(img.path, method = "kmeans",
   original.img <- img
   recolored.img <- recolored$recolored.img
 
-  # return binning scheme
-  method <- if( method == "kmeans" ) {
-    list(method = "kmeans", n = n)
-  } else {
-    list(method = "histogram", bins = bins)
-  }
-
   # only rgb for now...would others be useful?
   color.space <- "RGB"
   centers <- color.clusters$centers
@@ -63,7 +54,6 @@ recolorize <- function(img.path, method = "kmeans",
   # return em
   return.list <- list(original.img = original.img,
                       recolored.img = recolored.img,
-                      method = method,
                       color.space = color.space,
                       centers = centers,
                       sizes = sizes,
