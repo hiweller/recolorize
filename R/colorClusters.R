@@ -1,7 +1,67 @@
-# fxn 3: non-bg pixels in -> centers & assignments
-# 4. find centers -- either thru histogram or kmeans
+#' Generate color clusters from an image
+#'
+#' Clusters all the pixels in an image according to the specified method and
+#' returns color centers, cluster assignments, and cluster sizes.
+#'
+#' @param pixel.matrix 2D matrix of pixels to classify (rows = pixels, columns = channels).
+#' @param method Binning scheme to use, one of either `kmeans` or `histogram`.
+#'   Produce very different results (see details).
+#' @param n If `method = "kmeans"`, the number of colors to fit.
+#' @param bins If `method = "histogram"`, either the number of bins per color
+#'   channel (if a single number is provided) OR a vector of length 3 with the
+#'   number of bins for each channel.
+#'
+#' @return
+#' A list with the following elements:
+#' \enumerate{
+#'         \item `pixel.assignments`: A vector of color center assignments for each pixel.
+#'         \item `centers`: A matrix of color centers.
+#'         \item `sizes`: The number of pixels assigned to each cluster.
+#' }
+#'
+#' @details
+#' \code{\link[stats]kmeans} clustering tries to find the set of `n` clusters
+#' that minimize overall distances. Histogram binning divides up color space
+#' according to set breaks; for example, bins = 2 would divide the red, green,
+#' and blue channels into 2 bins each (> 0.5 and < 0 .5), resulting in 8 possible
+#' ranges. A white pixel (RGB = [1, 1, 1]) would fall into the R > 0.5, G > 0.5, B > 0.5 range.
+#' The resulting centers represent the average color of all the pixels assigned to that bin.
+#'
+#' K-means clustering can produce more intuitive results, but because it is iterative,
+#' it will find slightly different clusters each time it is run. It also tends to divide
+#' up similar colors that make up the majority of the image. Histogram binning
+#' will produce the same results every time, and because it forces the bins to be dispersed
+#' throughout color space, tends to better pick up small color details. Bins are also
+#' comparable across images. However, this sometimes means returning empty bins
+#' (i.e. the white bin will be empty if clustering a very dark image).
+#'
+#' @examples
+#'
+#' # make a 100x100 'image' of random colors
+#' img <- array(runif(30000), dim = c(100, 100, 3))
+#' plotImageArray(img)
+#'
+#' # pixel matrix
+#' img.2d <- img
+#' dim(img.2d) <- c(100 * 100, 3)
+#'
+#' # histogram clustering
+#' hist.clusters <- colorClusters(img.2d, method = "hist", bins = 2)
+#' plotColorPalette(hist.clusters$centers)
+#'
+#' # we can use a different number of bins for each channel
+#' uneven.clusters <- colorClusters(img.2d, method = "hist",
+#'                                  bins = c(3, 2, 1))
+#' plotColorPalette(uneven.clusters$centers)
+#'
+#' # using kmeans
+#' kmeans.clusters <- colorClusters(img.2d, method = "kmeans",
+#'                                  n = 5)
+#' plotColorPalette(kmeans.clusters$centers)
+#'
+#' @export
 colorClusters <- function(pixel.matrix,
-                          method = "kmeans", n = 10,
+                          method = "histogram", n = 10,
                           bins = 3) {
 
   # coerce method argument
@@ -15,11 +75,13 @@ colorClusters <- function(pixel.matrix,
 
     color.clusters <- colorClustersKMeans(pixel.matrix = pixel.matrix,
                                           n = n)
+    color.clusters$method <- "kmeans"
 
   } else if (method == "histogram") {
 
     color.clusters <- colorClustersHist(pixel.matrix = pixel.matrix,
                                         bins = bins)
+    color.clusters$method <- "histogram"
 
   } else {
 
@@ -37,7 +99,24 @@ colorClusters <- function(pixel.matrix,
 
 }
 
-# clustering with kmeans
+#' Cluster pixel colors using K-means clustering
+#'
+#' Clusters pixel colors using \code{\link[stats]{kmeans}}.
+#'
+#' @param pixel.matrix 2D matrix of pixels to classify (rows = pixels, columns =
+#'   channels).
+#' @param n Number of clusters to fit.
+#'
+#' @return
+#' A list with the following elements:
+#' \enumerate{
+#'         \item `pixel.assignments`: A vector of color center assignments for each pixel.
+#'         \item `centers`: A matrix of color centers.
+#'         \item `sizes`: The number of pixels assigned to each cluster.
+#' }
+#'
+#' @details Called by \code{\link{colorClusters}}. See that documentation for
+#'   examples.
 colorClustersKMeans <- function(pixel.matrix, n = 10) {
 
   # start with 10 iterations and try clustering
@@ -64,7 +143,28 @@ colorClustersKMeans <- function(pixel.matrix, n = 10) {
 
 }
 
-# clustering with histograms
+
+#' Cluster pixel colors using histogram binning
+#'
+#' Clusters pixel colors by dividing color space up into specified bins,
+#' then taking the average color of all the pixels within that bin.
+#'
+#' @param pixel.matrix 2D matrix of pixels to classify (rows = pixels, columns =
+#'   channels).
+#' @param bins Number of bins for each channel OR a vector of length 3 with bins
+#'   for each channel. `bins = 3` will result in 3^3 = 27 bins; `bins = c(2, 2, 3)`
+#'   will result in 2*2*3 = 12 bins (2 red, 2 green, 3 blue), etc.
+#'
+#' @return
+#' A list with the following elements:
+#' \enumerate{
+#'         \item `pixel.assignments`: A vector of color center assignments for each pixel.
+#'         \item `centers`: A matrix of color centers.
+#'         \item `sizes`: The number of pixels assigned to each cluster.
+#' }
+#'
+#' @details Called by \code{\link{colorClusters}}. See that documentation for
+#'   examples.
 colorClustersHist <- function(pixel.matrix, bins = 3) {
 
   # make sure bins is either a number or a vector of length 3

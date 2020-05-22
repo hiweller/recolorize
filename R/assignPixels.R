@@ -1,12 +1,49 @@
-# Assigns a 2d matrix of pixels to a provided set of clusters
-# input:
-# 1. 2d pixel matrix (rows = px and cols = channels)
-# 2. clusters (rows = centers and cols = channels)
-# output:
-# a vector of length = nrow(pixels) of the cluster to which that pixel was assigned
-# kmeans does this automatically!
-# returns a list with pixel.assignments, color.centers, and sizes
-# which can be passed to recolorImage
+#' Assign a 2D matrix of pixels to specified colors
+#'
+#' @param color.centers Matrix of color centers (rows = colors, columns = channels).
+#' @param pixel.matrix Matrix of pixel colors (rows = pixels, columns = channels).
+#' @param adjust.centers Logical. Should the returned color clusters be the
+#'   average value of the pixels assigned to that cluster? See details.
+#'
+#' @return A list of class `color.clusters`, containing:
+#' \enumerate{
+#'         \item `pixel.assignments`: A vector of color center assignments for each pixel.
+#'         \item `centers`: A matrix of color centers. If `adjust.centers = FALSE`, this will be identical to the input `color.centers`.
+#'         \item `sizes`: The number of pixels assigned to each cluster.
+#' }
+#'
+#' @details
+#' This is a largely internal function called by \code{\link{imposeClusters}}
+#' for recoloring an image based on extrinsic colors. If `adjust.centers = TRUE`,
+#' then after assigning pixels to given colors,
+#'
+#' @examples
+#'
+#' # RGB extremes (white, black, red, green, blue, yellow, magenta, cyan)
+#' ctrs <- matrix(c(1, 1, 1,
+#'                  0, 0, 0,
+#'                  1, 0, 0,
+#'                  0, 1, 0,
+#'                  0, 0, 1,
+#'                  1, 1, 0,
+#'                  1, 0, 1,
+#'                  0, 1, 1), byrow = TRUE, ncol = 3)
+#'
+#' # plot it
+#' plotColorPalette(ctrs)
+#'
+#' # create a pixel matrix of random colors
+#' pixel.matrix <- matrix(runif(3000), ncol = 3)
+#'
+#' # assign pixels
+#' reassigned <- assignPixels(ctrs, pixel.matrix, adjust.centers = TRUE)
+#' plotColorPalette(reassigned$centers)
+#'
+#' # if we turn off adjust.centers, the colors remain the same as the inputs:
+#' keep.centers <- assignPixels(ctrs, pixel.matrix, adjust.centers = FALSE)
+#' plotColorPalette(keep.centers$centers)
+#'
+#' @export
 assignPixels <- function(color.centers, pixel.matrix, adjust.centers = TRUE) {
 
   # I'm not sure this is really as fast as it could be

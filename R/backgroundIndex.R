@@ -3,6 +3,53 @@
 # 3b. make non-bg-only pixel matrix for operations
 # 3c. convert to color space of choice
 
+#' Index and remove background pixels for color clustering
+#'
+#' Largely internal function for identifying, indexing, and removing background
+#' pixels from an image.
+#'
+#' @param img An image array, preferably the output of \code{\link[png]{readPNG}}
+#'   or \code{\link[jpeg]{readJPEG}}.
+#' @param bg.condition Background condition, output of
+#'   \code{\link{backgroundCondition}}.
+#'
+#' @return A list with the following elements:
+#' \enumerate{
+#'     \item `flattened.img`: The original image, flattened into a 2D matrix
+#'     (rows = pixels, columns = channels).
+#'     \item `img.dims`: Dimensions of the original image.
+#'     \item `non.bg`: Pixels from `flattened.img` that fall outside the
+#'     background masking conditions. Used for further color clustering and
+#'     analysis.
+#'     \item `idx`: 2D (row-column) indices for background pixels.
+#'     \item `idx.flat`: Same as `idx`, but flattened to vector order.
+#' }
+#'
+#' @details
+#' This function flattens a 3-channel image into a 2D matrix before indexing and
+#' removing background pixels to take advantage of faster indexing procedures.
+#' The `idx`, `idx.flat`, and `img.dims` elements are used to reconstruct the
+#' original and recolored images by other functions, namely
+#' \code{\link{recolorImage}}.
+#'
+#' @examples
+#' # get image path and read in image
+#' img.path <- system.file("extdata/chongi.png", package = "recolorize")
+#' img <- png::readPNG(img.path)
+#'
+#' # generate a background condition for a white background
+#' bg.condition <- backgroundCondition(lower = rep(0.9, 3),
+#'                                     upper = rep(1, 3))
+#'
+#' # index background pixels
+#' bg.indexed <- backgroundIndex(img, bg.condition)
+#'
+#' # we can reconstruct the original image from the flattened array
+#' img2 <- bg.indexed$flattened.img
+#' dim(img2) <- bg.indexed$img.dims
+#' plotImageArray(img2)
+#'
+#' @export
 backgroundIndex <- function(img, bg.condition) {
 
   # flatten it first -- faster indexing!
