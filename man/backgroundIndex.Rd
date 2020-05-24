@@ -35,7 +35,7 @@ This function flattens a 3-channel image into a 2D matrix before indexing and
 removing background pixels to take advantage of faster indexing procedures.
 The \code{idx}, \code{idx.flat}, and \code{img.dims} elements are used to reconstruct the
 original and recolored images by other functions, namely
-\code{\link{recolorImage}}.
+\code{\link[recolorize]{recolorImage}}.
 }
 \examples{
 # get image path and read in image

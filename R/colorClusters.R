@@ -20,20 +20,22 @@
 #' }
 #'
 #' @details
-#' \code{\link[stats]kmeans} clustering tries to find the set of `n` clusters
+#' \code{\link[stats]{kmeans}} clustering tries to find the set of `n` clusters
 #' that minimize overall distances. Histogram binning divides up color space
 #' according to set breaks; for example, bins = 2 would divide the red, green,
 #' and blue channels into 2 bins each (> 0.5 and < 0 .5), resulting in 8 possible
-#' ranges. A white pixel (RGB = [1, 1, 1]) would fall into the R > 0.5, G > 0.5, B > 0.5 range.
+#' ranges. A white pixel (RGB = 1, 1, 1) would fall into the R > 0.5, G > 0.5, B > 0.5 bin.
 #' The resulting centers represent the average color of all the pixels assigned to that bin.
 #'
-#' K-means clustering can produce more intuitive results, but because it is iterative,
-#' it will find slightly different clusters each time it is run. It also tends to divide
-#' up similar colors that make up the majority of the image. Histogram binning
-#' will produce the same results every time, and because it forces the bins to be dispersed
-#' throughout color space, tends to better pick up small color details. Bins are also
-#' comparable across images. However, this sometimes means returning empty bins
-#' (i.e. the white bin will be empty if clustering a very dark image).
+#' K-means clustering can produce more intuitive results, but because it is
+#' iterative, it will find slightly different clusters each time it is run, and
+#' their order will be arbitrary. It also tends to divide up similar colors that
+#' make up the majority of the image. Histogram binning will produce the same
+#' results every time, in the same order, and because it forces the bins to be
+#' dispersed throughout color space, tends to better pick up small color
+#' details. Bins are also comparable across images. However, this sometimes
+#' means returning empty bins (i.e. the white bin will be empty if clustering a
+#' very dark image).
 #'
 #' @examples
 #'

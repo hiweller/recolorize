@@ -30,7 +30,7 @@
 #' removing background pixels to take advantage of faster indexing procedures.
 #' The `idx`, `idx.flat`, and `img.dims` elements are used to reconstruct the
 #' original and recolored images by other functions, namely
-#' \code{\link{recolorImage}}.
+#' \code{\link[recolorize]{recolorImage}}.
 #'
 #' @examples
 #' # get image path and read in image

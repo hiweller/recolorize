@@ -26,4 +26,7 @@ Imports:
     jpeg,
     png,
     pavo,
-    magick
+    magick,
+    grDevices,
+    graphics,
+    mgcv

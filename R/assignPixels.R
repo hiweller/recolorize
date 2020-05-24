@@ -8,12 +8,13 @@
 #' @return A list of class `color.clusters`, containing:
 #' \enumerate{
 #'         \item `pixel.assignments`: A vector of color center assignments for each pixel.
-#'         \item `centers`: A matrix of color centers. If `adjust.centers = FALSE`, this will be identical to the input `color.centers`.
+#'         \item `centers`: A matrix of color centers. If `adjust.centers =
+#'         FALSE`, this will be identical to the input `color.centers`.
 #'         \item `sizes`: The number of pixels assigned to each cluster.
 #' }
 #'
 #' @details
-#' This is a largely internal function called by \code{\link{imposeClusters}}
+#' This is a largely internal function called by \code{\link[recolorize]{imposeClusters}}
 #' for recoloring an image based on extrinsic colors. If `adjust.centers = TRUE`,
 #' then after assigning pixels to given colors,
 #'
@@ -30,18 +31,18 @@
 #'                  0, 1, 1), byrow = TRUE, ncol = 3)
 #'
 #' # plot it
-#' plotColorPalette(ctrs)
+#' recolorize::plotColorPalette(ctrs)
 #'
 #' # create a pixel matrix of random colors
 #' pixel.matrix <- matrix(runif(3000), ncol = 3)
 #'
 #' # assign pixels
-#' reassigned <- assignPixels(ctrs, pixel.matrix, adjust.centers = TRUE)
-#' plotColorPalette(reassigned$centers)
+#' reassigned <- recolorize::assignPixels(ctrs, pixel.matrix, adjust.centers = TRUE)
+#' recolorize::plotColorPalette(reassigned$centers)
 #'
 #' # if we turn off adjust.centers, the colors remain the same as the inputs:
-#' keep.centers <- assignPixels(ctrs, pixel.matrix, adjust.centers = FALSE)
-#' plotColorPalette(keep.centers$centers)
+#' keep.centers <- recolorize::assignPixels(ctrs, pixel.matrix, adjust.centers = FALSE)
+#' recolorize::plotColorPalette(keep.centers$centers)
 #'
 #' @export
 assignPixels <- function(color.centers, pixel.matrix, adjust.centers = TRUE) {

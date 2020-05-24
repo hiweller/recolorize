@@ -6,7 +6,8 @@
 #' @param lower,upper RGB triplet ranges for setting a bounding box of pixels to mask.
 #' @param center,radius RGB triplet and radius (as a proportion) for masking
 #'   pixels within a spherical range.
-#' @param transparent Logical or `NULL`. Is there a transparency channel?
+#' @param transparent Logical or `NULL`. Use transparency to mask? Requires an
+#'   alpha channel.
 #' @param alpha.channel Logical. Is there an alpha channel?
 #' @param quietly Logical. Print a message about background masking parameters?
 #'
@@ -115,7 +116,7 @@ backgroundCondition <- function(lower = NULL, upper = NULL,
     bg.condition <- list(center = center, radius = radius)
     class(bg.condition) <- "bg.sphere"
     msg <- paste("Masking pixels in range:\n",
-                 paste("Center: ", paste(center[i, ], collapse = ", "),
+                 paste("Center: ", paste(center, collapse = ", "),
                        " +/- ", radius[i] * 100, "%", sep = ""))
 
   } else if (category == "none") {

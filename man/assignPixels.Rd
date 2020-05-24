@@ -26,7 +26,7 @@ A list of class \code{color.clusters}, containing:
 Assign a 2D matrix of pixels to specified colors
 }
 \details{
-This is a largely internal function called by \code{\link{imposeClusters}}
+This is a largely internal function called by \code{\link[recolorize]{imposeClusters}}
 for recoloring an image based on extrinsic colors. If \code{adjust.centers = TRUE},
 then after assigning pixels to given colors,
 }
@@ -43,17 +43,17 @@ ctrs <- matrix(c(1, 1, 1,
                  0, 1, 1), byrow = TRUE, ncol = 3)
 
 # plot it
-plotColorPalette(ctrs)
+recolorize::plotColorPalette(ctrs)
 
 # create a pixel matrix of random colors
 pixel.matrix <- matrix(runif(3000), ncol = 3)
 
 # assign pixels
-reassigned <- assignPixels(ctrs, pixel.matrix, adjust.centers = TRUE)
-plotColorPalette(reassigned$centers)
+reassigned <- recolorize::assignPixels(ctrs, pixel.matrix, adjust.centers = TRUE)
+recolorize::plotColorPalette(reassigned$centers)
 
 # if we turn off adjust.centers, the colors remain the same as the inputs:
-keep.centers <- assignPixels(ctrs, pixel.matrix, adjust.centers = FALSE)
-plotColorPalette(keep.centers$centers)
+keep.centers <- recolorize::assignPixels(ctrs, pixel.matrix, adjust.centers = FALSE)
+recolorize::plotColorPalette(keep.centers$centers)
 
 }
