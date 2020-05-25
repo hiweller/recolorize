@@ -47,12 +47,12 @@
 #' returned with transparent backgrounds by adding an alpha channel if one does
 #' not already exist.
 #'
-#' Resizing: The speed benefits of downsizing images are fairly obvious (fewer pixels = fewer operations).
-#' Because recoloring the images simplifies their detail anyways, downsizing
-#' prior to recoloring doesn't run a very high risk of losing important information.
-#' A general guidelines for resizing is that any distinguishable features of interest
-#' should still take up at least 2 pixels (preferably with a margin of error) in the
-#' resized image.
+#' Resizing: The speed benefits of downsizing images are fairly obvious (fewer
+#' pixels = fewer operations). Because recoloring the images simplifies their
+#' detail anyways, downsizing prior to recoloring doesn't run a very high risk
+#' of losing important information. A general guideline for resizing is that any
+#' distinguishable features of interest should still take up at least 2 pixels
+#' (preferably with a margin of error) in the resized image.
 #'
 #' @examples
 #'

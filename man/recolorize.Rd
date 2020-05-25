@@ -6,9 +6,9 @@
 \usage{
 recolorize(
   img.path,
-  method = "kmeans",
-  bins = 3,
-  n = 10,
+  method = "histogram",
+  bins = 2,
+  n = 5,
   lower = NULL,
   upper = NULL,
   transparent = TRUE,
@@ -22,6 +22,15 @@ recolorize(
 }
 \arguments{
 \item{img.path}{Path to the image. Must be a character vector.}
+
+\item{method}{Method for clustering image colors. One of either \code{histogram}
+or \code{kmeans}. See details.}
+
+\item{bins}{If \code{method = "histogram"}, either the number of bins per color
+channel (if a single number is provided) OR a vector of length 3 with the
+number of bins for each channel.}
+
+\item{n}{If \code{method = "kmeans"}, the number of color clusters to fit.}
 
 \item{lower, upper}{RGB triplet ranges for setting a bounding box of pixels to
 mask. See details.}
@@ -44,13 +53,6 @@ text to display on the color palette numbers.}
 
 \item{scale.palette}{Logical. If plotting, plot colors in the color palette
 proportional to the size of each cluster?}
-
-\item{color.centers}{Colors to map to, as an n x 3 matrix (rows = colors,
-columns = channels).}
-
-\item{adjust.centers}{Logical. After pixel assignment, should the returned
-colors be the average color of the pixels assigned to that cluster, or the
-original colors?}
 }
 \value{
 A list with the following attributes:
@@ -64,6 +66,77 @@ A list with the following attributes:
 }
 }
 \description{
-Takes an image and a set of color centers, and assigns each pixel to the most
-similar provided color. Useful for producing a set of images with identical colors.
+Clusters the colors in an RGB image according to a specified method,
+then recolors that image to the simplified color scheme.
+}
+\details{
+Method for color clustering: \code{\link[stats]{kmeans}} clustering tries to
+find the set of \code{n} clusters that minimize overall distances. Histogram
+binning divides up color space according to set breaks; for example, bins = 2
+would divide the red, green, and blue channels into 2 bins each (> 0.5 and <
+0 .5), resulting in 8 possible ranges. A white pixel (RGB = 1, 1, 1) would
+fall into the R > 0.5, G > 0.5, B > 0.5 bin. The resulting centers represent
+the average color of all the pixels assigned to that bin.
+
+K-means clustering can produce more intuitive results, but because it is
+iterative, it will find slightly different clusters each time it is run, and
+their order will be arbitrary. It also tends to divide up similar colors that
+make up the majority of the image. Histogram binning will produce the same
+results every time, in the same order, and because it forces the bins to be
+dispersed throughout color space, tends to better pick up small color
+details. Bins are also comparable across images. However, this sometimes
+means returning empty bins (i.e. the white bin will be empty if clustering a
+very dark image).
+
+Background masking: \code{lower}, \code{upper}, and \code{transparent} are all background
+masking conditions. Transparency is unambiguous and so tends to produce
+cleaner results, but the \code{lower} and \code{upper} bounds can be used instead to
+treat pixels in a specific color range as the background. For example, to
+ignore white pixels (RGB = 1, 1, 1), you might want to mask all pixels whose
+R, G, and B values exceed 0.9. In that case, \code{lower = c(0.9, 0.9, 0.9)} and
+\code{upper = c(1, 1, 1)}. Regardless of input background, recolored images are
+returned with transparent backgrounds by adding an alpha channel if one does
+not already exist.
+
+Resizing: The speed benefits of downsizing images are fairly obvious (fewer
+pixels = fewer operations). Because recoloring the images simplifies their
+detail anyways, downsizing prior to recoloring doesn't run a very high risk
+of losing important information. A general guideline for resizing is that
+any distinguishable features of interest should still take up at least 2
+pixels (preferably with a margin of error) in the resized image.
+}
+\examples{
+
+# filepath to image
+img <- system.file("extdata/chongi.png", package = "recolorize")
+
+# default: histogram, 2 bins/channel
+recolorize(img)
+
+# we can also have different numbers of bins per channel
+recolorize(img, bins = c(4, 1, 1)) # mostly red
+recolorize(img, bins = c(1, 4, 1)) # mostly green
+recolorize(img, bins = c(1, 1, 4)) # mostly blue
+
+# kmeans can produce a better fit with fewer colors
+recolorize(img, method = "kmeans", n = 8)
+
+# increasing numbers of kmean colors
+recolored.images <- setNames(vector("list", length = 10), c(1:10))
+for (i in 1:10) {
+  kmeans.recolor <- recolorize(img, method = "kmeans",
+                               n = i)
+}
+
+# kmeans, 10 colors
+kmeans.recolor <- recolorize(img, method = "kmeans",
+                             n = 8, plotting = FALSE)
+hist.recolor <- recolorize(img, method = "hist",
+                           bins = 2, plotting = FALSE)
+
+# compare binning vs. kmeans clustering
+layout(matrix(c(1, 2, 3), ncol = 3))
+plotImageArray(kmeans.recolor$original.img, main = "original")
+plotImageArray(kmeans.recolor$recolored.img, main = "kmeans")
+plotImageArray(hist.recolor$recolored.img, main = "binning")
 }
