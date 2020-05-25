@@ -3,5 +3,3 @@ cache: packages
 notifications:
     email:
         hannahiweller@gmail.com
-r_binary_packages:
-    - magick
