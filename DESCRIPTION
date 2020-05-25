@@ -1,32 +1,31 @@
 Package: recolorize
 Title: Recolor Images by Color Clusters
 Version: 0.0.0.9000
-Authors@R: 
+Authors@R:
     person(given = "Hannah",
            family = "Weller",
            role = c("aut", "cre"),
            email = "hannahiweller@gmail.com",
            comment = c(ORCID = "0000-0002-5252-4282"))
-Description: Functions for recoloring images based on various 
-    color binning schemes. Eventually for use going between 
+Description: Functions for recoloring images based on various
+    color binning schemes. Eventually for use going between
     patternize, pavo, colordistance, etc. The idea is to simplify
     the colors of an image according to a metric that is useful for
     the user. You put in a binning scheme, an image, and (optional)
-    a background masking condition. You get out a recolored image 
-    and a color palette with (optional) the proportion of pixels 
+    a background masking condition. You get out a recolored image
+    and a color palette with (optional) the proportion of pixels
     assigned to each color.
 License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
-Imports: 
+Imports:
     imager,
     stats,
     jpeg,
     png,
     pavo,
-    magick,
     grDevices,
     graphics,
     mgcv
