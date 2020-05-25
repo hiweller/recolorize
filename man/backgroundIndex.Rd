@@ -41,8 +41,9 @@ original and recolored images by other functions, namely
 # get image path and read in image
 img.path <- system.file("extdata/chongi.png", package = "recolorize")
 img <- png::readPNG(img.path)
+recolorize::plotImageArray(img)
 
-# generate a background condition for a white background
+# generate a white background condition
 bg.condition <- backgroundCondition(lower = rep(0.9, 3),
                                     upper = rep(1, 3))
 
@@ -52,6 +53,8 @@ bg.indexed <- backgroundIndex(img, bg.condition)
 # we can reconstruct the original image from the flattened array
 img2 <- bg.indexed$flattened.img
 dim(img2) <- bg.indexed$img.dims
-plotImageArray(img2)
+
+# notice the original background color (light gray) now shows
+recolorize::plotImageArray(img2)
 
 }

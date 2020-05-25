@@ -1,5 +1,3 @@
-# similar to recolorize, but you specify color centers instead of getting them
-# from the image
 #' Recolor an image to a provided set of colors
 #'
 #' Takes an image and a set of color centers, and assigns each pixel to the most
@@ -68,11 +66,11 @@
 #'                  1, 0, 1,
 #'                  0, 1, 1), byrow = TRUE, ncol = 3)
 #'
-#' #' # plot it
+#' # plot it
 #' recolorize::plotColorPalette(ctrs)
 #'
 #' # get image paths
-#' ocellata <- system.file("extdata/ocellata.png", package = "recolorize)
+#' ocellata <- system.file("extdata/ocellata.png", package = "recolorize")
 #'
 #' # map to rgb extremes
 #' recolorize::imposeColors(ocellata, ctrs, adjust.centers = FALSE)
@@ -81,7 +79,18 @@
 #' recolorize::imposeColors(ocellata, ctrs, adjust.centers = TRUE)
 #'
 #' # we can map one image to extracted colors from another image
+#' # extract ocellata colors
 #' ocellata.colors <- recolorize(ocellata)
+#'
+#' # map fulgidissima to ocellata colors
+#' fulgidissima <- system.file("extdata/ocellata.png",
+#'                              package = "recolorize")
+#'
+#' recolorize::imposeColors(fulgidissima,
+#'                        ocellata.colors$centers,
+#'                        adjust.centers = FALSE)
+#'
+#' @export
 imposeColors <- function(img.path, color.centers,
                            adjust.centers = TRUE,
                            lower = NULL, upper = NULL,

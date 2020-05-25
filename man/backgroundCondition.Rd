@@ -20,7 +20,8 @@ backgroundCondition(
 \item{center, radius}{RGB triplet and radius (as a proportion) for masking
 pixels within a spherical range.}
 
-\item{transparent}{Logical or \code{NULL}. Is there a transparency channel?}
+\item{transparent}{Logical or \code{NULL}. Use transparency to mask? Requires an
+alpha channel.}
 
 \item{alpha.channel}{Logical. Is there an alpha channel?}
 

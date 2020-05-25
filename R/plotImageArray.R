@@ -1,3 +1,25 @@
+#' Plot a 3D array as an RGB image
+#'
+#' Does what it says on the tin. An extremely simple wrapper for
+#' \code{\link[graphics]{rasterImage}}, but maintains aspect ratio, removes
+#' axes, and reduces margins for cleaner plotting.
+#'
+#' @param rgb.array A 3D array of RGB values. Preferably output from
+#'   \code{\link[png]{readPNG}}, \code{\link[jpeg]{readJPEG}}, or
+#'   \code{\link[recolorize]{recolorImage}}.
+#' @param main Optional title for plot.
+#'
+#' @examples
+#' # make a 100x100 image of random colors
+#' random.colors <- array(runif(100 * 100 * 3),
+#'                        dim = c(100, 100, 3))
+#' recolorize::plotImageArray(random.colors)
+#'
+#' # we can also plot...a real image
+#' corbetti <- system.file("extdata/corbetti.png",
+#'                        package = "recolorize")
+#' img <- png::readPNG(corbetti)
+#' plotImageArray(img)
 plotImageArray <- function(rgb.array, main = "") {
 
   # Make sure the array is 3-dimensional

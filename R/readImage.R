@@ -1,4 +1,23 @@
-# reads in an image as a 3D array
+#' Read in an image as a 3D array
+#'
+#' Reads in and processes an image as a 3D array. Extremely simple wrapper for
+#' \code{\link[imager]{load.image}}, but it strips the depth channel (resulting
+#' in a 3D, not 4D, array). This will probably change.
+#'
+#' @param img.path Path to the image (a string).
+#' @param resize Fraction by which to reduce image size. Important for speed.
+#' @param rotate Number of degrees to rotate the image.
+#'
+#' @return
+#' A 3D RGB array (pixel rows x pixel columns x color channels). RGB channels
+#' are all scaled 0-1, not 0-255.
+#'
+#' @examples
+#' corbetti <- system.file("extdata/corbetti.png", package = "recolorize")
+#' img <- readImage(corbetti)
+#' plotImageArray(img)
+#'
+#' @export
 readImage <- function(img.path, resize = NULL, rotate = NULL) {
 
   # read in image

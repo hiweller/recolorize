@@ -36,8 +36,9 @@
 #' # get image path and read in image
 #' img.path <- system.file("extdata/chongi.png", package = "recolorize")
 #' img <- png::readPNG(img.path)
+#' recolorize::plotImageArray(img)
 #'
-#' # generate a background condition for a white background
+#' # generate a white background condition
 #' bg.condition <- backgroundCondition(lower = rep(0.9, 3),
 #'                                     upper = rep(1, 3))
 #'
@@ -47,7 +48,9 @@
 #' # we can reconstruct the original image from the flattened array
 #' img2 <- bg.indexed$flattened.img
 #' dim(img2) <- bg.indexed$img.dims
-#' plotImageArray(img2)
+#'
+#' # notice the original background color (light gray) now shows
+#' recolorize::plotImageArray(img2)
 #'
 #' @export
 backgroundIndex <- function(img, bg.condition) {
@@ -98,6 +101,10 @@ backgroundIndex <- function(img, bg.condition) {
     stop("bg.condition must be output from backgroundCondition()")
   }
 
+  # remove alpha channel from flattened image (no longer required)
+  flattened.img <- flattened.img[ , 1:3]
+  img.dims[3] <- 3
+
   # make returnables
   if (length(idx) == 0) {
     non.bg <- flattened.img
@@ -113,7 +120,7 @@ backgroundIndex <- function(img, bg.condition) {
   # set S3 class - arbitrary but useful for checking
   bg.index <- list(flattened.img = flattened.img,
                    img.dims = img.dims,
-                   non.bg = non.bg,
+                   non.bg = non.bg[ , 1:3],
                    idx = idx,
                    idx.flat = idx.flat)
   class(bg.index) <- "bg.index"
