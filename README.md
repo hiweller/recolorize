@@ -5,7 +5,7 @@
 
 THIS PACKAGE IS STILL A BABY. THIS IS A HALF-THING. 
 
-![](inst/extdata/output.png)
+![](inst/extdata/msc/output.png)
 > Original image credit: Nathan P. Lord / Able Chow
 
 ## What is this?
