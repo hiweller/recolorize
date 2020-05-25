@@ -3,7 +3,7 @@
 #'
 #' Plots a side-by-side comparison of an original image and its recolorized
 #' version, plus the color palette used for recoloring. Called by
-#' \code{\link[recolorize]{imposeClusters}} and
+#' \code{\link[recolorize]{imposeColors}} and
 #' \code{\link[recolorize]{recolorize}}.
 #'
 #' @param recolored.img The recolored image, as a 3D RGB array.
@@ -19,9 +19,8 @@
 #' corbetti <- system.file("extdata/corbetti.png",
 #'                          package = "recolorize")
 #'
-#' corbetti.recolor <- recolorize::recolorize(corbetti,
-#'                                           method = "hist",
-#'                                           bins = 2, plotting = F)
+#' corbetti.recolor <- recolorize(corbetti, method = "hist",
+#'                                          bins = 2, plotting = FALSE)
 #'
 #' # full color palette
 #' plotRecolorized(recolored.img = corbetti.recolor$recolored.img,

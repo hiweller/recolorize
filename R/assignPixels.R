@@ -14,7 +14,7 @@
 #' }
 #'
 #' @details
-#' This is a largely internal function called by \code{\link[recolorize]{imposeClusters}}
+#' This is a largely internal function called by \code{\link[recolorize]{imposeColors}}
 #' for recoloring an image based on extrinsic colors. If `adjust.centers = TRUE`,
 #' then after assigning pixels to given colors,
 #'

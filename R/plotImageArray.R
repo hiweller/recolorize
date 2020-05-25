@@ -20,6 +20,7 @@
 #'                        package = "recolorize")
 #' img <- png::readPNG(corbetti)
 #' plotImageArray(img)
+#' @export
 plotImageArray <- function(rgb.array, main = "") {
 
   # Make sure the array is 3-dimensional

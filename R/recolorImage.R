@@ -48,7 +48,8 @@
 #'
 #' @examples
 #' # load image (recolorize and imposeColors do this automatically)
-#' img <- system.file("extdata/corbetti.png", package = "recolorize")
+#' img.path <- system.file("extdata/corbetti.png", package = "recolorize")
+#' img <- readImage(img.path)
 #' bg.condition <- backgroundCondition(transparent = TRUE,
 #'                                     alpha.channel = TRUE)
 #' bg.indexed <- backgroundIndex(img, bg.condition)
@@ -61,6 +62,7 @@
 #' shuffle <- function(m) {
 #'   m[sample(1:nrow(m), nrow(m)), ]
 #' }
+#' hist.shuffle <- hist.colors
 #' hist.shuffle$centers <- shuffle(hist.shuffle$centers)
 #'
 #' # recolor based on the two cluster sets

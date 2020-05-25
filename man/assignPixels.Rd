@@ -26,7 +26,7 @@ A list of class \code{color.clusters}, containing:
 Assign a 2D matrix of pixels to specified colors
 }
 \details{
-This is a largely internal function called by \code{\link[recolorize]{imposeClusters}}
+This is a largely internal function called by \code{\link[recolorize]{imposeColors}}
 for recoloring an image based on extrinsic colors. If \code{adjust.centers = TRUE},
 then after assigning pixels to given colors,
 }

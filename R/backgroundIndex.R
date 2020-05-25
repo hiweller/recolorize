@@ -8,8 +8,8 @@
 #' Largely internal function for identifying, indexing, and removing background
 #' pixels from an image.
 #'
-#' @param img An image array, preferably the output of \code{\link[png]{readPNG}}
-#'   or \code{\link[jpeg]{readJPEG}}.
+#' @param img An image array, preferably the output of \code{\link[png]{readPNG}},
+#'  \code{\link[jpeg]{readJPEG}}, or \code{link[recolorize]{readImage}}.
 #' @param bg.condition Background condition, output of
 #'   \code{\link{backgroundCondition}}.
 #'

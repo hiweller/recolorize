@@ -107,6 +107,7 @@
 #' plotImageArray(kmeans.recolor$original.img, main = "original")
 #' plotImageArray(kmeans.recolor$recolored.img, main = "kmeans")
 #' plotImageArray(hist.recolor$recolored.img, main = "binning")
+#' @export
 recolorize <- function(img.path, method = "histogram",
                        bins = 2, n = 5,
                        lower = NULL, upper = NULL,

@@ -15,7 +15,7 @@ Description: Functions for recoloring images based on various
     a background masking condition. You get out a recolored image 
     and a color palette with (optional) the proportion of pixels 
     assigned to each color.
-License: use_mit_license()
+License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

@@ -117,7 +117,7 @@ backgroundCondition <- function(lower = NULL, upper = NULL,
     class(bg.condition) <- "bg.sphere"
     msg <- paste("Masking pixels in range:\n",
                  paste("Center: ", paste(center, collapse = ", "),
-                       " +/- ", radius[i] * 100, "%", sep = ""))
+                       " +/- ", radius * 100, "%", sep = ""))
 
   } else if (category == "none") {
 

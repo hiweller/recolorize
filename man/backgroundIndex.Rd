@@ -7,8 +7,8 @@
 backgroundIndex(img, bg.condition)
 }
 \arguments{
-\item{img}{An image array, preferably the output of \code{\link[png]{readPNG}}
-or \code{\link[jpeg]{readJPEG}}.}
+\item{img}{An image array, preferably the output of \code{\link[png]{readPNG}},
+\code{\link[jpeg]{readJPEG}}, or \code{link[recolorize]{readImage}}.}
 
 \item{bg.condition}{Background condition, output of
 \code{\link{backgroundCondition}}.}
