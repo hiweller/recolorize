@@ -3,3 +3,4 @@
 ^doodling\.R$
 R/doodling\.R$
 ^LICENSE\.md$
+^.travis.yml$
