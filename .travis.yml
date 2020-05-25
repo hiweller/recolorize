@@ -4,5 +4,4 @@ notifications:
     email:
         hannahiweller@gmail.com
 r_binary_packages:
-    - libgit2
     - magick
