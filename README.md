@@ -1,5 +1,4 @@
-# recolorize v 0.0
-
+# recolorize v 0.0.0.9000 [![Build Status](https://travis-ci.org/hiweller/recolorize.svg?branch=master)](https://travis-ci.org/hiweller/recolorize)
 > "As we computer programmers put it, if it doesn't have to work, I can make it run as fast as you want."  
 > —*Maciej Cegłowski*
 
