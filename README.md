@@ -2,7 +2,7 @@
 > "As we computer programmers put it, if it doesn't have to work, I can make it run as fast as you want."  
 > —*Maciej Cegłowski*
 
-THIS PACKAGE IS STILL A BABY. THIS IS A HALF-THING. 
+A tentatively working R package for simplifying and remapping colors.
 
 ![](inst/extdata/msc/output.png)
 > Original image credit: Nathan P. Lord / Able Chow
@@ -10,6 +10,18 @@ THIS PACKAGE IS STILL A BABY. THIS IS A HALF-THING.
 ## What is this?
 
 Functions for recoloring images based on various color binning schemes. Eventually for use going between patternize, pavo, colordistance, etc. The idea is to simplify the colors of an image according to a metric that is useful for the user.
+
+## Quick start
+
+To generate the image above:
+```{r}
+devtools::install_github("hiweller/recolorize")
+
+corbetti <- system.file("extdata/corbetti.png", package = "recolorize")
+
+recolorize::recolorize(corbetti, method = "kmeans", n = 10)
+```
+Vignettes and better documentation coming soon.
 
 ## How does it work?
 
