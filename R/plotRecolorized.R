@@ -73,12 +73,12 @@ plotRecolorized <- function(recolored.img, original.img,
   # plot original if specified
   if (plot.original) {
     graphics::par(mar = rep(0.5, 4))
-    plotImageArray(original.img)
+    plotImageArray(original.img, main = "original")
   }
 
   # plotting image
   graphics::par(mar = rep(0.5, 4))
-  plotImageArray(recolored.img)
+  plotImageArray(recolored.img, main = "recolored")
 
   # plotting palette
   graphics::par(mar = rep(0.5, 4))
