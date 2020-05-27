@@ -4,7 +4,7 @@
 
 A tentatively working R package for simplifying and remapping colors.
 
-![](inst/extdata/msc/output.png)
+![](https://github.com/hiweller/graphics/blob/master/recolorize_gifs/corbetti_kmeans.gif)
 > Original image credit: Nathan P. Lord / Able Chow
 
 ## What is this?
@@ -25,7 +25,7 @@ Vignettes and better documentation coming soon.
 
 ## How does it work?
 
-You put in a binning scheme, an image, and (optional) a background masking condition. You get out a recolored image and a color palette with (optional) the proportion of pixels assigned to each color. The above image was generated using 10 k-means color clusters in RGB space.
+You put in a binning scheme, an image, and (optional) a background masking condition. You get out a recolored image and a color palette with (optional) the proportion of pixels assigned to each color. The above gif was generated using 1-20 k-means color clusters in RGB space.
 
 ## Contact
 
