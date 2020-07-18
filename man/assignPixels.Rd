@@ -17,8 +17,8 @@ average value of the pixels assigned to that cluster? See details.}
 \value{
 A list of class \code{color.clusters}, containing:
 \enumerate{
-\item \code{pixel.assignments}: A vector of color center assignments for each pixel.
-\item \code{centers}: A matrix of color centers. If \code{adjust.centers = FALSE}, this will be identical to the input \code{color.centers}.
+\item \code{pixel.assignments}: The color center assignment for each pixel.
+\item \code{centers}: A matrix of color centers. If \code{adjust.centers = FALSE}, this will be identical to the input of \code{color.centers}.
 \item \code{sizes}: The number of pixels assigned to each cluster.
 }
 }
@@ -28,7 +28,8 @@ Assign a 2D matrix of pixels to specified colors
 \details{
 This is a largely internal function called by \code{\link[recolorize]{imposeColors}}
 for recoloring an image based on extrinsic colors. If \code{adjust.centers = TRUE},
-then after assigning pixels to given colors,
+then after assigning pixels to given color centers, the location of each color center
+is replaced by the average color of all the pixels assigned to that center.
 }
 \examples{
 

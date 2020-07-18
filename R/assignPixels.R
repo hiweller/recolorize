@@ -7,16 +7,17 @@
 #'
 #' @return A list of class `color.clusters`, containing:
 #' \enumerate{
-#'         \item `pixel.assignments`: A vector of color center assignments for each pixel.
+#'         \item `pixel.assignments`: The color center assignment for each pixel.
 #'         \item `centers`: A matrix of color centers. If `adjust.centers =
-#'         FALSE`, this will be identical to the input `color.centers`.
+#'         FALSE`, this will be identical to the input of `color.centers`.
 #'         \item `sizes`: The number of pixels assigned to each cluster.
 #' }
 #'
 #' @details
 #' This is a largely internal function called by \code{\link[recolorize]{imposeColors}}
 #' for recoloring an image based on extrinsic colors. If `adjust.centers = TRUE`,
-#' then after assigning pixels to given colors,
+#' then after assigning pixels to given color centers, the location of each color center
+#' is replaced by the average color of all the pixels assigned to that center.
 #'
 #' @examples
 #'
@@ -66,9 +67,7 @@ assignPixels <- function(color.centers, pixel.matrix, adjust.centers = TRUE) {
       if (length(pixel.idx) == 0) { next } else {
         color.centers[i, ] <- colMeans(pixel.matrix[pixel.idx, ])
       }
-
     }
-
   }
 
   color.clusters <- list(pixel.assignments = pixel.assignments,
