@@ -45,28 +45,38 @@ plotColorPalette <- function(color.centers, sizes = NULL,
   # check if hex codes
   if (is.vector(color.centers)) {
     if (sum(grepl("#", color.centers)) == length(color.centers)) {
-      rgb.exp <- color.centers
+
+      hex_colors <- color.centers
+
     } else {
+
       stop("'color.centers' must be either a numeric RGB matrix with colors\n
           as rows or a character vector of hex codes")
+
     }
   } else if (dim(color.centers)[2] != 3) {
+
     stop("'color.centers' must have colors as rows and RGB coordinates as columns")
-  }
+
+    } else {
+
+    # make color vector
+    hex_colors <- grDevices::rgb(color.centers[, 1],
+                              color.centers[, 2],
+                              color.centers[, 3])
 
 
+    }
 
-  # make color vector
-  rgb.exp <- grDevices::rgb(color.centers[, 1],
-                            color.centers[, 2],
-                            color.centers[, 3])
+  # get HSV colors
+  hsv_colors <- t(rgb2hsv(col2rgb(hex_colors) / 255))
 
   # make a plot
   if (is.null(sizes)) {
 
     # if sizes are not included, make bars equal in size
-    colorbar <- rep(1, nrow(color.centers))
-    stats::setNames(colorbar, as.character(1:nrow(color.centers)))
+    colorbar <- rep(1, length(hex_colors))
+    stats::setNames(colorbar, as.character(1:length(hex_colors)))
 
     # we're making the palettes in different ways, so horizontal plotting is
     # reversed; this makes it consistent
@@ -84,27 +94,26 @@ plotColorPalette <- function(color.centers, sizes = NULL,
 
     # remove any empty values
     if (any(sizes == 0)) {
-      rgb.exp <- rgb.exp[-which(sizes == 0)]
+      hex_colors <- hex_colors[-which(sizes == 0)]
     }
 
   }
 
 
   # plot the colors as a uniform bar
-  graphics::barplot(colorbar, col = rgb.exp,
+  graphics::barplot(colorbar, col = hex_colors,
                     axes = FALSE, space = 0, horiz = horiz,
                     border = NA, axisnames = FALSE, ...)
 
   # text colors - black if the color is light, white if the color is dark
-  hsv.exp <- grDevices::rgb2hsv(t(color.centers), maxColorValue = 1)
-  text.colors <- round(hsv.exp[3, ]) + 1
+  text.colors <- round(hsv_colors[3, ]) + 1
 
   # make text locations
   if (horiz == FALSE) {
-    text.x <- seq(0.5, length(rgb.exp) - 0.5)
+    text.x <- seq(0.5, length(hex_colors) - 0.5)
     text.y <- 0.5
   } else {
-    text.y <- seq(0.5, length(rgb.exp) - 0.5)
+    text.y <- seq(0.5, length(hex_colors) - 0.5)
     text.x <- 0.5
   }
 
