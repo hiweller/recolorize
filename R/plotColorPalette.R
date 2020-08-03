@@ -3,13 +3,14 @@
 #' Plots a color palette as a single bar, optionally scaling each color to a
 #' vector of sizes.
 #'
-#' @param color.centers Colors to plot in palette, as an n x 3 matrix (rows =
-#'   colors, columns = channels). Assumes RGB in 0-1 range.
+#' @param color.centers Colors to plot in palette. Accepts either a character
+#'   vector of hex codes or an n x 3 matrix (rows = colors, columns =
+#'   channels). Assumes RGB in 0-1 range.
 #' @param sizes An optional numeric vector of sizes for scaling each color. If
-#'   no sizes are provided, colors are plotted equal proportions.
+#'   no sizes are provided, colors are plotted in equal proportions.
 #' @param cex.text Size of the numbers displayed on each color, relative to the
 #'   default. Passed to \code{\link[graphics]{barplot}}. Text is only plotted if
-#'   `sizes = NULL`.
+#'   `sizes = NULL`. `cex.text = 0` will remove numbering.
 #' @param horiz Logical. Should the palette be plotted vertically or
 #'   horizontally?
 #' @param ... Additional parameters passed to \code{\link[graphics]{barplot}}.
@@ -32,9 +33,28 @@
 #' plotColorPalette(rand.colors[size.order, ],
 #'                  sizes[size.order])
 #'
+#' # plot a vector of hex colors, turn off numbering
+#' hex_colors <- rgb(rand.colors)
+#' plotColorPalette(hex_colors, cex.text = 0)
+#'
 #' @export
+
 plotColorPalette <- function(color.centers, sizes = NULL,
                              cex.text = 2, horiz = TRUE, ...) {
+
+  # check if hex codes
+  if (is.vector(color.centers)) {
+    if (sum(grepl("#", color.centers)) == length(color.centers)) {
+      rgb.exp <- color.centers
+    } else {
+      stop("'color.centers' must be either a numeric RGB matrix with colors\n
+          as rows or a character vector of hex codes")
+    }
+  } else if (dim(color.centers)[2] != 3) {
+    stop("'color.centers' must have colors as rows and RGB coordinates as columns")
+  }
+
+
 
   # make color vector
   rgb.exp <- grDevices::rgb(color.centers[, 1],
@@ -90,7 +110,7 @@ plotColorPalette <- function(color.centers, sizes = NULL,
 
   # only plot numbers if the sizes are equal
   # when they're distorted by sizes it gets too wacky
-  if (is.null(sizes)) {
+  if (is.null(sizes) & cex.text > 0) {
     graphics::text(text.x, text.y,
                    cex = cex.text,
                    col = c("white", "black")[text.colors])
