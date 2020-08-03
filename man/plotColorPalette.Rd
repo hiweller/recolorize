@@ -7,15 +7,16 @@
 plotColorPalette(color.centers, sizes = NULL, cex.text = 2, horiz = TRUE, ...)
 }
 \arguments{
-\item{color.centers}{Colors to plot in palette, as an n x 3 matrix (rows =
-colors, columns = channels). Assumes RGB in 0-1 range.}
+\item{color.centers}{Colors to plot in palette. Accepts either a character
+vector of hex codes or an n x 3 matrix (rows = colors, columns =
+channels). Assumes RGB in 0-1 range.}
 
 \item{sizes}{An optional numeric vector of sizes for scaling each color. If
-no sizes are provided, colors are plotted equal proportions.}
+no sizes are provided, colors are plotted in equal proportions.}
 
 \item{cex.text}{Size of the numbers displayed on each color, relative to the
 default. Passed to \code{\link[graphics]{barplot}}. Text is only plotted if
-\code{sizes = NULL}.}
+\code{sizes = NULL}. \code{cex.text = 0} will remove numbering.}
 
 \item{horiz}{Logical. Should the palette be plotted vertically or
 horizontally?}
@@ -43,5 +44,9 @@ plotColorPalette(rand.colors, sizes = sizes)
 size.order <- order(sizes)
 plotColorPalette(rand.colors[size.order, ],
                  sizes[size.order])
+
+# plot a vector of hex colors, turn off numbering
+hex_colors <- rgb(rand.colors)
+plotColorPalette(hex_colors, cex.text = 0)
 
 }
