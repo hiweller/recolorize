@@ -122,7 +122,8 @@ imposeColors <- function(img.path, color.centers,
                             remove.empty.clusters = FALSE)
 
   # get sizes vector
-  sizes <- color.clusters$sizes
+  sizes <- rep(0, nrow(color.clusters$centers))
+  sizes[as.numeric(names(color.clusters$sizes))] <- color.clusters$sizes
   if (scale.palette) { s <- sizes } else { s <- NULL }
 
   # plot result

@@ -96,34 +96,32 @@ recolorImage <- function(bg.indexed, color.clusters,
   # copy non-background pixels to change them
   pix.recolor <- bg.indexed$non.bg
 
-  # index for removing empty centers
-  core.removal <- c()
+  # clusters with any pixels assigned to them
+  cluster_idx <- as.numeric(names(color.clusters$sizes))
 
-  # for every color cluster:
-  for (i in 1:nrow(color.clusters$centers)) {
+  # empty centers
+  empty_centers <- which(!1:nrow(color.clusters$centers) %in% cluster_idx)
+
+  # for every non-empty cluster:
+  for (i in cluster_idx) {
 
     # get the new color
-    new.color <- as.vector(color.clusters$centers[i, ])
+    new_color <- as.matrix(color.clusters$centers[i, ])
 
-    # find which pixels should be changed
-    # IMPORTANT: we're assuming that color.clusters$pixel.assignments matches
-    # the indices of bg.indexed$non.bg
+    # get pixels assigned to that color
     pix.idx <- which(color.clusters$pixel.assignments == i)
 
-    # if no pixels were assigned to that cluster, mark it
-    if (length(pix.idx) == 0) {
-      core.removal <- c(core.removal, i)
-      next
-    } else {
-      # repeat the new color for a substitute matrix
-      replacements <- matrix(new.color, ncol = 3, byrow = TRUE,
-                             nrow = length(pix.idx))
+    # repeat the new color for a substitute matrix
+    replacements <- matrix(new_color, ncol = 3, byrow = TRUE,
+                           nrow = length(pix.idx))
 
-      # and stick it back in!
-      pix.recolor[pix.idx, 1:3] <- replacements
+    # and stick it back in!
+    pix.recolor[pix.idx, 1:3] <- replacements
 
-    }
   }
+
+  # index for removing empty centers
+  core.removal <- c()
 
   # slot new pixels back in
   recolored.img <- bg.indexed$flattened.img
@@ -161,7 +159,7 @@ recolorImage <- function(bg.indexed, color.clusters,
 
   # make returnables
   if (length(core.removal) > 0 & isTRUE(remove.empty.clusters)) {
-    centers <- color.clusters$centers[-core.removal, ]
+    centers <- color.clusters$centers[-empty_centers, ]
   } else {
     centers <- color.clusters$centers
   }
