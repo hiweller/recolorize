@@ -55,7 +55,9 @@ assignPixels <- function(color.centers, pixel.matrix, adjust.centers = TRUE) {
 
   # make returnables
   pixel.assignments <- max.col(-t(tmp))  # find index of min distance
-  sizes <- table(pixel.assignments) # empty clusters?
+  assignments <- table(pixel.assignments) # make a table of assigned pixels
+  sizes <- rep(0, nrow(color.centers))
+  sizes[as.numeric(names(assignments))] <- assignments # empty clusters are 0
 
   # if specified: make new color centers based on average of assigned pixels
   if (adjust.centers) {

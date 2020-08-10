@@ -97,10 +97,10 @@ recolorImage <- function(bg.indexed, color.clusters,
   pix.recolor <- bg.indexed$non.bg
 
   # clusters with any pixels assigned to them
-  cluster_idx <- as.numeric(names(color.clusters$sizes))
+  cluster_idx <- which(color.clusters$sizes != 0)
 
   # empty centers
-  empty_centers <- which(!1:nrow(color.clusters$centers) %in% cluster_idx)
+  empty_centers <- which(color.clusters$sizes == 0)
 
   # for every non-empty cluster:
   for (i in cluster_idx) {
@@ -119,9 +119,6 @@ recolorImage <- function(bg.indexed, color.clusters,
     pix.recolor[pix.idx, 1:3] <- replacements
 
   }
-
-  # index for removing empty centers
-  core.removal <- c()
 
   # slot new pixels back in
   recolored.img <- bg.indexed$flattened.img
@@ -158,7 +155,7 @@ recolorImage <- function(bg.indexed, color.clusters,
   }
 
   # make returnables
-  if (length(core.removal) > 0 & isTRUE(remove.empty.clusters)) {
+  if (length(empty_centers) > 0 & isTRUE(remove.empty.clusters)) {
     centers <- color.clusters$centers[-empty_centers, ]
   } else {
     centers <- color.clusters$centers
