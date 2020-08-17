@@ -3,7 +3,8 @@
 #' Clusters the colors in an RGB image according to a specified method,
 #' then recolors that image to the simplified color scheme.
 #'
-#' @param img.path Path to the image. Must be a character vector.
+#' @param img Path to the image (a character vector) or a 3D image array as read
+#'   in by \code{\link[png]{readPNG}} \code{{readImage}}.
 #' @param method Method for clustering image colors. One of either `histogram`
 #'   or `kmeans`. See details.
 #' @param n If `method = "kmeans"`, the number of color clusters to fit.
@@ -14,6 +15,8 @@
 #'   mask. See details.
 #' @param transparent Logical. Treat transparent pixels as background? Requires
 #'   an alpha channel (PNG).
+#' @param resid Logical. Return a list of different residual metrics to
+#'   describe the goodness of fit?
 #' @param resize A value between 0 and 1 for resizing the image (ex. `resize =
 #'   0.5` will reduce image size by 50%). Recommended for large images as it can
 #'   speed up analysis considerably. See details.
@@ -108,10 +111,11 @@
 #' plotImageArray(kmeans.recolor$recolored.img, main = "kmeans")
 #' plotImageArray(hist.recolor$recolored.img, main = "binning")
 #' @export
-recolorize <- function(img.path, method = "histogram",
+recolorize <- function(img, method = "histogram",
                        bins = 2, n = 5,
                        lower = NULL, upper = NULL,
                        transparent = TRUE,
+                       resid = FALSE,
                        resize = NULL, rotate = NULL,
                        plotting = TRUE, horiz = TRUE,
                        cex.text = 1.5, scale.palette = TRUE) {
@@ -119,8 +123,17 @@ recolorize <- function(img.path, method = "histogram",
   # get method
   method <- match.arg(tolower(method), c("kmeans", "histogram"))
 
-  # read in image
-  img <- readImage(img.path, resize = resize, rotate = rotate)
+  # if 'img' is a filepath, read in image
+  if (is.character(img) & file.exists(img)) {
+
+    img <- readImage(img, resize = resize, rotate = rotate)
+
+  } else if (!is.array(img) | length(dim(img)) != 3) {
+
+    # otherwise, make sure it's an image array
+    stop("'img' must be a path or an image or an image array.")
+
+  }
 
   # make background condition
   alpha.channel <- dim(img)[3] == 4 # is there a transparency channel?
@@ -178,5 +191,19 @@ recolorize <- function(img.path, method = "histogram",
                       centers = centers,
                       sizes = sizes,
                       pixel.assignments = pixel.assignments)
+
+  # get residuals if TRUE
+  if (resid) {
+    return.list$resids <- colorResiduals(bg.indexed$non.bg,
+                                         color.clusters$pixel.assignments,
+                                         centers)
+  }
+
+
+  # set class
+  class(return.list) <- "recolorize"
+
+  # and...you know
+  return(return.list)
 
 }

@@ -3,7 +3,8 @@
 #' Takes an image and a set of color centers, and assigns each pixel to the most
 #' similar provided color. Useful for producing a set of images with identical colors.
 #'
-#' @param img.path Path to the image. Must be a character vector.
+#' @param img Path to the image (a character vector) or a 3D image array as read
+#'   in by \code{\link[png]{readPNG}} \code{{readImage}}.
 #' @param color.centers Colors to map to, as an n x 3 matrix (rows = colors,
 #'   columns = channels).
 #' @param adjust.centers Logical. After pixel assignment, should the returned
@@ -13,6 +14,8 @@
 #'   mask. See details.
 #' @param transparent Logical. Treat transparent pixels as background? Requires
 #'   an alpha channel (PNG).
+#' @param resid Logical. Return a list of different residual metrics to
+#'   describe the goodness of fit?
 #' @param resize A value between 0 and 1 for resizing the image (ex. `resize =
 #'   0.5` will reduce image size by 50%). Recommended for large images as it can
 #'   speed up analysis considerably. See details.
@@ -91,16 +94,34 @@
 #'                        adjust.centers = FALSE)
 #'
 #' @export
-imposeColors <- function(img.path, color.centers,
+imposeColors <- function(img, color.centers,
                            adjust.centers = TRUE,
                            lower = NULL, upper = NULL,
                            transparent = TRUE,
+                           resid = FALSE,
                            resize = NULL, rotate = NULL,
                            plotting = TRUE, horiz = TRUE,
                            cex.text = 1.5, scale.palette = TRUE) {
 
-  # read in image
-  img <- readImage(img.path, resize = resize, rotate = rotate)
+  # if 'img' is a filepath, read in image
+  if (is.character(img)) {
+    if (file.exists(img)) {
+
+      # read image
+      img <- readImage(img, resize = resize, rotate = rotate)
+
+    } else {
+
+      # oops
+      stop("Invalid file path.")
+
+    }
+  } else if (!is.array(img) | length(dim(img)) != 3) {
+
+    # otherwise, make sure it's an image array
+    stop("'img' must be a path or an image or an image array.")
+
+  }
 
   # make background condition
   alpha.channel <- dim(img)[3] == 4 # is there a transparency channel?
@@ -143,12 +164,23 @@ imposeColors <- function(img.path, color.centers,
   centers <- color.clusters$centers
   pixel.assignments <- color.clusters$pixel.assignments
 
-  # return em
+  # make returnable
   return.list <- list(original.img = original.img,
                       recolored.img = recolored.img,
                       color.space = color.space,
                       centers = centers,
                       sizes = sizes,
                       pixel.assignments = pixel.assignments)
+
+  # residuals if TRUE
+  if (resid) {
+    return.list$resids <- colorResiduals(bg.indexed$non.bg,
+                                         color.clusters$pixel.assignments,
+                                         centers)
+  }
+
+  # return it
+  return(return.list)
+
 
 }

@@ -5,13 +5,14 @@
 \title{Simplify the colors of an image}
 \usage{
 recolorize(
-  img.path,
+  img,
   method = "histogram",
   bins = 2,
   n = 5,
   lower = NULL,
   upper = NULL,
   transparent = TRUE,
+  resid = FALSE,
   resize = NULL,
   rotate = NULL,
   plotting = TRUE,
@@ -21,7 +22,8 @@ recolorize(
 )
 }
 \arguments{
-\item{img.path}{Path to the image. Must be a character vector.}
+\item{img}{Path to the image (a character vector) or a 3D image array as read
+in by \code{\link[png]{readPNG}} \code{{readImage}}.}
 
 \item{method}{Method for clustering image colors. One of either \code{histogram}
 or \code{kmeans}. See details.}
@@ -37,6 +39,9 @@ mask. See details.}
 
 \item{transparent}{Logical. Treat transparent pixels as background? Requires
 an alpha channel (PNG).}
+
+\item{resid}{Logical. Return a list of different residual metrics to
+describe the goodness of fit?}
 
 \item{resize}{A value between 0 and 1 for resizing the image (ex. \code{resize = 0.5} will reduce image size by 50\%). Recommended for large images as it can
 speed up analysis considerably. See details.}

@@ -11,6 +11,7 @@ imposeColors(
   lower = NULL,
   upper = NULL,
   transparent = TRUE,
+  resid = FALSE,
   resize = NULL,
   rotate = NULL,
   plotting = TRUE,
@@ -20,8 +21,6 @@ imposeColors(
 )
 }
 \arguments{
-\item{img.path}{Path to the image. Must be a character vector.}
-
 \item{color.centers}{Colors to map to, as an n x 3 matrix (rows = colors,
 columns = channels).}
 
@@ -34,6 +33,9 @@ mask. See details.}
 
 \item{transparent}{Logical. Treat transparent pixels as background? Requires
 an alpha channel (PNG).}
+
+\item{resid}{Logical. Return a list of different residual metrics to
+describe the goodness of fit?}
 
 \item{resize}{A value between 0 and 1 for resizing the image (ex. \code{resize = 0.5} will reduce image size by 50\%). Recommended for large images as it can
 speed up analysis considerably. See details.}
@@ -50,6 +52,9 @@ text to display on the color palette numbers.}
 
 \item{scale.palette}{Logical. If plotting, plot colors in the color palette
 proportional to the size of each cluster?}
+
+\item{img}{Path to the image (a character vector) or a 3D image array as read
+in by \code{\link[png]{readPNG}} \code{{readImage}}.}
 }
 \value{
 A list with the following attributes:
