@@ -8,7 +8,7 @@ imHeatmap(
   mat,
   palette = "default",
   main = "",
-  zlim = range(mat, na.rm = TRUE),
+  range = NULL,
   legend = TRUE,
   ...
 )
@@ -21,6 +21,12 @@ imHeatmap(
 red (\code{colorRamps::blue2red(100)}).}
 
 \item{main}{Plot title.}
+
+\item{range}{Range for heatmap values. Defaults to the range of values in the
+matrix, but should be set to the same range for all images if comparing
+heatmaps.}
+
+\item{legend}{Logical. Add a continuous color legend?}
 
 \item{...}{Parameters passed to \code{\link[graphics]{image}}.}
 }

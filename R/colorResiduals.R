@@ -97,9 +97,9 @@ colorResiduals <- function(pixel.matrix,
 
   # calculate all squared residuals
   sq_residuals <- sapply(1:length(pixel.assignments),
-                         function(i) dist(rbind(pixel.matrix[i, ],
-                                                color.centers[pixel.assignments[i], ]),
-                                          method = metric))
+                         function(i) stats::dist(rbind(pixel.matrix[i, ],
+                                   color.centers[pixel.assignments[i], ]),
+                                                 method = metric))
 
   # make a list of residuals by color center
   residuals_by_center <- vector("list", length = nrow(color.centers))

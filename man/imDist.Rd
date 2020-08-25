@@ -70,12 +70,12 @@ dist_3bin <- imDist(fulgidissima_3bin$original.img,
 # default behavior is to se the color range to the range of distances
 # in a single matrix; to compare two different fits, we have to provide
 # the same `zlim` scale for both
-zlim <- range(c(dist_2bin, dist_3bin), na.rm = TRUE)
+r <- range(c(dist_2bin, dist_3bin), na.rm = TRUE)
 
 # now we can plot them to compare the fits:
 layout(matrix(1:2, nrow = 1))
-imHeatmap(dist_2bin, zlim = zlim)
-imHeatmap(dist_3bin, zlim = zlim)
+imHeatmap(dist_2bin, range = r)
+imHeatmap(dist_3bin, range = r)
 
 # we can also use other color spaces:
 rgb_3bin <- imDist(fulgidissima_3bin$original.img,
@@ -83,8 +83,8 @@ rgb_3bin <- imDist(fulgidissima_3bin$original.img,
                    color.space = "sRGB")
 
 # looks oddly worse, but to keep things in perspective,
-# you can set the zlim range to the maximum color distance in RGB space:
-imHeatmap(rgb_3bin, zlim = c(0, sqrt(3)))
+# you can set the range to the maximum color distance in RGB space:
+imHeatmap(rgb_3bin, range = c(0, sqrt(3)))
 # not useful for troubleshooting, but broadly reassuring!
 
 
