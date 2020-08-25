@@ -69,7 +69,7 @@ plotColorPalette <- function(color.centers, sizes = NULL,
     }
 
   # get HSV colors
-  hsv_colors <- grDevices::rgb2hsv(grDevices::col2rgb(hex_colors) / 255)
+  hsv_colors <- grDevices::rgb2hsv(grDevices::col2rgb(hex_colors))
 
   # make a plot
   if (is.null(sizes)) {

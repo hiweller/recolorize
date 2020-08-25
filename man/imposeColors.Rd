@@ -5,7 +5,7 @@
 \title{Recolor an image to a provided set of colors}
 \usage{
 imposeColors(
-  img.path,
+  img,
   color.centers,
   adjust.centers = TRUE,
   lower = NULL,
@@ -21,6 +21,9 @@ imposeColors(
 )
 }
 \arguments{
+\item{img}{Path to the image (a character vector) or a 3D image array as read
+in by \code{\link[png]{readPNG}} \code{{readImage}}.}
+
 \item{color.centers}{Colors to map to, as an n x 3 matrix (rows = colors,
 columns = channels).}
 
@@ -52,9 +55,6 @@ text to display on the color palette numbers.}
 
 \item{scale.palette}{Logical. If plotting, plot colors in the color palette
 proportional to the size of each cluster?}
-
-\item{img}{Path to the image (a character vector) or a 3D image array as read
-in by \code{\link[png]{readPNG}} \code{{readImage}}.}
 }
 \value{
 A list with the following attributes:

@@ -24,7 +24,7 @@
 plotImageArray <- function(rgb.array, main = "") {
 
   # Make sure the array is 3-dimensional
-  if (length(dim(rgb.array)) != 3) {
+  if (length(dim(rgb.array)) != 3 & length(dim(rgb.array)) != 2) {
     stop("RGB_array must be an array of three dimensions (pixel rows,
              pixel columns, and color channels)")
   }

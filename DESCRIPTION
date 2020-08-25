@@ -28,4 +28,5 @@ Imports:
     pavo,
     grDevices,
     graphics,
-    mgcv
+    mgcv,
+    colorRamps
