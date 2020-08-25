@@ -21,9 +21,10 @@
 #' Transparent pixels are returned as `NA`.
 #'
 #' @examples
-#' fulgidissima <- system.file("extdata/fulgidissima.png", package = "recolorize")# make an initial histogram fit
+#' fulgidissima <- system.file("extdata/fulgidissima.png",
+#'                              package = "recolorize")
 #'
-#'  # make an initial histogram fit
+#' # make an initial histogram fit
 #' # this doesn't look great:
 #' fulgidissima_2bin <- recolorize(fulgidissima, "hist", bins = 2)
 #'
