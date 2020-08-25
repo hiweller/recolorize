@@ -4,14 +4,21 @@
 \alias{imHeatmap}
 \title{Plot a heatmap of a matrix of color distances}
 \usage{
-imHeatmap(mat, palette = "default", main = "", ...)
+imHeatmap(
+  mat,
+  palette = "default",
+  main = "",
+  zlim = range(mat, na.rm = TRUE),
+  legend = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mat}{A color distance matrix, preferably output of
 \code{\link{imDist}}.}
 
 \item{palette}{The color palette to be used. Default is blue to
-red (\code{colorRamps::matlab.like(100)}).}
+red (\code{colorRamps::blue2red(100)}).}
 
 \item{main}{Plot title.}
 

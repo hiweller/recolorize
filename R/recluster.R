@@ -49,7 +49,7 @@
 #' biologically relevant in another.
 #'
 #' @examples
-#' #' # get an image
+#' # get an image
 #' corbetti <- system.file("extdata/corbetti.png", package = "recolorize")
 #'
 #' # too many color centers

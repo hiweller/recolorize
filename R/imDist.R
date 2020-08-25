@@ -14,7 +14,9 @@
 #'   distances in the given color space; passed to \code{\link[stats]{dist}}.
 #' @param plotting Logical. Plot heatmap of color distances?
 #' @param palette If plotting, the color palette to be used. Default is blue to
-#'   red (`colorRamps::matlab.like(100)`).
+#'   red (`colorRamps::blue2red(100)`).
+#' @param main Plot title.
+#' @param ... Parameters passed to \code{\link[graphics]{image}}.
 #'
 #' @return A matrix of the same dimensions as the original images,
 #' with the distance between non-transparent pixels at each pixel coordinate.
@@ -66,7 +68,9 @@ imDist <- function(im1, im2,
                    ref.white = "D65",
                    metric = "euclidean",
                    plotting = TRUE,
-                   palette = "default") {
+                   palette = "default",
+                   main = "",
+                   ...) {
 
   # get dimensions
   dims <- dim(im1)
@@ -111,7 +115,7 @@ imDist <- function(im1, im2,
 
   # plot
   if (plotting) {
-    imHeatmap(d, palette = palette)
+    imHeatmap(d, palette = palette, main = main, ...)
   }
 
   # return the matrix of distances
@@ -126,7 +130,7 @@ imDist <- function(im1, im2,
 #' @param mat A color distance matrix, preferably output of
 #'   \code{\link{imDist}}.
 #' @param palette The color palette to be used. Default is blue to
-#'   red (`colorRamps::matlab.like(100)`).
+#'   red (`colorRamps::blue2red(100)`).
 #' @param main Plot title.
 #' @param ... Parameters passed to \code{\link[graphics]{image}}.
 #'
@@ -149,6 +153,8 @@ imDist <- function(im1, im2,
 imHeatmap <- function(mat,
                       palette = "default",
                       main = "",
+                      zlim = range(mat, na.rm = TRUE),
+                      legend = TRUE,
                       ...) {
 
   # reverse
@@ -162,17 +168,26 @@ imHeatmap <- function(mat,
 
   # make colors if not provided
   if (length(palette) == 1) {
-    palette <- colorRamps::matlab.like(100)
+    palette <- colorRamps::blue2red(100)
   }
 
   # set parameters
-  op <- graphics::par(mar = c(0, 0, 2, 0))
+  op <- graphics::par(mar = c(2, 0, 2, 0))
 
   # plot
-  graphics::image(d2, ann = F, axes = F, asp = asp,
-                  col = palette,  useRaster = T,
-                  main = main, ...)
+  graphics::image(d2, axes = F, asp = asp,
+                  col = palette,  zlim = zlim,
+                  ...)
+  graphics::title(main, line = 0)
+
+  if(legend) {
+    plotfunctions::gradientLegend(valRange = zlim,
+                                  color = palette, dec = 1,
+                                  side = 4, pos = 0.5,
+                                  inside = TRUE)
+  }
 
   # reset
   graphics::par(op)
 }
+

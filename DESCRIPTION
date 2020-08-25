@@ -29,4 +29,5 @@ Imports:
     grDevices,
     graphics,
     mgcv,
-    colorRamps
+    colorRamps,
+    plotfunctions

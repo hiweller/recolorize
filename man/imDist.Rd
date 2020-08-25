@@ -11,7 +11,9 @@ imDist(
   ref.white = "D65",
   metric = "euclidean",
   plotting = TRUE,
-  palette = "default"
+  palette = "default",
+  main = "",
+  ...
 )
 }
 \arguments{
@@ -31,7 +33,11 @@ distances in the given color space; passed to \code{\link[stats]{dist}}.}
 \item{plotting}{Logical. Plot heatmap of color distances?}
 
 \item{palette}{If plotting, the color palette to be used. Default is blue to
-red (\code{colorRamps::matlab.like(100)}).}
+red (\code{colorRamps::blue2red(100)}).}
+
+\item{main}{Plot title.}
+
+\item{...}{Parameters passed to \code{\link[graphics]{image}}.}
 }
 \value{
 A matrix of the same dimensions as the original images,

@@ -4,7 +4,14 @@
 \alias{colorResiduals}
 \title{Calculate squared residuals for color centers}
 \usage{
-colorResiduals(pixel.matrix, pixel.assignments, color.centers)
+colorResiduals(
+  pixel.matrix,
+  pixel.assignments,
+  color.centers,
+  color.space = "Lab",
+  metric = "euclidean",
+  ref.white = "D65"
+)
 }
 \arguments{
 \item{pixel.matrix}{2D matrix of pixels to classify (rows = pixels, columns =
@@ -17,6 +24,16 @@ pixel. Must match the order of \code{pixel.matrix}.}
 columns as color channels. Rows are assumed to match the index values of
 \code{pixel.assignments}, e.g. a pixel assigned \code{1} in the assignment vector
 is assigned to the color in the first row of \code{color.centers}.}
+
+\item{color.space}{Color space in which to calculate distances. One of
+"sRGB", "Lab", "Luv", or "XYZ". Passed to
+\code{\link[grDevices]{convertColor}}.}
+
+\item{metric}{Distance metric to be used for calculating pairwise pixel
+distances in the given color space; passed to \code{\link[stats]{dist}}.}
+
+\item{ref.white}{Passed to \code{\link[grDevices]{convertColor}} if
+\verb{color.space = "Lab}. Reference white for CIE Lab space.}
 }
 \value{
 A list with the following attributes:

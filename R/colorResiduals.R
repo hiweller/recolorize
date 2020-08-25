@@ -11,6 +11,13 @@
 #'   columns as color channels. Rows are assumed to match the index values of
 #'   `pixel.assignments`, e.g. a pixel assigned `1` in the assignment vector
 #'   is assigned to the color in the first row of `color.centers`.
+#' @param color.space Color space in which to calculate distances. One of
+#'   "sRGB", "Lab", "Luv", or "XYZ". Passed to
+#'   \code{\link[grDevices]{convertColor}}.
+#' @param metric Distance metric to be used for calculating pairwise pixel
+#'   distances in the given color space; passed to \code{\link[stats]{dist}}.
+#' @param ref.white Passed to \code{\link[grDevices]{convertColor}} if
+#'   `color.space = "Lab`. Reference white for CIE Lab space.
 #'
 #' @return
 #' A list with the following attributes:
@@ -65,17 +72,34 @@
 #' main = "Adjusted centers")
 #'
 #' @export
-colorResiduals <- function(pixel.matrix, pixel.assignments, color.centers) {
+colorResiduals <- function(pixel.matrix,
+                           pixel.assignments,
+                           color.centers,
+                           color.space = "Lab",
+                           metric = "euclidean",
+                           ref.white = "D65") {
 
   # make sure all the pixels are assigned to a center that exists
   if (any(!unique(pixel.assignments) %in% 1:nrow(color.centers))) {
     stop("Not all pixel assignments correspond to a provided color center.")
   }
 
+  if (color.space != "sRGB") {
+    pixel.matrix <- grDevices::convertColor(pixel.matrix,
+                                            from = "sRGB",
+                                            to = color.space,
+                                            to.ref.white = ref.white)
+    color.centers <- grDevices::convertColor(color.centers,
+                                             from = "sRGB",
+                                             to = color.space,
+                                             to.ref.white = ref.white)
+  }
+
   # calculate all squared residuals
   sq_residuals <- sapply(1:length(pixel.assignments),
-                         function(i) sum((pixel.matrix[i, ] -
-                                            color.centers[pixel.assignments[i], ])^2))
+                         function(i) dist(rbind(pixel.matrix[i, ],
+                                                color.centers[pixel.assignments[i], ]),
+                                          method = metric))
 
   # make a list of residuals by color center
   residuals_by_center <- vector("list", length = nrow(color.centers))
