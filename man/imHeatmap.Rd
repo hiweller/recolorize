@@ -33,6 +33,6 @@ imHeatmap(d)
 # bit offputting
 imHeatmap(d, palette = colorRamps::ygobb(100))
 
-# just bad
+# just dreadful
 imHeatmap(d, palette = colorRamps::primary.colors(100))
 }

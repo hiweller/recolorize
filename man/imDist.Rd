@@ -43,21 +43,42 @@ Compares two versions of the same image (probably original and recolored)
 by calculating the color distance between the colors of each pair of pixels.
 }
 \examples{
-# make an initial histogram fit
-ocellata <- system.file("extdata/ocellata.png", package = "recolorize")
-ocellata_2bin <- recolorize(ocellata, "hist", bins = 2)
-dist_2bin <- imDist(ocellata_2bin$original.img,
-                    ocellata_2bin$recolored.img)
+fulgidissima <- system.file("extdata/fulgidissima.png", package = "recolorize")# make an initial histogram fit
 
-# we can compare it to finer binning
-ocellata_3bin <- recolorize(ocellata, "hist", bins = 3)
-dist_3bin <- imDist(ocellata_3bin$original.img,
-                    ocellata_3bin$recolored.img, plotting = FALSE)
+ # make an initial histogram fit
+# this doesn't look great:
+fulgidissima_2bin <- recolorize(fulgidissima, "hist", bins = 2)
 
-# to make the scales even, we can combine the color distance matrices first
-combo <- cbind(dist_2bin, dist_3bin)
+# and we can see that everywhere but the head has pretty high residuals:
+dist_2bin <- imDist(fulgidissima_2bin$original.img,
+                    fulgidissima_2bin$recolored.img)
 
-# 2 bin on the left, 3 bin on the right:
-imHeatmap(combo)
+# using 3 bins/channel looks much better:
+fulgidissima_3bin <- recolorize(fulgidissima, "hist", bins = 3)
+
+# and we can see that on the heatmap:
+dist_3bin <- imDist(fulgidissima_3bin$original.img,
+                    fulgidissima_3bin$recolored.img)
+
+# default behavior is to se the color range to the range of distances
+# in a single matrix; to compare two different fits, we have to provide
+# the same `zlim` scale for both
+zlim <- range(c(dist_2bin, dist_3bin), na.rm = TRUE)
+
+# now we can plot them to compare the fits:
+layout(matrix(1:2, nrow = 1))
+imHeatmap(dist_2bin, zlim = zlim)
+imHeatmap(dist_3bin, zlim = zlim)
+
+# we can also use other color spaces:
+rgb_3bin <- imDist(fulgidissima_3bin$original.img,
+                   fulgidissima_3bin$recolored.img,
+                   color.space = "sRGB")
+
+# looks oddly worse, but to keep things in perspective,
+# you can set the zlim range to the maximum color distance in RGB space:
+imHeatmap(rgb_3bin, zlim = c(0, sqrt(3)))
+# not useful for troubleshooting, but broadly reassuring!
+
 
 }

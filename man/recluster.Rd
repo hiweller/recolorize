@@ -51,6 +51,25 @@ multiple colors. This function clusters the color centers by visual
 similarity (in CIE Lab space), then returns the re-clustered object. Users
 can either set a similarity cutoff or a final number of colors. See examples.
 }
+\details{
+This function is fairly straightforward: the RGB color centers of the
+recolorize object are converted to CIE Lab color space (which is
+approximately perceptually uniform for human vision), clustered using
+\code{\link[stats]{hclust}}, then grouped using \code{\link[stats]{cutree}}.
+The resulting groups are then passed as the assigned color centers to
+\code{\link{imposeColors}}, which re-fits the \emph{original} image using the new
+centers.
+
+The similarity cutoff does not require the user to specify the final number
+of colors, unlike k-means or \code{n_final}, meaning that the same cutoff could be
+used for multiple images (with different numbers of colors) and produce
+relatively good fits. Because the cutoff is in absolute Euclidean distance in
+CIE Lab space for sRGB colors, the possible range of distances (and therefore
+cutoffs) is from 0 to >200. The higher the cutoff, the more dissimilar colors
+will be grouped together. There is no universally recommended cutoff; the
+same degree of color variation due to lighting in one image might be
+biologically relevant in another.
+}
 \examples{
 #' # get an image
 corbetti <- system.file("extdata/corbetti.png", package = "recolorize")
