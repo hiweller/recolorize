@@ -31,3 +31,5 @@ Imports:
     mgcv,
     colorRamps,
     plotfunctions
+Depends: 
+    R (>= 2.10)

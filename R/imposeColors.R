@@ -180,6 +180,7 @@ imposeColors <- function(img, color.centers,
   }
 
   # return it
+  class(return.list) <- "recolorize"
   return(return.list)
 
 
