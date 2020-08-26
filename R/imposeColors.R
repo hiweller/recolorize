@@ -76,20 +76,22 @@
 #' ocellata <- system.file("extdata/ocellata.png", package = "recolorize")
 #'
 #' # map to rgb extremes
-#' recolorize::imposeColors(ocellata, ctrs, adjust.centers = FALSE)
+#' ocellata_fixed <- recolorize::imposeColors(ocellata, ctrs,
+#'                                             adjust.centers = FALSE)
 #'
 #' # looks much better if we recalculate the centers from the image
-#' recolorize::imposeColors(ocellata, ctrs, adjust.centers = TRUE)
+#' ocellata_adjusted recolorize::imposeColors(ocellata, ctrs,
+#'                                            adjust.centers = TRUE)
 #'
 #' # we can map one image to extracted colors from another image
 #' # extract ocellata colors
 #' ocellata.colors <- recolorize(ocellata)
 #'
 #' # map fulgidissima to ocellata colors
-#' fulgidissima <- system.file("extdata/ocellata.png",
+#' fulgidissima <- system.file("extdata/fulgidissima.png",
 #'                              package = "recolorize")
 #'
-#' recolorize::imposeColors(fulgidissima,
+#' fulgidissma_ocellata <- recolorize::imposeColors(fulgidissima,
 #'                        ocellata.colors$centers,
 #'                        adjust.centers = FALSE)
 #'
