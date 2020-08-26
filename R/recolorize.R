@@ -12,8 +12,8 @@
 #'   channel (if a single number is provided) OR a vector of length 3 with the
 #'   number of bins for each channel.
 #' @param color.space Color space in which to minimize distances, passed to
-#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
-#'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
+#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+#'   Default is "Lab", a perceptually uniform (for humans) color space.
 #' @param ref.white Reference white for converting to different color spaces.
 #'   D65 (the default) corresponds to standard daylight.
 #' @param lower,upper RGB triplet ranges for setting a bounding box of pixels to
@@ -38,7 +38,6 @@
 #' \enumerate{
 #'     \item `original.img`: The original image, as a 3D array.
 #'     \item `recolored.img`: The recolored image, as a 3D array.
-#'     \item `color.space`: The associated color space. Currently only RGB.
 #'     \item `centers`: A matrix of color centers. If `adjust.centers =
 #'         FALSE`, this will be identical to the input `color.centers`.
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
@@ -187,7 +186,6 @@ recolorize <- function(img, method = "histogram",
   }
 
   # only rgb for now...would others be useful?
-  color.space <- "RGB"
   centers <- color.clusters$centers
   pixel.assignments <- color.clusters$pixel.assignments
 

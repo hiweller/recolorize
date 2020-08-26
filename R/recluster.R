@@ -16,6 +16,11 @@
 #'   will usually work best. See details.
 #' @param n_final Final number of desired colors; alternative to specifying
 #'  a similarity cutoff. Overrides `similarity_cutoff` if provided.
+#' @param color.space Color space in which to cluster centers, passed to
+#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+#'   Default is "Lab", a perceptually uniform (for humans) color space.
+#' @param ref.white Reference white for converting to different color spaces.
+#'   D65 (the default) corresponds to standard daylight.
 #' @param plot_hclust Logical. Plot the hierarchical clustering tree for
 #'  color similarity? Helpful for troubleshooting a cutoff.
 #' @param resid Logical. Get final color fit residuals with
@@ -84,6 +89,8 @@
 #' @export
 #'
 recluster <- function(recolorize.obj,
+                      color.space = "Lab",
+                      ref.white = ref.white,
                        similarity_cutoff = 60,
                        n_final = NULL,
                        plot_hclust = FALSE,
@@ -109,7 +116,10 @@ recluster <- function(recolorize.obj,
   }
 
   # convert to Lab space for better clustering
-  lab_init <- grDevices::convertColor(centers, "sRGB", "Lab")
+  lab_init <- grDevices::convertColor(centers,
+                                      from = "sRGB",
+                                      to = "Lab",
+                                      to.ref.white = ref.white)
 
   # get distance matrix
   d <- stats::dist(lab_init)
