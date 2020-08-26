@@ -9,6 +9,8 @@ recolorize(
   method = "histogram",
   bins = 2,
   n = 5,
+  color.space = "sRGB",
+  ref.white = "D65",
   lower = NULL,
   upper = NULL,
   transparent = TRUE,
@@ -33,6 +35,13 @@ channel (if a single number is provided) OR a vector of length 3 with the
 number of bins for each channel.}
 
 \item{n}{If \code{method = "kmeans"}, the number of color clusters to fit.}
+
+\item{color.space}{Color space in which to minimize distances, passed to
+\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+"XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
+
+\item{ref.white}{Reference white for converting to different color spaces.
+D65 (the default) corresponds to standard daylight.}
 
 \item{lower, upper}{RGB triplet ranges for setting a bounding box of pixels to
 mask. See details.}

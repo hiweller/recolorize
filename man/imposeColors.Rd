@@ -8,6 +8,8 @@ imposeColors(
   img,
   color.centers,
   adjust.centers = TRUE,
+  color.space = "Lab",
+  ref.white = "D65",
   lower = NULL,
   upper = NULL,
   transparent = TRUE,
@@ -30,6 +32,13 @@ columns = channels).}
 \item{adjust.centers}{Logical. After pixel assignment, should the returned
 colors be the average color of the pixels assigned to that cluster, or the
 original colors?}
+
+\item{color.space}{Color space in which to minimize distances, passed to
+\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+"XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
+
+\item{ref.white}{Reference white for converting to different color spaces.
+D65 (the default) corresponds to standard daylight.}
 
 \item{lower, upper}{RGB triplet ranges for setting a bounding box of pixels to
 mask. See details.}
