@@ -10,12 +10,18 @@
 #' @param bins If `method = "histogram"`, either the number of bins per color
 #'   channel (if a single number is provided) OR a vector of length 3 with the
 #'   number of bins for each channel.
+#' @param color.space Color space in which to cluster colors, passed to
+#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+#'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
+#' @param ref.white Reference white for converting to different color spaces.
+#'   D65 (the default) corresponds to standard daylight.
 #'
 #' @return
 #' A list with the following elements:
 #' \enumerate{
-#'         \item `pixel.assignments`: A vector of color center assignments for each pixel.
-#'         \item `centers`: A matrix of color centers.
+#'         \item `pixel.assignments`: A vector of color center assignments for
+#'         each pixel.
+#'         \item `centers`: A matrix of color centers, in RGB color space.
 #'         \item `sizes`: The number of pixels assigned to each cluster.
 #' }
 #'
@@ -23,9 +29,10 @@
 #' \code{\link[stats]{kmeans}} clustering tries to find the set of `n` clusters
 #' that minimize overall distances. Histogram binning divides up color space
 #' according to set breaks; for example, bins = 2 would divide the red, green,
-#' and blue channels into 2 bins each (> 0.5 and < 0 .5), resulting in 8 possible
-#' ranges. A white pixel (RGB = 1, 1, 1) would fall into the R > 0.5, G > 0.5, B > 0.5 bin.
-#' The resulting centers represent the average color of all the pixels assigned to that bin.
+#' and blue channels into 2 bins each (> 0.5 and < 0 .5), resulting in 8
+#' possible ranges. A white pixel (RGB = 1, 1, 1) would fall into the R > 0.5, G
+#' > 0.5, B > 0.5 bin. The resulting centers represent the average color of all
+#' the pixels assigned to that bin.
 #'
 #' K-means clustering can produce more intuitive results, but because it is
 #' iterative, it will find slightly different clusters each time it is run, and
@@ -63,8 +70,11 @@
 #'
 #' @export
 colorClusters <- function(pixel.matrix,
-                          method = "histogram", n = 10,
-                          bins = 3) {
+                          method = "histogram",
+                          n = 10,
+                          bins = 3,
+                          color.space = "Lab",
+                          ref.white = "D65") {
 
   # coerce method argument
   method <- match.arg(tolower(method), c("kmeans", "histogram"))
@@ -76,13 +86,17 @@ colorClusters <- function(pixel.matrix,
   if (method == "kmeans") {
 
     color.clusters <- colorClustersKMeans(pixel.matrix = pixel.matrix,
-                                          n = n)
+                                          n = n,
+                                          color.space = color.space,
+                                          ref.white = ref.white)
     color.clusters$method <- "kmeans"
 
   } else if (method == "histogram") {
 
     color.clusters <- colorClustersHist(pixel.matrix = pixel.matrix,
-                                        bins = bins)
+                                        bins = bins,
+                                        color.space = color.space,
+                                        ref.white = ref.white)
     color.clusters$method <- "histogram"
 
   } else {
@@ -108,6 +122,11 @@ colorClusters <- function(pixel.matrix,
 #' @param pixel.matrix 2D matrix of pixels to classify (rows = pixels, columns =
 #'   channels).
 #' @param n Number of clusters to fit.
+#' @param color.space Color space in which to cluster colors, passed to
+#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+#'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
+#' @param ref.white Reference white for converting to different color spaces.
+#'   D65 (the default) corresponds to standard daylight.
 #'
 #' @return
 #' A list with the following elements:
@@ -119,12 +138,20 @@ colorClusters <- function(pixel.matrix,
 #'
 #' @details Called by \code{\link{colorClusters}}. See that documentation for
 #'   examples.
-colorClustersKMeans <- function(pixel.matrix, n = 10) {
+colorClustersKMeans <- function(pixel.matrix, n = 10,
+                                color.space = "Lab",
+                                ref.white = "D65") {
 
-  # start with 10 iterations and try clustering
-  iter.max <- 10L
+  # start with 20 iterations and try clustering
+  iter.max <- 20L
 
-  img.k <- stats::kmeans(pixel.matrix, n, iter.max = iter.max)
+  # first, convert to color space for clustering:
+  pm <- grDevices::convertColor(pixel.matrix,
+                                from = "sRGB",
+                                to = color.space,
+                                to.ref.white = ref.white)
+
+  img.k <- stats::kmeans(pm, n, iter.max = iter.max)
 
   # if that doesn't converge, up the number of iterations
   # while (img.k$ifault == 4) {
@@ -138,9 +165,15 @@ colorClustersKMeans <- function(pixel.matrix, n = 10) {
   #
   # }
 
+  # convert color centers back to RGB space
+  centers <- grDevices::convertColor(img.k$centers,
+                                     from = color.space,
+                                     to = "sRGB",
+                                     from.ref.white = ref.white)
+
   # return
   return(list(pixel.assignments = img.k$cluster,
-              centers = img.k$centers,
+              centers = centers,
               sizes = img.k$size))
 
 }
@@ -155,12 +188,19 @@ colorClustersKMeans <- function(pixel.matrix, n = 10) {
 #'   channels).
 #' @param bins Number of bins for each channel OR a vector of length 3 with bins
 #'   for each channel. `bins = 3` will result in 3^3 = 27 bins; `bins = c(2, 2, 3)`
-#'   will result in 2*2*3 = 12 bins (2 red, 2 green, 3 blue), etc.
+#'   will result in 2*2*3 = 12 bins (2 red, 2 green, 3 blue if you're in RGB
+#'   color space), etc.
+#' @param color.space Color space in which to cluster colors, passed to
+#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+#'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
+#' @param ref.white Reference white for converting to different color spaces.
+#'   D65 (the default) corresponds to standard daylight.
 #'
 #' @return
 #' A list with the following elements:
 #' \enumerate{
-#'         \item `pixel.assignments`: A vector of color center assignments for each pixel.
+#'         \item `pixel.assignments`: A vector of color center assignments for
+#'         each pixel.
 #'         \item `centers`: A matrix of color centers.
 #'         \item `sizes`: The number of pixels assigned to each cluster.
 #' }
@@ -168,7 +208,9 @@ colorClustersKMeans <- function(pixel.matrix, n = 10) {
 #' @details Called by \code{\link{colorClusters}}. See that documentation for
 #'   examples.
 colorClustersHist <- function(pixel.matrix,
-                              bins = 3) {
+                              bins = 3,
+                              color.space = "Lab",
+                              ref.white = "D65") {
 
   # make sure bins is either a number or a vector of length 3
   stopifnot(length(bins) == 1 | 3)
@@ -184,15 +226,45 @@ colorClustersHist <- function(pixel.matrix,
                   " bins", sep = ""))
   }
 
+  # match argument for color space
+  color.space <- match.arg(color.space, c("sRGB", "XYZ",
+                                          "Lab", "Luv"))
+
+  # ok, first convert pixels
+  pm <- grDevices::convertColor(pixel.matrix,
+                                from = "sRGB",
+                                to = color.space,
+                                to.ref.white = ref.white)
+
+  # color space ranges
+  if (grepl("sRGB|XYZ", color.space)) {
+
+    #sRGB and XYZ range is 0-1 in all channels
+    brange <- list(c(0, 1),
+                   c(0, 1),
+                   c(0, 1))
+
+  } else if (grepl("Luv|Lab", color.space)) {
+
+    # Lab is 0-100 (L), -127-127 (a and b)
+    # Luv is greater (?) than that (?) but this works
+    brange <- list(c(0, 100),
+                   c(-127, 127),
+                   c(-127, 127))
+
+  }
+
   # from bins, generate breaks/ranges
-  breaks <- lapply(bins + 1, function(x) seq(0, 1, length = x))
+  breaks <- lapply(1:3, function(x) seq(brange[[x]][1],
+                                        brange[[x]][2],
+                                        length = bins[x] + 1))
 
   # bin the image?
-  binned.image <- data.frame(R = cut(pixel.matrix[, 1], breaks = breaks[[1]],
+  binned.image <- data.frame(c1 = cut(pm[, 1], breaks = breaks[[1]],
                                      include.lowest = T, labels = F),
-                             G = cut(pixel.matrix[, 2], breaks = breaks[[2]],
+                             c2 = cut(pm[, 2], breaks = breaks[[2]],
                                      include.lowest = T, labels = F),
-                             B = cut(pixel.matrix[, 3], breaks = breaks[[3]],
+                             c3 = cut(pm[, 3], breaks = breaks[[3]],
                                      include.lowest = T, labels = F))
 
   # possible bins!
@@ -204,7 +276,7 @@ colorClustersHist <- function(pixel.matrix,
   break.means <- lapply(breaks, function(i) sapply(2:length(i),
                                 function(m) mean(c(i[m-1], i[m]))))
   centers <- as.matrix(expand.grid(break.means))
-  colnames(centers) <- c("R", "G", "B")
+  colnames(centers) <- strsplit(gsub("s", "", color.space), "")[[1]]
 
   # how many pixels in each bin?
   d <- mgcv::uniquecombs(binned.image)
@@ -219,7 +291,7 @@ colorClustersHist <- function(pixel.matrix,
   for (j in 1:dim(d)[1]) {
 
     # extract all the pixels in that bin
-    pix.temp <- pixel.matrix[which(pixel.assignments == j), ]
+    pix.temp <- pm[which(pixel.assignments == j), ]
 
     # if more than one pixel, use the average
     if (is.matrix(pix.temp)) {
@@ -230,6 +302,12 @@ colorClustersHist <- function(pixel.matrix,
       sizes[j] <- 1
     }
   }
+
+  # convert centers
+  centers <- grDevices::convertColor(centers,
+                                     from = color.space,
+                                     to = "sRGB",
+                                     from.ref.white = ref.white)
 
   # return pixel assignments and centers
   return(list(pixel.assignments = pixel.assignments,

@@ -4,7 +4,14 @@
 \alias{colorClusters}
 \title{Generate color clusters from an image}
 \usage{
-colorClusters(pixel.matrix, method = "histogram", n = 10, bins = 3)
+colorClusters(
+  pixel.matrix,
+  method = "histogram",
+  n = 10,
+  bins = 3,
+  color.space = "Lab",
+  ref.white = "D65"
+)
 }
 \arguments{
 \item{pixel.matrix}{2D matrix of pixels to classify (rows = pixels, columns = channels).}
@@ -17,12 +24,20 @@ Produce very different results (see details).}
 \item{bins}{If \code{method = "histogram"}, either the number of bins per color
 channel (if a single number is provided) OR a vector of length 3 with the
 number of bins for each channel.}
+
+\item{color.space}{Color space in which to cluster colors, passed to
+\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+"XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
+
+\item{ref.white}{Reference white for converting to different color spaces.
+D65 (the default) corresponds to standard daylight.}
 }
 \value{
 A list with the following elements:
 \enumerate{
-\item \code{pixel.assignments}: A vector of color center assignments for each pixel.
-\item \code{centers}: A matrix of color centers.
+\item \code{pixel.assignments}: A vector of color center assignments for
+each pixel.
+\item \code{centers}: A matrix of color centers, in RGB color space.
 \item \code{sizes}: The number of pixels assigned to each cluster.
 }
 }
@@ -34,9 +49,8 @@ returns color centers, cluster assignments, and cluster sizes.
 \code{\link[stats]{kmeans}} clustering tries to find the set of \code{n} clusters
 that minimize overall distances. Histogram binning divides up color space
 according to set breaks; for example, bins = 2 would divide the red, green,
-and blue channels into 2 bins each (> 0.5 and < 0 .5), resulting in 8 possible
-ranges. A white pixel (RGB = 1, 1, 1) would fall into the R > 0.5, G > 0.5, B > 0.5 bin.
-The resulting centers represent the average color of all the pixels assigned to that bin.
+and blue channels into 2 bins each (> 0.5 and < 0 .5), resulting in 8
+possible ranges. A white pixel (RGB = 1, 1, 1) would fall into the R > 0.5, G0.5, B > 0.5 bin. The resulting centers represent the average color of allthe pixels assigned to that bin.
 
 K-means clustering can produce more intuitive results, but because it is
 iterative, it will find slightly different clusters each time it is run, and
