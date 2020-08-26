@@ -112,7 +112,7 @@ ocellata_fixed <- recolorize::imposeColors(ocellata, ctrs,
                                             adjust.centers = FALSE)
 
 # looks much better if we recalculate the centers from the image
-ocellata_adjusted recolorize::imposeColors(ocellata, ctrs,
+ocellata_adjusted <- recolorize::imposeColors(ocellata, ctrs,
                                            adjust.centers = TRUE)
 
 # we can map one image to extracted colors from another image
