@@ -10,6 +10,11 @@
 #' @param adjust.centers Logical. After pixel assignment, should the returned
 #'   colors be the average color of the pixels assigned to that cluster, or the
 #'   original colors?
+#' @param color.space Color space in which to minimize distances, passed to
+#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+#'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
+#' @param ref.white Reference white for converting to different color spaces.
+#'   D65 (the default) corresponds to standard daylight.
 #' @param lower,upper RGB triplet ranges for setting a bounding box of pixels to
 #'   mask. See details.
 #' @param transparent Logical. Treat transparent pixels as background? Requires
@@ -98,6 +103,8 @@
 #' @export
 imposeColors <- function(img, color.centers,
                            adjust.centers = TRUE,
+                           color.space = "Lab",
+                           ref.white = "D65",
                            lower = NULL, upper = NULL,
                            transparent = TRUE,
                            resid = FALSE,

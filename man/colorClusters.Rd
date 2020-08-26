@@ -26,8 +26,8 @@ channel (if a single number is provided) OR a vector of length 3 with the
 number of bins for each channel.}
 
 \item{color.space}{Color space in which to cluster colors, passed to
-\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
-"XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
+\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+Default is "Lab", a perceptually uniform (for humans) color space.}
 
 \item{ref.white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}

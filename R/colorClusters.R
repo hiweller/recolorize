@@ -11,8 +11,8 @@
 #'   channel (if a single number is provided) OR a vector of length 3 with the
 #'   number of bins for each channel.
 #' @param color.space Color space in which to cluster colors, passed to
-#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
-#'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
+#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+#'   Default is "Lab", a perceptually uniform (for humans) color space.
 #' @param ref.white Reference white for converting to different color spaces.
 #'   D65 (the default) corresponds to standard daylight.
 #'
@@ -191,8 +191,8 @@ colorClustersKMeans <- function(pixel.matrix, n = 10,
 #'   will result in 2*2*3 = 12 bins (2 red, 2 green, 3 blue if you're in RGB
 #'   color space), etc.
 #' @param color.space Color space in which to cluster colors, passed to
-#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
-#'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
+#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+#'   Default is "Lab", a perceptually uniform (for humans) color space.
 #' @param ref.white Reference white for converting to different color spaces.
 #'   D65 (the default) corresponds to standard daylight.
 #'
@@ -227,8 +227,7 @@ colorClustersHist <- function(pixel.matrix,
   }
 
   # match argument for color space
-  color.space <- match.arg(color.space, c("sRGB", "XYZ",
-                                          "Lab", "Luv"))
+  color.space <- match.arg(color.space, c("sRGB", "Lab", "Luv"))
 
   # ok, first convert pixels
   pm <- grDevices::convertColor(pixel.matrix,
@@ -237,20 +236,28 @@ colorClustersHist <- function(pixel.matrix,
                                 to.ref.white = ref.white)
 
   # color space ranges
-  if (grepl("sRGB|XYZ", color.space)) {
+  if (grepl("sRGB", color.space)) {
 
-    #sRGB and XYZ range is 0-1 in all channels
+    #sRGB range is 0-1 in all channels
     brange <- list(c(0, 1),
                    c(0, 1),
                    c(0, 1))
 
-  } else if (grepl("Luv|Lab", color.space)) {
+  } else if (color.space == "Lab") {
 
     # Lab is 0-100 (L), -127-127 (a and b)
-    # Luv is greater (?) than that (?) but this works
+    # HOWEVER, these extremes are virtually unoccupied by RGB colors
+    # these are a little outside the range of sRGB in Lab space:
     brange <- list(c(0, 100),
-                   c(-127, 127),
-                   c(-127, 127))
+                   c(-90, 100),
+                   c(-110, 95))
+
+  }  else if (color.space == "Luv") {
+
+    # please don't ever ask me about this
+    brange <- list(c(0, 100),
+                   c(-85, 175),
+                   c(-135, 107))
 
   }
 

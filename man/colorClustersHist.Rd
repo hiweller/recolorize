@@ -21,8 +21,8 @@ will result in 2\emph{2}3 = 12 bins (2 red, 2 green, 3 blue if you're in RGB
 color space), etc.}
 
 \item{color.space}{Color space in which to cluster colors, passed to
-\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
-"XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
+\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+Default is "Lab", a perceptually uniform (for humans) color space.}
 
 \item{ref.white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}

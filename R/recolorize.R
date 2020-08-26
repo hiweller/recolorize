@@ -11,6 +11,11 @@
 #' @param bins If `method = "histogram"`, either the number of bins per color
 #'   channel (if a single number is provided) OR a vector of length 3 with the
 #'   number of bins for each channel.
+#' @param color.space Color space in which to minimize distances, passed to
+#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+#'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
+#' @param ref.white Reference white for converting to different color spaces.
+#'   D65 (the default) corresponds to standard daylight.
 #' @param lower,upper RGB triplet ranges for setting a bounding box of pixels to
 #'   mask. See details.
 #' @param transparent Logical. Treat transparent pixels as background? Requires
@@ -113,6 +118,7 @@
 #' @export
 recolorize <- function(img, method = "histogram",
                        bins = 2, n = 5,
+                       color.space = "sRGB", ref.white = "D65",
                        lower = NULL, upper = NULL,
                        transparent = TRUE,
                        resid = FALSE,
@@ -147,7 +153,9 @@ recolorize <- function(img, method = "histogram",
 
   # color clusters & assign pixels
   color.clusters <- colorClusters(bg.indexed$non.bg, method = method,
-                                  n = n, bins = bins)
+                                  n = n, bins = bins,
+                                  color.space = color.space,
+                                  ref.white = ref.white)
 
   # recolor based on assignments/centers
   recolored <- recolorImage(bg.indexed, color.clusters,
