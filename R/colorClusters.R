@@ -167,7 +167,10 @@ colorClustersKMeans <- function(pixel.matrix, n = 10) {
 #'
 #' @details Called by \code{\link{colorClusters}}. See that documentation for
 #'   examples.
-colorClustersHist <- function(pixel.matrix, bins = 3) {
+colorClustersHist <- function(pixel.matrix,
+                              color.space = "Lab",
+                              ref.white = "D65",
+                              bins = 3) {
 
   # make sure bins is either a number or a vector of length 3
   stopifnot(length(bins) == 1 | 3)

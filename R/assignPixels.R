@@ -2,6 +2,11 @@
 #'
 #' @param color.centers Matrix of color centers (rows = colors, columns = channels).
 #' @param pixel.matrix Matrix of pixel colors (rows = pixels, columns = channels).
+#' @param color.space Color space in which to minimize distances, passed to
+#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+#'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
+#' @param ref.white Reference white for converting to different color spaces.
+#'   D65 (the default) corresponds to standard daylight.
 #' @param adjust.centers Logical. Should the returned color clusters be the
 #'   average value of the pixels assigned to that cluster? See details.
 #'
@@ -46,12 +51,30 @@
 #' recolorize::plotColorPalette(keep.centers$centers)
 #'
 #' @export
-assignPixels <- function(color.centers, pixel.matrix, adjust.centers = TRUE) {
+assignPixels <- function(color.centers,
+                         pixel.matrix,
+                         color.space = "Lab",
+                         ref.white = "D65",
+                         adjust.centers = TRUE) {
+
+  if (color.space != "sRGB") {
+    pm <- grDevices::convertColor(pixel.matrix,
+                                  from = "sRGB",
+                                  to = color.space,
+                                  to.ref.white = ref.white)
+    ctrs <- grDevices::convertColor(color.centers,
+                                   from = "sRGB",
+                                   to = color.space,
+                                   to.ref.white = ref.white)
+  } else {
+    pm <- pixel.matrix
+    ctrs <- color.centers
+  }
 
   # I'm not sure this is really as fast as it could be
-  tmp <- sapply(1:nrow(pixel.matrix),
-                  function(i) apply(color.centers, 1,
-                                    function(v) sum((pixel.matrix[i, ]-v)^2)))
+  tmp <- sapply(1:nrow(pm),
+                  function(i) apply(ctrs, 1,
+                                    function(v) sum((pm[i, ]-v)^2)))
 
   # make returnables
   pixel.assignments <- max.col(-t(tmp))  # find index of min distance
@@ -62,14 +85,22 @@ assignPixels <- function(color.centers, pixel.matrix, adjust.centers = TRUE) {
   # if specified: make new color centers based on average of assigned pixels
   if (adjust.centers) {
 
-    for (i in 1:nrow(color.centers)) {
+    for (i in 1:nrow(ctrs)) {
 
       pixel.idx <- which(pixel.assignments == i)
 
       if (length(pixel.idx) == 0) { next } else {
-        color.centers[i, ] <- colMeans(pixel.matrix[pixel.idx, ])
+        ctrs[i, ] <- colMeans(pm[pixel.idx, ])
       }
     }
+  }
+
+  # and convert back to sRGB
+  if (color.space != "sRGB") {
+    color.centers <- grDevices::convertColor(ctrs,
+                                   from = color.space,
+                                   to = "sRGB",
+                                   from.ref.white = ref.white)
   }
 
   color.clusters <- list(pixel.assignments = pixel.assignments,
@@ -79,3 +110,4 @@ assignPixels <- function(color.centers, pixel.matrix, adjust.centers = TRUE) {
   return(color.clusters)
 
 }
+

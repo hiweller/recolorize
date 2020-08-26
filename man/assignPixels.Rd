@@ -4,12 +4,25 @@
 \alias{assignPixels}
 \title{Assign a 2D matrix of pixels to specified colors}
 \usage{
-assignPixels(color.centers, pixel.matrix, adjust.centers = TRUE)
+assignPixels(
+  color.centers,
+  pixel.matrix,
+  color.space = "Lab",
+  ref.white = "D65",
+  adjust.centers = TRUE
+)
 }
 \arguments{
 \item{color.centers}{Matrix of color centers (rows = colors, columns = channels).}
 
 \item{pixel.matrix}{Matrix of pixel colors (rows = pixels, columns = channels).}
+
+\item{color.space}{Color space in which to minimize distances, passed to
+\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+"XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
+
+\item{ref.white}{Reference white for converting to different color spaces.
+D65 (the default) corresponds to standard daylight.}
 
 \item{adjust.centers}{Logical. Should the returned color clusters be the
 average value of the pixels assigned to that cluster? See details.}
