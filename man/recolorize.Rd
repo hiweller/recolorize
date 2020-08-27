@@ -37,8 +37,8 @@ number of bins for each channel.}
 \item{n}{If \code{method = "kmeans"}, the number of color clusters to fit.}
 
 \item{color.space}{Color space in which to minimize distances, passed to
-\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
-"XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
+\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+Default is "Lab", a perceptually uniform (for humans) color space.}
 
 \item{ref.white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}
@@ -73,7 +73,6 @@ A list with the following attributes:
 \enumerate{
 \item \code{original.img}: The original image, as a 3D array.
 \item \code{recolored.img}: The recolored image, as a 3D array.
-\item \code{color.space}: The associated color space. Currently only RGB.
 \item \code{centers}: A matrix of color centers. If \code{adjust.centers = FALSE}, this will be identical to the input \code{color.centers}.
 \item \code{sizes}: The number of pixels assigned to each color cluster.
 \item \code{pixel.assignments}: A vector of color center assignments for each pixel.

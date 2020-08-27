@@ -6,6 +6,8 @@
 \usage{
 recluster(
   recolorize.obj,
+  color.space = "Lab",
+  ref.white = "D65",
   similarity_cutoff = 60,
   n_final = NULL,
   plot_hclust = FALSE,
@@ -17,6 +19,13 @@ recluster(
 \arguments{
 \item{recolorize.obj}{A recolorize object from \code{\link{recolorize}},
 \code{\link{recluster}}, or \code{\link{imposeColors}}.}
+
+\item{color.space}{Color space in which to cluster centers, passed to
+\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+Default is "Lab", a perceptually uniform (for humans) color space.}
+
+\item{ref.white}{Reference white for converting to different color spaces.
+D65 (the default) corresponds to standard daylight.}
 
 \item{similarity_cutoff}{Numeric similarity cutoff for grouping color centers
 together. The range is in absolute Euclidean distance in CIE Lab space,

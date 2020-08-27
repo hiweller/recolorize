@@ -90,7 +90,7 @@
 #'
 recluster <- function(recolorize.obj,
                       color.space = "Lab",
-                      ref.white = ref.white,
+                      ref.white = "D65",
                        similarity_cutoff = 60,
                        n_final = NULL,
                        plot_hclust = FALSE,
