@@ -30,8 +30,8 @@
 #' that minimize overall distances. Histogram binning divides up color space
 #' according to set breaks; for example, bins = 2 would divide the red, green,
 #' and blue channels into 2 bins each (> 0.5 and < 0 .5), resulting in 8
-#' possible ranges. A white pixel (RGB = 1, 1, 1) would fall into the R > 0.5, G
-#' > 0.5, B > 0.5 bin. The resulting centers represent the average color of all
+#' possible ranges. A white pixel (RGB = 1, 1, 1) would fall into the R \> 0.5, G
+#' \> 0.5, B \> 0.5 bin. The resulting centers represent the average color of all
 #' the pixels assigned to that bin.
 #'
 #' K-means clustering can produce more intuitive results, but because it is
