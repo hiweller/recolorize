@@ -89,9 +89,18 @@ assignPixels <- function(color.centers,
 
       pixel.idx <- which(pixel.assignments == i)
 
-      if (length(pixel.idx) == 0) { next } else {
+      if (length(pixel.idx) == 0) {
+        next
+      } else if (length(pixel.idx) == 1) {
+
+        ctrs[i, ] <- pm[pixel.idx, ]
+
+      } else {
+
         ctrs[i, ] <- colMeans(pm[pixel.idx, ])
+
       }
+
     }
   }
 
