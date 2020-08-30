@@ -1,8 +1,3 @@
-# fxn 2: flat array + condition in -> original, index + non-bg out
-# 3a. bg mask: get index of bg pixels
-# 3b. make non-bg-only pixel matrix for operations
-# 3c. convert to color space of choice
-
 #' Index and remove background pixels for color clustering
 #'
 #' Largely internal function for identifying, indexing, and removing background
@@ -85,7 +80,7 @@ backgroundIndex <- function(img, bg.condition) {
     } else {
 
       # otherwise use it
-      idx <- which(flattened.img[ , 4] < 1)
+      idx <- which(round(flattened.img[ , 4]) < 1)
 
     }
 

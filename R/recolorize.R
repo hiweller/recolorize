@@ -156,6 +156,9 @@ recolorize <- function(img, method = "histogram",
                                   color.space = color.space,
                                   ref.white = ref.white)
 
+  # if auto-K
+  # method = "threshold", "whatever"
+
   # recolor based on assignments/centers
   recolored <- recolorImage(bg.indexed, color.clusters,
                             plotting = FALSE,
