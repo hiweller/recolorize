@@ -25,6 +25,8 @@
 #'  color similarity? Helpful for troubleshooting a cutoff.
 #' @param resid Logical. Get final color fit residuals with
 #'   \code{\link{colorResiduals}}?
+#' @param color.space.fit Passed to \code{\link{imposeColors}}. What
+#'   color space should the image be reclustered in?
 #' @param plot_final Logical. Plot the final color fit?
 #' @param adjust_centers Logical. Once new color centers are determined and
 #'   fit to the image, adjust their centers to the average value of all
@@ -96,6 +98,7 @@ recluster <- function(recolorize.obj,
                        plot_hclust = FALSE,
                       resid = FALSE,
                       plot_final = TRUE,
+                      color.space.fit = "sRGB",
                       adjust_centers = TRUE) {
 
   # courtesy:

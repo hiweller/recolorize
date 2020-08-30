@@ -103,7 +103,7 @@
 #' @export
 imposeColors <- function(img, color.centers,
                            adjust.centers = TRUE,
-                           color.space = "Lab",
+                           color.space = "sRGB",
                            ref.white = "D65",
                            lower = NULL, upper = NULL,
                            transparent = TRUE,

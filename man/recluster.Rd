@@ -13,6 +13,7 @@ recluster(
   plot_hclust = FALSE,
   resid = FALSE,
   plot_final = TRUE,
+  color.space.fit = "sRGB",
   adjust_centers = TRUE
 )
 }
@@ -42,6 +43,9 @@ color similarity? Helpful for troubleshooting a cutoff.}
 \code{\link{colorResiduals}}?}
 
 \item{plot_final}{Logical. Plot the final color fit?}
+
+\item{color.space.fit}{Passed to \code{\link{imposeColors}}. What
+color space should the image be reclustered in?}
 
 \item{adjust_centers}{Logical. Once new color centers are determined and
 fit to the image, adjust their centers to the average value of all
