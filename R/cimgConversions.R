@@ -7,7 +7,7 @@
 #' @return A 3D array.
 cimg.to.array <- function(x) {
   img <- as.numeric(x)
-  dim(img) <- dim(x)[1:2]
+  dim(img) <- dim(x)[c(1, 2, 4)]
   return(img)
 }
 
@@ -18,11 +18,15 @@ cimg.to.array <- function(x) {
 #' @param x An image array, i.e. as read in by readPNG.
 #'
 #' @return A `cimg` object.
-array.to.cimg <- function(x) {
+array.to.cimg <- function(x, rm.alpha = TRUE) {
 
   dim(x) <- c(dim(x)[1:2], 1, dim(x)[3])
   class(x) <- "cimg"
-  x <- imager::rm.alpha(x)
+
+  if (rm.alpha) {
+    x <- imager::rm.alpha(x)
+  }
+
   return(x)
 
 }
