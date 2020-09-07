@@ -4,10 +4,14 @@
 \alias{array.to.cimg}
 \title{Converts from a raster array to a cimg object}
 \usage{
-array.to.cimg(x)
+array.to.cimg(x, rm.alpha = TRUE)
 }
 \arguments{
 \item{x}{An image array, i.e. as read in by readPNG.}
+
+\item{rm.alpha}{Logical. Remove the alpha channel?
+Note this will "reveal" whatever is hidden behind
+the transparent pixels, rather than turn them white.}
 }
 \value{
 A \code{cimg} object.

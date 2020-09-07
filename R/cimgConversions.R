@@ -8,6 +8,9 @@
 cimg.to.array <- function(x) {
   img <- as.numeric(x)
   dim(img) <- dim(x)[c(1, 2, 4)]
+  if (dim(img)[3] == 1) {
+    dim(img) <- dim(img)[1:2]
+  }
   return(img)
 }
 
@@ -16,6 +19,9 @@ cimg.to.array <- function(x) {
 #' What it says it does.
 #'
 #' @param x An image array, i.e. as read in by readPNG.
+#' @param rm.alpha Logical. Remove the alpha channel?
+#'   Note this will "reveal" whatever is hidden behind
+#'   the transparent pixels, rather than turn them white.
 #'
 #' @return A `cimg` object.
 array.to.cimg <- function(x, rm.alpha = TRUE) {
