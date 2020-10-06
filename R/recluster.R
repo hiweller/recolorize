@@ -121,7 +121,7 @@ recluster <- function(recolorize.obj,
   # convert to Lab space for better clustering
   lab_init <- grDevices::convertColor(centers,
                                       from = "sRGB",
-                                      to = "Lab",
+                                      to = color.space,
                                       to.ref.white = ref.white)
 
   # get distance matrix
