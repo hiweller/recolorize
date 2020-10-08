@@ -30,6 +30,7 @@ Imports:
     graphics,
     mgcv,
     colorRamps,
-    plotfunctions
+    plotfunctions,
+    abind
 Depends: 
     R (>= 2.10)

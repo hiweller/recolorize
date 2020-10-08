@@ -28,10 +28,6 @@
 #' @param color.space.fit Passed to \code{\link{imposeColors}}. What
 #'   color space should the image be reclustered in?
 #' @param plot_final Logical. Plot the final color fit?
-#' @param adjust_centers Logical. Once new color centers are determined and
-#'   fit to the image, adjust their centers to the average value of all
-#'   the pixels assigned to it? Unlike in \code{\link{imposeColors}},
-#'   this often has little effect.
 #'
 #' @return
 #' An \code{\link{imposeColors}} object with the re-fit color centers.
@@ -72,11 +68,6 @@
 #' kmeans.fit <- recolorize(corbetti, "k", n = 6)
 #' # (you also get different clusters every time you run this)
 #'
-#' # you get slightly different results if you prevent the center adjustment:
-#' recluster.obj <- recluster(recolored_corbetti,
-#'                            similarity_cutoff = 60,
-#'                            adjust_centers = FALSE)
-#'
 #' # a cutoff that's too severe will usually just produce "light",
 #' # "dark", and "other" colors:
 #' recluster.obj <- recluster(recolored_corbetti,
@@ -98,8 +89,7 @@ recluster <- function(recolorize.obj,
                        plot_hclust = FALSE,
                       resid = FALSE,
                       plot_final = TRUE,
-                      color.space.fit = "sRGB",
-                      adjust_centers = TRUE) {
+                      color.space.fit = "sRGB") {
 
   # courtesy:
   current_par <- graphics::par()
@@ -147,54 +137,13 @@ recluster <- function(recolorize.obj,
   # form groups
   clust_groups <- stats::cutree(hc, k = n_final,
                          h = similarity_cutoff)
+  merge_list <- lapply(unique(clust_groups),
+                       function(i) which(clust_groups == i))
 
-  # for each group...
-  for (i in unique(clust_groups)) {
-
-    # find all original clusters assigned to it
-    group_idx <- which(clust_groups == i)
-
-    # get the colors
-    group_colors <- lab_init[group_idx, ]
-
-    # get their sizes
-    group_sizes <- init_fit$sizes[group_idx]
-
-    if (all(group_sizes == 0)) {
-      next
-    }
-
-    # if there's more than one color in the group
-    if (length(group_idx) > 1) {
-      # get their weighted average
-      lab_avg <- apply(group_colors, 2,
-                       function(j) stats::weighted.mean(j, group_sizes))
-    } else {
-      # otherwise, just copy it
-      lab_avg <- group_colors
-    }
-
-    # get their RGB color
-    rgb_avg <- grDevices::convertColor(lab_avg, "Lab", "sRGB")
-
-    if (i == 1) {
-
-      final_clusters <- rgb_avg
-      final_sizes <- sum(group_sizes)
-
-    } else {
-
-      final_clusters <- rbind(final_clusters, rgb_avg)
-      final_sizes <- c(final_sizes, sum(group_sizes))
-
-    }
-  }
-
-  # fit to our reclustered colors!
-  final_fit <- imposeColors(init_fit$original.img,
-                            final_clusters, resid = resid,
-                            adjust.centers = adjust_centers,
-                            plotting = FALSE)
+  # and merge those layers:
+  final_fit <- recolorize::mergeLayers(init_fit,
+                                       merge_list = merge_list,
+                                       plotting = FALSE)
 
   # if plotting...
   if (plot_final) {

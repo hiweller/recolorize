@@ -109,7 +109,6 @@ colorClusters <- function(pixel.matrix,
   # this is because they're used for recoloring, not quantifying
   # however, clustering and pixel assignment can be done in other
   # color spaces
-  # eventually
   class(color.clusters) <- "color.clusters"
   return(color.clusters)
 

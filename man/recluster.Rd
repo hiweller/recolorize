@@ -13,8 +13,7 @@ recluster(
   plot_hclust = FALSE,
   resid = FALSE,
   plot_final = TRUE,
-  color.space.fit = "sRGB",
-  adjust_centers = TRUE
+  color.space.fit = "sRGB"
 )
 }
 \arguments{
@@ -46,11 +45,6 @@ color similarity? Helpful for troubleshooting a cutoff.}
 
 \item{color.space.fit}{Passed to \code{\link{imposeColors}}. What
 color space should the image be reclustered in?}
-
-\item{adjust_centers}{Logical. Once new color centers are determined and
-fit to the image, adjust their centers to the average value of all
-the pixels assigned to it? Unlike in \code{\link{imposeColors}},
-this often has little effect.}
 }
 \value{
 An \code{\link{imposeColors}} object with the re-fit color centers.
@@ -99,11 +93,6 @@ recluster.obj <- recluster(recolored_corbetti,
 # compare to the result using k-means clustering and the same n:
 kmeans.fit <- recolorize(corbetti, "k", n = 6)
 # (you also get different clusters every time you run this)
-
-# you get slightly different results if you prevent the center adjustment:
-recluster.obj <- recluster(recolored_corbetti,
-                           similarity_cutoff = 60,
-                           adjust_centers = FALSE)
 
 # a cutoff that's too severe will usually just produce "light",
 # "dark", and "other" colors:

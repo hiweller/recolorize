@@ -129,9 +129,12 @@ recolorize <- function(img, method = "histogram",
   method <- match.arg(tolower(method), c("kmeans", "histogram"))
 
   # if 'img' is a filepath, read in image
-  if (is.character(img) & file.exists(img)) {
-
-    img <- readImage(img, resize = resize, rotate = rotate)
+  if (is.character(img)) {
+    if (file.exists(img)) {
+      img <- readImage(img, resize = resize, rotate = rotate)
+    } else {
+      stop(paste("Could not find", img))
+    }
 
   } else if (!is.array(img) | length(dim(img)) != 3) {
 
