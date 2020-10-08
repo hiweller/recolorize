@@ -139,7 +139,7 @@ recolorize <- function(img, method = "histogram",
   } else if (!is.array(img) | length(dim(img)) != 3) {
 
     # otherwise, make sure it's an image array
-    stop("'img' must be a path or an image or an image array.")
+    stop("'img' must be a path to an image or an image array.")
 
   }
 
@@ -158,9 +158,6 @@ recolorize <- function(img, method = "histogram",
                                   n = n, bins = bins,
                                   color.space = color.space,
                                   ref.white = ref.white)
-
-  # if auto-K
-  # method = "threshold", "whatever"
 
   # recolor based on assignments/centers
   recolored <- recolorImage(bg.indexed, color.clusters,
