@@ -10,7 +10,7 @@ recolorImage(
   plotting = FALSE,
   main = "",
   remove.empty.clusters = FALSE,
-  bg.recolor = "transparent"
+  bg.color = "white"
 )
 }
 \arguments{
@@ -27,8 +27,9 @@ recolorImage(
 \item{remove.empty.clusters}{Logical. If no pixels are assigned to a given
 color cluster, should that cluster be returned by the function, or dropped?}
 
-\item{bg.recolor}{One of either "transparent" or "white", for masking the
-background in the recolored image. See details.}
+\item{bg.color}{A color (either an RGB triplet, hex code, or R color name)
+for the background color. Will not be visible unless the alpha channel is
+removed when plotting; see details.}
 }
 \value{
 A list with the following attributes:
@@ -61,10 +62,12 @@ in the \code{color.clusters} object. This could be useful for a number of things
 such as testing analytical or color clustering robustness, or otherwise
 ruining a nice image with math.
 
-For background masking, the two provided options (white or transparent) will
-look identical when plotted within R. The difference is that transparent
-background masking adds an alpha channel (thus retaining the RGB values of the background),
-while "white" will overwrite those values.
+Note that regardless of input background type, the returned image
+uses the alpha channel to indicate the background, effectively
+storing a background mask in the alpha channel. Users can also
+change the background color by specifying it in the function, but
+it will appear as white unless only the first three channels
+are plotted.
 }
 \examples{
 # load image (recolorize and imposeColors do this automatically)

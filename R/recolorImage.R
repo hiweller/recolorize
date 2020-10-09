@@ -12,8 +12,9 @@
 #' @param main Plot title.
 #' @param remove.empty.clusters Logical. If no pixels are assigned to a given
 #'   color cluster, should that cluster be returned by the function, or dropped?
-#' @param bg.recolor One of either "transparent" or "white", for masking the
-#'   background in the recolored image. See details.
+#' @param bg.color A color (either an RGB triplet, hex code, or R color name)
+#'   for the background color. Will not be visible unless the alpha channel is
+#'   removed when plotting; see details.
 #'
 #' @return
 #' A list with the following attributes:
@@ -41,10 +42,12 @@
 #' such as testing analytical or color clustering robustness, or otherwise
 #' ruining a nice image with math.
 #'
-#' For background masking, the two provided options (white or transparent) will
-#' look identical when plotted within R. The difference is that transparent
-#' background masking adds an alpha channel (thus retaining the RGB values of the background),
-#' while "white" will overwrite those values.
+#' Note that regardless of input background type, the returned image
+#' uses the alpha channel to indicate the background, effectively
+#' storing a background mask in the alpha channel. Users can also
+#' change the background color by specifying it in the function, but
+#' it will appear as white unless only the first three channels
+#' are plotted.
 #'
 #' @examples
 #' # load image (recolorize and imposeColors do this automatically)
@@ -79,7 +82,7 @@
 recolorImage <- function(bg.indexed, color.clusters,
                          plotting = FALSE, main = "",
                          remove.empty.clusters = FALSE,
-                         bg.recolor = "transparent") {
+                         bg.color = "white") {
 
   # just in case...
   if (class(bg.indexed) != "bg.index" |
@@ -89,70 +92,22 @@ recolorImage <- function(bg.indexed, color.clusters,
             respectively")
   }
 
-  # only two options for background recoloring...please...i have looked at
-  # enough magenta backgrounds
-  bg.recolor <- match.arg(bg.recolor, choices = c("transparent", "white"))
+  # first, make a pixel assignment matrix:
+  pixel_assignments <- pixelAssignMatrix(bg.indexed,
+                                         color.clusters)
 
-  # copy non-background pixels to change them
-  pix.recolor <- bg.indexed$non.bg
+  # make an image from the above information:
+  recolored_img <- constructImage(pixel_assignments$pixel_assignments,
+                                  pixel_assignments$color_centers,
+                                  background_color = bg.color)
 
-  # clusters with any pixels assigned to them
-  cluster_idx <- which(color.clusters$sizes != 0)
-
-  # empty centers
-  empty_centers <- which(color.clusters$sizes == 0)
-
-  # for every non-empty cluster:
-  for (i in cluster_idx) {
-
-    # get the new color
-    new_color <- as.matrix(color.clusters$centers[i, ])
-
-    # get pixels assigned to that color
-    pix.idx <- which(color.clusters$pixel.assignments == i)
-
-    # repeat the new color for a substitute matrix
-    replacements <- matrix(new_color, ncol = 3, byrow = TRUE,
-                           nrow = length(pix.idx))
-
-    # and stick it back in!
-    pix.recolor[pix.idx, 1:3] <- replacements
-
-  }
-
-  # slot new pixels back in
-  recolored.img <- bg.indexed$flattened.img
-
-  # if there's no background...
-  if (length(bg.indexed$idx.flat) == 0) {
-
-    recolored.img <- pix.recolor
-
-  } else {
-    recolored.img[-bg.indexed$idx.flat, ] <- pix.recolor
-    # color background in white or transparent
-    if (bg.recolor == "white") {
-
-      recolored.img[bg.indexed$idx.flat, ] <- 1
-
-    } else if (bg.recolor == "transparent") {
-
-      alpha.channel <- rep(1, nrow(recolored.img))
-      alpha.channel[bg.indexed$idx.flat] <- 0
-      recolored.img <- cbind(recolored.img, alpha.channel)
-      colnames(recolored.img) <- NULL
-      bg.indexed$img.dims[3] <- 4
-
-    }
-
-  }
-
-  # reshape
-  dim(recolored.img) <- bg.indexed$img.dims
-
+  # plot if plotting:
   if (plotting) {
-    plotImageArray(recolored.img, main = main)
+    plotImageArray(recolored_img, main = main)
   }
+
+  # just in case:
+  empty_centers <- which(color.clusters$sizes == 0)
 
   # make returnables
   if (length(empty_centers) > 0 & isTRUE(remove.empty.clusters)) {
@@ -160,7 +115,96 @@ recolorImage <- function(bg.indexed, color.clusters,
   } else {
     centers <- color.clusters$centers
   }
-  return(list(recolored.img = recolored.img,
+
+  # return it!
+  return(list(recolored.img = recolored_img,
               centers = centers))
 
 }
+
+#' Make pixel assignment matrix for recoloring
+#'
+#' Internal function. Generates a sort of 'paint-by-numbers' matrix, where each
+#' cell is the index of the color in the color centers matrix to which that
+#' pixel is assigned. An index of 0 indicates a background pixel.
+#'
+#' @param bg_indexed An object returned by \code{\link{backgroundIndex}}.
+#' @param color_clusters An object returned by \code{\link{colorClusters}}.
+#'
+#' @return A matrix of pixel color assignments (`pixel_assignments`)
+#' and a corresponding dataframe of color centers (`color_centers`).
+pixelAssignMatrix <- function(bg_indexed, color_clusters) {
+
+  # make a vector of 0's, one per image pixel
+  pix_assign <- rep(0, nrow(bg_indexed$flattened.img))
+
+  # swap in the color assignments for the pixels
+  pix_assign[-bg_indexed$idx.flat] <- color_clusters$pixel.assignments
+
+  # and reshape:
+  dim(pix_assign) <- bg_indexed$img.dims[1:2]
+
+  # return it!
+  return(list(pixel_assignments = pix_assign,
+              color_centers = color_clusters$centers))
+
+}
+
+
+#' Generate an image from pixel assignments and color matrix
+#'
+#' Combines a matrix of pixel assignments and a corresponding
+#' matrix of colors to make a recolored RGB image.
+#'
+#' @param pixel_assignments A matrix of index values for each pixel which
+#'   corresponds to `color_centers` (e.g. a `1` indicates that pixel is the
+#'   color of the first row of `color_centers`). Pixels with an index value of 0
+#'   are considered background.
+#' @param color_centers An n x 3 matrix of color centers where rows are colors
+#'   and columns are R, G, and B channels.
+#' @param background_color A numeric RGB triplet, a hex code, or a named
+#'   R color for the background. Will be masked by alpha channel (and appear
+#'   white in the plot window), but will be revealed if the alpha
+#'   channel is removed. If the alpha channel is a background mask,
+#'   this is the 'baked in' background color.
+#'
+#' @return An image (raster) array of the recolored image,
+#' with four channels (R, G, B, and alpha).
+#'
+#' @export
+constructImage <- function(pixel_assignments,
+                           color_centers,
+                           background_color = "white") {
+
+  # make two copies of matrix as a cimg object:
+  index_cimg <- imager::as.cimg(pixel_assignments)
+  final_cimg <- index_cimg
+
+  # color the background in
+  # you won't see this unless you remove the alpha layer:
+  final_cimg <- imager::colorise(final_cimg,
+                                 index_cimg == 0,
+                                 background_color)
+
+  # color in every color center:
+  for (i in 1:nrow(color_centers)) {
+    final_cimg <- imager::colorise(final_cimg,
+                                   index_cimg == i,
+                                   color_centers[i, ])
+  }
+
+  # convert to a regular array:
+  as_array <- cimg.to.array(final_cimg)
+
+  # and add an alpha channel:
+  alpha_layer <- pixel_assignments
+  alpha_layer[which(alpha_layer > 0)] <- 1
+  as_array <- abind::abind(as_array,
+                           alpha_layer,
+                           along = 3)
+
+  # beep boop:
+  return(as_array)
+
+}
+
