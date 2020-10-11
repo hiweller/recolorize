@@ -44,7 +44,7 @@
 #'
 #' # to make it easier to see, we can plot the numbered palette:
 #' layout(matrix(1:2, nrow = 1))
-#' plotImageArray(init_fit$recolored.img)
+#' plotImageArray(init_fit$recolored_img)
 #' plotColorPalette(init_fit$centers, horiz = FALSE)
 #'
 #' # based on visual inspection, we should merge:
@@ -100,8 +100,8 @@ mergeLayers <- function(recolorize_obj,
   color_to <- pm$color_to
 
   # convert recolored image to a cimg object
-  cimg_obj <- array.to.cimg(recolorize_obj$recolored.img,
-                                         flatten.alpha = T)
+  cimg_obj <- array_to_cimg(recolorize_obj$recolored_img,
+                                         flatten_alpha = T)
 
   # split the layers
   layers <- recolorize::splitByColor(recolorize_obj,
@@ -115,11 +115,11 @@ mergeLayers <- function(recolorize_obj,
   orig_layers <- which(!(1:length(layers) %in% unlist(merge_list)))
   new_centers <- centers[orig_layers, ]
   new_sizes <- sizes[orig_layers]
-  px_assign <- recolorize_obj$pixel.assignments
+  px_assign <- recolorize_obj$pixel_assignments
 
   if (length(orig_layers) > 0) {
     for (i in 1:length(orig_layers)) {
-      px_assign[which(recolorize_obj$pixel.assignments ==
+      px_assign[which(recolorize_obj$pixel_assignments ==
                   orig_layers[i])] <- i
     }
   }
@@ -162,7 +162,7 @@ mergeLayers <- function(recolorize_obj,
     new_sizes <- c(new_sizes, sum(sizes[merge_vector]))
 
     # change pixel assignments
-    idx <- which(recolorize_obj$pixel.assignments %in% merge_vector)
+    idx <- which(recolorize_obj$pixel_assignments %in% merge_vector)
     px_assign[idx] <- length(orig_layers) + i
 
     # convert to pixset
@@ -179,42 +179,42 @@ mergeLayers <- function(recolorize_obj,
   # convert back to array and add alpha channel
   # i have LEARNED MY LESSON with imager alpha channels
   # (highly unpredictable behavior)
-  as_array <- cimg.to.array(cimg_obj)
+  as_array <- cimg_to_array(cimg_obj)
   as_array <- abind::abind(as_array,
-                           recolorize_obj$recolored.img[ , , 4],
+                           recolorize_obj$recolored_img[ , , 4],
                            along = 3)
 
   # reconstruct the recolorize obj
   merged_obj <- recolorize_obj
-  merged_obj$recolored.img <- as_array
+  merged_obj$recolored_img <- as_array
   merged_obj$method <- paste("merged", merged_obj$method)
   merged_obj$centers <- new_centers
   merged_obj$sizes <- new_sizes
-  merged_obj$pixel.assignments <- px_assign
+  merged_obj$pixel_assignments <- px_assign
 
   if (plotting) {
 
     # be polite
-    user.par <- graphics::par(no.readonly = TRUE)
+    user_par <- graphics::par(no.readonly = TRUE)
 
     # set layout
     graphics::layout(matrix(1:4, nrow = 1),
            widths = c(0.3, 0.2, 0.3, 0.2))
 
     # plot original color map & palette
-    recolorize::plotImageArray(recolorize_obj$recolored.img,
+    recolorize::plotImageArray(recolorize_obj$recolored_img,
                                main = "Recolored original")
     recolorize::plotColorPalette(recolorize_obj$centers,
                                  horiz = FALSE)
 
     # plot new color map & palette
-    recolorize::plotImageArray(merged_obj$recolored.img,
+    recolorize::plotImageArray(merged_obj$recolored_img,
                                main = "Merged image")
     recolorize::plotColorPalette(merged_obj$centers,
                                  horiz = FALSE)
 
     # reset parameters
-    graphics::par(user.par)
+    graphics::par(user_par)
 
   }
 

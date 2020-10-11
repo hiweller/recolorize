@@ -6,10 +6,10 @@
 \usage{
 imposeColors(
   img,
-  color.centers,
-  adjust.centers = TRUE,
-  color.space = "sRGB",
-  ref.white = "D65",
+  color_centers,
+  adjust_centers = TRUE,
+  color_space = "sRGB",
+  ref_white = "D65",
   lower = NULL,
   upper = NULL,
   transparent = TRUE,
@@ -18,26 +18,26 @@ imposeColors(
   rotate = NULL,
   plotting = TRUE,
   horiz = TRUE,
-  cex.text = 1.5,
-  scale.palette = TRUE
+  cex_text = 1.5,
+  scale_palette = TRUE
 )
 }
 \arguments{
 \item{img}{Path to the image (a character vector) or a 3D image array as read
 in by \code{\link[png]{readPNG}} \code{{readImage}}.}
 
-\item{color.centers}{Colors to map to, as an n x 3 matrix (rows = colors,
+\item{color_centers}{Colors to map to, as an n x 3 matrix (rows = colors,
 columns = channels).}
 
-\item{adjust.centers}{Logical. After pixel assignment, should the returned
+\item{adjust_centers}{Logical. After pixel assignment, should the returned
 colors be the average color of the pixels assigned to that cluster, or the
 original colors?}
 
-\item{color.space}{Color space in which to minimize distances, passed to
+\item{color_space}{Color space in which to minimize distances, passed to
 \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
 "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
 
-\item{ref.white}{Reference white for converting to different color spaces.
+\item{ref_white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}
 
 \item{lower, upper}{RGB triplet ranges for setting a bounding box of pixels to
@@ -59,21 +59,21 @@ speed up analysis considerably. See details.}
 \item{horiz}{Logical for plotting. Plot output image and color palette side
 by side (\code{TRUE}) or stacked vertically (\code{FALSE})?}
 
-\item{cex.text}{If \code{plotting = TRUE} and \code{scale.palette = FALSE}, size of
+\item{cex_text}{If \code{plotting = TRUE} and \code{scale_palette = FALSE}, size of
 text to display on the color palette numbers.}
 
-\item{scale.palette}{Logical. If plotting, plot colors in the color palette
+\item{scale_palette}{Logical. If plotting, plot colors in the color palette
 proportional to the size of each cluster?}
 }
 \value{
 A list with the following attributes:
 \enumerate{
-\item \code{original.img}: The original image, as a 3D array.
-\item \code{recolored.img}: The recolored image, as a 3D array.
-\item \code{color.space}: The associated color space. Currently only RGB.
-\item \code{centers}: A matrix of color centers. If \code{adjust.centers = FALSE}, this will be identical to the input \code{color.centers}.
+\item \code{original_img}: The original image, as a 3D array.
+\item \code{recolored_img}: The recolored image, as a 3D array.
+\item \code{color_space}: The associated color space. Currently only RGB.
+\item \code{centers}: A matrix of color centers. If \code{adjust_centers = FALSE}, this will be identical to the input \code{color_centers}.
 \item \code{sizes}: The number of pixels assigned to each color cluster.
-\item \code{pixel.assignments}: A vector of color center assignments for each pixel.
+\item \code{pixel_assignments}: A vector of color center assignments for each pixel.
 }
 }
 \description{
@@ -118,22 +118,22 @@ ocellata <- system.file("extdata/ocellata.png", package = "recolorize")
 
 # map to rgb extremes
 ocellata_fixed <- recolorize::imposeColors(ocellata, ctrs,
-                                            adjust.centers = FALSE)
+                                            adjust_centers = FALSE)
 
 # looks much better if we recalculate the centers from the image
 ocellata_adjusted <- recolorize::imposeColors(ocellata, ctrs,
-                                           adjust.centers = TRUE)
+                                           adjust_centers = TRUE)
 
 # we can map one image to extracted colors from another image
 # extract ocellata colors
-ocellata.colors <- recolorize(ocellata)
+ocellata_colors <- recolorize(ocellata)
 
 # map fulgidissima to ocellata colors
 fulgidissima <- system.file("extdata/fulgidissima.png",
                              package = "recolorize")
 
 fulgidissma_ocellata <- recolorize::imposeColors(fulgidissima,
-                       ocellata.colors$centers,
-                       adjust.centers = FALSE)
+                       ocellata_colors$centers,
+                       adjust_centers = FALSE)
 
 }

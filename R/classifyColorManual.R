@@ -3,7 +3,7 @@
 #' Clusters the colors in an RGB image according to a specified method,
 #' then recolors that image to the simplified color scheme.
 #'
-#' @param img.path Path to the image. Must be a character vector.
+#' @param img_path Path to the image. Must be a character vector.
 #' @param method Method for clustering image colors. One of either `histogram`
 #'   or `kmeans`. See details.
 #' @param n If `method = "kmeans"`, the number of color clusters to fit.
@@ -21,20 +21,20 @@
 #' @param plotting Logical. Plot recolored image & color palette?
 #' @param horiz Logical for plotting. Plot output images and color palette side
 #'   by side (`TRUE`) or stacked vertically (`FALSE`)?
-#' @param scale.palette Logical. If plotting, plot colors in the color palette
+#' @param scale_palette Logical. If plotting, plot colors in the color palette
 #'   proportional to the size of each cluster?
-#' @param cex.text If `plotting = TRUE` and `scale_palette = FALSE`, size of
+#' @param cex_text If `plotting = TRUE` and `scale_palette = FALSE`, size of
 #'   text to display on the color palette numbers.
 #'
 #' @return A list with the following attributes:
 #' \enumerate{
-#'     \item `original.img`: The original image, as a 3D array.
-#'     \item `recolored.img`: The recolored image, as a 3D array.
+#'     \item `original_img`: The original image, as a 3D array.
+#'     \item `recolored_img`: The recolored image, as a 3D array.
 #'     \item `method`: The method (kmeans or histogram) used to bin the colors.
-#'     \item `color.residuals`: Squared residuals, both per pixel and
+#'     \item `color_residuals`: Squared residuals, both per pixel and
 #'     summarized (overall and per cluster), calculated by
 #'      \code{\link{colorResiduals}}.
-#'     \item `color.space`: The associated color space. Currently only RGB.
+#'     \item `color_space`: The associated color space. Currently only RGB.
 #'     \item `centers`: A matrix of color centers. If `adjust.centers =
 #'         FALSE`, this will be identical to the input `color_centers`.
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
@@ -95,85 +95,85 @@
 #' classifyColorManual(img, method = "kmeans", n = 8)
 #'
 #' # increasing numbers of kmean colors
-#' recolored.images <- setNames(vector("list", length = 10), c(1:10))
+#' recolored_images <- setNames(vector("list", length = 10), c(1:10))
 #' for (i in 1:10) {
-#'   recolored.images[[i]] <- classifyColorManual(img, method = "kmeans",
+#'   recolored_images[[i]] <- classifyColorManual(img, method = "kmeans",
 #'                                n = i)
 #' }
 #' layout(matrix(1:10, nrow = 2, byrow = TRUE))
-#' sapply(1:length(recolored.images),
-#'       function(i) hist(recolored.images[[i]]$color.residuals$sq_residuals,
+#' sapply(1:length(recolored_images),
+#'       function(i) hist(recolored_images[[i]]$color_residuals$sq_residuals,
 #'                        border = NA, main = paste(i, "cluster(s)"),
 #'                        freq = FALSE, xlab = "Squared residual",
 #'                        xlim = c(0, 1)))
 #'
-#' residual_vec <- sapply(1:length(recolored.images),
-#'                       function(i) recolored.images[[i]]$color.residuals$tot_residuals)
+#' residual_vec <- sapply(1:length(recolored_images),
+#'                       function(i) recolored_images[[i]]$color_residuals$tot_residuals)
 #' plot(residual_vec, type = 'b',
 #'     ylab = "Sum of squared residuals",
 #'     xlab = "Cluster number")
 #'
 #' # kmeans, 10 colors
-#' kmeans.recolor <- classifyColorManual(img, method = "kmeans",
+#' kmeans_recolor <- classifyColorManual(img, method = "kmeans",
 #'                              n = 8, plotting = FALSE)
-#' hist.recolor <- classifyColorManual(img, method = "hist",
+#' hist_recolor <- classifyColorManual(img, method = "hist",
 #'                            bins = 2, plotting = FALSE)
 #'
 #' # compare binning vs. kmeans clustering
 #' layout(matrix(c(1, 2, 3), ncol = 3))
-#' plotImageArray(kmeans.recolor$original.img, main = "original")
-#' plotImageArray(kmeans.recolor$recolored.img, main = "kmeans")
-#' plotImageArray(hist.recolor$recolored.img, main = "binning")
+#' plotImageArray(kmeans_recolor$original_img, main = "original")
+#' plotImageArray(kmeans_recolor$recolored_img, main = "kmeans")
+#' plotImageArray(hist_recolor$recolored_img, main = "binning")
 #' @export
-classifyColorManual <- function(img.path, method = "histogram",
+classifyColorManual <- function(img_path, method = "histogram",
                        bins = 2, n = 5,
                        lower = NULL, upper = NULL,
                        transparent = TRUE,
                        resize = NULL, rotate = NULL,
                        plotting = TRUE, horiz = TRUE,
-                       cex.text = 1.5, scale.palette = TRUE) {
+                       cex_text = 1.5, scale_palette = TRUE) {
 
   # get method
   method <- match.arg(tolower(method), c("kmeans", "histogram"))
 
   # read in image
-  img <- readImage(img.path, resize = resize, rotate = rotate)
+  img <- readImage(img_path, resize = resize, rotate = rotate)
 
   # make background condition
-  alpha.channel <- dim(img)[3] == 4 # is there a transparency channel?
-  bg.condition <- backgroundCondition(lower = lower, upper = upper,
+  alpha_channel <- dim(img)[3] == 4 # is there a transparency channel?
+  bg_condition <- backgroundCondition(lower = lower, upper = upper,
                                       center = NULL, radius = NULL,
                                       transparent = transparent,
-                                      alpha.channel = alpha.channel)
+                                      alpha_channel = alpha_channel)
 
   # index background
-  bg.indexed <- backgroundIndex(img, bg.condition)
+  bg_indexed <- backgroundIndex(img, bg_condition)
 
   # color clusters & assign pixels
-  color.clusters <- colorClusters(bg.indexed$non.bg, method = method,
+  color_clusters <- colorClusters(bg_indexed$non_bg, method = method,
                                   n = n, bins = bins)
 
   # recolor based on assignments/centers
-  recolored <- recolorImage(bg.indexed, color.clusters,
+  recolored <- recolorImage(bg_indexed, color_clusters,
                             plotting = FALSE,
-                            remove.empty.clusters = FALSE)
+                            remove_empty_clusters = FALSE)
 
   # get sizes vector
-  sizes <- color.clusters$sizes
-  if (scale.palette) { s <- sizes } else { s <- NULL }
+  sizes <- color_clusters$sizes
+  if (scale_palette) { s <- sizes } else { s <- NULL }
 
   # plot result
   if (plotting) {
-    plotRecolorized(recolored$recolored.img, img,
-                    plot.original = TRUE,
+    plotRecolorized(recolored$recolored_img, img,
+                    plot_original = TRUE,
                     recolored$centers, horiz = horiz,
-                    cex.text = cex.text,
+                    cex_text = cex_text,
                     sizes = s)
   }
 
   # returnables:
-  original.img <- img
-  recolored.img <- recolored$recolored.img
+  original_img <- img
+  recolored_img <- recolored$recolored_img
 
   # return binning scheme
   method <- if( method == "kmeans" ) {
@@ -183,23 +183,25 @@ classifyColorManual <- function(img.path, method = "histogram",
   }
 
   # only rgb for now...would others be useful?
-  color.space <- "RGB"
-  centers <- color.clusters$centers
-  pixel.assignments <- color.clusters$pixel.assignments
+  color_space <- "RGB"
+  centers <- color_clusters$centers
+  pixel_assignments <- color_clusters$pixel_assignments
 
   # calculate residuals
-  color.residuals <- colorResiduals(bg.indexed$non.bg,
-                                    color.clusters$pixel.assignments,
+  color_residuals <- colorResiduals(bg_indexed$non_bg,
+                                    color_clusters$pixel_assignments,
                                     centers)
 
   # return em
-  return.list <- list(original.img = original.img,
-                      recolored.img = recolored.img,
+  return_list <- list(original_img = original_img,
+                      recolored_img = recolored_img,
                       method = method,
-                      color.residuals = color.residuals,
-                      color.space = color.space,
+                      color_residuals = color_residuals,
+                      color_space = color_space,
                       centers = centers,
                       sizes = sizes,
-                      pixel.assignments = pixel.assignments)
+                      pixel_assignments = pixel_assignments)
+
+  return(return_list)
 
 }

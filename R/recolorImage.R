@@ -4,22 +4,22 @@
 #' Combines the input of \code{\link[recolorize]{backgroundIndex}} and
 #' \code{\link[recolorize]{colorClusters}}.
 #'
-#' @param bg.indexed An object of class `bg.index`, the output of
+#' @param bg_indexed An object of class `bg_index`, the output of
 #'   \code{\link[recolorize]{backgroundIndex}}.
-#' @param color.clusters An object of class `color.clusters`, the output of
+#' @param color_clusters An object of class `color_clusters`, the output of
 #'   \code{\link[recolorize]{colorClusters}}.
 #' @param plotting Logical. Plot recolored image results?
 #' @param main Plot title.
-#' @param remove.empty.clusters Logical. If no pixels are assigned to a given
+#' @param remove_empty_clusters Logical. If no pixels are assigned to a given
 #'   color cluster, should that cluster be returned by the function, or dropped?
-#' @param bg.color A color (either an RGB triplet, hex code, or R color name)
+#' @param bg_color A color (either an RGB triplet, hex code, or R color name)
 #'   for the background color. Will not be visible unless the alpha channel is
 #'   removed when plotting; see details.
 #'
 #' @return
 #' A list with the following attributes:
 #' \enumerate{
-#'     \item `recolored.img`: The recolored image, as an RGB array.
+#'     \item `recolored_img`: The recolored image, as an RGB array.
 #'     \item `centers`: The colors to which the recolored image were mapped.
 #' }
 #'
@@ -34,11 +34,11 @@
 #'     the pixel assignments.
 #' }
 #'
-#' This is all kept organized by keeping these data together in the `bg.index` and `color.clusters`
+#' This is all kept organized by keeping these data together in the `bg_index` and `color_clusters`
 #' classes, and because this function is mostly called internally by \code{\link[recolorize]{imposeColors}}
 #' and \code{\link[recolorize]{recolorize}}. However, it does present the user
 #' with opportunities to remap colors at random by reshuffling or swapping the color centers
-#' in the `color.clusters` object. This could be useful for a number of things,
+#' in the `color_clusters` object. This could be useful for a number of things,
 #' such as testing analytical or color clustering robustness, or otherwise
 #' ruining a nice image with math.
 #'
@@ -51,55 +51,55 @@
 #'
 #' @examples
 #' # load image (recolorize and imposeColors do this automatically)
-#' img.path <- system.file("extdata/corbetti.png", package = "recolorize")
-#' img <- readImage(img.path)
-#' bg.condition <- backgroundCondition(transparent = TRUE,
-#'                                     alpha.channel = TRUE)
-#' bg.indexed <- backgroundIndex(img, bg.condition)
+#' img_path <- system.file("extdata/corbetti.png", package = "recolorize")
+#' img <- readImage(img_path)
+#' bg_condition <- backgroundCondition(transparent = TRUE,
+#'                                     alpha_channel = TRUE)
+#' bg_indexed <- backgroundIndex(img, bg_condition)
 #'
 #' # histogram binning
-#' hist.colors <- colorClusters(bg.indexed$non.bg,
+#' hist_colors <- colorClusters(bg_indexed$non_bg,
 #'                              method = "hist", bins = 2)
 #'
 #' # shuffle colors
 #' shuffle <- function(m) {
 #'   m[sample(1:nrow(m), nrow(m)), ]
 #' }
-#' hist.shuffle <- hist.colors
-#' hist.shuffle$centers <- shuffle(hist.shuffle$centers)
+#' hist_shuffle <- hist_colors
+#' hist_shuffle$centers <- shuffle(hist_shuffle$centers)
 #'
 #' # recolor based on the two cluster sets
-#' hist.recolor <- recolorImage(bg.indexed, hist.colors)
-#' shuffle.recolor <- recolorImage(bg.indexed, hist.shuffle)
+#' hist_recolor <- recolorImage(bg_indexed, hist_colors)
+#' shuffle_recolor <- recolorImage(bg_indexed, hist_shuffle)
 #'
 #' # plot them
 #' layout(matrix(c(1, 2, 3), ncol = 3))
 #' plotImageArray(img, main = "original")
-#' plotImageArray(hist.recolor$recolored.img, main = "binning")
-#' plotImageArray(shuffle.recolor$recolored.img, main = "shuffled colors")
+#' plotImageArray(hist_recolor$recolored_img, main = "binning")
+#' plotImageArray(shuffle_recolor$recolored_img, main = "shuffled colors")
 #'
 #' @export
-recolorImage <- function(bg.indexed, color.clusters,
+recolorImage <- function(bg_indexed, color_clusters,
                          plotting = FALSE, main = "",
-                         remove.empty.clusters = FALSE,
-                         bg.color = "white") {
+                         remove_empty_clusters = FALSE,
+                         bg_color = "white") {
 
   # just in case...
-  if (class(bg.indexed) != "bg.index" |
-      class(color.clusters) != "color.clusters") {
-    warning("bg.index and color.clusters should be
+  if (class(bg_indexed) != "bg_index" |
+      class(color_clusters) != "color_clusters") {
+    warning("bg_index and color_clusters should be
             the output of backgroundIndex() and colorClusters(),
             respectively")
   }
 
   # first, make a pixel assignment matrix:
-  pixel_assignments <- pixelAssignMatrix(bg.indexed,
-                                         color.clusters)
+  pixel_assignments <- pixelAssignMatrix(bg_indexed,
+                                         color_clusters)
 
   # make an image from the above information:
   recolored_img <- constructImage(pixel_assignments$pixel_assignments,
                                   pixel_assignments$color_centers,
-                                  background_color = bg.color)
+                                  background_color = bg_color)
 
   # plot if plotting:
   if (plotting) {
@@ -107,17 +107,17 @@ recolorImage <- function(bg.indexed, color.clusters,
   }
 
   # just in case:
-  empty_centers <- which(color.clusters$sizes == 0)
+  empty_centers <- which(color_clusters$sizes == 0)
 
   # make returnables
-  if (length(empty_centers) > 0 & isTRUE(remove.empty.clusters)) {
-    centers <- color.clusters$centers[-empty_centers, ]
+  if (length(empty_centers) > 0 & isTRUE(remove_empty_clusters)) {
+    centers <- color_clusters$centers[-empty_centers, ]
   } else {
-    centers <- color.clusters$centers
+    centers <- color_clusters$centers
   }
 
   # return it!
-  return(list(recolored.img = recolored_img,
+  return(list(recolored_img = recolored_img,
               centers = centers))
 
 }
@@ -136,13 +136,13 @@ recolorImage <- function(bg.indexed, color.clusters,
 pixelAssignMatrix <- function(bg_indexed, color_clusters) {
 
   # make a vector of 0's, one per image pixel
-  pix_assign <- rep(0, nrow(bg_indexed$flattened.img))
+  pix_assign <- rep(0, nrow(bg_indexed$flattened_img))
 
   # swap in the color assignments for the pixels
-  pix_assign[-bg_indexed$idx.flat] <- color_clusters$pixel.assignments
+  pix_assign[-bg_indexed$idx_flat] <- color_clusters$pixel_assignments
 
   # and reshape:
-  dim(pix_assign) <- bg_indexed$img.dims[1:2]
+  dim(pix_assign) <- bg_indexed$img_dims[1:2]
 
   # return it!
   return(list(pixel_assignments = pix_assign,
@@ -194,7 +194,7 @@ constructImage <- function(pixel_assignments,
   }
 
   # convert to a regular array:
-  as_array <- cimg.to.array(final_cimg)
+  as_array <- cimg_to_array(final_cimg)
 
   # and add an alpha channel:
   alpha_layer <- pixel_assignments

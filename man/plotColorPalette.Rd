@@ -4,19 +4,19 @@
 \alias{plotColorPalette}
 \title{Plot a color palette}
 \usage{
-plotColorPalette(color.centers, sizes = NULL, cex.text = 2, horiz = TRUE, ...)
+plotColorPalette(color_centers, sizes = NULL, cex_text = 2, horiz = TRUE, ...)
 }
 \arguments{
-\item{color.centers}{Colors to plot in palette. Accepts either a character
+\item{color_centers}{Colors to plot in palette. Accepts either a character
 vector of hex codes or an n x 3 matrix (rows = colors, columns =
 channels). Assumes RGB in 0-1 range.}
 
 \item{sizes}{An optional numeric vector of sizes for scaling each color. If
 no sizes are provided, colors are plotted in equal proportions.}
 
-\item{cex.text}{Size of the numbers displayed on each color, relative to the
+\item{cex_text}{Size of the numbers displayed on each color, relative to the
 default. Passed to \code{\link[graphics]{barplot}}. Text is only plotted if
-\code{sizes = NULL}. \code{cex.text = 0} will remove numbering.}
+\code{sizes = NULL}. \code{cex_text = 0} will remove numbering.}
 
 \item{horiz}{Logical. Should the palette be plotted vertically or
 horizontally?}
@@ -33,20 +33,20 @@ so users working in other colorspaces should convert to RGB before plotting.
 }
 \examples{
 # plot 10 random colors
-rand.colors <- matrix(runif(30), ncol = 3)
-plotColorPalette(rand.colors)
+rand_colors <- matrix(runif(30), ncol = 3)
+plotColorPalette(rand_colors)
 
 # plot 10 random colors with arbitrary sizes
 sizes <- runif(10, max = 1000)
-plotColorPalette(rand.colors, sizes = sizes)
+plotColorPalette(rand_colors, sizes = sizes)
 
 # reorder to plot smallest to largest
-size.order <- order(sizes)
-plotColorPalette(rand.colors[size.order, ],
-                 sizes[size.order])
+size_order <- order(sizes)
+plotColorPalette(rand_colors[size_order, ],
+                 sizes[size_order])
 
 # plot a vector of hex colors, turn off numbering
-hex_colors <- rgb(rand.colors)
-plotColorPalette(hex_colors, cex.text = 0)
+hex_colors <- rgb(rand_colors)
+plotColorPalette(hex_colors, cex_text = 0)
 
 }

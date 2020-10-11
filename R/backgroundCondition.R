@@ -8,17 +8,17 @@
 #'   pixels within a spherical range.
 #' @param transparent Logical or `NULL`. Use transparency to mask? Requires an
 #'   alpha channel.
-#' @param alpha.channel Logical. Is there an alpha channel?
+#' @param alpha_channel Logical. Is there an alpha channel?
 #' @param quietly Logical. Print a message about background masking parameters?
 #'
 #' @return
 #' A list with background masking parameters. Can be one of 4 classes:
 #' \enumerate{
-#'     \item `bg.rect`: If `lower` and `upper` are specified.
-#'     \item `bg.sphere`: If `center` and `radius` are specified.
-#'     \item `bg.t`: If `transparent` is `TRUE` and there is an alpha channel
+#'     \item `bg_rect`: If `lower` and `upper` are specified.
+#'     \item `bg_sphere`: If `center` and `radius` are specified.
+#'     \item `bg_t`: If `transparent` is `TRUE` and there is an alpha channel
 #'     with transparent pixels.
-#'     \item `bg.none`: If no background masking is specified (or transparency
+#'     \item `bg_none`: If no background masking is specified (or transparency
 #'     was specified but there are no transparent pixels).
 #' }
 #'
@@ -37,37 +37,37 @@
 #' backgroundCondition(lower = rep(0.9, 3), upper = rep(1, 3), quietly = FALSE)
 #'
 #' # masking transparent pixels:
-#' backgroundCondition(transparent = TRUE, alpha.channel = TRUE, quietly = FALSE)
+#' backgroundCondition(transparent = TRUE, alpha_channel = TRUE, quietly = FALSE)
 #'
 #' # oops, no alpha channel:
-#' backgroundCondition(transparent = TRUE, alpha.channel = FALSE, quietly = FALSE)
+#' backgroundCondition(transparent = TRUE, alpha_channel = FALSE, quietly = FALSE)
 #'
 #' # oops, no alpha channel, but with white background as a fallback:
 #' backgroundCondition(lower = rep(0.9, 3), upper = rep(1, 3),
-#'                     transparent = TRUE, alpha.channel = FALSE,
+#'                     transparent = TRUE, alpha_channel = FALSE,
 #'                     quietly = FALSE)
 #'
 #' @export
 backgroundCondition <- function(lower = NULL, upper = NULL,
                                 center = NULL, radius = NULL,
                                 transparent = NULL,
-                                alpha.channel = FALSE,
+                                alpha_channel = FALSE,
                                 quietly = TRUE) {
 
   # shut up...this makes sense
-  if (!isTRUE(alpha.channel)) {
-    alpha.channel <- NULL
+  if (!isTRUE(alpha_channel)) {
+    alpha_channel <- NULL
   }
 
   # put potential background conditions into a list
-  args.list <- list(lower = lower, upper = upper,
+  args_list <- list(lower = lower, upper = upper,
                     center = center, radius = radius,
                     transparent = transparent,
-                    alpha.channel = alpha.channel)
+                    alpha_channel = alpha_channel)
 
   # make a vector of which values are NOT NULL
-  null.count <- which(!unlist(lapply(args.list, is.null)))
-  null.count <- paste(null.count, collapse = "")
+  null_count <- which(!unlist(lapply(args_list, is.null)))
+  null_count <- paste(null_count, collapse = "")
 
   # these combinations are allowed:
   combos <- data.frame(vec = c("", # no background
@@ -81,15 +81,15 @@ backgroundCondition <- function(lower = NULL, upper = NULL,
 
 
   # do the supplied arguments fit one of these combinations?
-  category.idx <- match(null.count, combos$vec)
+  category_idx <- match(null_count, combos$vec)
 
   # if they don't, mask nothing
-  if (is.na(category.idx)) {
+  if (is.na(category_idx)) {
     warning("Could not parse background parameters; no pixels will be masked")
     category <- "none"
   } else {
     # otherwise, we have our bg category!
-    category <- combos$category[category.idx]
+    category <- combos$category[category_idx]
   }
 
   # for each category: define background condition
@@ -97,14 +97,14 @@ backgroundCondition <- function(lower = NULL, upper = NULL,
   # provide message if quietly = FALSE
   if (category == "transparent") {
 
-    bg.condition <- "transparent"
-    class(bg.condition) <- "bg.t"
+    bg_condition <- "transparent"
+    class(bg_condition) <- "bg_t"
     msg <- "Using transparency to mask pixels"
 
   } else if (category == "rect") {
 
-    bg.condition <- list(lower = lower, upper = upper)
-    class(bg.condition) <- "bg.rect"
+    bg_condition <- list(lower = lower, upper = upper)
+    class(bg_condition) <- "bg_rect"
     msg <- paste("Masking pixels in range:\n",
                    paste("R: ", paste(lower[1], "-", upper[1], sep = ""),
                          "; G: ", paste(lower[2], "-", upper[2], sep = ""),
@@ -113,16 +113,16 @@ backgroundCondition <- function(lower = NULL, upper = NULL,
 
   } else if (category == "sphere") {
 
-    bg.condition <- list(center = center, radius = radius)
-    class(bg.condition) <- "bg.sphere"
+    bg_condition <- list(center = center, radius = radius)
+    class(bg_condition) <- "bg_sphere"
     msg <- paste("Masking pixels in range:\n",
                  paste("Center: ", paste(center, collapse = ", "),
                        " +/- ", radius * 100, "%", sep = ""))
 
   } else if (category == "none") {
 
-    bg.condition <- NA
-    class(bg.condition) <- "bg.none"
+    bg_condition <- NA
+    class(bg_condition) <- "bg_none"
     msg <- "Using all pixels"
 
   } else {
@@ -136,7 +136,7 @@ backgroundCondition <- function(lower = NULL, upper = NULL,
   if (!quietly) { message(msg) }
 
   # return background
-  return(bg.condition)
+  return(bg_condition)
 
 }
 

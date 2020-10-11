@@ -9,8 +9,8 @@ recolorize(
   method = "histogram",
   bins = 2,
   n = 5,
-  color.space = "sRGB",
-  ref.white = "D65",
+  color_space = "sRGB",
+  ref_white = "D65",
   lower = NULL,
   upper = NULL,
   transparent = TRUE,
@@ -19,8 +19,8 @@ recolorize(
   rotate = NULL,
   plotting = TRUE,
   horiz = TRUE,
-  cex.text = 1.5,
-  scale.palette = TRUE
+  cex_text = 1.5,
+  scale_palette = TRUE
 )
 }
 \arguments{
@@ -36,11 +36,11 @@ number of bins for each channel.}
 
 \item{n}{If \code{method = "kmeans"}, the number of color clusters to fit.}
 
-\item{color.space}{Color space in which to minimize distances, passed to
+\item{color_space}{Color space in which to minimize distances, passed to
 \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
 Default is "Lab", a perceptually uniform (for humans) color space.}
 
-\item{ref.white}{Reference white for converting to different color spaces.
+\item{ref_white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}
 
 \item{lower, upper}{RGB triplet ranges for setting a bounding box of pixels to
@@ -62,20 +62,20 @@ speed up analysis considerably. See details.}
 \item{horiz}{Logical for plotting. Plot output image and color palette side
 by side (\code{TRUE}) or stacked vertically (\code{FALSE})?}
 
-\item{cex.text}{If \code{plotting = TRUE} and \code{scale.palette = FALSE}, size of
+\item{cex_text}{If \code{plotting = TRUE} and \code{scale_palette = FALSE}, size of
 text to display on the color palette numbers.}
 
-\item{scale.palette}{Logical. If plotting, plot colors in the color palette
+\item{scale_palette}{Logical. If plotting, plot colors in the color palette
 proportional to the size of each cluster?}
 }
 \value{
 A list with the following attributes:
 \enumerate{
-\item \code{original.img}: The original image, as a 3D array.
-\item \code{recolored.img}: The recolored image, as a 3D array.
-\item \code{centers}: A matrix of color centers. If \code{adjust.centers = FALSE}, this will be identical to the input \code{color.centers}.
+\item \code{original_img}: The original image, as a 3D array.
+\item \code{recolored_img}: The recolored image, as a 3D array.
+\item \code{centers}: A matrix of color centers. If \code{adjust_centers = FALSE}, this will be identical to the input \code{color_centers}.
 \item \code{sizes}: The number of pixels assigned to each color cluster.
-\item \code{pixel.assignments}: A vector of color center assignments for each pixel.
+\item \code{pixel_assignments}: A vector of color center assignments for each pixel.
 }
 }
 \description{
@@ -135,21 +135,21 @@ recolorize(img, bins = c(1, 1, 4)) # mostly blue
 recolorize(img, method = "kmeans", n = 8)
 
 # increasing numbers of kmean colors
-recolored.images <- setNames(vector("list", length = 10), c(1:10))
+recolored_images <- setNames(vector("list", length = 10), c(1:10))
 for (i in 1:10) {
-  kmeans.recolor <- recolorize(img, method = "kmeans",
+  kmeans_recolor <- recolorize(img, method = "kmeans",
                                n = i)
 }
 
 # kmeans, 10 colors
-kmeans.recolor <- recolorize(img, method = "kmeans",
+kmeans_recolor <- recolorize(img, method = "kmeans",
                              n = 8, plotting = FALSE)
-hist.recolor <- recolorize(img, method = "hist",
+hist_recolor <- recolorize(img, method = "hist",
                            bins = 2, plotting = FALSE)
 
 # compare binning vs. kmeans clustering
 layout(matrix(c(1, 2, 3), ncol = 3))
-plotImageArray(kmeans.recolor$original.img, main = "original")
-plotImageArray(kmeans.recolor$recolored.img, main = "kmeans")
-plotImageArray(hist.recolor$recolored.img, main = "binning")
+plotImageArray(kmeans_recolor$original_img, main = "original")
+plotImageArray(kmeans_recolor$recolored_img, main = "kmeans")
+plotImageArray(hist_recolor$recolored_img, main = "binning")
 }

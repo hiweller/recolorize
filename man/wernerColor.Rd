@@ -4,10 +4,10 @@
 \alias{wernerColor}
 \title{Remap an image to Werner's nomenclature}
 \usage{
-wernerColor(recolorize.obj, which_img = "original", n_colors = 5)
+wernerColor(recolorize_obj, which_img = "original", n_colors = 5)
 }
 \arguments{
-\item{recolorize.obj}{A recolorize object as returned by
+\item{recolorize_obj}{A recolorize object as returned by
 \code{\link{recolorize}}, \code{\link{recluster}}, or
 \code{\link{imposeColors}}.}
 
@@ -20,13 +20,13 @@ All colors are returned as a normal recolorize object regardless of
 \code{n_colors}; this only affects the plot.}
 }
 \value{
-A recolorize object with an additional list element, \code{werner.names},
+A recolorize object with an additional list element, \code{werner_names},
 listing the Werner color names for each center.
 }
 \description{
 Remaps a recolorize object to the colors in Werner's Nomenclature of Colors
 by Patrick Syme (1821), one of the first attempts at an objective color
-reference in Western science, notably used by Charles Darwin.
+reference in western science, notably used by Charles Darwin.
 }
 \details{
 See \url{https://www.c82.net/werner/} to check out the original colors.

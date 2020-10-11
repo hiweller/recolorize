@@ -4,7 +4,7 @@
 #' \code{\link[imager]{load.image}}, but it strips the depth channel (resulting
 #' in a 3D, not 4D, array). This will probably change.
 #'
-#' @param img.path Path to the image (a string).
+#' @param img_path Path to the image (a string).
 #' @param resize Fraction by which to reduce image size. Important for speed.
 #' @param rotate Number of degrees to rotate the image.
 #'
@@ -18,12 +18,12 @@
 #' plotImageArray(img)
 #'
 #' @export
-readImage <- function(img.path, resize = NULL, rotate = NULL) {
+readImage <- function(img_path, resize = NULL, rotate = NULL) {
 
   # read in image
-  img.ext <- tolower(tools::file_ext(img.path))
-  if (img.ext %in% c("jpeg", "jpg", "png", "bmp")) {
-    img <- imager::load.image(img.path)
+  img_ext <- tolower(tools::file_ext(img_path))
+  if (img_ext %in% c("jpeg", "jpg", "png", "bmp")) {
+    img <- imager::load.image(img_path)
   } else {
     stop("Image must be either JPG, PNG, or BMP")
   }

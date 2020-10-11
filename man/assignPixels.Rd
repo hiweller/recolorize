@@ -5,33 +5,33 @@
 \title{Assign a 2D matrix of pixels to specified colors}
 \usage{
 assignPixels(
-  color.centers,
-  pixel.matrix,
-  color.space = "Lab",
-  ref.white = "D65",
-  adjust.centers = TRUE
+  color_centers,
+  pixel_matrix,
+  color_space = "Lab",
+  ref_white = "D65",
+  adjust_centers = TRUE
 )
 }
 \arguments{
-\item{color.centers}{Matrix of color centers (rows = colors, columns = channels).}
+\item{color_centers}{Matrix of color centers (rows = colors, columns = channels).}
 
-\item{pixel.matrix}{Matrix of pixel colors (rows = pixels, columns = channels).}
+\item{pixel_matrix}{Matrix of pixel colors (rows = pixels, columns = channels).}
 
-\item{color.space}{Color space in which to minimize distances, passed to
+\item{color_space}{Color space in which to minimize distances, passed to
 \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
 "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
 
-\item{ref.white}{Reference white for converting to different color spaces.
+\item{ref_white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}
 
-\item{adjust.centers}{Logical. Should the returned color clusters be the
+\item{adjust_centers}{Logical. Should the returned color clusters be the
 average value of the pixels assigned to that cluster? See details.}
 }
 \value{
-A list of class \code{color.clusters}, containing:
+A list of class \code{color_clusters}, containing:
 \enumerate{
-\item \code{pixel.assignments}: The color center assignment for each pixel.
-\item \code{centers}: A matrix of color centers. If \code{adjust.centers = FALSE}, this will be identical to the input of \code{color.centers}.
+\item \code{pixel_assignments}: The color center assignment for each pixel.
+\item \code{centers}: A matrix of color centers. If \code{adjust_centers = FALSE}, this will be identical to the input of \code{color_centers}.
 \item \code{sizes}: The number of pixels assigned to each cluster.
 }
 }
@@ -40,7 +40,7 @@ Assign a 2D matrix of pixels to specified colors
 }
 \details{
 This is a largely internal function called by \code{\link[recolorize]{imposeColors}}
-for recoloring an image based on extrinsic colors. If \code{adjust.centers = TRUE},
+for recoloring an image based on extrinsic colors. If \code{adjust_centers = TRUE},
 then after assigning pixels to given color centers, the location of each color center
 is replaced by the average color of all the pixels assigned to that center.
 }
@@ -60,14 +60,14 @@ ctrs <- matrix(c(1, 1, 1,
 recolorize::plotColorPalette(ctrs)
 
 # create a pixel matrix of random colors
-pixel.matrix <- matrix(runif(3000), ncol = 3)
+pixel_matrix <- matrix(runif(3000), ncol = 3)
 
 # assign pixels
-reassigned <- recolorize::assignPixels(ctrs, pixel.matrix, adjust.centers = TRUE)
+reassigned <- recolorize::assignPixels(ctrs, pixel_matrix, adjust_centers = TRUE)
 recolorize::plotColorPalette(reassigned$centers)
 
-# if we turn off adjust.centers, the colors remain the same as the inputs:
-keep.centers <- recolorize::assignPixels(ctrs, pixel.matrix, adjust.centers = FALSE)
+# if we turn off adjust_centers, the colors remain the same as the inputs:
+keep.centers <- recolorize::assignPixels(ctrs, pixel_matrix, adjust_centers = FALSE)
 recolorize::plotColorPalette(keep.centers$centers)
 
 }

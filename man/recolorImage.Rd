@@ -5,36 +5,36 @@
 \title{Recolor an image after color clustering}
 \usage{
 recolorImage(
-  bg.indexed,
-  color.clusters,
+  bg_indexed,
+  color_clusters,
   plotting = FALSE,
   main = "",
-  remove.empty.clusters = FALSE,
-  bg.color = "white"
+  remove_empty_clusters = FALSE,
+  bg_color = "white"
 )
 }
 \arguments{
-\item{bg.indexed}{An object of class \code{bg.index}, the output of
+\item{bg_indexed}{An object of class \code{bg_index}, the output of
 \code{\link[recolorize]{backgroundIndex}}.}
 
-\item{color.clusters}{An object of class \code{color.clusters}, the output of
+\item{color_clusters}{An object of class \code{color_clusters}, the output of
 \code{\link[recolorize]{colorClusters}}.}
 
 \item{plotting}{Logical. Plot recolored image results?}
 
 \item{main}{Plot title.}
 
-\item{remove.empty.clusters}{Logical. If no pixels are assigned to a given
+\item{remove_empty_clusters}{Logical. If no pixels are assigned to a given
 color cluster, should that cluster be returned by the function, or dropped?}
 
-\item{bg.color}{A color (either an RGB triplet, hex code, or R color name)
+\item{bg_color}{A color (either an RGB triplet, hex code, or R color name)
 for the background color. Will not be visible unless the alpha channel is
 removed when plotting; see details.}
 }
 \value{
 A list with the following attributes:
 \enumerate{
-\item \code{recolored.img}: The recolored image, as an RGB array.
+\item \code{recolored_img}: The recolored image, as an RGB array.
 \item \code{centers}: The colors to which the recolored image were mapped.
 }
 }
@@ -54,11 +54,11 @@ the pixel assignments
 the pixel assignments.
 }
 
-This is all kept organized by keeping these data together in the \code{bg.index} and \code{color.clusters}
+This is all kept organized by keeping these data together in the \code{bg_index} and \code{color_clusters}
 classes, and because this function is mostly called internally by \code{\link[recolorize]{imposeColors}}
 and \code{\link[recolorize]{recolorize}}. However, it does present the user
 with opportunities to remap colors at random by reshuffling or swapping the color centers
-in the \code{color.clusters} object. This could be useful for a number of things,
+in the \code{color_clusters} object. This could be useful for a number of things,
 such as testing analytical or color clustering robustness, or otherwise
 ruining a nice image with math.
 
@@ -71,31 +71,31 @@ are plotted.
 }
 \examples{
 # load image (recolorize and imposeColors do this automatically)
-img.path <- system.file("extdata/corbetti.png", package = "recolorize")
-img <- readImage(img.path)
-bg.condition <- backgroundCondition(transparent = TRUE,
-                                    alpha.channel = TRUE)
-bg.indexed <- backgroundIndex(img, bg.condition)
+img_path <- system.file("extdata/corbetti.png", package = "recolorize")
+img <- readImage(img_path)
+bg_condition <- backgroundCondition(transparent = TRUE,
+                                    alpha_channel = TRUE)
+bg_indexed <- backgroundIndex(img, bg_condition)
 
 # histogram binning
-hist.colors <- colorClusters(bg.indexed$non.bg,
+hist_colors <- colorClusters(bg_indexed$non_bg,
                              method = "hist", bins = 2)
 
 # shuffle colors
 shuffle <- function(m) {
   m[sample(1:nrow(m), nrow(m)), ]
 }
-hist.shuffle <- hist.colors
-hist.shuffle$centers <- shuffle(hist.shuffle$centers)
+hist_shuffle <- hist_colors
+hist_shuffle$centers <- shuffle(hist_shuffle$centers)
 
 # recolor based on the two cluster sets
-hist.recolor <- recolorImage(bg.indexed, hist.colors)
-shuffle.recolor <- recolorImage(bg.indexed, hist.shuffle)
+hist_recolor <- recolorImage(bg_indexed, hist_colors)
+shuffle_recolor <- recolorImage(bg_indexed, hist_shuffle)
 
 # plot them
 layout(matrix(c(1, 2, 3), ncol = 3))
 plotImageArray(img, main = "original")
-plotImageArray(hist.recolor$recolored.img, main = "binning")
-plotImageArray(shuffle.recolor$recolored.img, main = "shuffled colors")
+plotImageArray(hist_recolor$recolored_img, main = "binning")
+plotImageArray(shuffle_recolor$recolored_img, main = "shuffled colors")
 
 }

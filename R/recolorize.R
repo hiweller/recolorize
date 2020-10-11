@@ -11,10 +11,10 @@
 #' @param bins If `method = "histogram"`, either the number of bins per color
 #'   channel (if a single number is provided) OR a vector of length 3 with the
 #'   number of bins for each channel.
-#' @param color.space Color space in which to minimize distances, passed to
+#' @param color_space Color space in which to minimize distances, passed to
 #'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
 #'   Default is "Lab", a perceptually uniform (for humans) color space.
-#' @param ref.white Reference white for converting to different color spaces.
+#' @param ref_white Reference white for converting to different color spaces.
 #'   D65 (the default) corresponds to standard daylight.
 #' @param lower,upper RGB triplet ranges for setting a bounding box of pixels to
 #'   mask. See details.
@@ -29,19 +29,19 @@
 #' @param plotting Logical. Plot recolored image & color palette?
 #' @param horiz Logical for plotting. Plot output image and color palette side
 #'   by side (`TRUE`) or stacked vertically (`FALSE`)?
-#' @param scale.palette Logical. If plotting, plot colors in the color palette
+#' @param scale_palette Logical. If plotting, plot colors in the color palette
 #'   proportional to the size of each cluster?
-#' @param cex.text If `plotting = TRUE` and `scale.palette = FALSE`, size of
+#' @param cex_text If `plotting = TRUE` and `scale_palette = FALSE`, size of
 #'   text to display on the color palette numbers.
 #'
 #' @return A list with the following attributes:
 #' \enumerate{
-#'     \item `original.img`: The original image, as a 3D array.
-#'     \item `recolored.img`: The recolored image, as a 3D array.
-#'     \item `centers`: A matrix of color centers. If `adjust.centers =
-#'         FALSE`, this will be identical to the input `color.centers`.
+#'     \item `original_img`: The original image, as a 3D array.
+#'     \item `recolored_img`: The recolored image, as a 3D array.
+#'     \item `centers`: A matrix of color centers. If `adjust_centers =
+#'         FALSE`, this will be identical to the input `color_centers`.
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
-#'     \item `pixel.assignments`: A vector of color center assignments for each pixel.
+#'     \item `pixel_assignments`: A vector of color center assignments for each pixel.
 #' }
 #'
 #' @details
@@ -97,33 +97,33 @@
 #' recolorize(img, method = "kmeans", n = 8)
 #'
 #' # increasing numbers of kmean colors
-#' recolored.images <- setNames(vector("list", length = 10), c(1:10))
+#' recolored_images <- setNames(vector("list", length = 10), c(1:10))
 #' for (i in 1:10) {
-#'   kmeans.recolor <- recolorize(img, method = "kmeans",
+#'   kmeans_recolor <- recolorize(img, method = "kmeans",
 #'                                n = i)
 #' }
 #'
 #' # kmeans, 10 colors
-#' kmeans.recolor <- recolorize(img, method = "kmeans",
+#' kmeans_recolor <- recolorize(img, method = "kmeans",
 #'                              n = 8, plotting = FALSE)
-#' hist.recolor <- recolorize(img, method = "hist",
+#' hist_recolor <- recolorize(img, method = "hist",
 #'                            bins = 2, plotting = FALSE)
 #'
 #' # compare binning vs. kmeans clustering
 #' layout(matrix(c(1, 2, 3), ncol = 3))
-#' plotImageArray(kmeans.recolor$original.img, main = "original")
-#' plotImageArray(kmeans.recolor$recolored.img, main = "kmeans")
-#' plotImageArray(hist.recolor$recolored.img, main = "binning")
+#' plotImageArray(kmeans_recolor$original_img, main = "original")
+#' plotImageArray(kmeans_recolor$recolored_img, main = "kmeans")
+#' plotImageArray(hist_recolor$recolored_img, main = "binning")
 #' @export
 recolorize <- function(img, method = "histogram",
                        bins = 2, n = 5,
-                       color.space = "sRGB", ref.white = "D65",
+                       color_space = "sRGB", ref_white = "D65",
                        lower = NULL, upper = NULL,
                        transparent = TRUE,
                        resid = FALSE,
                        resize = NULL, rotate = NULL,
                        plotting = TRUE, horiz = TRUE,
-                       cex.text = 1.5, scale.palette = TRUE) {
+                       cex_text = 1.5, scale_palette = TRUE) {
 
   # get method
   method <- match.arg(tolower(method), c("kmeans", "histogram"))
@@ -144,42 +144,42 @@ recolorize <- function(img, method = "histogram",
   }
 
   # make background condition
-  alpha.channel <- dim(img)[3] == 4 # is there a transparency channel?
-  bg.condition <- backgroundCondition(lower = lower, upper = upper,
+  alpha_channel <- dim(img)[3] == 4 # is there a transparency channel?
+  bg_condition <- backgroundCondition(lower = lower, upper = upper,
                                       center = NULL, radius = NULL,
                                       transparent = transparent,
-                                      alpha.channel = alpha.channel)
+                                      alpha_channel = alpha_channel)
 
   # index background
-  bg.indexed <- backgroundIndex(img, bg.condition)
+  bg_indexed <- backgroundIndex(img, bg_condition)
 
   # color clusters & assign pixels
-  color.clusters <- colorClusters(bg.indexed$non.bg, method = method,
+  color_clusters <- colorClusters(bg_indexed$non_bg, method = method,
                                   n = n, bins = bins,
-                                  color.space = color.space,
-                                  ref.white = ref.white)
+                                  color_space = color_space,
+                                  ref_white = ref_white)
 
   # recolor based on assignments/centers
-  recolored <- recolorImage(bg.indexed, color.clusters,
+  recolored <- recolorImage(bg_indexed, color_clusters,
                             plotting = FALSE,
-                            remove.empty.clusters = FALSE)
+                            remove_empty_clusters = FALSE)
 
   # get sizes vector
-  sizes <- color.clusters$sizes
-  if (scale.palette) { s <- sizes } else { s <- NULL }
+  sizes <- color_clusters$sizes
+  if (scale_palette) { s <- sizes } else { s <- NULL }
 
   # plot result
   if (plotting) {
-    plotRecolorized(recolored$recolored.img, img,
-                    plot.original = TRUE,
+    plotRecolorized(recolored$recolored_img, img,
+                    plot_original = TRUE,
                     recolored$centers, horiz = horiz,
-                    cex.text = cex.text,
+                    cex_text = cex_text,
                     sizes = s)
   }
 
   # returnables:
-  original.img <- img
-  recolored.img <- recolored$recolored.img
+  original_img <- img
+  recolored_img <- recolored$recolored_img
 
   # return binning scheme
   method <- if( method == "kmeans" ) {
@@ -189,30 +189,30 @@ recolorize <- function(img, method = "histogram",
   }
 
   # only rgb for now...would others be useful?
-  centers <- color.clusters$centers
-  pixel.assignments <- color.clusters$pixel.assignments
+  centers <- color_clusters$centers
+  pixel_assignments <- color_clusters$pixel_assignments
 
   # return em
-  return.list <- list(original.img = original.img,
-                      recolored.img = recolored.img,
+  return_list <- list(original_img = original_img,
+                      recolored_img = recolored_img,
                       method = method,
-                      color.space = color.space,
+                      color_space = color_space,
                       centers = centers,
                       sizes = sizes,
-                      pixel.assignments = pixel.assignments)
+                      pixel_assignments = pixel_assignments)
 
   # get residuals if TRUE
   if (resid) {
-    return.list$resids <- colorResiduals(bg.indexed$non.bg,
-                                         color.clusters$pixel.assignments,
+    return_list$resids <- colorResiduals(bg_indexed$non_bg,
+                                         color_clusters$pixel_assignments,
                                          centers)
   }
 
 
   # set class
-  class(return.list) <- "recolorize"
+  class(return_list) <- "recolorize"
 
   # and...you know
-  return(return.list)
+  return(return_list)
 
 }

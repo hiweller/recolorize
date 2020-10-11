@@ -5,7 +5,7 @@
 \title{Simplify the colors of an image with user-specified parameters}
 \usage{
 classifyColorManual(
-  img.path,
+  img_path,
   method = "histogram",
   bins = 2,
   n = 5,
@@ -16,12 +16,12 @@ classifyColorManual(
   rotate = NULL,
   plotting = TRUE,
   horiz = TRUE,
-  cex.text = 1.5,
-  scale.palette = TRUE
+  cex_text = 1.5,
+  scale_palette = TRUE
 )
 }
 \arguments{
-\item{img.path}{Path to the image. Must be a character vector.}
+\item{img_path}{Path to the image. Must be a character vector.}
 
 \item{method}{Method for clustering image colors. One of either \code{histogram}
 or \code{kmeans}. See details.}
@@ -48,22 +48,22 @@ speed up analysis considerably. See details.}
 \item{horiz}{Logical for plotting. Plot output images and color palette side
 by side (\code{TRUE}) or stacked vertically (\code{FALSE})?}
 
-\item{cex.text}{If \code{plotting = TRUE} and \code{scale_palette = FALSE}, size of
+\item{cex_text}{If \code{plotting = TRUE} and \code{scale_palette = FALSE}, size of
 text to display on the color palette numbers.}
 
-\item{scale.palette}{Logical. If plotting, plot colors in the color palette
+\item{scale_palette}{Logical. If plotting, plot colors in the color palette
 proportional to the size of each cluster?}
 }
 \value{
 A list with the following attributes:
 \enumerate{
-\item \code{original.img}: The original image, as a 3D array.
-\item \code{recolored.img}: The recolored image, as a 3D array.
+\item \code{original_img}: The original image, as a 3D array.
+\item \code{recolored_img}: The recolored image, as a 3D array.
 \item \code{method}: The method (kmeans or histogram) used to bin the colors.
-\item \code{color.residuals}: Squared residuals, both per pixel and
+\item \code{color_residuals}: Squared residuals, both per pixel and
 summarized (overall and per cluster), calculated by
 \code{\link{colorResiduals}}.
-\item \code{color.space}: The associated color space. Currently only RGB.
+\item \code{color_space}: The associated color space. Currently only RGB.
 \item \code{centers}: A matrix of color centers. If \code{adjust.centers = FALSE}, this will be identical to the input \code{color_centers}.
 \item \code{sizes}: The number of pixels assigned to each color cluster.
 \item \code{pixel_assignments}: A vector of color center assignments for each pixel.
@@ -127,33 +127,33 @@ classifyColorManual(img, bins = c(1, 1, 4)) # mostly blue
 classifyColorManual(img, method = "kmeans", n = 8)
 
 # increasing numbers of kmean colors
-recolored.images <- setNames(vector("list", length = 10), c(1:10))
+recolored_images <- setNames(vector("list", length = 10), c(1:10))
 for (i in 1:10) {
-  recolored.images[[i]] <- classifyColorManual(img, method = "kmeans",
+  recolored_images[[i]] <- classifyColorManual(img, method = "kmeans",
                                n = i)
 }
 layout(matrix(1:10, nrow = 2, byrow = TRUE))
-sapply(1:length(recolored.images),
-      function(i) hist(recolored.images[[i]]$color.residuals$sq_residuals,
+sapply(1:length(recolored_images),
+      function(i) hist(recolored_images[[i]]$color_residuals$sq_residuals,
                        border = NA, main = paste(i, "cluster(s)"),
                        freq = FALSE, xlab = "Squared residual",
                        xlim = c(0, 1)))
 
-residual_vec <- sapply(1:length(recolored.images),
-                      function(i) recolored.images[[i]]$color.residuals$tot_residuals)
+residual_vec <- sapply(1:length(recolored_images),
+                      function(i) recolored_images[[i]]$color_residuals$tot_residuals)
 plot(residual_vec, type = 'b',
     ylab = "Sum of squared residuals",
     xlab = "Cluster number")
 
 # kmeans, 10 colors
-kmeans.recolor <- classifyColorManual(img, method = "kmeans",
+kmeans_recolor <- classifyColorManual(img, method = "kmeans",
                              n = 8, plotting = FALSE)
-hist.recolor <- classifyColorManual(img, method = "hist",
+hist_recolor <- classifyColorManual(img, method = "hist",
                            bins = 2, plotting = FALSE)
 
 # compare binning vs. kmeans clustering
 layout(matrix(c(1, 2, 3), ncol = 3))
-plotImageArray(kmeans.recolor$original.img, main = "original")
-plotImageArray(kmeans.recolor$recolored.img, main = "kmeans")
-plotImageArray(hist.recolor$recolored.img, main = "binning")
+plotImageArray(kmeans_recolor$original_img, main = "original")
+plotImageArray(kmeans_recolor$recolored_img, main = "kmeans")
+plotImageArray(hist_recolor$recolored_img, main = "binning")
 }

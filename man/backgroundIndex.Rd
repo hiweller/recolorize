@@ -4,26 +4,26 @@
 \alias{backgroundIndex}
 \title{Index and remove background pixels for color clustering}
 \usage{
-backgroundIndex(img, bg.condition)
+backgroundIndex(img, bg_condition)
 }
 \arguments{
 \item{img}{An image array, preferably the output of \code{\link[png]{readPNG}},
 \code{\link[jpeg]{readJPEG}}, or \code{link[recolorize]{readImage}}.}
 
-\item{bg.condition}{Background condition, output of
+\item{bg_condition}{Background condition, output of
 \code{\link{backgroundCondition}}.}
 }
 \value{
 A list with the following elements:
 \enumerate{
-\item \code{flattened.img}: The original image, flattened into a 2D matrix
+\item \code{flattened_img}: The original image, flattened into a 2D matrix
 (rows = pixels, columns = channels).
-\item \code{img.dims}: Dimensions of the original image.
-\item \code{non.bg}: Pixels from \code{flattened.img} that fall outside the
+\item \code{img_dims}: Dimensions of the original image.
+\item \code{non_bg}: Pixels from \code{flattened_img} that fall outside the
 background masking conditions. Used for further color clustering and
 analysis.
 \item \code{idx}: 2D (row-column) indices for background pixels.
-\item \code{idx.flat}: Same as \code{idx}, but flattened to vector order.
+\item \code{idx_flat}: Same as \code{idx}, but flattened to vector order.
 }
 }
 \description{
@@ -33,26 +33,26 @@ pixels from an image.
 \details{
 This function flattens a 3-channel image into a 2D matrix before indexing and
 removing background pixels to take advantage of faster indexing procedures.
-The \code{idx}, \code{idx.flat}, and \code{img.dims} elements are used to reconstruct the
+The \code{idx}, \code{idx_flat}, and \code{img_dims} elements are used to reconstruct the
 original and recolored images by other functions, namely
 \code{\link[recolorize]{recolorImage}}.
 }
 \examples{
 # get image path and read in image
-img.path <- system.file("extdata/chongi.png", package = "recolorize")
-img <- png::readPNG(img.path)
+img_path <- system.file("extdata/chongi.png", package = "recolorize")
+img <- png::readPNG(img_path)
 recolorize::plotImageArray(img)
 
 # generate a white background condition
-bg.condition <- backgroundCondition(lower = rep(0.9, 3),
+bg_condition <- backgroundCondition(lower = rep(0.9, 3),
                                     upper = rep(1, 3))
 
 # index background pixels
-bg.indexed <- backgroundIndex(img, bg.condition)
+bg_indexed <- backgroundIndex(img, bg_condition)
 
 # we can reconstruct the original image from the flattened array
-img2 <- bg.indexed$flattened.img
-dim(img2) <- bg.indexed$img.dims
+img2 <- bg_indexed$flattened_img
+dim(img2) <- bg_indexed$img_dims
 
 # notice the original background color (light gray) now shows
 recolorize::plotImageArray(img2)

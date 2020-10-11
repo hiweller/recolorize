@@ -37,8 +37,8 @@ Plots the output of \code{\link{imDist}} as a heatmap.
 chongi <- system.file("extdata/chongi.png", package = "recolorize")
 chongi_k <- recolorize(chongi, "k", n = 5)
 
-d <- imDist(chongi_k$original.img,
-            chongi_k$recolored.img, plotting = FALSE)
+d <- imDist(chongi_k$original_img,
+            chongi_k$recolored_img, plotting = FALSE)
 
 # original flavor
 imHeatmap(d)

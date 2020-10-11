@@ -4,7 +4,7 @@
 #' \code{\link{recluster}}, or \code{\link{imposeColors}} object
 #' into binary masks.
 #'
-#' @param recolorize.obj A recolorize object from \code{\link{recolorize}},
+#' @param recolorize_obj A recolorize object from \code{\link{recolorize}},
 #'   \code{\link{recluster}}, or \code{\link{imposeColors}}.
 #' @param colors Either `"all"` or a numeric vector of which color centers to
 #'   return.
@@ -23,7 +23,7 @@
 #' layout(matrix(c(1, 1:9), nrow = 2))
 #'
 #' # plot original
-#' plotImageArray(recolored_corbetti$original.img)
+#' plotImageArray(recolored_corbetti$original_img)
 #'
 #' # plot layers
 #' corbetti_layers <- splitByColor(recolored_corbetti, plot_method = "over")
@@ -37,27 +37,27 @@
 #' px_clean <- imager::clean(px, 3)
 #'
 #' # convert back to an image for plotting
-#' plotImageArray(recolorize:::cimg.to.array(px_clean), main = "cleaned layer")
+#' plotImageArray(recolorize:::cimg_to_array(px_clean), main = "cleaned layer")
 #'
 #' @export
-splitByColor <- function(recolorize.obj,
+splitByColor <- function(recolorize_obj,
                          colors = "all",
                          plot_method = "overlay") {
 
   # if only plotting some layers, then extract those centers
   if (is.numeric(colors)) {
 
-    centers <- recolorize.obj$centers[colors, ]
+    centers <- recolorize_obj$centers[colors, ]
 
   } else {
 
     # use all colors
-    centers <- recolorize.obj$centers
+    centers <- recolorize_obj$centers
 
   }
 
   # convert img to cimg object
-  img <- recolorize.obj$recolored.img
+  img <- recolorize_obj$recolored_img
   dim(img) <- c(dim(img)[1:2], 1, 4)
   img <- imager::as.cimg(img)
 
@@ -68,7 +68,7 @@ splitByColor <- function(recolorize.obj,
   for (i in 1:nrow(centers)) {
 
     # extract color
-    cc <- recolorize.obj$centers[i, ]
+    cc <- recolorize_obj$centers[i, ]
     color <- grDevices::rgb(cc[1], cc[2], cc[3])
 
     # get r, g, b channel matches
@@ -96,13 +96,6 @@ splitByColor <- function(recolorize.obj,
 
   # plot as colored overlay of grayscale image
   if (plot_method == "overlay") {
-
-    # check if imagemagick is installed
-    # if (!requireNamespace("magick", quietly = TRUE)) {
-    #   stop("Package \"magick\" needed for overlay option.
-    #        Install using `install.packages(\"magick\")`.",
-    #        call. = FALSE)
-    # }
 
     # get transparent pixset
     alpha_px <- imager::imsub(img, cc == 4) == 0

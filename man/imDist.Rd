@@ -7,8 +7,8 @@
 imDist(
   im1,
   im2,
-  color.space = "Lab",
-  ref.white = "D65",
+  color_space = "Lab",
+  ref_white = "D65",
   metric = "euclidean",
   plotting = TRUE,
   palette = "default",
@@ -20,12 +20,12 @@ imDist(
 \item{im1, im2}{Images to compare; must have the same dimensions. Distances
 will be calculated between each pair of non-transparent pixels.}
 
-\item{color.space}{Color space in which to calculate distances. One of
+\item{color_space}{Color space in which to calculate distances. One of
 "sRGB", "Lab", "Luv", or "XYZ". Passed to
 \code{\link[grDevices]{convertColor}}.}
 
-\item{ref.white}{Passed to \code{\link[grDevices]{convertColor}} if
-\verb{color.space = "Lab}. Reference white for CIE Lab space.}
+\item{ref_white}{Passed to \code{\link[grDevices]{convertColor}} if
+\verb{color_space = "Lab}. Reference white for CIE Lab space.}
 
 \item{metric}{Distance metric to be used for calculating pairwise pixel
 distances in the given color space; passed to \code{\link[stats]{dist}}.}
@@ -57,15 +57,15 @@ fulgidissima <- system.file("extdata/fulgidissima.png",
 fulgidissima_2bin <- recolorize(fulgidissima, "hist", bins = 2)
 
 # and we can see that everywhere but the head has pretty high residuals:
-dist_2bin <- imDist(fulgidissima_2bin$original.img,
-                    fulgidissima_2bin$recolored.img)
+dist_2bin <- imDist(fulgidissima_2bin$original_img,
+                    fulgidissima_2bin$recolored_img)
 
 # using 3 bins/channel looks much better:
 fulgidissima_3bin <- recolorize(fulgidissima, "hist", bins = 3)
 
 # and we can see that on the heatmap:
-dist_3bin <- imDist(fulgidissima_3bin$original.img,
-                    fulgidissima_3bin$recolored.img)
+dist_3bin <- imDist(fulgidissima_3bin$original_img,
+                    fulgidissima_3bin$recolored_img)
 
 # default behavior is to se the color range to the range of distances
 # in a single matrix; to compare two different fits, we have to provide
@@ -78,9 +78,9 @@ imHeatmap(dist_2bin, range = r)
 imHeatmap(dist_3bin, range = r)
 
 # we can also use other color spaces:
-rgb_3bin <- imDist(fulgidissima_3bin$original.img,
-                   fulgidissima_3bin$recolored.img,
-                   color.space = "sRGB")
+rgb_3bin <- imDist(fulgidissima_3bin$original_img,
+                   fulgidissima_3bin$recolored_img,
+                   color_space = "sRGB")
 
 # looks oddly worse, but to keep things in perspective,
 # you can set the range to the maximum color distance in RGB space:

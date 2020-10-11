@@ -4,10 +4,10 @@
 \alias{readImage}
 \title{Read in an image as a 3D array}
 \usage{
-readImage(img.path, resize = NULL, rotate = NULL)
+readImage(img_path, resize = NULL, rotate = NULL)
 }
 \arguments{
-\item{img.path}{Path to the image (a string).}
+\item{img_path}{Path to the image (a string).}
 
 \item{resize}{Fraction by which to reduce image size. Important for speed.}
 

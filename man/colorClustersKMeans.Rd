@@ -5,29 +5,29 @@
 \title{Cluster pixel colors using K-means clustering}
 \usage{
 colorClustersKMeans(
-  pixel.matrix,
+  pixel_matrix,
   n = 10,
-  color.space = "Lab",
-  ref.white = "D65"
+  color_space = "Lab",
+  ref_white = "D65"
 )
 }
 \arguments{
-\item{pixel.matrix}{2D matrix of pixels to classify (rows = pixels, columns =
+\item{pixel_matrix}{2D matrix of pixels to classify (rows = pixels, columns =
 channels).}
 
 \item{n}{Number of clusters to fit.}
 
-\item{color.space}{Color space in which to cluster colors, passed to
+\item{color_space}{Color space in which to cluster colors, passed to
 \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
 "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
 
-\item{ref.white}{Reference white for converting to different color spaces.
+\item{ref_white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}
 }
 \value{
 A list with the following elements:
 \enumerate{
-\item \code{pixel.assignments}: A vector of color center assignments for each pixel.
+\item \code{pixel_assignments}: A vector of color center assignments for each pixel.
 \item \code{centers}: A matrix of color centers.
 \item \code{sizes}: The number of pixels assigned to each cluster.
 }

@@ -5,15 +5,15 @@
 #'
 #' @param img Path to the image (a character vector) or a 3D image array as read
 #'   in by \code{\link[png]{readPNG}} \code{{readImage}}.
-#' @param color.centers Colors to map to, as an n x 3 matrix (rows = colors,
+#' @param color_centers Colors to map to, as an n x 3 matrix (rows = colors,
 #'   columns = channels).
-#' @param adjust.centers Logical. After pixel assignment, should the returned
+#' @param adjust_centers Logical. After pixel assignment, should the returned
 #'   colors be the average color of the pixels assigned to that cluster, or the
 #'   original colors?
-#' @param color.space Color space in which to minimize distances, passed to
+#' @param color_space Color space in which to minimize distances, passed to
 #'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
 #'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
-#' @param ref.white Reference white for converting to different color spaces.
+#' @param ref_white Reference white for converting to different color spaces.
 #'   D65 (the default) corresponds to standard daylight.
 #' @param lower,upper RGB triplet ranges for setting a bounding box of pixels to
 #'   mask. See details.
@@ -28,20 +28,20 @@
 #' @param plotting Logical. Plot recolored image & color palette?
 #' @param horiz Logical for plotting. Plot output image and color palette side
 #'   by side (`TRUE`) or stacked vertically (`FALSE`)?
-#' @param scale.palette Logical. If plotting, plot colors in the color palette
+#' @param scale_palette Logical. If plotting, plot colors in the color palette
 #'   proportional to the size of each cluster?
-#' @param cex.text If `plotting = TRUE` and `scale.palette = FALSE`, size of
+#' @param cex_text If `plotting = TRUE` and `scale_palette = FALSE`, size of
 #'   text to display on the color palette numbers.
 #'
 #' @return A list with the following attributes:
 #' \enumerate{
-#'     \item `original.img`: The original image, as a 3D array.
-#'     \item `recolored.img`: The recolored image, as a 3D array.
-#'     \item `color.space`: The associated color space. Currently only RGB.
-#'     \item `centers`: A matrix of color centers. If `adjust.centers =
-#'         FALSE`, this will be identical to the input `color.centers`.
+#'     \item `original_img`: The original image, as a 3D array.
+#'     \item `recolored_img`: The recolored image, as a 3D array.
+#'     \item `color_space`: The associated color space. Currently only RGB.
+#'     \item `centers`: A matrix of color centers. If `adjust_centers =
+#'         FALSE`, this will be identical to the input `color_centers`.
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
-#'     \item `pixel.assignments`: A vector of color center assignments for each pixel.
+#'     \item `pixel_assignments`: A vector of color center assignments for each pixel.
 #' }
 #'
 #' @details
@@ -82,35 +82,35 @@
 #'
 #' # map to rgb extremes
 #' ocellata_fixed <- recolorize::imposeColors(ocellata, ctrs,
-#'                                             adjust.centers = FALSE)
+#'                                             adjust_centers = FALSE)
 #'
 #' # looks much better if we recalculate the centers from the image
 #' ocellata_adjusted <- recolorize::imposeColors(ocellata, ctrs,
-#'                                            adjust.centers = TRUE)
+#'                                            adjust_centers = TRUE)
 #'
 #' # we can map one image to extracted colors from another image
 #' # extract ocellata colors
-#' ocellata.colors <- recolorize(ocellata)
+#' ocellata_colors <- recolorize(ocellata)
 #'
 #' # map fulgidissima to ocellata colors
 #' fulgidissima <- system.file("extdata/fulgidissima.png",
 #'                              package = "recolorize")
 #'
 #' fulgidissma_ocellata <- recolorize::imposeColors(fulgidissima,
-#'                        ocellata.colors$centers,
-#'                        adjust.centers = FALSE)
+#'                        ocellata_colors$centers,
+#'                        adjust_centers = FALSE)
 #'
 #' @export
-imposeColors <- function(img, color.centers,
-                           adjust.centers = TRUE,
-                           color.space = "sRGB",
-                           ref.white = "D65",
+imposeColors <- function(img, color_centers,
+                           adjust_centers = TRUE,
+                           color_space = "sRGB",
+                           ref_white = "D65",
                            lower = NULL, upper = NULL,
                            transparent = TRUE,
                            resid = FALSE,
                            resize = NULL, rotate = NULL,
                            plotting = TRUE, horiz = TRUE,
-                           cex.text = 1.5, scale.palette = TRUE) {
+                           cex_text = 1.5, scale_palette = TRUE) {
 
   # if 'img' is a filepath, read in image
   if (is.character(img)) {
@@ -133,64 +133,64 @@ imposeColors <- function(img, color.centers,
   }
 
   # make background condition
-  alpha.channel <- dim(img)[3] == 4 # is there a transparency channel?
-  bg.condition <- backgroundCondition(lower = lower, upper = upper,
+  alpha_channel <- dim(img)[3] == 4 # is there a transparency channel?
+  bg_condition <- backgroundCondition(lower = lower, upper = upper,
                                       center = NULL, radius = NULL,
                                       transparent = transparent,
-                                      alpha.channel = alpha.channel)
+                                      alpha_channel = alpha_channel)
 
   # index background
-  bg.indexed <- backgroundIndex(img, bg.condition)
+  bg_indexed <- backgroundIndex(img, bg_condition)
 
   # color clusters & assign pixels
-  color.clusters <- assignPixels(color.centers, bg.indexed$non.bg,
-                                 adjust.centers = adjust.centers)
+  color_clusters <- assignPixels(color_centers, bg_indexed$non_bg,
+                                 adjust_centers = adjust_centers)
 
   # recolor based on assignments/centers
-  recolored <- recolorImage(bg.indexed, color.clusters,
+  recolored <- recolorImage(bg_indexed, color_clusters,
                             plotting = FALSE,
-                            remove.empty.clusters = FALSE)
+                            remove_empty_clusters = FALSE)
 
   # get sizes vector
-  sizes <- color.clusters$sizes
-  if (scale.palette) { s <- sizes } else { s <- NULL }
+  sizes <- color_clusters$sizes
+  if (scale_palette) { s <- sizes } else { s <- NULL }
 
   # plot result
   if (plotting) {
-    plotRecolorized(recolored$recolored.img, img,
-                    plot.original = TRUE,
+    plotRecolorized(recolored$recolored_img, img,
+                    plot_original = TRUE,
                     recolored$centers, horiz = horiz,
-                    cex.text = cex.text,
+                    cex_text = cex_text,
                     sizes = s)
   }
 
   # returnables:
-  original.img <- img
-  recolored.img <- recolored$recolored.img
+  original_img <- img
+  recolored_img <- recolored$recolored_img
 
   # only rgb for now...would others be useful?
-  color.space <- "RGB"
-  centers <- color.clusters$centers
-  pixel.assignments <- color.clusters$pixel.assignments
+  color_space <- "RGB"
+  centers <- color_clusters$centers
+  pixel_assignments <- color_clusters$pixel_assignments
 
   # make returnable
-  return.list <- list(original.img = original.img,
-                      recolored.img = recolored.img,
-                      color.space = color.space,
+  return_list <- list(original_img = original_img,
+                      recolored_img = recolored_img,
+                      color_space = color_space,
                       centers = centers,
                       sizes = sizes,
-                      pixel.assignments = pixel.assignments)
+                      pixel_assignments = pixel_assignments)
 
   # residuals if TRUE
   if (resid) {
-    return.list$resids <- colorResiduals(bg.indexed$non.bg,
-                                         color.clusters$pixel.assignments,
+    return_list$resids <- colorResiduals(bg_indexed$non_bg,
+                                         color_clusters$pixel_assignments,
                                          centers)
   }
 
   # return it
-  class(return.list) <- "recolorize"
-  return(return.list)
+  class(return_list) <- "recolorize"
+  return(return_list)
 
 
 }

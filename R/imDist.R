@@ -5,11 +5,11 @@
 #'
 #' @param im1,im2 Images to compare; must have the same dimensions. Distances
 #'   will be calculated between each pair of non-transparent pixels.
-#' @param color.space Color space in which to calculate distances. One of
+#' @param color_space Color space in which to calculate distances. One of
 #'   "sRGB", "Lab", "Luv", or "XYZ". Passed to
 #'   \code{\link[grDevices]{convertColor}}.
-#' @param ref.white Passed to \code{\link[grDevices]{convertColor}} if
-#'   `color.space = "Lab`. Reference white for CIE Lab space.
+#' @param ref_white Passed to \code{\link[grDevices]{convertColor}} if
+#'   `color_space = "Lab`. Reference white for CIE Lab space.
 #' @param metric Distance metric to be used for calculating pairwise pixel
 #'   distances in the given color space; passed to \code{\link[stats]{dist}}.
 #' @param plotting Logical. Plot heatmap of color distances?
@@ -31,15 +31,15 @@
 #' fulgidissima_2bin <- recolorize(fulgidissima, "hist", bins = 2)
 #'
 #' # and we can see that everywhere but the head has pretty high residuals:
-#' dist_2bin <- imDist(fulgidissima_2bin$original.img,
-#'                     fulgidissima_2bin$recolored.img)
+#' dist_2bin <- imDist(fulgidissima_2bin$original_img,
+#'                     fulgidissima_2bin$recolored_img)
 #'
 #' # using 3 bins/channel looks much better:
 #' fulgidissima_3bin <- recolorize(fulgidissima, "hist", bins = 3)
 #'
 #' # and we can see that on the heatmap:
-#' dist_3bin <- imDist(fulgidissima_3bin$original.img,
-#'                     fulgidissima_3bin$recolored.img)
+#' dist_3bin <- imDist(fulgidissima_3bin$original_img,
+#'                     fulgidissima_3bin$recolored_img)
 #'
 #' # default behavior is to se the color range to the range of distances
 #' # in a single matrix; to compare two different fits, we have to provide
@@ -52,9 +52,9 @@
 #' imHeatmap(dist_3bin, range = r)
 #'
 #' # we can also use other color spaces:
-#' rgb_3bin <- imDist(fulgidissima_3bin$original.img,
-#'                    fulgidissima_3bin$recolored.img,
-#'                    color.space = "sRGB")
+#' rgb_3bin <- imDist(fulgidissima_3bin$original_img,
+#'                    fulgidissima_3bin$recolored_img,
+#'                    color_space = "sRGB")
 #'
 #' # looks oddly worse, but to keep things in perspective,
 #' # you can set the range to the maximum color distance in RGB space:
@@ -64,8 +64,8 @@
 #'
 #' @export
 imDist <- function(im1, im2,
-                   color.space = "Lab",
-                   ref.white = "D65",
+                   color_space = "Lab",
+                   ref_white = "D65",
                    metric = "euclidean",
                    plotting = TRUE,
                    palette = "default",
@@ -89,14 +89,14 @@ imDist <- function(im1, im2,
   pix_idx <- which(im1[ , 4] == 1 & im2[ , 4] == 1)
 
   # convert the non-transparent pixels
-  color.space <- match.arg(color.space,
+  color_space <- match.arg(color_space,
                            c("sRGB", "XYZ", "Lab", "Luv"))
   im1_px <- grDevices::convertColor(im1[pix_idx, 1:3],
-                         "sRGB", to = color.space,
-                         to.ref.white = ref.white)
+                         "sRGB", to = color_space,
+                         to.ref.white = ref_white)
   im2_px <- grDevices::convertColor(im2[pix_idx, 1:3],
-                         "sRGB", to = color.space,
-                         to.ref.white = ref.white)
+                         "sRGB", to = color_space,
+                         to.ref.white = ref_white)
 
   # make a distance vector of NA
   d <- matrix(NA,
@@ -142,8 +142,8 @@ imDist <- function(im1, im2,
 #' chongi <- system.file("extdata/chongi.png", package = "recolorize")
 #' chongi_k <- recolorize(chongi, "k", n = 5)
 #'
-#' d <- imDist(chongi_k$original.img,
-#'             chongi_k$recolored.img, plotting = FALSE)
+#' d <- imDist(chongi_k$original_img,
+#'             chongi_k$recolored_img, plotting = FALSE)
 #'
 #' # original flavor
 #' imHeatmap(d)

@@ -10,7 +10,7 @@ backgroundCondition(
   center = NULL,
   radius = NULL,
   transparent = NULL,
-  alpha.channel = FALSE,
+  alpha_channel = FALSE,
   quietly = TRUE
 )
 }
@@ -23,18 +23,18 @@ pixels within a spherical range.}
 \item{transparent}{Logical or \code{NULL}. Use transparency to mask? Requires an
 alpha channel.}
 
-\item{alpha.channel}{Logical. Is there an alpha channel?}
+\item{alpha_channel}{Logical. Is there an alpha channel?}
 
 \item{quietly}{Logical. Print a message about background masking parameters?}
 }
 \value{
 A list with background masking parameters. Can be one of 4 classes:
 \enumerate{
-\item \code{bg.rect}: If \code{lower} and \code{upper} are specified.
-\item \code{bg.sphere}: If \code{center} and \code{radius} are specified.
-\item \code{bg.t}: If \code{transparent} is \code{TRUE} and there is an alpha channel
+\item \code{bg_rect}: If \code{lower} and \code{upper} are specified.
+\item \code{bg_sphere}: If \code{center} and \code{radius} are specified.
+\item \code{bg_t}: If \code{transparent} is \code{TRUE} and there is an alpha channel
 with transparent pixels.
-\item \code{bg.none}: If no background masking is specified (or transparency
+\item \code{bg_none}: If no background masking is specified (or transparency
 was specified but there are no transparent pixels).
 }
 }
@@ -57,14 +57,14 @@ This is an internal convenience function sourced by \code{\link{backgroundIndex}
 backgroundCondition(lower = rep(0.9, 3), upper = rep(1, 3), quietly = FALSE)
 
 # masking transparent pixels:
-backgroundCondition(transparent = TRUE, alpha.channel = TRUE, quietly = FALSE)
+backgroundCondition(transparent = TRUE, alpha_channel = TRUE, quietly = FALSE)
 
 # oops, no alpha channel:
-backgroundCondition(transparent = TRUE, alpha.channel = FALSE, quietly = FALSE)
+backgroundCondition(transparent = TRUE, alpha_channel = FALSE, quietly = FALSE)
 
 # oops, no alpha channel, but with white background as a fallback:
 backgroundCondition(lower = rep(0.9, 3), upper = rep(1, 3),
-                    transparent = TRUE, alpha.channel = FALSE,
+                    transparent = TRUE, alpha_channel = FALSE,
                     quietly = FALSE)
 
 }

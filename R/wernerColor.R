@@ -3,9 +3,9 @@
 #'
 #' Remaps a recolorize object to the colors in Werner's Nomenclature of Colors
 #' by Patrick Syme (1821), one of the first attempts at an objective color
-#' reference in Western science, notably used by Charles Darwin.
+#' reference in western science, notably used by Charles Darwin.
 #'
-#' @param recolorize.obj A recolorize object as returned by
+#' @param recolorize_obj A recolorize object as returned by
 #'   \code{\link{recolorize}}, \code{\link{recluster}}, or
 #'   \code{\link{imposeColors}}.
 #' @param which_img Which image to recolor; one of either "original" or
@@ -16,7 +16,7 @@
 #'   `n_colors`; this only affects the plot.
 #'
 #' @return
-#' A recolorize object with an additional list element, `werner.names`,
+#' A recolorize object with an additional list element, `werner_names`,
 #' listing the Werner color names for each center.
 #'
 #' @details
@@ -41,7 +41,7 @@
 #'                                which_img = "recolored")
 #'
 #' @export
-wernerColor <- function(recolorize.obj,
+wernerColor <- function(recolorize_obj,
                         which_img = "original",
                         n_colors = 5) {
 
@@ -50,7 +50,7 @@ wernerColor <- function(recolorize.obj,
   werner_lab <- grDevices::convertColor(werner_rgb,
                                         "sRGB", "Lab")
   # get centers
-  centers <- recolorize.obj$centers
+  centers <- recolorize_obj$centers
   centers <- grDevices::convertColor(centers,
                                      "sRGB", "Lab")
 
@@ -70,14 +70,14 @@ wernerColor <- function(recolorize.obj,
 
   # pick the image
   if (which_img == "original") {
-    img <- recolorize.obj$original.img
+    img <- recolorize_obj$original_img
   } else {
-    img <- recolorize.obj$recolored.img
+    img <- recolorize_obj$recolored_img
   }
 
   # use imposeColors
   werner_fit <- imposeColors(img,
-               werner_centers, adjust.centers = FALSE,
+               werner_centers, adjust_centers = FALSE,
                plotting = FALSE)
 
   # if n_colors is too big...
@@ -95,11 +95,11 @@ wernerColor <- function(recolorize.obj,
   graphics::layout(matrix(1:3, nrow = 1), widths = c(0.2, 0.55, 0.25))
 
   # plot the palette
-  plotColorPalette(ctrs, cex.text = 0,
+  plotColorPalette(ctrs, cex_text = 0,
                    horiz = FALSE)
 
   # plot the recolored image
-  plotImageArray(werner_fit$recolored.img)
+  plotImageArray(werner_fit$recolored_img)
 
   # plot the labels
   graphics::plot(0:1, 0:1, ann = F, axes = F, type = "n")
@@ -109,7 +109,7 @@ wernerColor <- function(recolorize.obj,
        cex = 2, font = 2)
 
   # return the fit
-  werner_fit$werner.names <- recolorize::werner$name[werner_idx]
+  werner_fit$werner_names <- recolorize::werner$name[werner_idx]
   return(werner_fit)
 
   graphics::par(op)

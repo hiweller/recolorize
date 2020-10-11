@@ -4,10 +4,10 @@
 \alias{plotImageArray}
 \title{Plot a 3D array as an RGB image}
 \usage{
-plotImageArray(rgb.array, main = "")
+plotImageArray(rgb_array, main = "")
 }
 \arguments{
-\item{rgb.array}{A 3D array of RGB values. Preferably output from
+\item{rgb_array}{A 3D array of RGB values. Preferably output from
 \code{\link[png]{readPNG}}, \code{\link[jpeg]{readJPEG}}, or
 \code{\link[recolorize]{recolorImage}}.}
 
@@ -20,9 +20,9 @@ axes, and reduces margins for cleaner plotting.
 }
 \examples{
 # make a 100x100 image of random colors
-random.colors <- array(runif(100 * 100 * 3),
+random_colors <- array(runif(100 * 100 * 3),
                        dim = c(100, 100, 3))
-recolorize::plotImageArray(random.colors)
+recolorize::plotImageArray(random_colors)
 
 # we can also plot...a real image
 corbetti <- system.file("extdata/corbetti.png",

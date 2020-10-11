@@ -5,26 +5,26 @@
 \title{Recluster color centers based on color similarity}
 \usage{
 recluster(
-  recolorize.obj,
-  color.space = "Lab",
-  ref.white = "D65",
+  recolorize_obj,
+  color_space = "Lab",
+  ref_white = "D65",
   similarity_cutoff = 60,
   n_final = NULL,
   plot_hclust = FALSE,
   resid = FALSE,
   plot_final = TRUE,
-  color.space.fit = "sRGB"
+  color_space_fit = "sRGB"
 )
 }
 \arguments{
-\item{recolorize.obj}{A recolorize object from \code{\link{recolorize}},
+\item{recolorize_obj}{A recolorize object from \code{\link{recolorize}},
 \code{\link{recluster}}, or \code{\link{imposeColors}}.}
 
-\item{color.space}{Color space in which to cluster centers, passed to
+\item{color_space}{Color space in which to cluster centers, passed to
 \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
 Default is "Lab", a perceptually uniform (for humans) color space.}
 
-\item{ref.white}{Reference white for converting to different color spaces.
+\item{ref_white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}
 
 \item{similarity_cutoff}{Numeric similarity cutoff for grouping color centers
@@ -43,7 +43,7 @@ color similarity? Helpful for troubleshooting a cutoff.}
 
 \item{plot_final}{Logical. Plot the final color fit?}
 
-\item{color.space.fit}{Passed to \code{\link{imposeColors}}. What
+\item{color_space_fit}{Passed to \code{\link{imposeColors}}. What
 color space should the image be reclustered in?}
 }
 \value{
@@ -86,22 +86,22 @@ recolored_corbetti <- recolorize(corbetti, bins = 3)
 
 # just enough!
 # check previous plot for clustering cutoff
-recluster.obj <- recluster(recolored_corbetti,
+recluster_obj <- recluster(recolored_corbetti,
                            similarity_cutoff = 60,
                            plot_hclust = TRUE)
 
 # compare to the result using k-means clustering and the same n:
-kmeans.fit <- recolorize(corbetti, "k", n = 6)
+kmeans_fit <- recolorize(corbetti, "k", n = 6)
 # (you also get different clusters every time you run this)
 
 # a cutoff that's too severe will usually just produce "light",
 # "dark", and "other" colors:
-recluster.obj <- recluster(recolored_corbetti,
+recluster_obj <- recluster(recolored_corbetti,
                            similarity_cutoff = 100,
                            plot_hclust = TRUE)
 
 # we get the same result by specifying n_final = 6
-recluster.obj <- recluster(recolored_corbetti,
+recluster_obj <- recluster(recolored_corbetti,
                            n_final = 6,
                            plot_hclust = TRUE)
 

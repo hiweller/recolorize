@@ -5,28 +5,28 @@
 \title{Plot recolorized image results}
 \usage{
 plotRecolorized(
-  recolored.img,
-  original.img,
-  plot.original = TRUE,
-  color.centers,
+  recolored_img,
+  original_img,
+  plot_original = TRUE,
+  color_centers,
   horiz = FALSE,
-  cex.text = 2,
+  cex_text = 2,
   sizes = NULL
 )
 }
 \arguments{
-\item{recolored.img}{The recolored image, as a 3D RGB array.}
+\item{recolored_img}{The recolored image, as a 3D RGB array.}
 
-\item{original.img}{The original image, as a 3D RGB array.}
+\item{original_img}{The original image, as a 3D RGB array.}
 
-\item{plot.original}{Logical. Plot the original image for comparison?}
+\item{plot_original}{Logical. Plot the original image for comparison?}
 
-\item{color.centers}{The colors to plot in the color palette, as a numeric
+\item{color_centers}{The colors to plot in the color palette, as a numeric
 matrix (rows = colors, columns = channels).}
 
 \item{horiz}{Logical. Should plots be stacked vertically or horizontally?}
 
-\item{cex.text, sizes}{Plotting parameters passed to
+\item{cex_text, sizes}{Plotting parameters passed to
 \code{\link{recolorize}{plotColorPalette}}.}
 }
 \description{
@@ -39,18 +39,18 @@ version, plus the color palette used for recoloring. Called by
 corbetti <- system.file("extdata/corbetti.png",
                          package = "recolorize")
 
-corbetti.recolor <- recolorize(corbetti, method = "hist",
+corbetti_recolor <- recolorize(corbetti, method = "hist",
                                          bins = 2, plotting = FALSE)
 
 # full color palette
-plotRecolorized(recolored.img = corbetti.recolor$recolored.img,
-                original.img = corbetti.recolor$original.img,
-                color.centers = corbetti.recolor$centers)
+plotRecolorized(recolored_img = corbetti_recolor$recolored_img,
+                original_img = corbetti_recolor$original_img,
+                color_centers = corbetti_recolor$centers)
 
 # scaled color palette
-plotRecolorized(recolored.img = corbetti.recolor$recolored.img,
-                original.img = corbetti.recolor$original.img,
-                color.centers = corbetti.recolor$centers,
-                sizes = corbetti.recolor$sizes)
+plotRecolorized(recolored_img = corbetti_recolor$recolored_img,
+                original_img = corbetti_recolor$original_img,
+                color_centers = corbetti_recolor$centers,
+                sizes = corbetti_recolor$sizes)
 
 }

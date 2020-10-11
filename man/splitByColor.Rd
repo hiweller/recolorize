@@ -4,10 +4,10 @@
 \alias{splitByColor}
 \title{Split color clusters in a recolorize object into layers}
 \usage{
-splitByColor(recolorize.obj, colors = "all", plot_method = "overlay")
+splitByColor(recolorize_obj, colors = "all", plot_method = "overlay")
 }
 \arguments{
-\item{recolorize.obj}{A recolorize object from \code{\link{recolorize}},
+\item{recolorize_obj}{A recolorize object from \code{\link{recolorize}},
 \code{\link{recluster}}, or \code{\link{imposeColors}}.}
 
 \item{colors}{Either \code{"all"} or a numeric vector of which color centers to
@@ -34,7 +34,7 @@ recolored_corbetti <- recolorize::recolorize(corbetti, plotting = TRUE)
 layout(matrix(c(1, 1:9), nrow = 2))
 
 # plot original
-plotImageArray(recolored_corbetti$original.img)
+plotImageArray(recolored_corbetti$original_img)
 
 # plot layers
 corbetti_layers <- splitByColor(recolored_corbetti, plot_method = "over")
@@ -48,6 +48,6 @@ px <- imager::as.cimg(corbetti_layers[[2]] == 1)
 px_clean <- imager::clean(px, 3)
 
 # convert back to an image for plotting
-plotImageArray(recolorize:::cimg.to.array(px_clean), main = "cleaned layer")
+plotImageArray(recolorize:::cimg_to_array(px_clean), main = "cleaned layer")
 
 }

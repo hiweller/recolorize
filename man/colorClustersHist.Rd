@@ -5,14 +5,14 @@
 \title{Cluster pixel colors using histogram binning}
 \usage{
 colorClustersHist(
-  pixel.matrix,
+  pixel_matrix,
   bins = 3,
-  color.space = "Lab",
-  ref.white = "D65"
+  color_space = "Lab",
+  ref_white = "D65"
 )
 }
 \arguments{
-\item{pixel.matrix}{2D matrix of pixels to classify (rows = pixels, columns =
+\item{pixel_matrix}{2D matrix of pixels to classify (rows = pixels, columns =
 channels).}
 
 \item{bins}{Number of bins for each channel OR a vector of length 3 with bins
@@ -20,17 +20,17 @@ for each channel. \code{bins = 3} will result in 3^3 = 27 bins; \code{bins = c(2
 will result in 2\emph{2}3 = 12 bins (2 red, 2 green, 3 blue if you're in RGB
 color space), etc.}
 
-\item{color.space}{Color space in which to cluster colors, passed to
+\item{color_space}{Color space in which to cluster colors, passed to
 \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
 Default is "Lab", a perceptually uniform (for humans) color space.}
 
-\item{ref.white}{Reference white for converting to different color spaces.
+\item{ref_white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}
 }
 \value{
 A list with the following elements:
 \enumerate{
-\item \code{pixel.assignments}: A vector of color center assignments for
+\item \code{pixel_assignments}: A vector of color center assignments for
 each pixel.
 \item \code{centers}: A matrix of color centers.
 \item \code{sizes}: The number of pixels assigned to each cluster.

@@ -5,16 +5,16 @@
 \title{Generate color clusters from an image}
 \usage{
 colorClusters(
-  pixel.matrix,
+  pixel_matrix,
   method = "histogram",
   n = 10,
   bins = 3,
-  color.space = "Lab",
-  ref.white = "D65"
+  color_space = "Lab",
+  ref_white = "D65"
 )
 }
 \arguments{
-\item{pixel.matrix}{2D matrix of pixels to classify (rows = pixels, columns = channels).}
+\item{pixel_matrix}{2D matrix of pixels to classify (rows = pixels, columns = channels).}
 
 \item{method}{Binning scheme to use, one of either \code{kmeans} or \code{histogram}.
 Produce very different results (see details).}
@@ -25,17 +25,17 @@ Produce very different results (see details).}
 channel (if a single number is provided) OR a vector of length 3 with the
 number of bins for each channel.}
 
-\item{color.space}{Color space in which to cluster colors, passed to
+\item{color_space}{Color space in which to cluster colors, passed to
 \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
 Default is "Lab", a perceptually uniform (for humans) color space.}
 
-\item{ref.white}{Reference white for converting to different color spaces.
+\item{ref_white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}
 }
 \value{
 A list with the following elements:
 \enumerate{
-\item \code{pixel.assignments}: A vector of color center assignments for
+\item \code{pixel_assignments}: A vector of color center assignments for
 each pixel.
 \item \code{centers}: A matrix of color centers, in RGB color space.
 \item \code{sizes}: The number of pixels assigned to each cluster.
@@ -75,17 +75,17 @@ img.2d <- img
 dim(img.2d) <- c(100 * 100, 3)
 
 # histogram clustering
-hist.clusters <- colorClusters(img.2d, method = "hist", bins = 2)
-plotColorPalette(hist.clusters$centers)
+hist_clusters <- colorClusters(img.2d, method = "hist", bins = 2)
+plotColorPalette(hist_clusters$centers)
 
 # we can use a different number of bins for each channel
-uneven.clusters <- colorClusters(img.2d, method = "hist",
+uneven_clusters <- colorClusters(img.2d, method = "hist",
                                  bins = c(3, 2, 1))
-plotColorPalette(uneven.clusters$centers)
+plotColorPalette(uneven_clusters$centers)
 
 # using kmeans
-kmeans.clusters <- colorClusters(img.2d, method = "kmeans",
+kmeans_clusters <- colorClusters(img.2d, method = "kmeans",
                                  n = 5)
-plotColorPalette(kmeans.clusters$centers)
+plotColorPalette(kmeans_clusters$centers)
 
 }

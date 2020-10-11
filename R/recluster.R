@@ -8,7 +8,7 @@
 #' similarity (in CIE Lab space), then returns the re-clustered object. Users
 #' can either set a similarity cutoff or a final number of colors. See examples.
 #'
-#' @param recolorize.obj A recolorize object from \code{\link{recolorize}},
+#' @param recolorize_obj A recolorize object from \code{\link{recolorize}},
 #'   \code{\link{recluster}}, or \code{\link{imposeColors}}.
 #' @param similarity_cutoff Numeric similarity cutoff for grouping color centers
 #'   together. The range is in absolute Euclidean distance in CIE Lab space,
@@ -16,16 +16,16 @@
 #'   will usually work best. See details.
 #' @param n_final Final number of desired colors; alternative to specifying
 #'  a similarity cutoff. Overrides `similarity_cutoff` if provided.
-#' @param color.space Color space in which to cluster centers, passed to
+#' @param color_space Color space in which to cluster centers, passed to
 #'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
 #'   Default is "Lab", a perceptually uniform (for humans) color space.
-#' @param ref.white Reference white for converting to different color spaces.
+#' @param ref_white Reference white for converting to different color spaces.
 #'   D65 (the default) corresponds to standard daylight.
 #' @param plot_hclust Logical. Plot the hierarchical clustering tree for
 #'  color similarity? Helpful for troubleshooting a cutoff.
 #' @param resid Logical. Get final color fit residuals with
 #'   \code{\link{colorResiduals}}?
-#' @param color.space.fit Passed to \code{\link{imposeColors}}. What
+#' @param color_space_fit Passed to \code{\link{imposeColors}}. What
 #'   color space should the image be reclustered in?
 #' @param plot_final Logical. Plot the final color fit?
 #'
@@ -60,42 +60,42 @@
 #'
 #' # just enough!
 #' # check previous plot for clustering cutoff
-#' recluster.obj <- recluster(recolored_corbetti,
+#' recluster_obj <- recluster(recolored_corbetti,
 #'                            similarity_cutoff = 60,
 #'                            plot_hclust = TRUE)
 #'
 #' # compare to the result using k-means clustering and the same n:
-#' kmeans.fit <- recolorize(corbetti, "k", n = 6)
+#' kmeans_fit <- recolorize(corbetti, "k", n = 6)
 #' # (you also get different clusters every time you run this)
 #'
 #' # a cutoff that's too severe will usually just produce "light",
 #' # "dark", and "other" colors:
-#' recluster.obj <- recluster(recolored_corbetti,
+#' recluster_obj <- recluster(recolored_corbetti,
 #'                            similarity_cutoff = 100,
 #'                            plot_hclust = TRUE)
 #'
 #' # we get the same result by specifying n_final = 6
-#' recluster.obj <- recluster(recolored_corbetti,
+#' recluster_obj <- recluster(recolored_corbetti,
 #'                            n_final = 6,
 #'                            plot_hclust = TRUE)
 #'
 #' @export
 #'
-recluster <- function(recolorize.obj,
-                      color.space = "Lab",
-                      ref.white = "D65",
+recluster <- function(recolorize_obj,
+                      color_space = "Lab",
+                      ref_white = "D65",
                        similarity_cutoff = 60,
                        n_final = NULL,
                        plot_hclust = FALSE,
                       resid = FALSE,
                       plot_final = TRUE,
-                      color.space.fit = "sRGB") {
+                      color_space_fit = "sRGB") {
 
   # courtesy:
   current_par <- graphics::par()
 
   # rename, to keep things clear
-  init_fit <- recolorize.obj
+  init_fit <- recolorize_obj
 
   # first, ignore empty clusters -- they're not informative
   sizes <- init_fit$sizes
@@ -111,8 +111,8 @@ recluster <- function(recolorize.obj,
   # convert to Lab space for better clustering
   lab_init <- grDevices::convertColor(centers,
                                       from = "sRGB",
-                                      to = color.space,
-                                      to.ref.white = ref.white)
+                                      to = color_space,
+                                      to.ref.white = ref_white)
 
   # get distance matrix
   d <- stats::dist(lab_init)
@@ -153,13 +153,13 @@ recluster <- function(recolorize.obj,
     graphics::layout(matrix(1:4, nrow = 1), widths = c(0.3, 0.3, 0.3, 0.1))
 
     # plot original image
-    plotImageArray(init_fit$original.img, main = "original")
+    plotImageArray(init_fit$original_img, main = "original")
 
     # plot initial fit
-    plotImageArray(init_fit$recolored.img, main = "initial fit")
+    plotImageArray(init_fit$recolored_img, main = "initial fit")
 
     # plot reclustered fit
-    plotImageArray(final_fit$recolored.img, main = "reclustered fit")
+    plotImageArray(final_fit$recolored_img, main = "reclustered fit")
 
     # and the new color palette
     plotColorPalette(final_fit$centers, sizes = final_fit$sizes, horiz = FALSE)
