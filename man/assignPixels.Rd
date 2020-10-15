@@ -5,7 +5,7 @@
 \title{Assign a 2D matrix of pixels to specified colors}
 \usage{
 assignPixels(
-  color_centers,
+  centers,
   pixel_matrix,
   color_space = "Lab",
   ref_white = "D65",
@@ -13,7 +13,7 @@ assignPixels(
 )
 }
 \arguments{
-\item{color_centers}{Matrix of color centers (rows = colors, columns = channels).}
+\item{centers}{Matrix of color centers (rows = colors, columns = channels).}
 
 \item{pixel_matrix}{Matrix of pixel colors (rows = pixels, columns = channels).}
 
@@ -31,7 +31,7 @@ average value of the pixels assigned to that cluster? See details.}
 A list of class \code{color_clusters}, containing:
 \enumerate{
 \item \code{pixel_assignments}: The color center assignment for each pixel.
-\item \code{centers}: A matrix of color centers. If \code{adjust_centers = FALSE}, this will be identical to the input of \code{color_centers}.
+\item \code{centers}: A matrix of color centers. If \code{adjust_centers = FALSE}, this will be identical to the input of \code{centers}.
 \item \code{sizes}: The number of pixels assigned to each cluster.
 }
 }

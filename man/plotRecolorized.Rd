@@ -8,7 +8,7 @@ plotRecolorized(
   recolored_img,
   original_img,
   plot_original = TRUE,
-  color_centers,
+  centers,
   horiz = FALSE,
   cex_text = 2,
   sizes = NULL
@@ -21,7 +21,7 @@ plotRecolorized(
 
 \item{plot_original}{Logical. Plot the original image for comparison?}
 
-\item{color_centers}{The colors to plot in the color palette, as a numeric
+\item{centers}{The colors to plot in the color palette, as a numeric
 matrix (rows = colors, columns = channels).}
 
 \item{horiz}{Logical. Should plots be stacked vertically or horizontally?}
@@ -45,12 +45,12 @@ corbetti_recolor <- recolorize(corbetti, method = "hist",
 # full color palette
 plotRecolorized(recolored_img = corbetti_recolor$recolored_img,
                 original_img = corbetti_recolor$original_img,
-                color_centers = corbetti_recolor$centers)
+                centers = corbetti_recolor$centers)
 
 # scaled color palette
 plotRecolorized(recolored_img = corbetti_recolor$recolored_img,
                 original_img = corbetti_recolor$original_img,
-                color_centers = corbetti_recolor$centers,
+                centers = corbetti_recolor$centers,
                 sizes = corbetti_recolor$sizes)
 
 }

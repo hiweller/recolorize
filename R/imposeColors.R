@@ -5,7 +5,7 @@
 #'
 #' @param img Path to the image (a character vector) or a 3D image array as read
 #'   in by \code{\link[png]{readPNG}} \code{{readImage}}.
-#' @param color_centers Colors to map to, as an n x 3 matrix (rows = colors,
+#' @param centers Colors to map to, as an n x 3 matrix (rows = colors,
 #'   columns = channels).
 #' @param adjust_centers Logical. After pixel assignment, should the returned
 #'   colors be the average color of the pixels assigned to that cluster, or the
@@ -39,7 +39,7 @@
 #'     \item `recolored_img`: The recolored image, as a 3D array.
 #'     \item `color_space`: The associated color space. Currently only RGB.
 #'     \item `centers`: A matrix of color centers. If `adjust_centers =
-#'         FALSE`, this will be identical to the input `color_centers`.
+#'         FALSE`, this will be identical to the input `centers`.
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
 #'     \item `pixel_assignments`: A vector of color center assignments for each pixel.
 #' }
@@ -101,7 +101,7 @@
 #'                        adjust_centers = FALSE)
 #'
 #' @export
-imposeColors <- function(img, color_centers,
+imposeColors <- function(img, centers,
                            adjust_centers = TRUE,
                            color_space = "sRGB",
                            ref_white = "D65",
@@ -143,8 +143,12 @@ imposeColors <- function(img, color_centers,
   bg_indexed <- backgroundIndex(img, bg_condition)
 
   # color clusters & assign pixels
-  color_clusters <- assignPixels(color_centers, bg_indexed$non_bg,
+  color_clusters <- assignPixels(centers, bg_indexed$non_bg,
                                  adjust_centers = adjust_centers)
+  sizes <- color_clusters$sizes
+  color_clusters <- pixelAssignMatrix(bg_indexed, color_clusters)
+  color_clusters$sizes <- sizes
+  class(color_clusters) <- "color_clusters"
 
   # recolor based on assignments/centers
   recolored <- recolorImage(bg_indexed, color_clusters,
@@ -152,7 +156,6 @@ imposeColors <- function(img, color_centers,
                             remove_empty_clusters = FALSE)
 
   # get sizes vector
-  sizes <- color_clusters$sizes
   if (scale_palette) { s <- sizes } else { s <- NULL }
 
   # plot result

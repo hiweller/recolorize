@@ -7,7 +7,7 @@
 colorResiduals(
   pixel_matrix,
   pixel_assignments,
-  color_centers,
+  centers,
   color_space = "Lab",
   metric = "euclidean",
   ref_white = "D65"
@@ -20,10 +20,10 @@ channels).}
 \item{pixel_assignments}{A vector of color center assignments for each
 pixel. Must match the order of \code{pixel_matrix}.}
 
-\item{color_centers}{A matrix of color centers, with rows as centers and
+\item{centers}{A matrix of color centers, with rows as centers and
 columns as color channels. Rows are assumed to match the index values of
 \code{pixel_assignments}, e.g. a pixel assigned \code{1} in the assignment vector
-is assigned to the color in the first row of \code{color_centers}.}
+is assigned to the color in the first row of \code{centers}.}
 
 \item{color_space}{Color space in which to calculate distances. One of
 "sRGB", "Lab", "Luv", or "XYZ". Passed to
@@ -73,12 +73,12 @@ reassigned <- assignPixels(ctrs, pixel_matrix, adjust_centers = TRUE)
 # find residuals from original color centers
 color_residuals <- colorResiduals(pixel_matrix = pixel_matrix,
                                   pixel_assignments = reassigned$pixel_assignments,
-                                  color_centers = ctrs)
+                                  centers = ctrs)
 
 # compare to residuals from adjusted color centers
 color_residuals_adjust <- colorResiduals(pixel_matrix = pixel_matrix,
                                   pixel_assignments = reassigned$pixel_assignments,
-                                  color_centers = reassigned$centers)
+                                  centers = reassigned$centers)
 
 layout(matrix(1:2, nrow = 2))
 hist(color_residuals$sq_residuals,

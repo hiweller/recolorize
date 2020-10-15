@@ -5,7 +5,7 @@
 \title{Generate color clusters from an image}
 \usage{
 colorClusters(
-  pixel_matrix,
+  bg_indexed,
   method = "histogram",
   n = 10,
   bins = 3,
@@ -14,7 +14,7 @@ colorClusters(
 )
 }
 \arguments{
-\item{pixel_matrix}{2D matrix of pixels to classify (rows = pixels, columns = channels).}
+\item{bg_indexed}{A list returned by \code{\link{backgroundIndex}}.}
 
 \item{method}{Binning scheme to use, one of either \code{kmeans} or \code{histogram}.
 Produce very different results (see details).}
@@ -70,21 +70,20 @@ very dark image).
 img <- array(runif(30000), dim = c(100, 100, 3))
 plotImageArray(img)
 
-# pixel matrix
-img.2d <- img
-dim(img.2d) <- c(100 * 100, 3)
+# make a background index object:
+bg_indexed <- backgroundIndex(img, backgroundCondition())
 
 # histogram clustering
-hist_clusters <- colorClusters(img.2d, method = "hist", bins = 2)
+hist_clusters <- colorClusters(bg_indexed, method = "hist", bins = 2)
 plotColorPalette(hist_clusters$centers)
 
 # we can use a different number of bins for each channel
-uneven_clusters <- colorClusters(img.2d, method = "hist",
+uneven_clusters <- colorClusters(bg_indexed, method = "hist",
                                  bins = c(3, 2, 1))
 plotColorPalette(uneven_clusters$centers)
 
 # using kmeans
-kmeans_clusters <- colorClusters(img.2d, method = "kmeans",
+kmeans_clusters <- colorClusters(bg_indexed, method = "kmeans",
                                  n = 5)
 plotColorPalette(kmeans_clusters$centers)
 

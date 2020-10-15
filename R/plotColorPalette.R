@@ -3,7 +3,7 @@
 #' Plots a color palette as a single bar, optionally scaling each color to a
 #' vector of sizes.
 #'
-#' @param color_centers Colors to plot in palette. Accepts either a character
+#' @param centers Colors to plot in palette. Accepts either a character
 #'   vector of hex codes or an n x 3 matrix (rows = colors, columns =
 #'   channels). Assumes RGB in 0-1 range.
 #' @param sizes An optional numeric vector of sizes for scaling each color. If
@@ -39,31 +39,31 @@
 #'
 #' @export
 
-plotColorPalette <- function(color_centers, sizes = NULL,
+plotColorPalette <- function(centers, sizes = NULL,
                              cex_text = 2, horiz = TRUE, ...) {
 
   # check if hex codes
-  if (is.vector(color_centers)) {
-    if (sum(grepl("#", color_centers)) == length(color_centers)) {
+  if (is.vector(centers)) {
+    if (sum(grepl("#", centers)) == length(centers)) {
 
-      hex_colors <- color_centers
+      hex_colors <- centers
 
     } else {
 
-      stop("'color_centers' must be either a numeric RGB matrix with colors\n
+      stop("'centers' must be either a numeric RGB matrix with colors\n
           as rows or a character vector of hex codes")
 
     }
-  } else if (dim(color_centers)[2] != 3) {
+  } else if (dim(centers)[2] != 3) {
 
-    stop("'color_centers' must have colors as rows and RGB coordinates as columns")
+    stop("'centers' must have colors as rows and RGB coordinates as columns")
 
     } else {
 
     # make color vector
-    hex_colors <- grDevices::rgb(color_centers[, 1],
-                              color_centers[, 2],
-                              color_centers[, 3])
+    hex_colors <- grDevices::rgb(centers[, 1],
+                              centers[, 2],
+                              centers[, 3])
 
 
     }

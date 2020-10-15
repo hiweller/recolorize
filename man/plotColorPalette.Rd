@@ -4,10 +4,10 @@
 \alias{plotColorPalette}
 \title{Plot a color palette}
 \usage{
-plotColorPalette(color_centers, sizes = NULL, cex_text = 2, horiz = TRUE, ...)
+plotColorPalette(centers, sizes = NULL, cex_text = 2, horiz = TRUE, ...)
 }
 \arguments{
-\item{color_centers}{Colors to plot in palette. Accepts either a character
+\item{centers}{Colors to plot in palette. Accepts either a character
 vector of hex codes or an n x 3 matrix (rows = colors, columns =
 channels). Assumes RGB in 0-1 range.}
 

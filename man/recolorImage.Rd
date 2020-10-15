@@ -78,7 +78,7 @@ bg_condition <- backgroundCondition(transparent = TRUE,
 bg_indexed <- backgroundIndex(img, bg_condition)
 
 # histogram binning
-hist_colors <- colorClusters(bg_indexed$non_bg,
+hist_colors <- colorClusters(bg_indexed,
                              method = "hist", bins = 2)
 
 # shuffle colors

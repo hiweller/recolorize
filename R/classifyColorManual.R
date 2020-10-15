@@ -36,7 +36,7 @@
 #'      \code{\link{colorResiduals}}.
 #'     \item `color_space`: The associated color space. Currently only RGB.
 #'     \item `centers`: A matrix of color centers. If `adjust.centers =
-#'         FALSE`, this will be identical to the input `color_centers`.
+#'         FALSE`, this will be identical to the input `centers`.
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
 #'     \item `pixel_assignments`: A vector of color center assignments for each pixel.
 #' }
@@ -150,7 +150,7 @@ classifyColorManual <- function(img_path, method = "histogram",
   bg_indexed <- backgroundIndex(img, bg_condition)
 
   # color clusters & assign pixels
-  color_clusters <- colorClusters(bg_indexed$non_bg, method = method,
+  color_clusters <- colorClusters(bg_indexed, method = method,
                                   n = n, bins = bins)
 
   # recolor based on assignments/centers
@@ -166,7 +166,7 @@ classifyColorManual <- function(img_path, method = "histogram",
   if (plotting) {
     plotRecolorized(recolored$recolored_img, img,
                     plot_original = TRUE,
-                    recolored$centers, horiz = horiz,
+                    color_clusters$centers, horiz = horiz,
                     cex_text = cex_text,
                     sizes = s)
   }
@@ -188,8 +188,9 @@ classifyColorManual <- function(img_path, method = "histogram",
   pixel_assignments <- color_clusters$pixel_assignments
 
   # calculate residuals
+  nonbg_pix <- color_clusters$pixel_assignments[-bg_indexed$idx_flat]
   color_residuals <- colorResiduals(bg_indexed$non_bg,
-                                    color_clusters$pixel_assignments,
+                                    nonbg_pix,
                                     centers)
 
   # return em

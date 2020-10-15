@@ -7,10 +7,10 @@
 #'   channels).
 #' @param pixel_assignments A vector of color center assignments for each
 #'   pixel. Must match the order of `pixel_matrix`.
-#' @param color_centers A matrix of color centers, with rows as centers and
+#' @param centers A matrix of color centers, with rows as centers and
 #'   columns as color channels. Rows are assumed to match the index values of
 #'   `pixel_assignments`, e.g. a pixel assigned `1` in the assignment vector
-#'   is assigned to the color in the first row of `color_centers`.
+#'   is assigned to the color in the first row of `centers`.
 #' @param color_space Color space in which to calculate distances. One of
 #'   "sRGB", "Lab", "Luv", or "XYZ". Passed to
 #'   \code{\link[grDevices]{convertColor}}.
@@ -53,12 +53,12 @@
 #' # find residuals from original color centers
 #' color_residuals <- colorResiduals(pixel_matrix = pixel_matrix,
 #'                                   pixel_assignments = reassigned$pixel_assignments,
-#'                                   color_centers = ctrs)
+#'                                   centers = ctrs)
 #'
 #' # compare to residuals from adjusted color centers
 #' color_residuals_adjust <- colorResiduals(pixel_matrix = pixel_matrix,
 #'                                   pixel_assignments = reassigned$pixel_assignments,
-#'                                   color_centers = reassigned$centers)
+#'                                   centers = reassigned$centers)
 #'
 #' layout(matrix(1:2, nrow = 2))
 #' hist(color_residuals$sq_residuals,
@@ -74,13 +74,13 @@
 #' @export
 colorResiduals <- function(pixel_matrix,
                            pixel_assignments,
-                           color_centers,
+                           centers,
                            color_space = "Lab",
                            metric = "euclidean",
                            ref_white = "D65") {
 
   # make sure all the pixels are assigned to a center that exists
-  if (any(!unique(pixel_assignments) %in% 1:nrow(color_centers))) {
+  if (any(!unique(pixel_assignments) %in% 1:nrow(centers))) {
     stop("Not all pixel assignments correspond to a provided color center.")
   }
 
@@ -89,7 +89,7 @@ colorResiduals <- function(pixel_matrix,
                                             from = "sRGB",
                                             to = color_space,
                                             to.ref.white = ref_white)
-    color_centers <- grDevices::convertColor(color_centers,
+    centers <- grDevices::convertColor(centers,
                                              from = "sRGB",
                                              to = color_space,
                                              to.ref.white = ref_white)
@@ -98,15 +98,15 @@ colorResiduals <- function(pixel_matrix,
   # calculate all squared residuals
   sq_residuals <- sapply(1:length(pixel_assignments),
                          function(i) stats::dist(rbind(pixel_matrix[i, ],
-                                   color_centers[pixel_assignments[i], ]),
+                                   centers[pixel_assignments[i], ]),
                                                  method = metric))
 
   # make a list of residuals by color center
-  residuals_by_center <- vector("list", length = nrow(color_centers))
+  residuals_by_center <- vector("list", length = nrow(centers))
 
   # sort it
   # there's a less dumb way to do this but I don't...care
-  for (i in 1:nrow(color_centers)) {
+  for (i in 1:nrow(centers)) {
     residuals_by_center[[i]] <- sq_residuals[which(pixel_assignments == i)]
   }
 

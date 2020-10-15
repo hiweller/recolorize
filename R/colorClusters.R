@@ -3,7 +3,7 @@
 #' Clusters all the pixels in an image according to the specified method and
 #' returns color centers, cluster assignments, and cluster sizes.
 #'
-#' @param pixel_matrix 2D matrix of pixels to classify (rows = pixels, columns = channels).
+#' @param bg_indexed A list returned by \code{\link{backgroundIndex}}.
 #' @param method Binning scheme to use, one of either `kmeans` or `histogram`.
 #'   Produce very different results (see details).
 #' @param n If `method = "kmeans"`, the number of colors to fit.
@@ -50,26 +50,25 @@
 #' img <- array(runif(30000), dim = c(100, 100, 3))
 #' plotImageArray(img)
 #'
-#' # pixel matrix
-#' img.2d <- img
-#' dim(img.2d) <- c(100 * 100, 3)
+#' # make a background index object:
+#' bg_indexed <- backgroundIndex(img, backgroundCondition())
 #'
 #' # histogram clustering
-#' hist_clusters <- colorClusters(img.2d, method = "hist", bins = 2)
+#' hist_clusters <- colorClusters(bg_indexed, method = "hist", bins = 2)
 #' plotColorPalette(hist_clusters$centers)
 #'
 #' # we can use a different number of bins for each channel
-#' uneven_clusters <- colorClusters(img.2d, method = "hist",
+#' uneven_clusters <- colorClusters(bg_indexed, method = "hist",
 #'                                  bins = c(3, 2, 1))
 #' plotColorPalette(uneven_clusters$centers)
 #'
 #' # using kmeans
-#' kmeans_clusters <- colorClusters(img.2d, method = "kmeans",
+#' kmeans_clusters <- colorClusters(bg_indexed, method = "kmeans",
 #'                                  n = 5)
 #' plotColorPalette(kmeans_clusters$centers)
 #'
 #' @export
-colorClusters <- function(pixel_matrix,
+colorClusters <- function(bg_indexed,
                           method = "histogram",
                           n = 10,
                           bins = 3,
@@ -79,13 +78,10 @@ colorClusters <- function(pixel_matrix,
   # coerce method argument
   method <- match.arg(tolower(method), c("kmeans", "histogram"))
 
-  # we don't care about the alpha channel; remove if present
-  pixel_matrix <- pixel_matrix[ , 1:3]
-
   # use clustering function appropriate to specified method
   if (method == "kmeans") {
 
-    color_clusters <- colorClustersKMeans(pixel_matrix = pixel_matrix,
+    color_clusters <- colorClustersKMeans(pixel_matrix = bg_indexed$non_bg,
                                           n = n,
                                           color_space = color_space,
                                           ref_white = ref_white)
@@ -93,7 +89,7 @@ colorClusters <- function(pixel_matrix,
 
   } else if (method == "histogram") {
 
-    color_clusters <- colorClustersHist(pixel_matrix = pixel_matrix,
+    color_clusters <- colorClustersHist(pixel_matrix = bg_indexed$non_bg,
                                         bins = bins,
                                         color_space = color_space,
                                         ref_white = ref_white)
@@ -104,6 +100,11 @@ colorClusters <- function(pixel_matrix,
     stop("uh oh!!")
 
   }
+
+  # convert to a full matrix
+  sizes <- color_clusters$sizes
+  color_clusters <- pixelAssignMatrix(bg_indexed, color_clusters)
+  color_clusters$sizes <- sizes
 
   # note: returned centers should ALWAYS be RGB 0-1 range
   # this is because they're used for recoloring, not quantifying

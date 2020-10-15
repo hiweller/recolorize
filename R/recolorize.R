@@ -39,7 +39,7 @@
 #'     \item `original_img`: The original image, as a 3D array.
 #'     \item `recolored_img`: The recolored image, as a 3D array.
 #'     \item `centers`: A matrix of color centers. If `adjust_centers =
-#'         FALSE`, this will be identical to the input `color_centers`.
+#'         FALSE`, this will be identical to the input `centers`.
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
 #'     \item `pixel_assignments`: A vector of color center assignments for each pixel.
 #' }
@@ -154,7 +154,7 @@ recolorize <- function(img, method = "histogram",
   bg_indexed <- backgroundIndex(img, bg_condition)
 
   # color clusters & assign pixels
-  color_clusters <- colorClusters(bg_indexed$non_bg, method = method,
+  color_clusters <- colorClusters(bg_indexed, method = method,
                                   n = n, bins = bins,
                                   color_space = color_space,
                                   ref_white = ref_white)

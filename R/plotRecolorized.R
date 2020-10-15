@@ -9,7 +9,7 @@
 #' @param recolored_img The recolored image, as a 3D RGB array.
 #' @param original_img The original image, as a 3D RGB array.
 #' @param plot_original Logical. Plot the original image for comparison?
-#' @param color_centers The colors to plot in the color palette, as a numeric
+#' @param centers The colors to plot in the color palette, as a numeric
 #'   matrix (rows = colors, columns = channels).
 #' @param horiz Logical. Should plots be stacked vertically or horizontally?
 #' @param cex_text,sizes Plotting parameters passed to
@@ -25,18 +25,18 @@
 #' # full color palette
 #' plotRecolorized(recolored_img = corbetti_recolor$recolored_img,
 #'                 original_img = corbetti_recolor$original_img,
-#'                 color_centers = corbetti_recolor$centers)
+#'                 centers = corbetti_recolor$centers)
 #'
 #' # scaled color palette
 #' plotRecolorized(recolored_img = corbetti_recolor$recolored_img,
 #'                 original_img = corbetti_recolor$original_img,
-#'                 color_centers = corbetti_recolor$centers,
+#'                 centers = corbetti_recolor$centers,
 #'                 sizes = corbetti_recolor$sizes)
 #'
 #' @export
 plotRecolorized <- function(recolored_img, original_img,
                             plot_original = TRUE,
-                            color_centers,
+                            centers,
                             horiz = FALSE,
                             cex_text = 2, sizes = NULL) {
 
@@ -82,7 +82,7 @@ plotRecolorized <- function(recolored_img, original_img,
 
   # plotting palette
   graphics::par(mar = rep(0.5, 4))
-  plotColorPalette(color_centers, horiz = h,
+  plotColorPalette(centers, horiz = h,
                    cex_text = cex_text, sizes = sizes)
 
   # reset parameters

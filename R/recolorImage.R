@@ -58,7 +58,7 @@
 #' bg_indexed <- backgroundIndex(img, bg_condition)
 #'
 #' # histogram binning
-#' hist_colors <- colorClusters(bg_indexed$non_bg,
+#' hist_colors <- colorClusters(bg_indexed,
 #'                              method = "hist", bins = 2)
 #'
 #' # shuffle colors
@@ -92,13 +92,9 @@ recolorImage <- function(bg_indexed, color_clusters,
             respectively")
   }
 
-  # first, make a pixel assignment matrix:
-  pixel_assignments <- pixelAssignMatrix(bg_indexed,
-                                         color_clusters)
-
   # make an image from the above information:
-  recolored_img <- constructImage(pixel_assignments$pixel_assignments,
-                                  pixel_assignments$color_centers,
+  recolored_img <- constructImage(color_clusters$pixel_assignments,
+                                  color_clusters$centers,
                                   background_color = bg_color)
 
   # plot if plotting:
@@ -121,90 +117,3 @@ recolorImage <- function(bg_indexed, color_clusters,
               centers = centers))
 
 }
-
-#' Make pixel assignment matrix for recoloring
-#'
-#' Internal function. Generates a sort of 'paint-by-numbers' matrix, where each
-#' cell is the index of the color in the color centers matrix to which that
-#' pixel is assigned. An index of 0 indicates a background pixel.
-#'
-#' @param bg_indexed An object returned by \code{\link{backgroundIndex}}.
-#' @param color_clusters An object returned by \code{\link{colorClusters}}.
-#'
-#' @return A matrix of pixel color assignments (`pixel_assignments`)
-#' and a corresponding dataframe of color centers (`color_centers`).
-pixelAssignMatrix <- function(bg_indexed, color_clusters) {
-
-  # make a vector of 0's, one per image pixel
-  pix_assign <- rep(0, nrow(bg_indexed$flattened_img))
-
-  # swap in the color assignments for the pixels
-  pix_assign[-bg_indexed$idx_flat] <- color_clusters$pixel_assignments
-
-  # and reshape:
-  dim(pix_assign) <- bg_indexed$img_dims[1:2]
-
-  # return it!
-  return(list(pixel_assignments = pix_assign,
-              color_centers = color_clusters$centers))
-
-}
-
-
-#' Generate an image from pixel assignments and color matrix
-#'
-#' Combines a matrix of pixel assignments and a corresponding
-#' matrix of colors to make a recolored RGB image.
-#'
-#' @param pixel_assignments A matrix of index values for each pixel which
-#'   corresponds to `color_centers` (e.g. a `1` indicates that pixel is the
-#'   color of the first row of `color_centers`). Pixels with an index value of 0
-#'   are considered background.
-#' @param color_centers An n x 3 matrix of color centers where rows are colors
-#'   and columns are R, G, and B channels.
-#' @param background_color A numeric RGB triplet, a hex code, or a named
-#'   R color for the background. Will be masked by alpha channel (and appear
-#'   white in the plot window), but will be revealed if the alpha
-#'   channel is removed. If the alpha channel is a background mask,
-#'   this is the 'baked in' background color.
-#'
-#' @return An image (raster) array of the recolored image,
-#' with four channels (R, G, B, and alpha).
-#'
-#' @export
-constructImage <- function(pixel_assignments,
-                           color_centers,
-                           background_color = "white") {
-
-  # make two copies of matrix as a cimg object:
-  index_cimg <- imager::as.cimg(pixel_assignments)
-  final_cimg <- index_cimg
-
-  # color the background in
-  # you won't see this unless you remove the alpha layer:
-  final_cimg <- imager::colorise(final_cimg,
-                                 index_cimg == 0,
-                                 background_color)
-
-  # color in every color center:
-  for (i in 1:nrow(color_centers)) {
-    final_cimg <- imager::colorise(final_cimg,
-                                   index_cimg == i,
-                                   color_centers[i, ])
-  }
-
-  # convert to a regular array:
-  as_array <- cimg_to_array(final_cimg)
-
-  # and add an alpha channel:
-  alpha_layer <- pixel_assignments
-  alpha_layer[which(alpha_layer > 0)] <- 1
-  as_array <- abind::abind(as_array,
-                           alpha_layer,
-                           along = 3)
-
-  # beep boop:
-  return(as_array)
-
-}
-

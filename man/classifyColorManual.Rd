@@ -64,7 +64,7 @@ A list with the following attributes:
 summarized (overall and per cluster), calculated by
 \code{\link{colorResiduals}}.
 \item \code{color_space}: The associated color space. Currently only RGB.
-\item \code{centers}: A matrix of color centers. If \code{adjust.centers = FALSE}, this will be identical to the input \code{color_centers}.
+\item \code{centers}: A matrix of color centers. If \code{adjust.centers = FALSE}, this will be identical to the input \code{centers}.
 \item \code{sizes}: The number of pixels assigned to each color cluster.
 \item \code{pixel_assignments}: A vector of color center assignments for each pixel.
 }

@@ -1,6 +1,6 @@
 #' Assign a 2D matrix of pixels to specified colors
 #'
-#' @param color_centers Matrix of color centers (rows = colors, columns = channels).
+#' @param centers Matrix of color centers (rows = colors, columns = channels).
 #' @param pixel_matrix Matrix of pixel colors (rows = pixels, columns = channels).
 #' @param color_space Color space in which to minimize distances, passed to
 #'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
@@ -14,7 +14,7 @@
 #' \enumerate{
 #'         \item `pixel_assignments`: The color center assignment for each pixel.
 #'         \item `centers`: A matrix of color centers. If `adjust_centers =
-#'         FALSE`, this will be identical to the input of `color_centers`.
+#'         FALSE`, this will be identical to the input of `centers`.
 #'         \item `sizes`: The number of pixels assigned to each cluster.
 #' }
 #'
@@ -51,7 +51,7 @@
 #' recolorize::plotColorPalette(keep.centers$centers)
 #'
 #' @export
-assignPixels <- function(color_centers,
+assignPixels <- function(centers,
                          pixel_matrix,
                          color_space = "Lab",
                          ref_white = "D65",
@@ -62,13 +62,13 @@ assignPixels <- function(color_centers,
                                   from = "sRGB",
                                   to = color_space,
                                   to.ref.white = ref_white)
-    ctrs <- grDevices::convertColor(color_centers,
+    ctrs <- grDevices::convertColor(centers,
                                    from = "sRGB",
                                    to = color_space,
                                    to.ref.white = ref_white)
   } else {
     pm <- pixel_matrix
-    ctrs <- color_centers
+    ctrs <- centers
   }
 
   # I'm not sure this is really as fast as it could be
@@ -79,7 +79,7 @@ assignPixels <- function(color_centers,
   # make returnables
   pixel_assignments <- max.col(-t(tmp))  # find index of min distance
   assignments <- table(pixel_assignments) # make a table of assigned pixels
-  sizes <- rep(0, nrow(color_centers))
+  sizes <- rep(0, nrow(centers))
   sizes[as.numeric(names(assignments))] <- assignments # empty clusters are 0
 
   # if specified: make new color centers based on average of assigned pixels
@@ -106,14 +106,14 @@ assignPixels <- function(color_centers,
 
   # and convert back to sRGB
   if (color_space != "sRGB") {
-    color_centers <- grDevices::convertColor(ctrs,
+    centers <- grDevices::convertColor(ctrs,
                                    from = color_space,
                                    to = "sRGB",
                                    from.ref.white = ref_white)
   }
 
   color_clusters <- list(pixel_assignments = pixel_assignments,
-                         centers = color_centers,
+                         centers = centers,
                          sizes = sizes)
   class(color_clusters) <- "color_clusters"
   return(color_clusters)

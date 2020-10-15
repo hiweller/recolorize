@@ -6,7 +6,7 @@
 \usage{
 imposeColors(
   img,
-  color_centers,
+  centers,
   adjust_centers = TRUE,
   color_space = "sRGB",
   ref_white = "D65",
@@ -26,7 +26,7 @@ imposeColors(
 \item{img}{Path to the image (a character vector) or a 3D image array as read
 in by \code{\link[png]{readPNG}} \code{{readImage}}.}
 
-\item{color_centers}{Colors to map to, as an n x 3 matrix (rows = colors,
+\item{centers}{Colors to map to, as an n x 3 matrix (rows = colors,
 columns = channels).}
 
 \item{adjust_centers}{Logical. After pixel assignment, should the returned
@@ -71,7 +71,7 @@ A list with the following attributes:
 \item \code{original_img}: The original image, as a 3D array.
 \item \code{recolored_img}: The recolored image, as a 3D array.
 \item \code{color_space}: The associated color space. Currently only RGB.
-\item \code{centers}: A matrix of color centers. If \code{adjust_centers = FALSE}, this will be identical to the input \code{color_centers}.
+\item \code{centers}: A matrix of color centers. If \code{adjust_centers = FALSE}, this will be identical to the input \code{centers}.
 \item \code{sizes}: The number of pixels assigned to each color cluster.
 \item \code{pixel_assignments}: A vector of color center assignments for each pixel.
 }
