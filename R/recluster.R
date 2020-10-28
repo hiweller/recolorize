@@ -16,6 +16,12 @@
 #'   will usually work best. See details.
 #' @param n_final Final number of desired colors; alternative to specifying
 #'  a similarity cutoff. Overrides `similarity_cutoff` if provided.
+#'  @param refit_method Method for refitting the image with the new color centers.
+#'  One of either "impose" or "merge". \code{\link{imposeColors}}
+#'  refits the original image using the new colors (slow but often better results).
+#'  \code{\link{mergeLayers}} merges the layers of the existing recolored
+#'  image. This is faster since it doesn't require a new fit, but can
+#'  produce messier results.
 #' @param color_space Color space in which to cluster centers, passed to
 #'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
 #'   Default is "Lab", a perceptually uniform (for humans) color space.
@@ -62,7 +68,14 @@
 #' # check previous plot for clustering cutoff
 #' recluster_obj <- recluster(recolored_corbetti,
 #'                            similarity_cutoff = 60,
-#'                            plot_hclust = TRUE)
+#'                            plot_hclust = TRUE,
+#'                            refit_method = "impose")
+#'
+#' # compare to merging layers - quite different results:
+#' recluster_merge <- recluster(recolored_corbetti,
+#'                            similarity_cutoff = 60,
+#'                            plot_hclust = TRUE,
+#'                            refit_method = "merge")
 #'
 #' # compare to the result using k-means clustering and the same n:
 #' kmeans_fit <- recolorize(corbetti, "k", n = 6)
@@ -87,6 +100,7 @@ recluster <- function(recolorize_obj,
                        similarity_cutoff = 60,
                        n_final = NULL,
                        plot_hclust = FALSE,
+                      refit_method = "impose",
                       resid = FALSE,
                       plot_final = TRUE,
                       color_space_fit = "sRGB") {
@@ -140,10 +154,34 @@ recluster <- function(recolorize_obj,
   merge_list <- lapply(unique(clust_groups),
                        function(i) which(clust_groups == i))
 
-  # and merge those layers:
-  final_fit <- recolorize::mergeLayers(init_fit,
-                                       merge_list = merge_list,
-                                       plotting = FALSE)
+  refit_method <- match.arg(refit_method, c("imposeColors", "mergeLayers"))
+
+  if (refit_method == "imposeColors") {
+    # get weighted avg new colors:
+    for (i in 1:length(merge_list)) {
+      temp_colors <- centers[merge_list[[i]], ]
+      new_color <- apply(temp_colors, 2, function(j)
+        weighted.mean(j, w = sizes[merge_list[[i]]]))
+      if (i == 1) {
+        new_centers <- data.frame(R = new_color[1],
+                                  G = new_color[2],
+                                  B = new_color[3])
+      } else {
+        new_centers <- rbind(new_centers, new_color)
+      }
+    }
+
+    # and refit:
+    final_fit <- imposeColors(init_fit$original_img,
+                              centers = new_centers,
+                              plotting = FALSE)
+  } else if (refit_method == "mergeLayers") {
+    # doop doop:
+    final_fit <- recolorize::mergeLayers(init_fit,
+                                         merge_list = merge_list,
+                                         plotting = FALSE)
+
+  }
 
   # if plotting...
   if (plot_final) {

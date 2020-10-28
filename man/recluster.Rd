@@ -11,6 +11,7 @@ recluster(
   similarity_cutoff = 60,
   n_final = NULL,
   plot_hclust = FALSE,
+  refit_method = "impose",
   resid = FALSE,
   plot_final = TRUE,
   color_space_fit = "sRGB"
@@ -33,7 +34,13 @@ which means it is greater than 0-100, but cutoff values between 20 and 80
 will usually work best. See details.}
 
 \item{n_final}{Final number of desired colors; alternative to specifying
-a similarity cutoff. Overrides \code{similarity_cutoff} if provided.}
+a similarity cutoff. Overrides \code{similarity_cutoff} if provided.
+@param refit_method Method for refitting the image with the new color centers.
+One of either "impose" or "merge". \code{\link{imposeColors}}
+refits the original image using the new colors (slow but often better results).
+\code{\link{mergeLayers}} merges the layers of the existing recolored
+image. This is faster since it doesn't require a new fit, but can
+produce messier results.}
 
 \item{plot_hclust}{Logical. Plot the hierarchical clustering tree for
 color similarity? Helpful for troubleshooting a cutoff.}
@@ -88,7 +95,14 @@ recolored_corbetti <- recolorize(corbetti, bins = 3)
 # check previous plot for clustering cutoff
 recluster_obj <- recluster(recolored_corbetti,
                            similarity_cutoff = 60,
-                           plot_hclust = TRUE)
+                           plot_hclust = TRUE,
+                           refit_method = "impose")
+
+# compare to merging layers - quite different results:
+recluster_merge <- recluster(recolored_corbetti,
+                           similarity_cutoff = 60,
+                           plot_hclust = TRUE,
+                           refit_method = "merge")
 
 # compare to the result using k-means clustering and the same n:
 kmeans_fit <- recolorize(corbetti, "k", n = 6)
