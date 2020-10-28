@@ -34,16 +34,17 @@ which means it is greater than 0-100, but cutoff values between 20 and 80
 will usually work best. See details.}
 
 \item{n_final}{Final number of desired colors; alternative to specifying
-a similarity cutoff. Overrides \code{similarity_cutoff} if provided.
-@param refit_method Method for refitting the image with the new color centers.
-One of either "impose" or "merge". \code{\link{imposeColors}}
-refits the original image using the new colors (slow but often better results).
-\code{\link{mergeLayers}} merges the layers of the existing recolored
-image. This is faster since it doesn't require a new fit, but can
-produce messier results.}
+a similarity cutoff. Overrides \code{similarity_cutoff} if provided.}
 
 \item{plot_hclust}{Logical. Plot the hierarchical clustering tree for
 color similarity? Helpful for troubleshooting a cutoff.}
+
+\item{refit_method}{Method for refitting the image with the new color
+centers. One of either "impose" or "merge". \code{\link{imposeColors}}
+refits the original image using the new colors (slow but often better
+results). \code{\link{mergeLayers}} merges the layers of the existing
+recolored image. This is faster since it doesn't require a new fit, but can
+produce messier results.}
 
 \item{resid}{Logical. Get final color fit residuals with
 \code{\link{colorResiduals}}?}

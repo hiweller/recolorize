@@ -16,12 +16,12 @@
 #'   will usually work best. See details.
 #' @param n_final Final number of desired colors; alternative to specifying
 #'  a similarity cutoff. Overrides `similarity_cutoff` if provided.
-#'  @param refit_method Method for refitting the image with the new color centers.
-#'  One of either "impose" or "merge". \code{\link{imposeColors}}
-#'  refits the original image using the new colors (slow but often better results).
-#'  \code{\link{mergeLayers}} merges the layers of the existing recolored
-#'  image. This is faster since it doesn't require a new fit, but can
-#'  produce messier results.
+#' @param refit_method Method for refitting the image with the new color
+#'   centers. One of either "impose" or "merge". \code{\link{imposeColors}}
+#'   refits the original image using the new colors (slow but often better
+#'   results). \code{\link{mergeLayers}} merges the layers of the existing
+#'   recolored image. This is faster since it doesn't require a new fit, but can
+#'   produce messier results.
 #' @param color_space Color space in which to cluster centers, passed to
 #'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
 #'   Default is "Lab", a perceptually uniform (for humans) color space.
@@ -160,8 +160,14 @@ recluster <- function(recolorize_obj,
     # get weighted avg new colors:
     for (i in 1:length(merge_list)) {
       temp_colors <- centers[merge_list[[i]], ]
-      new_color <- apply(temp_colors, 2, function(j)
-        weighted.mean(j, w = sizes[merge_list[[i]]]))
+      if (is.null(nrow(temp_colors))) {
+        new_color <- temp_colors
+      } else {
+        new_color <- apply(temp_colors, 2, function(j)
+          stats::weighted.mean(j, w = sizes[merge_list[[i]]]))
+      }
+
+      # make new dataframe/add new colors:
       if (i == 1) {
         new_centers <- data.frame(R = new_color[1],
                                   G = new_color[2],
