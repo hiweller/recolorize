@@ -4,13 +4,13 @@
 \alias{splitByColor}
 \title{Split color clusters in a recolorize object into layers}
 \usage{
-splitByColor(recolorize_obj, colors = "all", plot_method = "overlay")
+splitByColor(recolorize_obj, layers = "all", plot_method = "overlay")
 }
 \arguments{
 \item{recolorize_obj}{A recolorize object from \code{\link{recolorize}},
 \code{\link{recluster}}, or \code{\link{imposeColors}}.}
 
-\item{colors}{Either \code{"all"} or a numeric vector of which color centers to
+\item{layers}{Either \code{"all"} or a numeric vector of which color centers to
 return.}
 
 \item{plot_method}{Plotting method for plotting the color layers. Options

@@ -1,19 +1,20 @@
-# plots a recolored image + its color palette
 #' Plot recolorized image results
 #'
-#' Plots a side-by-side comparison of an original image and its recolorized
-#' version, plus the color palette used for recoloring. Called by
-#' \code{\link[recolorize]{imposeColors}} and
-#' \code{\link[recolorize]{recolorize}}.
+#' S3 plotting method for objects of class `recolorize`. Plots a side-by-side
+#' comparison of an original image and its recolorized version, plus the color
+#' palette used for recoloring.
 #'
-#' @param recolored_img The recolored image, as a 3D RGB array.
-#' @param original_img The original image, as a 3D RGB array.
+#' @param x An object of class `recolorize`, such as
+#' returned by \code{\link{recolorize}}, \code{\link{recluster}},
+#' \code{\link{imposeColors}}, etc.
 #' @param plot_original Logical. Plot the original image for comparison?
-#' @param centers The colors to plot in the color palette, as a numeric
-#'   matrix (rows = colors, columns = channels).
 #' @param horiz Logical. Should plots be stacked vertically or horizontally?
-#' @param cex_text,sizes Plotting parameters passed to
-#'   \code{\link{recolorize}{plotColorPalette}}.
+#' @param sizes Logical. If `TRUE`, color palette is plotted proportional
+#' to the size of each color. If `FALSE`, all colors take up an equal
+#' amount of space, and their indices are printed for reference.
+#' @param cex_text Text size for printing color indices. Plotting parameters
+#'   passed to \code{\link{recolorize}{plotColorPalette}}.
+#' @param ... further arguments passed to `plot`.
 #'
 #' @examples
 #' corbetti <- system.file("extdata/corbetti.png",
@@ -22,23 +23,18 @@
 #' corbetti_recolor <- recolorize(corbetti, method = "hist",
 #'                                          bins = 2, plotting = FALSE)
 #'
-#' # full color palette
-#' plotRecolorized(recolored_img = corbetti_recolor$recolored_img,
-#'                 original_img = corbetti_recolor$original_img,
-#'                 centers = corbetti_recolor$centers)
+#' # unscaled color palette
+#' plot(corbetti_recolor)
 #'
 #' # scaled color palette
-#' plotRecolorized(recolored_img = corbetti_recolor$recolored_img,
-#'                 original_img = corbetti_recolor$original_img,
-#'                 centers = corbetti_recolor$centers,
-#'                 sizes = corbetti_recolor$sizes)
+#' plot(corbetti_recolor, sizes = TRUE)
 #'
+#' @rdname plot.recolorize
 #' @export
-plotRecolorized <- function(recolored_img, original_img,
+plot.recolorize <- function(x, ...,
                             plot_original = TRUE,
-                            centers,
-                            horiz = FALSE,
-                            cex_text = 2, sizes = NULL) {
+                            horiz = TRUE,
+                            cex_text = 2, sizes = FALSE) {
 
   # for resetting
   user_par <- graphics::par(no.readonly = TRUE)
@@ -60,11 +56,11 @@ plotRecolorized <- function(recolored_img, original_img,
 
     if (horiz) {
       graphics::layout(matrix(c(1, 2), 1, 2),
-             widths = c(0.8, 0.2))
+                       widths = c(0.8, 0.2))
       h <- FALSE
     } else {
       graphics::layout(matrix(c(1, 2), 2, 1),
-             heights = c(0.8, 0.2))
+                       heights = c(0.8, 0.2))
       h <- TRUE
     }
 
@@ -73,16 +69,26 @@ plotRecolorized <- function(recolored_img, original_img,
   # plot original if specified
   if (plot_original) {
     graphics::par(mar = rep(0.5, 4))
-    plotImageArray(original_img, main = "original")
+    plotImageArray(x$original_img,
+                   main = "original")
   }
 
   # plotting image
   graphics::par(mar = rep(0.5, 4))
+  recolored_img <- constructImage(x$pixel_assignments,
+                                  x$centers)
   plotImageArray(recolored_img, main = "recolored")
 
   # plotting palette
   graphics::par(mar = rep(0.5, 4))
-  plotColorPalette(centers, horiz = h,
+
+  if (sizes) {
+    sizes <- x$sizes
+  } else {
+    sizes <- NULL
+  }
+
+  plotColorPalette(x$centers, horiz = h,
                    cex_text = cex_text, sizes = sizes)
 
   # reset parameters

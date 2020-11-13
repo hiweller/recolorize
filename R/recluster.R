@@ -183,9 +183,9 @@ recluster <- function(recolorize_obj,
                               plotting = FALSE)
   } else if (refit_method == "mergeLayers") {
     # doop doop:
-    final_fit <- recolorize::mergeLayers(init_fit,
-                                         merge_list = merge_list,
-                                         plotting = FALSE)
+    final_fit <- mergeLayers(init_fit,
+                             merge_list = merge_list,
+                             plotting = FALSE)
 
   }
 

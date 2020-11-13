@@ -1,7 +1,7 @@
 #' Calculate squared residuals for color centers
 #'
 #' Calculates the squared distance between each pixel and its assigned color
-#' center. Mostly for internal use by \code{\link{classifyColorManual}}.
+#' center.
 #'
 #' @param pixel_matrix 2D matrix of pixels to classify (rows = pixels, columns =
 #'   channels).

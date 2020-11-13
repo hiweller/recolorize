@@ -168,15 +168,6 @@ recolorize <- function(img, method = "histogram",
   sizes <- color_clusters$sizes
   if (scale_palette) { s <- sizes } else { s <- NULL }
 
-  # plot result
-  if (plotting) {
-    plotRecolorized(recolored$recolored_img, img,
-                    plot_original = TRUE,
-                    recolored$centers, horiz = horiz,
-                    cex_text = cex_text,
-                    sizes = s)
-  }
-
   # returnables:
   original_img <- img
   recolored_img <- recolored$recolored_img
@@ -211,6 +202,13 @@ recolorize <- function(img, method = "histogram",
 
   # set class
   class(return_list) <- "recolorize"
+
+  # plot result
+  if (plotting) {
+    plot.recolorize(return_list, horiz = horiz,
+                    cex_text = cex_text,
+                    sizes = TRUE)
+  }
 
   # and...you know
   return(return_list)

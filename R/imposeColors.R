@@ -158,15 +158,6 @@ imposeColors <- function(img, centers,
   # get sizes vector
   if (scale_palette) { s <- sizes } else { s <- NULL }
 
-  # plot result
-  if (plotting) {
-    plotRecolorized(recolored$recolored_img, img,
-                    plot_original = TRUE,
-                    recolored$centers, horiz = horiz,
-                    cex_text = cex_text,
-                    sizes = s)
-  }
-
   # returnables:
   original_img <- img
   recolored_img <- recolored$recolored_img
@@ -183,6 +174,14 @@ imposeColors <- function(img, centers,
                       centers = centers,
                       sizes = sizes,
                       pixel_assignments = pixel_assignments)
+  class(return_list) <- "recolorize"
+
+  # plot result
+  if (plotting) {
+    plot.recolorize(return_list, horiz = horiz,
+                    cex_text = cex_text,
+                    sizes = TRUE)
+  }
 
   # residuals if TRUE
   if (resid) {
@@ -192,8 +191,6 @@ imposeColors <- function(img, centers,
   }
 
   # return it
-  class(return_list) <- "recolorize"
   return(return_list)
-
 
 }

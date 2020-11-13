@@ -6,7 +6,7 @@
 #'
 #' @param recolorize_obj A recolorize object from \code{\link{recolorize}},
 #'   \code{\link{recluster}}, or \code{\link{imposeColors}}.
-#' @param colors Either `"all"` or a numeric vector of which color centers to
+#' @param layers Either `"all"` or a numeric vector of which color centers to
 #'   return.
 #' @param plot_method Plotting method for plotting the color layers. Options
 #'   are`"overlay"`, `"binary"`, `"colormask"`, or `"none"`.
@@ -41,44 +41,33 @@
 #'
 #' @export
 splitByColor <- function(recolorize_obj,
-                         colors = "all",
+                         layers = "all",
                          plot_method = "overlay") {
 
-  # if only plotting some layers, then extract those centers
-  if (is.numeric(colors)) {
-
-    centers <- recolorize_obj$centers[colors, ]
-
-  } else {
-
+  # check layers argument
+  if (layers == "all") {
+    layer_idx <- 1:nrow(recolorize_obj$centers)
+  } else if (is.numeric(layers)) {
     # use all colors
-    centers <- recolorize_obj$centers
-
+    layer_idx <- layers
+  } else {
+    stop("'layers' must be 'all' or a numeric vector of layer indices
+         matching the order of the color centers")
   }
 
-  # convert img to cimg object
-  img <- recolorize_obj$recolored_img
-  dim(img) <- c(dim(img)[1:2], 1, 4)
-  img <- imager::as.cimg(img)
+  # get color centers
+  centers <- recolorize_obj$centers[layer_idx, ]
 
   # make an empty list for the layer bitmaps
-  color_masks <- vector("list", length = nrow(centers))
+  color_masks <- vector("list", length = length(layer_idx))
 
-  # for each color center...
-  for (i in 1:nrow(centers)) {
+  # convert pixel assignment to cimg object
+  img <- imager::as.cimg(recolorize_obj$pixel_assignments)
 
-    # extract color
-    cc <- recolorize_obj$centers[i, ]
-    color <- grDevices::rgb(cc[1], cc[2], cc[3])
+  for (i in 1:length(layer_idx)) {
 
-    # get r, g, b channel matches
-    rpx <- imager::imsub(img, cc == 1) == cc[1]
-    gpx <- imager::imsub(img, cc == 2) == cc[2]
-    bpx <- imager::imsub(img, cc == 3) == cc[3]
-    opx <- imager::imsub(img, cc == 4) > 0 # opacity
-
-    # get pixset for color indices
-    px <- imager::parall(list(rpx, gpx, bpx, opx))
+    # get index
+    px <- imager::imsub(img) == layer_idx[i]
 
     # get color layer as a bitmap
     layer <- as.numeric(px)
@@ -86,6 +75,7 @@ splitByColor <- function(recolorize_obj,
 
     # store bitmap
     color_masks[[i]] <- layer
+
   }
 
   plot_method <- match.arg(plot_method,
@@ -98,10 +88,11 @@ splitByColor <- function(recolorize_obj,
   if (plot_method == "overlay") {
 
     # get transparent pixset
-    alpha_px <- imager::imsub(img, cc == 4) == 0
+    alpha_px <- imager::imsub(img) == 0
+    rgb_img <- array_to_cimg(recolorize_obj$recolored_img)
 
     # make grayscale image
-    grimg <- imager::grayscale(imager::rm.alpha(img), drop = FALSE)
+    grimg <- imager::grayscale(imager::rm.alpha(rgb_img), drop = FALSE)
     grimg[alpha_px] <- 1
 
     # plot em!

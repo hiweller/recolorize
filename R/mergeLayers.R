@@ -104,8 +104,8 @@ mergeLayers <- function(recolorize_obj,
                                          flatten_alpha = T)
 
   # split the layers
-  layers <- recolorize::splitByColor(recolorize_obj,
-                                     plot_method = "none")
+  layers <- splitByColor(recolorize_obj,
+                          plot_method = "none")
 
   # get centers and sizes
   centers <- recolorize_obj$centers

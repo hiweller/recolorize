@@ -47,7 +47,7 @@ A list with the following attributes:
 }
 \description{
 Calculates the squared distance between each pixel and its assigned color
-center. Mostly for internal use by \code{\link{classifyColorManual}}.
+center.
 }
 \examples{
 # RGB extremes (white, black, red, green, blue, yellow, magenta, cyan)
