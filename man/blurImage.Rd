@@ -4,7 +4,7 @@
 \alias{blurImage}
 \title{Blur an image}
 \usage{
-blurImage(img, blur_function, ...)
+blurImage(img, blur_function = "medianblur", ..., plotting = TRUE)
 }
 \arguments{
 \item{img}{An image array, as read in by \link[png:readPNG]{png::readPNG} or \link{readImage}.}
@@ -14,6 +14,9 @@ One of c("isoblur", "medianblur", "blur_anisotropic", "boxblur",
 "boxblur_xy").}
 
 \item{...}{Parameters passed to whichever \code{blur_function} is called.}
+
+\item{plotting}{Logical. Plot the blurred image next to the input
+for comparison?}
 }
 \value{
 An image array of the blurred image.
@@ -34,7 +37,7 @@ img_path <- system.file("extdata/fulgidissima.png", package = "recolorize")
 img <- readImage(img_path)
 median_img <- blurImage(img, "medianblur", n = 5, threshold = 0.5)
 anisotropic_img <- blurImage(img, "blur_anisotropic",
-                             amplitude = 0.5, sharpness = 0.5)
+                             amplitude = 5, sharpness = 0.1)
 boxblur_img <- blurImage(img, "boxblur", boxsize = 5)
 graphics::layout(matrix(1:4, nrow = 1))
 plotImageArray(img, "original")

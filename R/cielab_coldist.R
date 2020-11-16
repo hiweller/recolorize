@@ -22,7 +22,7 @@
 #'
 #' @examples
 #' # black and white have no chromatic contrast but maximum achromatic contrast:
-#' cielab_coldist(matrix(c(0, 0, 0,
+#' recolorize:::cielab_coldist(matrix(c(0, 0, 0,
 #'                         1, 1, 1),
 #'                ncol = 3, byrow = TRUE))
 #'
@@ -31,17 +31,17 @@
 #'
 cielab_coldist <- function(rgbcols) {
 
-  lab_coldist <- data.frame(t(combn(nrow(rgbcols), 2)),
+  lab_coldist <- data.frame(t(utils::combn(nrow(rgbcols), 2)),
                             dS = NA, dL = NA)
 
   colnames(lab_coldist)[1:2] <- c("c1", "c2")
 
-  labcols <- convertColor(rgbcols, "sRGB", "Lab")
+  labcols <- grDevices::convertColor(rgbcols, "sRGB", "Lab")
 
   for (i in 1:nrow(lab_coldist)) {
     ref_idx <- as.numeric(lab_coldist[i, 1:2])
-    lab_coldist$dS[i] <- dist(labcols[ref_idx, 2:3])
-    lab_coldist$dL[i] <- dist(labcols[ref_idx, 1])
+    lab_coldist$dS[i] <- stats::dist(labcols[ref_idx, 2:3])
+    lab_coldist$dL[i] <- stats::dist(labcols[ref_idx, 1])
   }
 
   return(lab_coldist)
