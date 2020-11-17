@@ -27,5 +27,5 @@ space. Used for passing RGB colors to \link[pavo:adjacent]{pavo::adjacent}.
 }
 \examples{
 cols <- expand.grid(0:1, 0:1, 0:1)
-rgb2hsl(cols, radians = F)
+recolorize:::rgb2hsl(cols, radians = FALSE)
 }

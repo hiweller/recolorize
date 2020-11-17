@@ -34,8 +34,8 @@ add_image <- function(obj, x = NULL,
                       interpolate = TRUE,
                       angle = 0){
 
-  usr <- par()$usr
-  pin <- par()$pin
+  usr <- graphics::par()$usr
+  pin <- graphics::par()$pin
   imdim <- dim(obj)
   sf <- imdim[1] / imdim[2]
 

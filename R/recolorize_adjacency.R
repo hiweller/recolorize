@@ -139,7 +139,7 @@ classify_recolorize <- function(recolorize_obj, imgname = "") {
 #'
 #' @examples
 #' cols <- expand.grid(0:1, 0:1, 0:1)
-#' rgb2hsl(cols, radians = F)
+#' recolorize:::rgb2hsl(cols, radians = FALSE)
 rgb2hsl <- function(rgb_matrix,
                     radians = TRUE,
                     pavo_hsl = TRUE) {
