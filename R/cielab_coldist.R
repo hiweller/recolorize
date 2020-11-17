@@ -28,7 +28,6 @@
 #'
 #' @details I have mixed feelings about this function and would like to
 #' replace it with something a little less hand-wavey.
-#'
 cielab_coldist <- function(rgbcols) {
 
   lab_coldist <- data.frame(t(utils::combn(nrow(rgbcols), 2)),
