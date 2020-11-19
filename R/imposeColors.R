@@ -10,9 +10,9 @@
 #' @param adjust_centers Logical. After pixel assignment, should the returned
 #'   colors be the average color of the pixels assigned to that cluster, or the
 #'   original colors?
-#' @param color_space Color space in which to minimize distances, passed to
-#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
-#'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
+#' @param color_space Color space in which to minimize distances. One of "sRGB",
+#'   "Lab", "Luv", "HSV", or "XYZ". Default is "Lab", a perceptually uniform
+#'   (for humans) color space.
 #' @param ref_white Reference white for converting to different color spaces.
 #'   D65 (the default) corresponds to standard daylight.
 #' @param lower,upper RGB triplet ranges for setting a bounding box of pixels to
@@ -37,7 +37,7 @@
 #' \enumerate{
 #'     \item `original_img`: The original image, as a 3D array.
 #'     \item `recolored_img`: The recolored image, as a 3D array.
-#'     \item `color_space`: The associated color space. Currently only RGB.
+#'     \item `color_space`: The associated color space.
 #'     \item `centers`: A matrix of color centers. If `adjust_centers =
 #'         FALSE`, this will be identical to the input `centers`.
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
@@ -163,7 +163,7 @@ imposeColors <- function(img, centers,
   recolored_img <- recolored$recolored_img
 
   # only rgb for now...would others be useful?
-  color_space <- "RGB"
+  color_space <- color_space
   centers <- color_clusters$centers
   pixel_assignments <- color_clusters$pixel_assignments
 

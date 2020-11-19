@@ -146,10 +146,10 @@ colorClustersKMeans <- function(pixel_matrix, n = 10,
   iter_max <- 20L
 
   # first, convert to color space for clustering:
-  pm <- grDevices::convertColor(pixel_matrix,
-                                from = "sRGB",
-                                to = color_space,
-                                to.ref.white = ref_white)
+  pm <- col2col(pixel_matrix,
+                from = "sRGB",
+                to = color_space,
+                ref_white = ref_white)
 
   img_k <- stats::kmeans(pm, n, iter.max = iter_max)
 
@@ -166,10 +166,10 @@ colorClustersKMeans <- function(pixel_matrix, n = 10,
   # }
 
   # convert color centers back to RGB space
-  centers <- grDevices::convertColor(img_k$centers,
-                                     from = color_space,
-                                     to = "sRGB",
-                                     from.ref.white = ref_white)
+  centers <- col2col(img_k$centers,
+                     from = color_space,
+                     to = "sRGB",
+                     ref_white = ref_white)
 
   # return
   return(list(pixel_assignments = img_k$cluster,
@@ -215,6 +215,15 @@ colorClustersHist <- function(pixel_matrix,
   # make sure bins is either a number or a vector of length 3
   stopifnot(length(bins) == 1 | 3)
 
+  # match argument for color space
+  color_space <- match.arg(color_space, c("sRGB", "Lab", "Luv", "HSV"))
+
+  # first, convert to color space for clustering:
+  pm <- col2col(pixel_matrix,
+                from = "sRGB",
+                to = color_space,
+                ref_white = ref_white)
+
   # format bins
   if (length(bins) == 1) {
     message(paste("\nUsing ", bins, "^3 = ", paste(bins^3),
@@ -226,24 +235,8 @@ colorClustersHist <- function(pixel_matrix,
                   " bins", sep = ""))
   }
 
-  # match argument for color space
-  color_space <- match.arg(color_space, c("sRGB", "Lab", "Luv"))
-
-  # ok, first convert pixels
-  pm <- grDevices::convertColor(pixel_matrix,
-                                from = "sRGB",
-                                to = color_space,
-                                to.ref.white = ref_white)
-
   # color space ranges
-  if (grepl("sRGB", color_space)) {
-
-    #sRGB range is 0-1 in all channels
-    brange <- list(c(0, 1),
-                   c(0, 1),
-                   c(0, 1))
-
-  } else if (color_space == "Lab") {
+ if (color_space == "Lab") {
 
     # Lab is 0-100 (L), -127-127 (a and b)
     # HOWEVER, these extremes are virtually unoccupied by RGB colors
@@ -258,6 +251,13 @@ colorClustersHist <- function(pixel_matrix,
     brange <- list(c(0, 100),
                    c(-85, 175),
                    c(-135, 107))
+
+  } else {
+
+    #sRGB/HSV range is 0-1 in all channels
+    brange <- list(c(0, 1),
+                   c(0, 1),
+                   c(0, 1))
 
   }
 
@@ -311,14 +311,69 @@ colorClustersHist <- function(pixel_matrix,
   }
 
   # convert centers
-  centers <- grDevices::convertColor(centers,
-                                     from = color_space,
-                                     to = "sRGB",
-                                     from.ref.white = ref_white)
+  centers <- col2col(centers,
+                     from = color_space,
+                     to = "sRGB",
+                     ref_white = ref_white)
 
   # return pixel assignments and centers
   return(list(pixel_assignments = pixel_assignments,
               centers = centers,
               sizes = sizes))
+
+}
+
+#' Modified convertColor
+#'
+#' Just like [grDevices::convertColor], but with HSV as an option.
+#'
+#' @param pixel_matrix A matrix of pixel colors, rows are pixels and columns
+#' are channels.
+#' @param from Color space to convert from.
+#' @param to Color space to convert to.
+#' @param ref_white Reference white.
+#'
+#' @details As my mother used to say: good enough for government work.
+col2col <- function(pixel_matrix,
+                               from = "sRGB",
+                               to = "sRGB",
+                            ref_white = "D65") {
+
+  # match color space args
+  from_color_space <- match.arg(from, c("sRGB", "Lab", "Luv", "HSV"))
+  to_color_space <- match.arg(to, c("sRGB", "Lab", "Luv", "HSV"))
+
+  # if HSV is not in site, we can use convertColor
+  if (from_color_space != "HSV" & to_color_space != "HSV") {
+
+    # ok, first convert pixels
+    pm <- grDevices::convertColor(pixel_matrix,
+                                  from = from_color_space,
+                                  to = to_color_space,
+                                  to.ref.white = ref_white,
+                                  from.ref.white = ref_white)
+
+  } else if (from_color_space == "sRGB" & to_color_space == "HSV") {
+
+    # if we're converting from RGB to HSV, we can use rgb2hsv:
+    pm <- t(grDevices::rgb2hsv(t(pixel_matrix), maxColorValue = 1))
+
+  } else if (from_color_space == "HSV") {
+
+    # if we're converting from HSV, first convert to RGB
+    pm_temp <- grDevices::hsv(pixel_matrix[ , 1],
+                              pixel_matrix[ , 2],
+                              pixel_matrix[ , 3])
+
+    pm_rgb <- t(grDevices::col2rgb(pm_temp)) / 255
+
+    # then proceed as usual
+    pm <- grDevices::convertColor(pm_rgb,
+                                  from = "sRGB",
+                                  to = to_color_space,
+                                  to.ref.white = ref_white)
+  }
+
+  return(pm)
 
 }
