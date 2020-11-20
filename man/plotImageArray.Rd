@@ -4,7 +4,7 @@
 \alias{plotImageArray}
 \title{Plot a 3D array as an RGB image}
 \usage{
-plotImageArray(rgb_array, main = "")
+plotImageArray(rgb_array, main = "", ...)
 }
 \arguments{
 \item{rgb_array}{A 3D array of RGB values. Preferably output from
@@ -12,6 +12,8 @@ plotImageArray(rgb_array, main = "")
 \code{\link[recolorize]{recolorImage}}.}
 
 \item{main}{Optional title for plot.}
+
+\item{...}{Parameters passed to \link[graphics:plot.default]{graphics::plot}.}
 }
 \description{
 Does what it says on the tin. An extremely simple wrapper for

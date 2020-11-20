@@ -123,7 +123,21 @@ splitByColor <- function(recolorize_obj,
 
     # plot as binary map
     for (i in 1:length(color_masks)) {
-      plotImageArray(color_masks[[i]], main = i)
+      plotImageArray(color_masks[[i]],
+                     #xlim = c(-0.05, 1.05),
+                     #ylim = c(-0.05, 1.05),
+                     main = i)
+      graphics::rect(0, 0, 1, 1,
+                     border = grDevices::rgb(centers[i, 1],
+                                             centers[i, 2],
+                                             centers[i, 3]),
+                     lwd = 8,
+                     ljoin = 3)
+      # rect(-0.1, 0, 0, 1.,
+      #      col = rgb(centers[i, 1],
+      #                   centers[i, 2],
+      #                   centers[i, 3]),
+      #      border = NA, lwd = 5)
     }
 
   }
