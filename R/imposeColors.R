@@ -142,6 +142,10 @@ imposeColors <- function(img, centers,
   # index background
   bg_indexed <- backgroundIndex(img, bg_condition)
 
+  if (is.null(dim(centers))) {
+    centers <- matrix(centers, ncol = 3, byrow = TRUE)
+  }
+
   # color clusters & assign pixels
   color_clusters <- assignPixels(centers, bg_indexed$non_bg,
                                  adjust_centers = adjust_centers)
