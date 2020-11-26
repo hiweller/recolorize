@@ -71,13 +71,20 @@ assignPixels <- function(centers,
     ctrs <- centers
   }
 
-  # I'm not sure this is really as fast as it could be
-  tmp <- sapply(1:nrow(pm),
+  # if there's only one new color, then we don't have to match anything
+  if (nrow(ctrs) == 1) {
+    pixel_assignments <- rep(1, nrow(pm))
+  } else {
+    # I'm not sure this is really as fast as it could be
+    tmp <- sapply(1:nrow(pm),
                   function(i) apply(ctrs, 1,
                                     function(v) sum((pm[i, ]-v)^2)))
 
-  # make returnables
-  pixel_assignments <- max.col(-t(tmp))  # find index of min distance
+    # make returnables
+    pixel_assignments <- max.col(-t(tmp))  # find index of min distance
+
+  }
+
   assignments <- table(pixel_assignments) # make a table of assigned pixels
   sizes <- rep(0, nrow(centers))
   sizes[as.numeric(names(assignments))] <- assignments # empty clusters are 0
