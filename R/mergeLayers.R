@@ -94,8 +94,8 @@ mergeLayers <- function(recolorize_obj,
 
   # check parameters
   pm <- clean_merge_params(recolorize_obj,
-                                        merge_list,
-                                        color_to)
+                              merge_list,
+                              color_to)
   merge_list <- pm$merge_list
   color_to <- pm$color_to
 
@@ -117,10 +117,16 @@ mergeLayers <- function(recolorize_obj,
   new_sizes <- sizes[orig_layers]
   px_assign <- recolorize_obj$pixel_assignments
 
-  if (length(orig_layers) > 0) {
+  # if any layers are going untouched...
+  if (length(orig_layers) > 0 & sum(new_sizes) > 0) {
     for (i in 1:length(orig_layers)) {
-      px_assign[which(recolorize_obj$pixel_assignments ==
-                  orig_layers[i])] <- i
+      # copy their pixel assignments:
+      if (new_sizes[i] > 0) {
+        px_assign[which(recolorize_obj$pixel_assignments ==
+                          orig_layers[i])] <- i
+      } else {
+        next
+      }
     }
   }
 
@@ -188,8 +194,8 @@ mergeLayers <- function(recolorize_obj,
   merged_obj <- recolorize_obj
   merged_obj$recolored_img <- as_array
   merged_obj$method <- paste("merged", merged_obj$method)
-  merged_obj$centers <- new_centers
-  merged_obj$sizes <- new_sizes
+  merged_obj$centers <- new_centers[-which(new_sizes == 0), ]
+  merged_obj$sizes <- new_sizes[-which(new_sizes == 0)]
   merged_obj$pixel_assignments <- px_assign
 
   if (plotting) {
