@@ -115,7 +115,9 @@ mergeLayers <- function(recolorize_obj,
   orig_layers <- which(!(1:length(layers) %in% unlist(merge_list)))
   new_centers <- centers[orig_layers, ]
   new_sizes <- sizes[orig_layers]
-  px_assign <- recolorize_obj$pixel_assignments
+  px_assign <- matrix(0,
+                      nrow = nrow(recolorize_obj$pixel_assignments),
+                      ncol = ncol(recolorize_obj$pixel_assignments))
 
   # if any layers are going untouched...
   if (length(orig_layers) > 0 & sum(new_sizes) > 0) {
@@ -190,12 +192,18 @@ mergeLayers <- function(recolorize_obj,
                            recolorize_obj$recolored_img[ , , 4],
                            along = 3)
 
+  # remove any stray empty things
+  if (any(new_sizes == 0)) {
+    new_centers <- new_centers[-which(new_sizes == 0), ]
+    new_sizes <- new_sizes[-which(new_sizes == 0)]
+  }
+
   # reconstruct the recolorize obj
   merged_obj <- recolorize_obj
   merged_obj$recolored_img <- as_array
   merged_obj$method <- paste("merged", merged_obj$method)
-  merged_obj$centers <- new_centers[-which(new_sizes == 0), ]
-  merged_obj$sizes <- new_sizes[-which(new_sizes == 0)]
+  merged_obj$centers <- new_centers
+  merged_obj$sizes <- new_sizes
   merged_obj$pixel_assignments <- px_assign
 
   if (plotting) {

@@ -182,7 +182,10 @@ recluster <- function(recolorize_obj,
                               centers = new_centers,
                               plotting = FALSE)
   } else if (refit_method == "mergeLayers") {
-    # doop doop:
+    # the hiccup here is that we removed some empty clusters (above)
+    # so the indexing no longer matches
+    init_fit$centers <- centers
+    init_fit$sizes <- sizes
     final_fit <- mergeLayers(init_fit,
                              merge_list = merge_list,
                              plotting = FALSE)
