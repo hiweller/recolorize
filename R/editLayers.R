@@ -100,7 +100,7 @@ editLayer <- function(recolorize_obj,
   # set the new layer
   array_layer <- cimg_to_array(new_layer)
   recolorize_obj$pixel_assignments[which(array_layer > 0)] <- layer_idx
-  recolorize_obj$sizes <- sum(array_layer)
+  recolorize_obj$sizes[layer_idx] <- sum(array_layer)
 
   # and reconstruct the image
   recolorize_obj$recolored_img <- constructImage(recolorize_obj$pixel_assignments,
