@@ -124,7 +124,7 @@ splitByColor <- function(recolorize_obj,
     # plot as binary map
     for (i in 1:length(color_masks)) {
       # get dimensions:
-      d <- dim(obj); d1 <- round(d[1] * 0.08); d2 <- d[2]
+      d <- dim(color_masks[[i]]); d1 <- round(d[1] * 0.08); d2 <- d[2]
 
       # make a little color block for the top:
       m <- lapply(as.list(centers[i, ]),
