@@ -123,25 +123,22 @@ splitByColor <- function(recolorize_obj,
 
     # plot as binary map
     for (i in 1:length(color_masks)) {
-      ctr_col <-
-      plotImageArray(color_masks[[i]],
-                     #xlim = c(-0.05, 1.05),
-                     ylim = c(0, 1.15),
-                     main = "")
-      graphics::rect(0, 1, 1, 1.15,
-                     col = "red", border = "red")
-      #text(0.5, 1.05, "1")
-      # graphics::rect(0, 0, 1, 1,
-      #                border = grDevices::rgb(centers[i, 1],
-      #                                        centers[i, 2],
-      #                                        centers[i, 3]),
-      #                lwd = 8,
-      #                ljoin = 3)
-      # rect(-0.1, 0, 0, 1.,
-      #      col = rgb(centers[i, 1],
-      #                   centers[i, 2],
-      #                   centers[i, 3]),
-      #      border = NA, lwd = 5)
+      # get dimensions:
+      d <- dim(obj); d1 <- round(d[1] * 0.08); d2 <- d[2]
+
+      # make a little color block for the top:
+      m <- lapply(as.list(centers[i, ]),
+                     function(j) matrix(j, d1, d2))
+      col_block <- abind::abind(m[[1]], m[[2]], m[[3]], along = 3)
+
+      # make the binary mask a color image so we can add the block:
+      obj <- abind::abind(color_masks[[i]],
+                          color_masks[[i]],
+                          color_masks[[i]], along = 3)
+
+      # and paste them together:
+      obj2 <- abind::abind(col_block, obj, along = 1)
+      plotImageArray(obj2)
     }
 
   }
