@@ -1,0 +1,76 @@
+---
+title: "Introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+```{r setup}
+library(recolorize)
+```
+## What does this package do?
+
+The `recolorize` package makes color maps, essentially color-based image segmentation, largely for use with biological data. If you want to measure almost anything 
+about pattern and distribution of color in a set of images, you will probably want to start color maps; they let you discard the noise in an image while retaining information. For example, say you're examining this beetle photograph (*Chrysochroa corbetti*, a jewel beetle from the Buprestidae family):
+
+```{r, echo=FALSE, fig.align='center', fig.width = 2, fig.asp = 2.12}
+images <- dir(system.file("extdata/", package = "recolorize"), "png", full.names = TRUE)
+plotImageArray(readImage(images[2]))
+```
+
+Most human beings would describe this beetle as having five colors: red, blue, green, black, and white(-ish). 
+
+# Overview of package functions
+
+1. Functions that do the initial clustering (i.e. take a raw image).
+
+2. Functions that automatically edit the initial clustering (i.e. refine an initial fit).
+
+3. Functions that allow users to make manual-ish changes.
+
+4. Functions to export to other packages.
+
+# Worked example on a single image
+
+corbetti! Go from initial problem 
+1. hey, 5 clusters? uhhh, 6? wait, why does this give me a different answer every time
+2. too many clusters, but it looks good
+3. refinement options: drop small clusters, recluster based on similarity, imposing colors
+4. DIY options: manual layer editing, smushing clusters together
+5. export options: well, you can save the image or export a single layer
+as a bitmap, etc
+
+# Worked example on a more complicated image
+
+That shiny bastard, *Chrysochroa fulgidissima*
+
+# Worked example on a batch of images
+
+Just our Five Guys.
+
+# Some considerations
+
+### How do I choose a procedure?
+
+Most things will more or less work; if it looks reasonable, it is.
+Keep in mind that there is a big difference between getting slightly different color maps and getting qualitatively different results. Keep your final goal in mind. You can also try lots of different things and see if it makes a real difference. etc.
+
+### How much does the color space matter?
+
+Dude: a lot!
+
+### What if my parameters work well for some images, but not others?
+
+It does what it does, man. You can get way fancier with cutoffs than
+I have here. This package is built on some pretty simple scaffolding:
+you get a starting set of clusters, then you modify them. If you have a
+better/more refined way of deciding which colors to cluster, then go 
+for it.
