@@ -1,10 +1,7 @@
 # recolorize v 0.0.0.9000 [![Build Status](https://travis-ci.org/hiweller/recolorize.svg?branch=master)](https://travis-ci.org/hiweller/recolorize)
-> "As we computer programmers put it, if it doesn't have to work, I can make it run as fast as you want."  
-> —*Maciej Cegłowski*
+#### Color-based image segmentation (for people with other things to do).
 
-Color-based image segmentation (for people with other things to do).
-
-<img src="https://github.com/hiweller/graphics/blob/master/recolorize_demo.png" alt="drawing" width="500"/>
+![recolorize_demo](https://github.com/hiweller/graphics/blob/master/recolorize_demo.png)
 
 > Original image credit: Nathan P. Lord / Able Chow
 
