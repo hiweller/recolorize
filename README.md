@@ -2,9 +2,9 @@
 > "As we computer programmers put it, if it doesn't have to work, I can make it run as fast as you want."  
 > —*Maciej Cegłowski*
 
-A tentatively working R package for simplifying and remapping colors.
+Color-based image segmentation (for people with other things to do).
 
-<img src="https://github.com/hiweller/graphics/blob/master/recolorize_gifs/corbetti_hist.gif" alt="drawing" width="500"/>
+<img src="https://github.com/hiweller/graphics/blob/master/recolorize_demo.png" alt="drawing" width="500"/>
 
 > Original image credit: Nathan P. Lord / Able Chow
 

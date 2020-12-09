@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "introduction"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{introduction}
@@ -10,23 +10,63 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+  fig.align = "center",
+  strip.white=TRUE,
+  fig.env = "figure"
 )
-```
-```{r setup}
-library(recolorize)
 ```
 ## What does this package do?
 
-The `recolorize` package makes color maps, essentially color-based image segmentation, largely for use with biological data. If you want to measure almost anything 
-about pattern and distribution of color in a set of images, you will probably want to start color maps; they let you discard the noise in an image while retaining information. For example, say you're examining this beetle photograph (*Chrysochroa corbetti*, a jewel beetle from the Buprestidae family):
-
-```{r, echo=FALSE, fig.align='center', fig.width = 2, fig.asp = 2.12}
+```{r, echo=FALSE, message=FALSE, fig.width = 5, fig.cap="`recolorize` output for *Chrysochroa corbetti*. Image credit: Nathan P. Lord."}
+# bookkeeping
+library(recolorize)
 images <- dir(system.file("extdata/", package = "recolorize"), "png", full.names = TRUE)
-plotImageArray(readImage(images[2]))
+img <- readImage(images[2])
+
+# get fit
+init_fit <- recolorize(img, plotting = FALSE)
+re_fit <- recluster(init_fit, similarity_cutoff = 45, plot_final = FALSE)
+
+# plot it
+layout(matrix(1:3, nrow = 1), widths = c(0.45, 0.1, 0.45))
+par(mar = c(0, 0, 2, 0))
+plotImageArray(re_fit$original_img, main = "Original")
+plotColorPalette(re_fit$centers, re_fit$sizes, horiz = FALSE)
+plotImageArray(re_fit$recolored_img, main = "Color map")
 ```
 
-Most human beings would describe this beetle as having five colors: red, blue, green, black, and white(-ish). 
+The `recolorize` package makes color maps, essentially color-based image segmentation, using a variety of automatic and semi-automatic procedures. If you want to measure almost anything 
+about pattern and distribution of color in a set of images, you will probably want to start color maps; they let you discard the noise in an image while retaining information. The map above, for example, was generated using two functions and required only one user input parameter (`similarity_cutoff = 45`):
+
+```{r, eval=F}
+# get the path to the image (comes with the package, so we use system.file):
+img <- system.file("extdata/corbetti.png", package = "recolorize")
+
+# perform initial clustering:
+init_fit <- recolorize(img)
+
+# and refine:
+re_fit <- recluster(init_fit, similarity_cutoff = 45)
+```
+
+Notice what we didn't have to input: we didn't have to declare how many colors we expected (5), what we expect those colors to be (red, green, blue, black, and white), which pixels to include in each color patch, or where the boundaries of those patches are. This color map allows to measure a number of things about the color and pattern of this beetle, such as how evenly distributed the colors are, the shapes and sizes of the different color patches, and where they fall on the body. 
+
+```{r, echo=FALSE, fig.width = 7}
+layout(matrix(1:5, nrow = 1))
+layers <- splitByColor(re_fit)
+```
+
+Most human beings would describe this beetle as having five colors: red, blue, green, black, and cream (or off-white). Let's say we're interested in the proportion of green on this beetle. This sounds pretty simple; you calculate the number of pixels in the green patch, and divide that by the sum total of (non-background) pixels in the image. All we have to do is select the green region. But if we plot the pixels in the image in RGB color space, we can immediately see some issues:
+
+```{r, echo=FALSE,message=FALSE, fig.width=7, fig.height = 3.5, fig.cap="Pixels from the above image in RGB color space, viewed from two angles."}
+library(colordistance)
+layout(matrix(1:2, nrow = 1))
+plotPixels(images[2], angle = 30, main = "", cex.lab = 0.5, cex.axis = 0.5)
+plotPixels(images[2], angle = -30, main = "", cex.lab = 0.5, cex.axis = 0.5)
+```
+
+There's certainly a blob of green pixels in there, but they're not all the exact same color. In order to extract all the green pixels, we either have to specify a range of colors that we'll call 'green', or open up the original image in a image editing software like ImageJ or Photoshop and manually select the green region. You can probably see how this would start to get out of hand as you increase the number of images or the diversity of colors in a dataset, because we have to introduce more and more subjectivity, and most images will not have such clear boundaries between color patches.
 
 # Overview of package functions
 
