@@ -104,6 +104,10 @@ recolorize_adjacency <- function(recolorize_obj,
 #'
 #' @return A [pavo::classify] object. The background patch will always
 #' be the first color (patch 1), and will be white by default.
+#'
+#' @details This is mostly for internal use, and hasn't been tested much.
+#'
+#' @export
 classify_recolorize <- function(recolorize_obj, imgname = "") {
   pmat <- recolorize_obj$pixel_assignments + 1
   attr(pmat, "dim") <- dim(pmat)

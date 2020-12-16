@@ -10,7 +10,7 @@ recluster(
   ref_white = "D65",
   similarity_cutoff = 60,
   n_final = NULL,
-  plot_hclust = FALSE,
+  plot_hclust = TRUE,
   refit_method = "impose",
   resid = FALSE,
   plot_final = TRUE,

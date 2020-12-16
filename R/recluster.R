@@ -99,7 +99,7 @@ recluster <- function(recolorize_obj,
                       ref_white = "D65",
                        similarity_cutoff = 60,
                        n_final = NULL,
-                       plot_hclust = FALSE,
+                       plot_hclust = TRUE,
                       refit_method = "impose",
                       resid = FALSE,
                       plot_final = TRUE,
@@ -139,11 +139,17 @@ recluster <- function(recolorize_obj,
   if (plot_hclust) {
 
     graphics::par(mfrow = c(1, 1), mar = c(1, 3, 3, 1))
-    plot(hc, xlab = "")
+    hex_cols <- grDevices::rgb(recolorize_obj$centers)
+    sizes <- recolorize_obj$sizes
+    hcd <- stats::as.dendrogram(hc)
+    hcd <- stats::dendrapply(hcd, function(x) labelCol(x, hex_cols, cex = 3))
+
+    graphics::par(mar = c(3, 2, 0, 0))
+    plot(hcd, xlab = "", ylab = paste(color_space, "color distance"))
 
     # plot cutoff value if provided:
     if (is.null(n_final)) {
-      graphics::abline(h = similarity_cutoff, lty = 2, col = "red")
+      graphics::abline(h = similarity_cutoff, lty = 2, col = "red", lwd = 2)
     }
 
   }
@@ -219,3 +225,29 @@ recluster <- function(recolorize_obj,
   return(final_fit)
 
 }
+
+#' Change colors of dendrogram tips
+#'
+#' Internal function for [recolorize::recluster] plotting.
+#'
+#' @param x Leaf of a dendrogram.
+#' @param hex_cols Hex color codes for colors to change to.
+#' @param pch The type of point to draw.
+#' @param cex The size of the point.
+labelCol <- function(x, hex_cols, pch = 20, cex = 2) {
+
+  if (length(cex) == 1) {
+    cex <- rep(cex, length(hex_cols))
+  }
+
+  if (stats::is.leaf(x)) {
+    ## fetch label
+    label <- attr(x, "label")
+    ## set label color
+    attr(x, "nodePar") <- list(lab.col = hex_cols[label],
+                               col = hex_cols[label],
+                               pch = pch, cex = cex[label])
+  }
+  return(x)
+}
+

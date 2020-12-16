@@ -19,3 +19,6 @@ be the first color (patch 1), and will be white by default.
 Converts a \link{recolorize} object to a \link[pavo:classify]{pavo::classify} object for
 use in pavo.
 }
+\details{
+This is mostly for internal use, and hasn't been tested much.
+}

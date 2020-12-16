@@ -1,5 +1,5 @@
 Package: recolorize
-Title: Recolor Images by Color Clusters
+Title: Color-based Image Segmentation
 Version: 0.0.0.9000
 Authors@R:
     person(given = "Hannah",
@@ -7,14 +7,16 @@ Authors@R:
            role = c("aut", "cre"),
            email = "hannahiweller@gmail.com",
            comment = c(ORCID = "0000-0002-5252-4282"))
-Description: Functions for recoloring images based on various
-    color binning schemes. Eventually for use going between
-    patternize, pavo, colordistance, etc. The idea is to simplify
+Description: Automatic, semi-automatic, and manual functions for 
+    generating color maps from images. The idea is to simplify
     the colors of an image according to a metric that is useful for
-    the user. You put in a binning scheme, an image, and (optional)
-    a background masking condition. You get out a recolored image
-    and a color palette with (optional) the proportion of pixels
-    assigned to each color.
+    the user, using deterministic methods whenever possible.
+    Many images will be clustered well using the out-of-the-box
+    functions, but the package also includes a toolbox of functions
+    for making manual adjustments (layer merging/isolation, blurring,
+    fitting to provided color clusters or those from another image, etc).
+    Also includes export methods for other color/pattern analysis packages
+    (pavo, patternize, colordistance).
 License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
@@ -32,7 +34,9 @@ Imports:
     colorRamps,
     plotfunctions,
     abind,
-    colordistance
+    colordistance,
+    viridisLite,
+    scatterplot3d
 Depends: 
     R (>= 2.10)
 Suggests: 
