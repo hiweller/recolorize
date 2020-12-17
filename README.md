@@ -15,23 +15,23 @@ To generate the images above:
 ```{r}
 devtools::install_github("hiweller/recolorize")
 
-images <- dir(system.file("extdata/", package = "recolorize"), "png", full.names = TRUE)
-
 for (i in 1:length(images)) {
-
+  
   # get an initial fit with generic clustering
-  init_fit <- recolorize::recolorize(images[i], method = "hist", bins = 2)
+  init_fit <- recolorize::recolorize(images[i], method = "hist", bins = 3)
   
   # cluster similar colors and fit again
-  refined_fit <- recolorize::recluster(init_fit, similarity_cutoff = 45)
+  refined_fit <- recolorize::recluster(init_fit, similarity_cutoff = 60)
   
   # store in an output variable
   if (i == 1) {
-    colormap_list <- as.list(refined_fit)
+    colormap_list <- list(refined_fit)
   } else {
     colormap_list[[i]] <- refined_fit
   }
 }
+lapply(colormap_list, function(i) plotImageArray(i$recolored_img))
+
 ```
 Vignettes and better documentation coming soon.
 
