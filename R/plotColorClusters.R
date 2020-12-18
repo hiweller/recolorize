@@ -43,12 +43,13 @@ plotColorClusters <- function(centers, sizes,
                               ...) {
 
   # get color vector in RGB
-  centers <- col2col(centers, from = color_space, to = "sRGB")
-  hex_col <- grDevices::rgb(centers)
+  centers_rgb <- col2col(centers, from = color_space, to = "sRGB")
+  hex_col <- grDevices::rgb(centers_rgb)
 
   # and plot it
   scatterplot3d::scatterplot3d(centers, pch = 20,
-                               cex.symbols = (sizes / max(sizes)) * scaling,
+                               cex.symbols = (sizes / max(sizes)) *
+                                 scaling + plus,
                                color = hex_col, ...)
 
   # BARE BONES, gang...bare bones
