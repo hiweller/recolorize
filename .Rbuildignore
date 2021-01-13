@@ -4,3 +4,4 @@
 R/doodling\.R$
 ^LICENSE\.md$
 ^.travis.yml$
+^html_output/$

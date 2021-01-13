@@ -27,7 +27,9 @@ img <- readImage(images[2])
 
 # get fit
 init_fit <- recolorize(img, plotting = FALSE)
-re_fit <- recluster(init_fit, similarity_cutoff = 45, plot_final = FALSE)
+re_fit <- recluster(init_fit, similarity_cutoff = 45, 
+                    plot_hclust = FALSE,
+                    plot_final = FALSE)
 
 # plot it
 layout(matrix(1:3, nrow = 1), widths = c(0.45, 0.1, 0.45))
@@ -75,13 +77,13 @@ The functions in `recolorize` fall into six categories:
 
 6. Functions to export to other packages (`recolorize_adjacency`, `constructImage`, `splitByColor`).
 
-Depending on your images and goal, you probably won't need all of these. This vignette will demonstrate the functions in each category briefly, give a slightly wordier explanation of the major steps, then work through a couple of examples that string together a few of these functions to quickly produce results.
+Depending on your images and goal, you probably won't need all of these. This vignette will demonstrate the functions in each category briefly, give a slightly wordier explanation of the major steps, then give a bit of .
 
 ## Quick start
 
-1. Acquire color-balanced and decently lit images with transparent backgrounds. 
+1. Acquire white-balanced and decently lit images with transparent backgrounds.
 
-2. Over-cluster an image (preferably with a transparent background) using `recolorize`:
+2. Over-cluster an image (preferably with a transparent background) using `recolorize`, selecting a color space and a number of bins:
 ```{r, fig.width = 5}
 # image path
 corbetti <- system.file("extdata/corbetti.png", package = "recolorize")
@@ -180,7 +182,7 @@ The corrections you have to make really depend on what you're trying to do. If y
 
 ### Background masking with transparencies
 
-If you're masking the background, do yourself a favor and use transparencies. This is pretty easy to do in GIMP, Photoshop, or ImageJ. The transparency layer (or alpha channel) is the fourth channel of an image (the other three being the R, G, and B channels), and `recolorize` treats it like a binary mask: any pixel with an alpha value of 1 is retained, and any pixel with an alpha value of < 1 is ignored. This means you don't have to worry about finding a uniform background color that is sufficiently different from your foreground object in every image, which can otherwise be a real pain. Using transparency is unambiguous, and has the bonus benefit of making for nicer plots, too, since you don't have to worry about the corners of your images overlapping and blocking each other. All the images in this demo have transparent backgrounds.
+If you're masking the background, use transparencies. This is pretty easy to do in GIMP, Photoshop, or ImageJ. The transparency layer (or alpha channel) is the fourth channel of an image (the other three being the R, G, and B channels), and `recolorize` treats it like a binary mask: any pixel with an alpha value of 1 is retained, and any pixel with an alpha value of < 1 is ignored. This means you don't have to worry about finding a uniform background color that is sufficiently different from your foreground object in every image, which can otherwise be a real pain. Using transparency is unambiguous, and has the bonus benefit of making for nicer plots, too, since you don't have to worry about the corners of your images overlapping and blocking each other. All the images in this demo have transparent backgrounds. However, you can use the `lower` and `upper` arguments to set boundaries for excluding pixels as background based on their color (see documentation). Just know that these will be set to transparent internally.
 
 # Loading images
 
@@ -413,82 +415,201 @@ I don't have much general guidance for how to choose between all of these parame
 
 It's convenient to use the same scheme for every image in your dataset, so you might end up using whatever values are needed for your most complex image and over-splitting most of your other images. That's usually fine, because the next set of steps will try to lump colors together or remove minor details. You want to be just granular enough to capture the details you care about, and it's okay if some colors are split up. 
 
-## Refining fits automatically and semi-automatically
+### `imposeColors()`
+
+Another option is to impose colors on an image, rather than using intrinsic image colors. Every pixel is assigned to the color it is closest to in some specified color space. Usually, this is useful for batch processing: you get colors from one image, then map them onto another image, so that the color centers correspond across all your images.
+
+```{r, fig.width=5}
+im1 <- system.file("extdata/ocellata.png", package = "recolorize")
+im2 <- system.file("extdata/ephippigera.png", package = "recolorize")
+
+fit1 <- recolorize(im1)
+fit2 <- imposeColors(im2, centers = fit1$centers)
+```
+
+
+
+# Refining fits automatically and semi-automatically
 
 Once we've reduced an image down to a tractable number of colors, we can define simple procedures for how to combine them based on similarity. `recolorize` (currently) comes with two of these: `recluster`, which merges colors by perceived similarity, and `thresholdRecolor`, which drops minor colors. Both are simple, but surprisingly effective. They're also built on top of some really simple functions we'll see in a bit, so if you need to, you can build out a similar procedure tailored to your dataset-- for example, combining layers based only on their brightness values, or only combining green layers.
 
+### `recluster()`
 
+This is the one I use the most often, and its implementation is really simple. This function calculates the Euclidean distances between all the color centers in a `recolorize` object, clusters them hierarchically using `hclust`, then uses a user-specified cutoff to combine the most similar colors. As with `recolorize`, you can choose your color space, and that will make a big difference. Let's see this in action:
 
-# Overview of package functions
+```{r}
+recluster_results <- recluster(recolorize_defaults, 
+                               similarity_cutoff = 45)
+```
+Notice the color dendrogram: it lumped together clusters 4 & 7, clusters 3 & 5, and clusters 6 & 8, because their distance was less than 45. This is in CIE Lab space; if we use RGB space, the range of distances is 0-1:
 
-1. Functions that do the initial clustering (i.e. take a raw image).
+```{r}
+recluster_rgb <- recluster(recolorize_defaults, color_space = "sRGB",
+                           similarity_cutoff = 0.5)
+```
 
-2. Functions that automatically edit the initial clustering (i.e. refine an initial fit).
+In this case, we get the same results, but this is always worth playing around with. There's also a lot of room for modification here: this is a pretty unsophisticated rule for combining color clusters (ignoring, for example, cluster size, proximity, geometry, and boundary strength), but it's pretty simple to write better rules if you can think of them. 
 
-3. Functions that allow users to make manual-ish changes.
+### `thresholdColor()`
 
-4. Functions to export to other packages.
+An even simpler rule: drop the smallest color clusters whose cumulative sum (as a proportion of total pixels assigned) is lower than some threshold, like 5% of the image. I thought this would be too simple to be useful, but every once in a while it's just the thing, especially if you always end up with weird spurious details.
 
-# Worked example on a single image
+# 'Manual' edits
 
-corbetti! Go from initial problem 
-1. hey, 5 clusters? uhhh, 6? wait, why does this give me a different answer every time
-2. too many clusters, but it looks good
-3. refinement options: drop small clusters, recluster based on similarity, imposing colors
-4. DIY options: manual layer editing, smushing clusters together
-5. export options: well, you can save the image or export a single layer
-as a bitmap, etc
+'Manual' edits are in scare quotes here because there's no pointing and clicking involved. There are currently only a handful of these, but I'm testing several more.
 
-# Worked example on a more complicated image
+### `editLayers`
 
-That shiny bastard, *Chrysochroa fulgidissima*
+Applies basic morphological operations from the imager package to individual layers. You can edit any combination of layers with any combination of the four included morphological operations (clean, fill, grow, and shrink). This is useful for a few things; I've found it especially useful in dealing with specular reflections, where you'll end up with a little scattering of white or light 'color' on the shiniest parts of the organism, or in dealing with spurious pixels, as in the cream layer of the image we've been using:
 
-# Worked example on a batch of images
+```{r}
+# edit a single layer
+cream_edit <- editLayer(recluster_results, layer_idx = 2, operation = "clean", px_size = 3)
 
-Just our Five Guys.
+# edit multiple layers
+mondrian <- editLayers(recluster_results, operations = "clean", px_sizes = 10)
+```
+
+This function is also easy to modify. Internally, it splits the color map into individual masks using `splitByColor()` (another `recolorize` function), then converts those to pixsets for use in `imager` before slotting them back in with the unchanged layers.  
+
+### `mergeLayers`
+
+Sometimes, you don't want to define fancy rules for deciding which layers to combine; you just want to combine layers. That's what this function is for. It takes in a list of numeric vectors for layers to combine (layers in the same vector are combined; those in different list elements are kept separate). 
+
+```{r, fig.width=5}
+merge_fit <- mergeLayers(recolorize_defaults, 
+                         merge_list = list(1, 2, 
+                                           c(3, 5),
+                                           c(4, 7),
+                                           c(6, 8)))
+```
+
+You might notice this is a bit different than our `recluster` results:
+
+```{r, fig.width=5}
+layout(matrix(1:2, 1))
+plotImageArray(recluster_results$recolored_img, main = "recluster")
+plotImageArray(merge_fit$recolored_img, main = "mergeLayers")
+```
+
+That's because internally, `recluster` actually uses `imposeColors` to refit the color map, rather than just merging layers; I have found this often produces slightly nicer results, because pixels that were on the border of one cutoff or another don't get stranded in the wrong layer.
+
+# Assessing color fit
+
+Making color maps is an obviously visual process, so it's good to use visual feedback as much as possible. You've already seen a few of these functions in action, specifically `plotColorPalette` and `plotImageArray`, which are used in almost every function that produces a recolorize object. I'll point out two others that I think are quite useful: `imDist` and `splitByColor`.
+
+### `imDist()`
+
+`imDist` finds the distances between two images and plots the resulting heatmap. You can use it to get the distances between the original image and the color map:
+
+```{r}
+dist_original <- imDist(recluster_results$original_img, 
+                        recluster_results$recolored_img, color_space = "Lab")
+```
+
+Or you can use it to compare two fits:
+
+```{r}
+dist_fits <- imDist(merge_fit$recolored_img,
+                    recluster_results$recolored_img, color_space = "Lab")
+```
+
+The resulting object is a simple matrix of distances between each pair of pixels in the given color space. 
+These are essentially residuals:
+
+```{r}
+hist(dist_original, main = "CIE Lab residuals", xlab = "CIE Lab distance")
+```
+A word of warning here: it is easy to look at this and decide to come up with a procedure for automatically fitting color maps using a kind of AIC metric, trying to get the lowest SSE with the minimum set of color centers. You're welcome to try that, but given that this is discarding spatial information, it is probably not a general solution (I haven't had much luck with it). But there is probably some room to play here.
+
+### `splitByColor()`
+
+This is a dual-use function: by splitting up the color map into individual layers, you not only can examine the individual layers and decide whether they need any editing or merging, but you also get out a binary mask representing each layer, so you can export individual patches.
+
+```{r}
+layout(matrix(1:10, nrow = 2, byrow = TRUE))
+
+# 'overlay' is not always the clearest option, but it is usually the prettiest:
+layers <- splitByColor(recluster_results, plot_method = "overlay")
+
+# layers is a list of matrices:
+lapply(layers, plotImageArray)
+```
+
+# Exporting
+
+A color map is only useful if you can actually use it for your analysis. The
+most direct thing you can do is simply export your recolored images as images,
+then pass those to whatever other tool you'd like to use, although obviously
+this doesn't take full advantage of the format. I'm currently working on ways to export color patches
+as SVGs, but for now you can export as raster using `writePNG`:
+
+```{r, eval=F}
+# export color map
+png::writePNG(recluster_results$recolored_img,
+              target = "recolored_corbetti.png")
+
+# export individual layers from splitByColor
+for (i in 1:length(layers)) {
+  png::writePNG(layers[[i]],
+                target = paste0("layer_", i, ".png"))
+}
+
+```
+
+You can also convert a recolorize object to a `classify` object in the wonderful
+`pavo` package and then run an adjacency analysis. Bonus points if you have 
+reflectance spectra for each of your color patches: by combining the spatial
+information in the color map with the `coldist` object generated by reflectance
+data, you can run adjacency analysis for the visual system(s) of your choice
+right out of the box!
+
+```{r}
+as_classify <- classify_recolorize(recluster_results, imgname = "corbetti")
+adj_analysis <- pavo::adjacent(as_classify, xscale = 10)
+```
+
+You can also run an adjacency analysis with `recolorize_adjacency`, but only as long
+as you keep your skeptic hat on. This function works by calculating a `coldist` object
+right from the CIE Lab colors in the color maps, which are themselves probably derived
+from your RGB image, which is at best a very loose representation of how these
+colors appear to human eyes. The only reason this is at all reasonable is that it's 
+producing these values for human vision, so you will be able to see if it's completely
+unreasonable. This is fine for getting some preliminary results or if you're working
+with aggregate data from many sources and you're content with specifically human (not just
+non-UV, but only human) vision. Otherwise, it's probably a last resort.
+
 
 # Some considerations
 
-### How do I choose a procedure?
+### This is a lot of options. How do I choose a procedure?
 
-Most things will more or less work; if it looks reasonable, it is.
-Keep in mind that there is a big difference between getting slightly different color maps and getting qualitatively different results. Keep your final goal in mind. You can also try lots of different things and see if it makes a real difference. etc.
+Most things will more or less work; if it looks reasonable, it is. Keep in mind
+that there is a big difference between getting slightly different color maps and
+getting qualitatively different results. Keep your final goal in mind. You can
+also try lots of different things and see if it makes a real difference.
 
-### How much does the color space matter?
-
-Dude: a lot!
+I wish I could write a single function that would do all of these steps in the
+correct sequence and produce perfect results; the reason that function does not
+exist is because I find I have to do experiment a fair amount with every image
+set, and I often end up with a different order of operations depending on the 
+problem. So I'll often end up defining a sort of meta-function 
 
 ### What if my parameters work well for some images, but not others?
 
-It does what it does, man. You can get way fancier with cutoffs than
-I have here. This package is built on some pretty simple scaffolding:
-you get a starting set of clusters, then you modify them. If you have a
-better/more refined way of deciding which colors to cluster, then go 
-for it.
+This is almost certainly going to be the case, and there's not a simple
+solution. I find that I tend to do the same batch processing for all of my
+images (usually recolorize followed by recluster), then doing cleanup with the
+'manual' edit functions on an image-by-image basis, and using `rlang::enexpr` to
+tag the code I used to generate the color map onto the recolorize object itself
+before saving it.
 
+You can also get way fancier with cutoffs than I have here. This package is
+built on some pretty simple scaffolding: you get a starting set of clusters,
+then you modify them. If you have a better/more refined way of deciding which
+colors to cluster, then go for it.
 
+There is another very tempting option: make a small training set of nice color maps
+manually with `recolorize`, then use those to either fit a statistical model for
+other fits or use machine learning to do the rest.
 
-```{r, echo=FALSE,message=FALSE, fig.width=7, fig.height = 3.5, fig.cap="Pixels from the above image in RGB color space, viewed from two angles."}
-library(colordistance)
-layout(matrix(1:2, nrow = 1))
-plotPixels(images[2], angle = 30, main = "", cex.lab = 0.5, cex.axis = 0.5)
-plotPixels(images[2], angle = -30, main = "", cex.lab = 0.5, cex.axis = 0.5)
-```
-
-There's certainly a blob of green pixels in there, but they're not all the exact same color. In order to extract all the green pixels, we either have to specify a range of colors that we'll call 'green', or open up the original image in a image editing software like ImageJ or Photoshop and manually select the green region. You can probably see how this would start to get out of hand as you increase the number of images or the diversity of colors in a dataset, because we have to introduce more and more subjectivity, and most images will not have such clear boundaries between color patches.
-
-This is pretty convenient and relatively lightweight. It also means we can swap the colors to whatever we like.
-
-
-Potentially, before running them through `recolorize`, use an edge-preserving blur to remove color variation due to texture in your image:
-```{r}
-# image path
-fulgidissima <- system.file("extdata/fulgidissima.png", package = "recolorize")
-
-# load image
-img <- readImage(fulgidissima)
-
-# use a median blur
-blurred_img <- blurImage(img, blur_function = "medianblur", 
-                         n = 5, threshold = 0.2)
-```
