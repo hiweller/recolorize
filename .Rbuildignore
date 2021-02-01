@@ -2,3 +2,5 @@
 html_output/
 LICENSE.md
 recolorize.Rproj
+^.*\.Rproj$
+^\.Rproj\.user$

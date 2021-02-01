@@ -91,7 +91,7 @@
 #' @export
 absorbLayer <- function(recolorize_obj,
                         layer_idx,
-                        size_condition = function(s) s <= 100,
+                        size_condition = function(s) s <= Inf,
                         x_range = c(0, 1),
                         y_range = c(0, 1),
                         highlight_color = "yellow",
@@ -187,10 +187,19 @@ absorbLayer <- function(recolorize_obj,
   # then, get new sizes (minus background)
   recolorize_obj$sizes <- table(map2)[-1]
 
-  # if we completely eliminated a patch, remove it from the color centers
+  # if we completely eliminated a patch...
+
+  # change the higher indices to match new centers
+  if (layer_idx < nrow(recolorize_obj$centers)) {
+    map2[map2 > layer_idx] <- map2[map2 > layer_idx] - 1
+  }
+
+
+  # remove it from the color centers
   if (!any(map2 == layer_idx)) {
     recolorize_obj$centers <- recolorize_obj$centers[-layer_idx, ]
   }
+
 
   # plot if we're plotting
   if (plotting) {
