@@ -178,14 +178,6 @@ absorbLayer <- function(recolorize_obj,
 
   # switch the new patch map in
   map2 <- cimg_to_array(map)
-  recolorize_obj$pixel_assignments <- map2
-
-  # and make the image
-  new_img <- constructImage(map2,
-                            recolorize_obj$centers)
-
-  # then, get new sizes (minus background)
-  recolorize_obj$sizes <- table(map2)[-1]
 
   # if we completely eliminated a patch...
 
@@ -194,12 +186,21 @@ absorbLayer <- function(recolorize_obj,
     map2[map2 > layer_idx] <- map2[map2 > layer_idx] - 1
   }
 
-
   # remove it from the color centers
-  if (!any(map2 == layer_idx)) {
+  if (length(condition_met) == length(layer_split)) {
     recolorize_obj$centers <- recolorize_obj$centers[-layer_idx, ]
+    rownames(recolorize_obj$centers) <- 1:nrow(recolorize_obj$centers)
   }
 
+  # switch in the new map
+  recolorize_obj$pixel_assignments <- map2
+
+  # and make the image
+  new_img <- constructImage(map2,
+                            recolorize_obj$centers)
+
+  # then, get new sizes (minus background)
+  recolorize_obj$sizes <- table(map2)[-1]
 
   # plot if we're plotting
   if (plotting) {

@@ -7,7 +7,7 @@
 absorbLayer(
   recolorize_obj,
   layer_idx,
-  size_condition = function(s) s <= 100,
+  size_condition = function(s) s <= Inf,
   x_range = c(0, 1),
   y_range = c(0, 1),
   highlight_color = "yellow",
