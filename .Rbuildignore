@@ -1,7 +1,4 @@
-^recolorize\.Rproj$
-^\.Rproj\.user$
-^doodling\.R$
-R/doodling\.R$
-^LICENSE\.md$
-^.travis.yml$
-^html_output/$
+.travis.yml
+html_output/
+LICENSE.md
+recolorize.Rproj

@@ -14,7 +14,6 @@
 #'   image width and length) for selecting patches. Patches with at least
 #'   partial overlap are counted. Defaults (0-1) include the entire image.
 #'   See details.
-#' @param y_range
 #' @param highlight_color Color for highlighting the affected layer.
 #' @param plotting Logical. Plot results?
 #'
@@ -96,7 +95,6 @@ absorbLayer <- function(recolorize_obj,
                         x_range = c(0, 1),
                         y_range = c(0, 1),
                         highlight_color = "yellow",
-                        lwd = 0.25,
                         plotting = TRUE) {
   # get object layer
   layers <- splitByColor(recolorize_obj, plot_method = "none")
@@ -179,7 +177,7 @@ absorbLayer <- function(recolorize_obj,
   }
 
   # switch the new patch map in
-  map2 <- recolorize:::cimg_to_array(map)
+  map2 <- cimg_to_array(map)
   recolorize_obj$pixel_assignments <- map2
 
   # and make the image
@@ -207,7 +205,7 @@ absorbLayer <- function(recolorize_obj,
     highlight_img <- cimg_to_array(highlight_img)
 
     # plot highlighted
-    layout(matrix(1:3, 1), widths = c(0.4, 0.4, 0.2))
+    graphics::layout(matrix(1:3, 1), widths = c(0.4, 0.4, 0.2))
     plotImageArray(highlight_img, main = paste("selected components"))
     plotImageArray(new_img, paste("result"))
     plotColorPalette(recolorize_obj$centers,
