@@ -180,14 +180,14 @@ absorbLayer <- function(recolorize_obj,
   map2 <- cimg_to_array(map)
 
   # if we completely eliminated a patch...
-
-  # change the higher indices to match new centers
-  if (layer_idx < nrow(recolorize_obj$centers)) {
-    map2[map2 > layer_idx] <- map2[map2 > layer_idx] - 1
-  }
-
-  # remove it from the color centers
   if (length(condition_met) == length(layer_split)) {
+
+    # change the higher indices to match new centers
+    if (layer_idx < nrow(recolorize_obj$centers)) {
+      map2[map2 > layer_idx] <- map2[map2 > layer_idx] - 1
+    }
+
+    # remove it from the color centers
     recolorize_obj$centers <- recolorize_obj$centers[-layer_idx, ]
     rownames(recolorize_obj$centers) <- 1:nrow(recolorize_obj$centers)
   }
