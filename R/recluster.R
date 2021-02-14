@@ -110,10 +110,13 @@ recluster <- function(recolorize_obj,
 
   # rename, to keep things clear
   init_fit <- recolorize_obj
+  init_fit <- expand_recolorize(init_fit,
+                                original_img = TRUE,
+                                sizes = TRUE)
 
   # first, ignore empty clusters -- they're not informative
   sizes <- init_fit$sizes
-  centers <- init_fit$centers
+  centers <- init_fit$centers[as.numeric(names(sizes)), ]
 
   # if any are empty, remove them
   if (any(sizes == 0)) {
@@ -139,8 +142,8 @@ recluster <- function(recolorize_obj,
   if (plot_hclust) {
 
     graphics::par(mfrow = c(1, 1), mar = c(1, 3, 3, 1))
-    hex_cols <- grDevices::rgb(recolorize_obj$centers)
-    sizes <- recolorize_obj$sizes
+    hex_cols <- grDevices::rgb(init_fit$centers)
+    sizes <- init_fit$sizes
     hcd <- stats::as.dendrogram(hc)
     hcd <- stats::dendrapply(hcd, function(x) labelCol(x, hex_cols, cex = 3))
 
@@ -209,7 +212,8 @@ recluster <- function(recolorize_obj,
     plotImageArray(init_fit$original_img, main = "original")
 
     # plot initial fit
-    plotImageArray(init_fit$recolored_img, main = "initial fit")
+    plotImageArray(constructImage(init_fit$pixel_assignments,
+                                  init_fit$centers), main = "initial fit")
 
     # plot reclustered fit
     plotImageArray(final_fit$recolored_img, main = "reclustered fit")
@@ -222,6 +226,9 @@ recluster <- function(recolorize_obj,
   graphics::par(mfrow = current_par$mfrow,
       mar = current_par$mar)
 
+  final_fit <- list(original_img = as.raster(final_fit$original_img),
+                    pixel_assignment = final_fit$pixel_assignments,
+                    centers = final_fit$centers)
   return(final_fit)
 
 }

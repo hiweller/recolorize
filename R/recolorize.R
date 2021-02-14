@@ -184,12 +184,8 @@ recolorize <- function(img, method = "histogram",
   pixel_assignments <- color_clusters$pixel_assignments
 
   # return em
-  return_list <- list(original_img = original_img,
-                      recolored_img = recolored_img,
-                      method = method,
-                      color_space = color_space,
+  return_list <- list(original_img = as.raster(original_img),
                       centers = centers,
-                      sizes = sizes,
                       pixel_assignments = pixel_assignments)
 
   # get residuals if TRUE
