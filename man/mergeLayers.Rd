@@ -58,9 +58,7 @@ init_fit <- recolorize(img)
 # redundant green, red, and blue clusters
 
 # to make it easier to see, we can plot the numbered palette:
-layout(matrix(1:2, nrow = 1))
-plotImageArray(init_fit$recolored_img)
-plotColorPalette(init_fit$centers, horiz = FALSE)
+plot(init_fit)
 
 # based on visual inspection, we should merge:
 mlist <- list(c(3, 5),

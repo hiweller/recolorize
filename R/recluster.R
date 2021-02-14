@@ -230,6 +230,8 @@ recluster <- function(recolorize_obj,
                     pixel_assignments = final_fit$pixel_assignments,
                     sizes = final_fit$sizes,
                     centers = final_fit$centers)
+
+  class(final_fit) <- "recolorize"
   return(final_fit)
 
 }

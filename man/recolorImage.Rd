@@ -39,9 +39,7 @@ A list with the following attributes:
 }
 }
 \description{
-Recolors an image after each pixel has been assigned to a particular color.
-Combines the input of \code{\link[recolorize]{backgroundIndex}} and
-\code{\link[recolorize]{colorClusters}}.
+Legacy function. Probably don't use this. Use \link{recoloredImage}.
 }
 \details{
 This function works by taking in:
@@ -68,34 +66,4 @@ storing a background mask in the alpha channel. Users can also
 change the background color by specifying it in the function, but
 it will appear as white unless only the first three channels
 are plotted.
-}
-\examples{
-# load image (recolorize and imposeColors do this automatically)
-img_path <- system.file("extdata/corbetti.png", package = "recolorize")
-img <- readImage(img_path)
-bg_condition <- backgroundCondition(transparent = TRUE,
-                                    alpha_channel = TRUE)
-bg_indexed <- backgroundIndex(img, bg_condition)
-
-# histogram binning
-hist_colors <- colorClusters(bg_indexed,
-                             method = "hist", bins = 2)
-
-# shuffle colors
-shuffle <- function(m) {
-  m[sample(1:nrow(m), nrow(m)), ]
-}
-hist_shuffle <- hist_colors
-hist_shuffle$centers <- shuffle(hist_shuffle$centers)
-
-# recolor based on the two cluster sets
-hist_recolor <- recolorImage(bg_indexed, hist_colors)
-shuffle_recolor <- recolorImage(bg_indexed, hist_shuffle)
-
-# plot them
-layout(matrix(c(1, 2, 3), ncol = 3))
-plotImageArray(img, main = "original")
-plotImageArray(hist_recolor$recolored_img, main = "binning")
-plotImageArray(shuffle_recolor$recolored_img, main = "shuffled colors")
-
 }

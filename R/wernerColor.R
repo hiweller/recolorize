@@ -70,15 +70,20 @@ wernerColor <- function(recolorize_obj,
 
   # pick the image
   if (which_img == "original") {
-    img <- recolorize_obj$original_img
+
+    # make RGB array and refit
+    img <- raster_to_array(recolorize_obj$original_img)
+    werner_fit <- imposeColors(img,
+                               werner_centers, adjust_centers = FALSE,
+                               plotting = FALSE)
+
   } else {
-    img <- recolorize_obj$recolored_img
+
+    # we just have to swap out the centers
+    werner_fit <- recolorize_obj
+    werner_fit$centers <- werner_centers
   }
 
-  # use imposeColors
-  werner_fit <- imposeColors(img,
-               werner_centers, adjust_centers = FALSE,
-               plotting = FALSE)
 
   # if n_colors is too big...
   n_colors <- min(c(n_colors, nrow(werner_fit$centers)))
@@ -99,7 +104,7 @@ wernerColor <- function(recolorize_obj,
                    horiz = FALSE)
 
   # plot the recolored image
-  plotImageArray(werner_fit$recolored_img)
+  plotImageArray(recoloredImage(werner_fit))
 
   # plot the labels
   graphics::plot(0:1, 0:1, ann = F, axes = F, type = "n")

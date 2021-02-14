@@ -35,10 +35,13 @@ Plots the output of \code{\link{imDist}} as a heatmap.
 }
 \examples{
 chongi <- system.file("extdata/chongi.png", package = "recolorize")
+chongi <- png::readPNG(chongi)
 chongi_k <- recolorize(chongi, "k", n = 5)
 
-d <- imDist(chongi_k$original_img,
-            chongi_k$recolored_img, plotting = FALSE)
+recolored_chongi <- constructImage(chongi_k$pixel_assignments,
+                                   chongi_k$centers)
+d <- imDist(chongi,
+            recolored_chongi, plotting = FALSE)
 
 # original flavor
 imHeatmap(d)

@@ -124,15 +124,15 @@ pixels (preferably with a margin of error) in the resized image.
 img <- system.file("extdata/chongi.png", package = "recolorize")
 
 # default: histogram, 2 bins/channel
-recolorize(img)
+rc <- recolorize(img)
 
 # we can also have different numbers of bins per channel
-recolorize(img, bins = c(4, 1, 1)) # mostly red
-recolorize(img, bins = c(1, 4, 1)) # mostly green
-recolorize(img, bins = c(1, 1, 4)) # mostly blue
+rc <- recolorize(img, bins = c(4, 1, 1)) # mostly red
+rc <- recolorize(img, bins = c(1, 4, 1)) # mostly green
+rc <- recolorize(img, bins = c(1, 1, 4)) # mostly blue
 
 # kmeans can produce a better fit with fewer colors
-recolorize(img, method = "kmeans", n = 8)
+rc <- recolorize(img, method = "kmeans", n = 8)
 
 # increasing numbers of kmean colors
 recolored_images <- setNames(vector("list", length = 10), c(1:10))
@@ -149,7 +149,7 @@ hist_recolor <- recolorize(img, method = "hist",
 
 # compare binning vs. kmeans clustering
 layout(matrix(c(1, 2, 3), ncol = 3))
-plotImageArray(kmeans_recolor$original_img, main = "original")
-plotImageArray(kmeans_recolor$recolored_img, main = "kmeans")
-plotImageArray(hist_recolor$recolored_img, main = "binning")
+plot(kmeans_recolor$original_img); title("original")
+plot(recoloredImage(kmeans_recolor, type = "raster")); title("kmeans")
+plot(recoloredImage(hist_recolor, type = "raster")); title("binning")
 }

@@ -51,21 +51,26 @@ thresholdRecolor <- function(recolorize_obj,
   keep_idx <- size_order[1:which(cumsum(size_norm) >= pct)[1]]
 
   # refit, using those colors
-  refit <- imposeColors(img = recolorize_obj$original_img,
+  img <- raster_to_array(recolorize_obj$original_img)
+  refit <- imposeColors(img = img,
                         centers = recolorize_obj$centers[keep_idx, ],
                         plotting = FALSE,
                         ...)
 
   # plot comparison
   if (plotting) {
-    graphics::par(mar = rep(0, 4))
+    graphics::par(mar = rep(1, 4))
     graphics::layout(matrix(1:4, nrow = 1),
                      widths = c(0.4, 0.1, 0.1, 0.4))
-    plotImageArray(recolorize_obj$recolored_img, "initial fit")
+    initial_fit <- recoloredImage(recolorize_obj, type = "raster")
+    thresholded_fit <- recoloredImage(refit, type = "raster")
+
+    # plot initial fit
+    plot(initial_fit); graphics::title("initial fit")
     plotColorPalette(recolorize_obj$centers,
                      recolorize_obj$sizes, horiz = F)
     plotColorPalette(refit$centers, refit$sizes, horiz = F)
-    plotImageArray(refit$recolored_img, "thresholded fit")
+    plot(thresholded_fit); graphics::title("thresholded fit")
   }
   return(refit)
 

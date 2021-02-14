@@ -43,9 +43,7 @@
 #' # redundant green, red, and blue clusters
 #'
 #' # to make it easier to see, we can plot the numbered palette:
-#' layout(matrix(1:2, nrow = 1))
-#' plotImageArray(init_fit$recolored_img)
-#' plotColorPalette(init_fit$centers, horiz = FALSE)
+#' plot(init_fit)
 #'
 #' # based on visual inspection, we should merge:
 #' mlist <- list(c(3, 5),
@@ -199,15 +197,13 @@ mergeLayers <- function(recolorize_obj,
            widths = c(0.3, 0.2, 0.3, 0.2))
 
     # plot original color map & palette
-    recolorize::plotImageArray(constructImage(recolorize_obj$pixel_assignments,
-                                              recolorize_obj$centers),
+    recolorize::plotImageArray(recoloredImage(recolorize_obj),
                                main = "Recolored original")
     recolorize::plotColorPalette(recolorize_obj$centers,
                                  horiz = FALSE)
 
     # plot new color map & palette
-    recolorize::plotImageArray(constructImage(merged_obj$pixel_assignments,
-                                              merged_obj$centers),
+    recolorize::plotImageArray(recoloredImage(merged_obj),
                                main = "Merged image")
     recolorize::plotColorPalette(merged_obj$centers,
                                  horiz = FALSE)

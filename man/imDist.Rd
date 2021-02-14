@@ -51,23 +51,28 @@ by calculating the color distance between the colors of each pair of pixels.
 \examples{
 fulgidissima <- system.file("extdata/fulgidissima.png",
                              package = "recolorize")
-
+fulgidissima <- png::readPNG(fulgidissima)
 # make an initial histogram fit
 # this doesn't look great:
 fulgidissima_2bin <- recolorize(fulgidissima, "hist", bins = 2)
 
-# and we can see that everywhere but the head has pretty high residuals:
-dist_2bin <- imDist(fulgidissima_2bin$original_img,
-                    fulgidissima_2bin$recolored_img)
+# we can compare with the original image by creating the recolored
+# image from the colormap
+recolored_2bin <- constructImage(fulgidissima_2bin$pixel_assignments,
+                                fulgidissima_2bin$centers)
+dist_2bin <- imDist(im1 = fulgidissima,
+                    im2 = recolored_2bin)
 
 # using 3 bins/channel looks much better:
 fulgidissima_3bin <- recolorize(fulgidissima, "hist", bins = 3)
 
 # and we can see that on the heatmap:
-dist_3bin <- imDist(fulgidissima_3bin$original_img,
-                    fulgidissima_3bin$recolored_img)
+recolored_3bin <- constructImage(fulgidissima_3bin$pixel_assignments,
+                                fulgidissima_3bin$centers)
+dist_3bin <- imDist(im1 = fulgidissima,
+                    im2 = recolored_3bin)
 
-# default behavior is to se the color range to the range of distances
+# default behavior is to set the color range to the range of distances
 # in a single matrix; to compare two different fits, we have to provide
 # the same `zlim` scale for both
 r <- range(c(dist_2bin, dist_3bin), na.rm = TRUE)
@@ -78,8 +83,8 @@ imHeatmap(dist_2bin, range = r)
 imHeatmap(dist_3bin, range = r)
 
 # we can also use other color spaces:
-rgb_3bin <- imDist(fulgidissima_3bin$original_img,
-                   fulgidissima_3bin$recolored_img,
+rgb_3bin <- imDist(fulgidissima,
+                   recolored_3bin,
                    color_space = "sRGB")
 
 # looks oddly worse, but to keep things in perspective,

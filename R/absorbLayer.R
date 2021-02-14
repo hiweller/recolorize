@@ -139,7 +139,12 @@ absorbLayer <- function(recolorize_obj,
   # make a color center map from the pixel assignments (this will make sense in
   # a bit)
   old_map <- recolorize_obj$pixel_assignments
+  old_centers <- recolorize_obj$centers
   map <- imager::as.cimg(old_map)
+
+  if(length(condition_met) == 0) {
+    stop("No layer components meet specified conditions.")
+  }
 
   # for every component that meets the size condition:
   for (i in condition_met) {
@@ -213,7 +218,7 @@ absorbLayer <- function(recolorize_obj,
     layer_px <- imager::as.pixset(imager::add(components) > 0)
     px_bound <- imager::boundary(imager::grow(layer_px, 1))
     old_img <- array_to_cimg(constructImage(old_map,
-                                            recolorize_obj$centers))
+                                            old_centers))
     highlight_img <- imager::colorise(old_img,
                      px_bound, col = highlight_color)
     highlight_img <- cimg_to_array(highlight_img)
