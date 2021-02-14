@@ -172,9 +172,7 @@ imposeColors <- function(img, centers,
   pixel_assignments <- color_clusters$pixel_assignments
 
   # make returnable
-  return_list <- list(original_img = original_img,
-                      recolored_img = recolored_img,
-                      color_space = color_space,
+  return_list <- list(original_img = grDevices::as.raster(original_img),
                       centers = centers,
                       sizes = sizes,
                       pixel_assignments = pixel_assignments)

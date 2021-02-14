@@ -69,13 +69,13 @@ text to display on the color palette numbers.}
 proportional to the size of each cluster?}
 }
 \value{
-A list with the following attributes:
+An object of S3 class \code{recolorize} with the following attributes:
 \enumerate{
-\item \code{original_img}: The original image, as a 3D array.
-\item \code{recolored_img}: The recolored image, as a 3D array.
-\item \code{centers}: A matrix of color centers. If \code{adjust_centers = FALSE}, this will be identical to the input \code{centers}.
+\item \code{original_img}: The original image, as a raster array.
+\item \code{centers}: A matrix of color centers in RGB (0-1 range).
 \item \code{sizes}: The number of pixels assigned to each color cluster.
-\item \code{pixel_assignments}: A vector of color center assignments for each pixel.
+\item \code{pixel_assignments}: A matrix of color center assignments for each
+pixel.
 }
 }
 \description{

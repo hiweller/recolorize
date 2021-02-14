@@ -89,7 +89,8 @@ fit_bad <- absorbLayer(fit3, layer_idx = 4,
 
 # but we just want to target pixels in that one region, so we can first
 # determine a bounding box for it by plotting a grid:
-plotImageArray(fit3$recolored_img)
+plotImageArray(constructImage(fit3$pixel_assignments,
+                    fit3$centers))
 axis(1, line = 3); axis(2, line = 1)
 abline(v = seq(0, 1, by = 0.1),
        h = seq(0, 1, by = 0.1),

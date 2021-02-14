@@ -34,14 +34,13 @@
 #' @param cex_text If `plotting = TRUE` and `scale_palette = FALSE`, size of
 #'   text to display on the color palette numbers.
 #'
-#' @return A list with the following attributes:
+#' @return An object of S3 class `recolorize` with the following attributes:
 #' \enumerate{
-#'     \item `original_img`: The original image, as a 3D array.
-#'     \item `recolored_img`: The recolored image, as a 3D array.
-#'     \item `centers`: A matrix of color centers. If `adjust_centers =
-#'         FALSE`, this will be identical to the input `centers`.
+#'     \item `original_img`: The original image, as a raster array.
+#'     \item `centers`: A matrix of color centers in RGB (0-1 range).
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
-#'     \item `pixel_assignments`: A vector of color center assignments for each pixel.
+#'     \item `pixel_assignments`: A matrix of color center assignments for each
+#'     pixel.
 #' }
 #'
 #' @details
@@ -159,18 +158,12 @@ recolorize <- function(img, method = "histogram",
                                   color_space = color_space,
                                   ref_white = ref_white)
 
-  # recolor based on assignments/centers
-  recolored <- recolorImage(bg_indexed, color_clusters,
-                            plotting = FALSE,
-                            remove_empty_clusters = FALSE)
-
   # get sizes vector
   sizes <- color_clusters$sizes
   if (scale_palette) { s <- sizes } else { s <- NULL }
 
   # returnables:
   original_img <- img
-  recolored_img <- recolored$recolored_img
 
   # return binning scheme
   method <- if( method == "kmeans" ) {
@@ -184,8 +177,9 @@ recolorize <- function(img, method = "histogram",
   pixel_assignments <- color_clusters$pixel_assignments
 
   # return em
-  return_list <- list(original_img = as.raster(original_img),
+  return_list <- list(original_img = grDevices::as.raster(original_img),
                       centers = centers,
+                      sizes = sizes,
                       pixel_assignments = pixel_assignments)
 
   # get residuals if TRUE
@@ -194,7 +188,6 @@ recolorize <- function(img, method = "histogram",
                                          color_clusters$pixel_assignments,
                                          centers)
   }
-
 
   # set class
   class(return_list) <- "recolorize"

@@ -111,12 +111,11 @@ recluster <- function(recolorize_obj,
   # rename, to keep things clear
   init_fit <- recolorize_obj
   init_fit <- expand_recolorize(init_fit,
-                                original_img = TRUE,
-                                sizes = TRUE)
+                                original_img = TRUE)
 
   # first, ignore empty clusters -- they're not informative
   sizes <- init_fit$sizes
-  centers <- init_fit$centers[as.numeric(names(sizes)), ]
+  centers <- init_fit$centers
 
   # if any are empty, remove them
   if (any(sizes == 0)) {
@@ -216,7 +215,8 @@ recluster <- function(recolorize_obj,
                                   init_fit$centers), main = "initial fit")
 
     # plot reclustered fit
-    plotImageArray(final_fit$recolored_img, main = "reclustered fit")
+    plotImageArray(constructImage(final_fit$pixel_assignments,
+                                  final_fit$centers), main = "reclustered fit")
 
     # and the new color palette
     plotColorPalette(final_fit$centers, sizes = final_fit$sizes, horiz = FALSE)
@@ -226,8 +226,9 @@ recluster <- function(recolorize_obj,
   graphics::par(mfrow = current_par$mfrow,
       mar = current_par$mar)
 
-  final_fit <- list(original_img = as.raster(final_fit$original_img),
-                    pixel_assignment = final_fit$pixel_assignments,
+  final_fit <- list(original_img = grDevices::as.raster(final_fit$original_img),
+                    pixel_assignments = final_fit$pixel_assignments,
+                    sizes = final_fit$sizes,
                     centers = final_fit$centers)
   return(final_fit)
 

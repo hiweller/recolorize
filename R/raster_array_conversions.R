@@ -13,7 +13,7 @@ raster_to_array <- function(raster_obj, alpha = TRUE) {
 
   # convert to matrix and to RGB triplets in 0-1 range:
   o1 <- as.matrix(raster_obj)
-  o2 <- col2rgb(o1, alpha = alpha) / 255
+  o2 <- grDevices::col2rgb(o1, alpha = alpha) / 255
 
   # make a blank array of correct dimensions:
   im_array <- array(NA, dim = c(dim(raster_obj), nrow(o2)))
@@ -45,7 +45,7 @@ array_to_RasterStack <- function(img_array,
                                  alpha_mask = TRUE,
                                  return_alpha = FALSE) {
 
-  require(raster, quietly = TRUE)
+  requireNamespace("raster")
 
   type <- match.arg(type, c("stack", "brick"))
 
@@ -71,7 +71,7 @@ array_to_RasterStack <- function(img_array,
     }
   }
 
-  crs(output) <- "+proj=longlat"
+  raster::crs(output) <- "+proj=longlat"
 
   return(output)
 

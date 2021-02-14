@@ -99,10 +99,6 @@ mergeLayers <- function(recolorize_obj,
   merge_list <- pm$merge_list
   color_to <- pm$color_to
 
-  # convert recolored image to a cimg object
-  cimg_obj <- array_to_cimg(recolorize_obj$recolored_img,
-                                         flatten_alpha = T)
-
   # split the layers
   layers <- splitByColor(recolorize_obj,
                           plot_method = "none")
@@ -176,21 +172,10 @@ mergeLayers <- function(recolorize_obj,
     # convert to pixset
     layer <- imager::as.pixset(imager::as.cimg(layer))
 
-    # and recolor (setting alpha)
-    cimg_obj <- imager::colorise(cimg_obj, layer, col_to)
-
   }
 
   # thbbt
   rownames(new_centers) <- NULL
-
-  # convert back to array and add alpha channel
-  # i have LEARNED MY LESSON with imager alpha channels
-  # (highly unpredictable behavior)
-  as_array <- cimg_to_array(cimg_obj)
-  as_array <- abind::abind(as_array,
-                           recolorize_obj$recolored_img[ , , 4],
-                           along = 3)
 
   # remove any stray empty things
   if (any(new_sizes == 0)) {
@@ -200,8 +185,6 @@ mergeLayers <- function(recolorize_obj,
 
   # reconstruct the recolorize obj
   merged_obj <- recolorize_obj
-  merged_obj$recolored_img <- as_array
-  merged_obj$method <- paste("merged", merged_obj$method)
   merged_obj$centers <- new_centers
   merged_obj$sizes <- new_sizes
   merged_obj$pixel_assignments <- px_assign
@@ -216,13 +199,15 @@ mergeLayers <- function(recolorize_obj,
            widths = c(0.3, 0.2, 0.3, 0.2))
 
     # plot original color map & palette
-    recolorize::plotImageArray(recolorize_obj$recolored_img,
+    recolorize::plotImageArray(constructImage(recolorize_obj$pixel_assignments,
+                                              recolorize_obj$centers),
                                main = "Recolored original")
     recolorize::plotColorPalette(recolorize_obj$centers,
                                  horiz = FALSE)
 
     # plot new color map & palette
-    recolorize::plotImageArray(merged_obj$recolored_img,
+    recolorize::plotImageArray(constructImage(merged_obj$pixel_assignments,
+                                              merged_obj$centers),
                                main = "Merged image")
     recolorize::plotColorPalette(merged_obj$centers,
                                  horiz = FALSE)

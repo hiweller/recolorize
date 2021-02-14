@@ -73,7 +73,8 @@
 #'
 #' # but we just want to target pixels in that one region, so we can first
 #' # determine a bounding box for it by plotting a grid:
-#' plotImageArray(fit3$recolored_img)
+#' plotImageArray(constructImage(fit3$pixel_assignments,
+#'                     fit3$centers))
 #' axis(1, line = 3); axis(2, line = 1)
 #' abline(v = seq(0, 1, by = 0.1),
 #'        h = seq(0, 1, by = 0.1),
@@ -96,9 +97,10 @@ absorbLayer <- function(recolorize_obj,
                         y_range = c(0, 1),
                         highlight_color = "yellow",
                         plotting = TRUE) {
+
   # get object layer
-  layers <- splitByColor(recolorize_obj, plot_method = "none")
-  layer <- layers[[layer_idx]]
+  layer <- splitByColor(recolorize_obj, layers = layer_idx,
+                         plot_method = "none")[[1]]
 
   # convert to an imager pixset for splitting
   px <- imager::as.pixset(imager::as.cimg(layer) > 0)
@@ -136,7 +138,8 @@ absorbLayer <- function(recolorize_obj,
 
   # make a color center map from the pixel assignments (this will make sense in
   # a bit)
-  map <- imager::as.cimg(recolorize_obj$pixel_assignments)
+  old_map <- recolorize_obj$pixel_assignments
+  map <- imager::as.cimg(old_map)
 
   # for every component that meets the size condition:
   for (i in condition_met) {
@@ -177,14 +180,14 @@ absorbLayer <- function(recolorize_obj,
   }
 
   # switch the new patch map in
-  map2 <- cimg_to_array(map)
+  map <- cimg_to_array(map)
 
   # if we completely eliminated a patch...
   if (length(condition_met) == length(layer_split)) {
 
     # change the higher indices to match new centers
     if (layer_idx < nrow(recolorize_obj$centers)) {
-      map2[map2 > layer_idx] <- map2[map2 > layer_idx] - 1
+      map[map > layer_idx] <- map[map > layer_idx] - 1
     }
 
     # remove it from the color centers
@@ -193,14 +196,14 @@ absorbLayer <- function(recolorize_obj,
   }
 
   # switch in the new map
-  recolorize_obj$pixel_assignments <- map2
+  recolorize_obj$pixel_assignments <- map
 
   # and make the image
-  new_img <- constructImage(map2,
+  new_img <- constructImage(map,
                             recolorize_obj$centers)
 
   # then, get new sizes (minus background)
-  recolorize_obj$sizes <- table(map2)[-1]
+  recolorize_obj$sizes <- table(map)[-1]
 
   # plot if we're plotting
   if (plotting) {
@@ -209,7 +212,8 @@ absorbLayer <- function(recolorize_obj,
     components <- layer_split[condition_met]
     layer_px <- imager::as.pixset(imager::add(components) > 0)
     px_bound <- imager::boundary(imager::grow(layer_px, 1))
-    old_img <- array_to_cimg(recolorize_obj$recolored_img)
+    old_img <- array_to_cimg(constructImage(old_map,
+                                            recolorize_obj$centers))
     highlight_img <- imager::colorise(old_img,
                      px_bound, col = highlight_color)
     highlight_img <- cimg_to_array(highlight_img)
@@ -223,11 +227,6 @@ absorbLayer <- function(recolorize_obj,
                      horiz = FALSE)
 
   }
-
-  # tidying up
-
-  # first, swap out the new image
-  recolorize_obj$recolored_img <- new_img
 
   return(recolorize_obj)
 

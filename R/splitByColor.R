@@ -89,7 +89,8 @@ splitByColor <- function(recolorize_obj,
 
     # get transparent pixset
     alpha_px <- imager::imsub(img) == 0
-    rgb_img <- array_to_cimg(recolorize_obj$recolored_img)
+    rgb_img <- array_to_cimg(constructImage(recolorize_obj$pixel_assignments,
+                                            recolorize_obj$centers))
 
     # make grayscale image
     grimg <- imager::grayscale(imager::rm.alpha(rgb_img), drop = FALSE)
