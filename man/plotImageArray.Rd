@@ -8,8 +8,8 @@ plotImageArray(rgb_array, main = "", ...)
 }
 \arguments{
 \item{rgb_array}{A 3D array of RGB values. Preferably output from
-\code{\link[png]{readPNG}}, \code{\link[jpeg]{readJPEG}}, or
-\code{\link[recolorize]{recolorImage}}.}
+\code{\link[png]{readPNG}}, \code{\link[jpeg]{readJPEG}},
+\link{recoloredImage}, \link{constructImage}, or \link{raster_to_array}.}
 
 \item{main}{Optional title for plot.}
 

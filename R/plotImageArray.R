@@ -5,8 +5,8 @@
 #' axes, and reduces margins for cleaner plotting.
 #'
 #' @param rgb_array A 3D array of RGB values. Preferably output from
-#'   \code{\link[png]{readPNG}}, \code{\link[jpeg]{readJPEG}}, or
-#'   \code{\link[recolorize]{recolorImage}}.
+#'   \code{\link[png]{readPNG}}, \code{\link[jpeg]{readJPEG}},
+#'   [recoloredImage], [constructImage], or [raster_to_array].
 #' @param main Optional title for plot.
 #' @param ... Parameters passed to [graphics::plot].
 #'

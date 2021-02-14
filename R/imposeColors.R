@@ -35,9 +35,7 @@
 #'
 #' @return A list with the following attributes:
 #' \enumerate{
-#'     \item `original_img`: The original image, as a 3D array.
-#'     \item `recolored_img`: The recolored image, as a 3D array.
-#'     \item `color_space`: The associated color space.
+#'     \item `original_img`: The original image, as a raster.
 #'     \item `centers`: A matrix of color centers. If `adjust_centers =
 #'         FALSE`, this will be identical to the input `centers`.
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
@@ -154,17 +152,11 @@ imposeColors <- function(img, centers,
   color_clusters$sizes <- sizes
   class(color_clusters) <- "color_clusters"
 
-  # recolor based on assignments/centers
-  recolored <- recolorImage(bg_indexed, color_clusters,
-                            plotting = FALSE,
-                            remove_empty_clusters = FALSE)
-
   # get sizes vector
   if (scale_palette) { s <- sizes } else { s <- NULL }
 
   # returnables:
   original_img <- img
-  recolored_img <- recolored$recolored_img
 
   # only rgb for now...would others be useful?
   color_space <- color_space

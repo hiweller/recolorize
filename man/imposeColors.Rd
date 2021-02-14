@@ -68,9 +68,7 @@ proportional to the size of each cluster?}
 \value{
 A list with the following attributes:
 \enumerate{
-\item \code{original_img}: The original image, as a 3D array.
-\item \code{recolored_img}: The recolored image, as a 3D array.
-\item \code{color_space}: The associated color space.
+\item \code{original_img}: The original image, as a raster.
 \item \code{centers}: A matrix of color centers. If \code{adjust_centers = FALSE}, this will be identical to the input \code{centers}.
 \item \code{sizes}: The number of pixels assigned to each color cluster.
 \item \code{pixel_assignments}: A vector of color center assignments for each pixel.
