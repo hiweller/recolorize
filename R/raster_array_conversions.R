@@ -9,6 +9,7 @@
 #'
 #' @return A numeric RGB array (0-1 range).
 #'
+#' @export
 raster_to_array <- function(raster_obj, alpha = TRUE) {
 
   # convert to matrix and to RGB triplets in 0-1 range:
