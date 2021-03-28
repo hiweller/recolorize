@@ -55,7 +55,15 @@
 #' \dontrun{
 #' img <- system.file("extdata/corbetti.png", package = "recolorize")
 #' rc <- recolorize2(img, cutoff = 45)
-#' as_vector <- vector_recolorize(rc, smoothness = 5)
+#'
+#' # clean up minor details (i.e. absorb stray components <= 5 pixels)
+#' for (i in 1:nrow(rc$centers)) {
+#'   rc <- absorbLayer(rc, i, function(s) s <= 5,
+#'   plotting = F)
+#' }
+#'
+#' # takes ~10 seconds
+#' as_vector <- recolorizeVector(rc, smoothness = 5)
 #'
 #' # to save as an SVG with a transparent background and
 #' # no margins (e.g. for an illustration figure):
@@ -130,8 +138,9 @@ recolorizeVector <- function(recolorize_obj,
 
   # if plotting, put base layer first and then add the rest
   if (plotting) {
+
     # initialize plot
-    plot(b, col = base_color, border = p$base_color,
+    sp::plot(b, col = base_color, border = p$base_color,
          asp = dim(layers[[i]])[1] / dim(layers[[i]])[2],
          xlim = c(0, 1), ylim = c(0, 1),
          ...)
@@ -141,7 +150,7 @@ recolorizeVector <- function(recolorize_obj,
       col <- p$layer_colors[i]
 
       # add to plot
-      plot(p$layers[[i]],
+      sp::plot(p$layers[[i]],
            col = col,
            border = col,
            add = TRUE,
@@ -166,7 +175,7 @@ plot.recolorizeVector <- function(x, ...) {
   requireNamespace("sp", quietly = TRUE)
 
   # initialize plot
-  plot(x$base_layer, col = x$base_color,
+  sp::plot(x$base_layer, col = x$base_color,
        border = x$base_color,
        asp = x$asp,
        ...)
@@ -176,7 +185,7 @@ plot.recolorizeVector <- function(x, ...) {
     col <- x$layer_colors[i]
 
     # add to plot
-    plot(x$layers[[i]],
+    sp::plot(x$layers[[i]],
          col = col,
          border = col,
          add = TRUE,

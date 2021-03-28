@@ -75,7 +75,15 @@ objects.
 \dontrun{
 img <- system.file("extdata/corbetti.png", package = "recolorize")
 rc <- recolorize2(img, cutoff = 45)
-as_vector <- vector_recolorize(rc, smoothness = 5)
+
+# clean up minor details (i.e. absorb stray components <= 5 pixels)
+for (i in 1:nrow(rc$centers)) {
+  rc <- absorbLayer(rc, i, function(s) s <= 5,
+  plotting = F)
+}
+
+# takes ~10 seconds
+as_vector <- recolorizeVector(rc, smoothness = 5)
 
 # to save as an SVG with a transparent background and
 # no margins (e.g. for an illustration figure):
