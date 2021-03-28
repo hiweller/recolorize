@@ -17,6 +17,10 @@
 #'   smoothing. If `base_color = "default"`, defaults to the darkest color
 #'   in the palette. Otherwise, should be the numeric index of one of the colors
 #'   in `recolorize_obj$centers` to use.
+#' @param size_filter The size (as a proportion of the shortest dimension of the
+#'   image) of the color patch elements to absorb before vectorizing. Small
+#'   details (e.g. stray pixels) tend to look very strange after vectorizing,
+#'   so removing these beforehand can improve results.
 #' @param plotting Logical. Plot results while computing?
 #' @param resize Proportion by which to resize the color map before turning
 #'   into a polygon, e.g. `resize = 0.5` will reduce color map size by 50%.
@@ -56,14 +60,9 @@
 #' img <- system.file("extdata/corbetti.png", package = "recolorize")
 #' rc <- recolorize2(img, cutoff = 45)
 #'
-#' # clean up minor details (i.e. absorb stray components <= 5 pixels)
-#' for (i in 1:nrow(rc$centers)) {
-#'   rc <- absorbLayer(rc, i, function(s) s <= 5,
-#'   plotting = F)
-#' }
-#'
 #' # takes ~10 seconds
-#' as_vector <- recolorizeVector(rc, smoothness = 5)
+#' as_vector <- recolorizeVector(rc, smoothness = 5,
+#'                               size_filter = 0.05)
 #'
 #' # to save as an SVG with a transparent background and
 #' # no margins (e.g. for an illustration figure):
@@ -74,11 +73,20 @@
 #' dev.off()
 #' }
 recolorizeVector <- function(recolorize_obj,
+                             size_filter = 0.1,
                               smoothness = 1,
                               base_color = "default",
                               plotting = FALSE,
                               resize = 1,
                               ...) {
+
+  size_filter <- min(round(dim(rc$original_img) * size_filter))
+
+  for (i in 1:nrow(recolorize_obj$centers)) {
+    recolorize_obj <- absorbLayer(recolorize_obj, i,
+                                  function(s) s <= size_filter,
+                                  plotting = FALSE)
+  }
 
   # resize pixel assignments
   im <- imager::as.cimg(recolorize_obj$pixel_assignments)
