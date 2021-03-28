@@ -42,5 +42,7 @@ Depends:
 Suggests: 
     knitr,
     rmarkdown,
-    raster
+    raster,
+    sp,
+    smoothr
 VignetteBuilder: knitr
