@@ -89,7 +89,8 @@ recolorizeVector <- function(recolorize_obj,
     for (i in 1:nrow(recolorize_obj$centers)) {
       recolorize_obj <- absorbLayer(recolorize_obj, i,
                                     function(s) s <= size_filter,
-                                    plotting = FALSE)
+                                    plotting = FALSE,
+                                    remove_empty_layers = FALSE)
     }
   }
 

@@ -3,6 +3,8 @@ cache: packages
 notifications:
     email:
         hannahiweller@gmail.com
+global:
+   - _R_CHECK_FORCE_SUGGESTS_: false
 addons:
  apt:
    update: true

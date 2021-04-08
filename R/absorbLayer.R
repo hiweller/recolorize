@@ -14,6 +14,9 @@
 #'   image width and length) for selecting patches. Patches with at least
 #'   partial overlap are counted. Defaults (0-1) include the entire image.
 #'   See details.
+#' @param remove_empty_layers Logical. If the layer is completely absorbed,
+#'   remove it from the layer indices and renumber the existing patches? (Example:
+#'   if you completely absorb layer 3, then layer 4 -> 3 and 5 -> 4, and so on).
 #' @param highlight_color Color for highlighting the affected layer.
 #' @param plotting Logical. Plot results?
 #'
@@ -96,6 +99,7 @@ absorbLayer <- function(recolorize_obj,
                         x_range = c(0, 1),
                         y_range = c(0, 1),
                         highlight_color = "yellow",
+                        remove_empty_layers = TRUE,
                         plotting = TRUE) {
 
   # get object layer
@@ -188,7 +192,8 @@ absorbLayer <- function(recolorize_obj,
   map <- cimg_to_array(map)
 
   # if we completely eliminated a patch...
-  if (length(condition_met) == length(layer_split)) {
+  if (length(condition_met) == length(layer_split) &
+      remove_empty_layers) {
 
     # change the higher indices to match new centers
     if (layer_idx < nrow(recolorize_obj$centers)) {
@@ -209,6 +214,12 @@ absorbLayer <- function(recolorize_obj,
 
   # then, get new sizes (minus background)
   recolorize_obj$sizes <- table(map)[-1]
+
+  if (nrow(recolorize_obj$centers) < length(recolorize_obj$sizes)) {
+    recolorize_obj$sizes <- c(recolorize_obj$sizes[1:(layer_idx - 1)],
+                              0,
+                  recolorize_obj$sizes[layer_idx:length(recolorize_obj$sizes)])
+  }
 
   # plot if we're plotting
   if (plotting) {

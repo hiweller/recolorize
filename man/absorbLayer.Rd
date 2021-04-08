@@ -11,6 +11,7 @@ absorbLayer(
   x_range = c(0, 1),
   y_range = c(0, 1),
   highlight_color = "yellow",
+  remove_empty_layers = TRUE,
   plotting = TRUE
 )
 }
@@ -29,6 +30,10 @@ partial overlap are counted. Defaults (0-1) include the entire image.
 See details.}
 
 \item{highlight_color}{Color for highlighting the affected layer.}
+
+\item{remove_empty_layers}{Logical. If the layer is completely absorbed,
+remove it from the layer indices and renumber the existing patches? (Example:
+if you completely absorb layer 3, then layer 4 -> 3 and 5 -> 4, and so on).}
 
 \item{plotting}{Logical. Plot results?}
 }
