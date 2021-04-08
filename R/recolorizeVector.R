@@ -81,7 +81,9 @@ recolorizeVector <- function(recolorize_obj,
                               resize = 1,
                               ...) {
 
-  size_filter <- min(round(dim(rc$original_img) * size_filter))
+  size_filter <- min(round(dim(recolorize_obj$original_img) * size_filter))
+
+  rc <- recolorize_obj
 
   if (size_filter > 0) {
     for (i in 1:nrow(recolorize_obj$centers)) {
