@@ -1,0 +1,50 @@
+---
+title: "Introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## `recolorize`: color-based image segmentation (for people with other things to do)
+
+```{r, echo = FALSE, fig.width=6, fig.height=2.5}
+library(recolorize)
+img <- system.file("extdata/corbetti.png", package = "recolorize")
+print(img)
+rc <- suppressMessages(recolorize2(img, 
+                                  cutoff = 45, plotting = FALSE))
+v <- system.file("extdata/msc/corbetti_vector.rds", package = "recolorize")
+print(v)
+# v <- readRDS(v)
+layout(matrix(1:4, nrow = 1), widths = c(0.3, 0.3, 0.3, 0.1))
+plotImageArray(readImage(img))
+title("Original", line = 0)
+plotImageArray(recoloredImage(rc))
+title("Color map (bitmap)", line = 0)
+par(mar = c(1, 1, 3, 1))
+#plot(v)
+title("Color map (vector)")
+plotColorPalette(rc$centers, rc$sizes, horiz = F)
+```
+
+The `recolorize` package is a toolbox for making color maps, essentially color-based image segmentation, using a combination of automatic and semi-automatic procedures.  If you want to measure almost anything about pattern and distribution of color in a set of images, you will probably want to start color maps; they let you discard the noise in an image while retaining information.  
+
+In my experience, color segmentation is one of those problems that seems almost trivial up until you try to do it. Take the above image as an example ((*Chrysochroa corbetti*, taken by [Nathan P. Lord](https://www.thelordlab.com/) and egregiously downsampled to ~200x100 pixels by me). We clearly have five colors present—red, blue, green, black, and white—and their borders are fairly distinct. This beetle actually represents one of the easier segmentation problems, as animal images go. So how would you produce the color maps to the right of the original? Intuitively, there are a few options: 
+
+1. You could open the image up in ImageJ or similar software, and outline each color patch as its own region of interest.
+2. You could use a previously segmented set of images to train a machine learning model and use that model to segment the images (as long as your training set is comprehensive enough).
+3. You could use a generic segmentation algorithm, like watershedding or k-means clustering, and try to modify it to suit your needs.
+
+All of these options have their upsides and their downsides. Doing it by hand will be precise, but slow and probably subjective; using machine learning could work, but only if you already have segmented images for use in training (which presumably you had to do by hand), and making that training set could be extremely time consuming; and the amount of modification required to get a generic algorithm to work might be unjustifiable given the size of (or variance in) your image set.
+```{r setup}
+library(recolorize)
+```

@@ -72,6 +72,7 @@
 #' plot(as_vector)
 #' dev.off()
 #' }
+#' @export
 recolorizeVector <- function(recolorize_obj,
                              size_filter = 0.1,
                               smoothness = 1,
@@ -82,11 +83,14 @@ recolorizeVector <- function(recolorize_obj,
 
   size_filter <- min(round(dim(rc$original_img) * size_filter))
 
-  for (i in 1:nrow(recolorize_obj$centers)) {
-    recolorize_obj <- absorbLayer(recolorize_obj, i,
-                                  function(s) s <= size_filter,
-                                  plotting = FALSE)
+  if (size_filter > 0) {
+    for (i in 1:nrow(recolorize_obj$centers)) {
+      recolorize_obj <- absorbLayer(recolorize_obj, i,
+                                    function(s) s <= size_filter,
+                                    plotting = FALSE)
+    }
   }
+
 
   # resize pixel assignments
   im <- imager::as.cimg(recolorize_obj$pixel_assignments)
