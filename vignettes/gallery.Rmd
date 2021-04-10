@@ -85,7 +85,6 @@ rc_werner <- wernerColor(recluster_fit)
 absorb_red <- absorbLayer(recluster_fit,
                           layer_idx = 3, 
                           size_condition = function(s) s <= 100,
-                          y_range = c(0, 0.8),
                           highlight_color = "cyan")
 ```
 
