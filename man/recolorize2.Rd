@@ -47,7 +47,7 @@ a similarity cutoff. Overrides \code{similarity_cutoff} if provided.}
 
 \item{color_space}{Color space in which to minimize distances, passed to
 \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
-Default is "Lab", a perceptually uniform (for humans) color space.}
+Default is "sRGB".}
 
 \item{recluster_color_space}{Color space in which to group colors for
 reclustering. Default is CIE Lab.}

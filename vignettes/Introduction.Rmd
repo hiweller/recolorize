@@ -670,4 +670,4 @@ v <- readRDS(system.file("extdata/msc/corbetti_vector.rds", package = "recoloriz
 plot(v)
 ```
 
-This function is VERY experimental. If it gives you errors or looks too funky, try decreasing the size filter (which absorbs all components below some size to simplify the image) and the smoothness. Then again, sometimes you want things to look funky. If this is the case, `recolorizeVector) will happily enable you.
+This function is VERY experimental. If it gives you errors or looks too funky, try decreasing the size filter (which absorbs all components below some size to simplify the image) and the smoothness. Then again, sometimes you want things to look funky. If this is the case, `recolorizeVector` will happily enable you.

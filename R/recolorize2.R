@@ -13,7 +13,7 @@
 #'   number of bins for each channel.
 #' @param color_space Color space in which to minimize distances, passed to
 #'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
-#'   Default is "Lab", a perceptually uniform (for humans) color space.
+#'   Default is "sRGB".
 #' @param recluster_color_space Color space in which to group colors for
 #'   reclustering. Default is CIE Lab.
 #' @param cutoff Numeric similarity cutoff for grouping color centers
