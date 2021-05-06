@@ -56,7 +56,7 @@ splitByColor <- function(recolorize_obj,
   }
 
   # get color centers
-  centers <- recolorize_obj$centers[layer_idx, ]
+  centers <- matrix(recolorize_obj$centers[layer_idx, ], ncol = 3)
 
   # make an empty list for the layer bitmaps
   color_masks <- vector("list", length = length(layer_idx))
@@ -89,8 +89,7 @@ splitByColor <- function(recolorize_obj,
 
     # get transparent pixset
     alpha_px <- imager::imsub(img) == 0
-    rgb_img <- array_to_cimg(constructImage(recolorize_obj$pixel_assignments,
-                                            recolorize_obj$centers))
+    rgb_img <- array_to_cimg(recoloredImage(recolorize_obj))
 
     # make grayscale image
     grimg <- imager::grayscale(imager::rm.alpha(rgb_img), drop = FALSE)
