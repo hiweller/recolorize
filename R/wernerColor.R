@@ -24,6 +24,7 @@
 #'
 #' @examples
 #'
+#' \dontrun{
 #' # get an initial fit:
 #' corbetti <- system.file("extdata/corbetti.png", package = "recolorize")
 #' recolored_corbetti <- recolorize(corbetti, plotting = FALSE)
@@ -39,7 +40,7 @@
 #'                                 plot_hclust = FALSE)
 #' corbetti_werner <- wernerColor(corbetti_recluster,
 #'                                which_img = "recolored")
-#'
+#' }
 #' @export
 wernerColor <- function(recolorize_obj,
                         which_img = "original",
