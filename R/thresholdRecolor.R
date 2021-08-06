@@ -72,6 +72,11 @@ thresholdRecolor <- function(recolorize_obj,
     plotColorPalette(refit$centers, refit$sizes, horiz = F)
     plot(thresholded_fit); graphics::title("thresholded fit")
   }
-  return(refit)
+
+  # append the call
+  recolorize_obj$call <- append(recolorize_obj$call, match.call())
+
+  recolorize_obj <- refit
+  return(recolorize_obj)
 
 }

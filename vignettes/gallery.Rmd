@@ -65,7 +65,7 @@ imposed <- imposeColors(img, centers = colors)
 
 * `recluster`: Combines existing clusters based on either a cutoff for color similarity or a target number of colors.
 ```{r}
-recluster_fit <- recluster(rc_hist, similarity_cutoff = 45)
+recluster_fit <- recluster(rc_hist, cutoff = 45)
 ```
 
 * `thresholdRecolor`: Drops the smallest clusters from a `recolorize` fit and refits the original image.

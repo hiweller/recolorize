@@ -85,9 +85,9 @@ recolorize2 <- function(img, method = "histogram",
   # recluster
   fit2 <- recluster(fit1, color_space = recluster_color_space,
                     ref_white = ref_white,
-                    similarity_cutoff = cutoff,
+                    cutoff = cutoff,
                     n_final = n_final, refit_method = refit_method,
                     plot_hclust = plotting, plot_final = plotting)
-
+  fit2$call <- match.call()
   return(fit2)
 }

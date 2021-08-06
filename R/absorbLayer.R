@@ -52,8 +52,7 @@
 #' img <- system.file("extdata/fulgidissima.png", package = "recolorize")
 #'
 #' # get an initial fit using recolorize + recluster:
-#' fit1 <- recolorize(img, bins = 3, plotting = FALSE)
-#' fit2 <- recluster(fit1, similarity_cutoff = 65)
+#' fit1 <- recolorize2(img, bins = 3, cutoff = 65, plotting = FALSE)
 #' # this looks okay, but the brown patch (3) has some speckling
 #' # in the upper right elytron due to reflection, and the orange
 #' # patch (4) has the same issue
@@ -62,7 +61,7 @@
 #' # sufficient; we want to leave the stripes intact, so we'll absorb components
 #' # that are 50-250 pixels OR fewer than 20 pixels (to get the tiny speckles),
 #' # leaving the eyes intact
-#' fit3 <- absorbLayer(fit2, layer_idx = 3,
+#' fit2 <- absorbLayer(fit1, layer_idx = 3,
 #'                     size_condition = function(x) x <= 250 &
 #'                       x >= 50 |
 #'                       x < 20,
@@ -71,13 +70,13 @@
 #' # what about the orange speckles? this is more difficult, because
 #' # we want to retain the border around the brown stripes, but those patches
 #' # are quite small, so size thresholding won't work:
-#' fit_bad <- absorbLayer(fit3, layer_idx = 4,
+#' fit_bad <- absorbLayer(fit2, layer_idx = 4,
 #'                        size_condition = function(x) x < 25)
 #'
 #' # but we just want to target pixels in that one region, so we can first
 #' # determine a bounding box for it by plotting a grid:
-#' plotImageArray(constructImage(fit3$pixel_assignments,
-#'                     fit3$centers))
+#' plotImageArray(constructImage(fit2$pixel_assignments,
+#'                     fit2$centers))
 #' axis(1, line = 3); axis(2, line = 1)
 #' abline(v = seq(0, 1, by = 0.1),
 #'        h = seq(0, 1, by = 0.1),
@@ -86,7 +85,7 @@
 #' # x-axis range: 0.5-0.7
 #' # y-axis range: 0.55-0.75
 #' # let's try it:
-#' fit4 <- absorbLayer(fit3, layer_idx = 4,
+#' fit3 <- absorbLayer(fit2, layer_idx = 4,
 #'                     size_condition = function(x) x < 100,
 #'                     x_range = c(0.5, 0.7),
 #'                     y_range = c(0.55, 0.75),
@@ -243,6 +242,9 @@ absorbLayer <- function(recolorize_obj,
                      horiz = FALSE)
 
   }
+
+  # append the call
+  recolorize_obj$call <- append(recolorize_obj$call, match.call())
 
   return(recolorize_obj)
 

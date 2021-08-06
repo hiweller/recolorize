@@ -35,7 +35,7 @@
 #'
 #' # we can simplify the colors and then do it again:
 #' corbetti_recluster <- recluster(recolored_corbetti,
-#'                                 similarity_cutoff = 45,
+#'                                 cutoff = 45,
 #'                                 plot_hclust = FALSE)
 #' corbetti_werner <- wernerColor(corbetti_recluster,
 #'                                which_img = "recolored")
@@ -112,6 +112,9 @@ wernerColor <- function(recolorize_obj,
        labels = labels,
        col = cols,
        cex = 2, font = 2)
+
+  # append the call
+  werner_fit$call <- append(recolorize_obj$call, match.call())
 
   # return the fit
   werner_fit$werner_names <- recolorize::werner$name[werner_idx]

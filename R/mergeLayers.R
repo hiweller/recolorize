@@ -213,6 +213,9 @@ mergeLayers <- function(recolorize_obj,
 
   }
 
+  # append the call
+  recolorize_obj$call <- append(recolorize_obj$call, match.call())
+
   return(merged_obj)
 
 }

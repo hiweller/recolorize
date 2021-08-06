@@ -60,7 +60,7 @@ img <- system.file("extdata/corbetti.png", package = "recolorize")
 init_fit <- recolorize(img, bins = 2, plotting = FALSE)
 
 # then cluster patches by similarity
-re_fit <- recluster(init_fit, similarity_cutoff = 40)
+re_fit <- recluster(init_fit, cutoff = 40)
 
 # examine individual layers:
 layout(matrix(1:6, nrow = 2))

@@ -8,7 +8,7 @@ recluster(
   recolorize_obj,
   color_space = "Lab",
   ref_white = "D65",
-  similarity_cutoff = 60,
+  cutoff = 60,
   n_final = NULL,
   plot_hclust = TRUE,
   refit_method = "impose",
@@ -28,13 +28,13 @@ Default is "Lab", a perceptually uniform (for humans) color space.}
 \item{ref_white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}
 
-\item{similarity_cutoff}{Numeric similarity cutoff for grouping color centers
+\item{cutoff}{Numeric similarity cutoff for grouping color centers
 together. The range is in absolute Euclidean distance in CIE Lab space,
 which means it is greater than 0-100, but cutoff values between 20 and 80
 will usually work best. See details.}
 
 \item{n_final}{Final number of desired colors; alternative to specifying
-a similarity cutoff. Overrides \code{similarity_cutoff} if provided.}
+a similarity cutoff. Overrides \code{cutoff} if provided.}
 
 \item{plot_hclust}{Logical. Plot the hierarchical clustering tree for
 color similarity? Helpful for troubleshooting a cutoff.}
@@ -95,13 +95,13 @@ recolored_corbetti <- recolorize(corbetti, bins = 3)
 # just enough!
 # check previous plot for clustering cutoff
 recluster_obj <- recluster(recolored_corbetti,
-                           similarity_cutoff = 60,
+                           cutoff = 60,
                            plot_hclust = TRUE,
                            refit_method = "impose")
 
 # compare to merging layers - quite different results:
 recluster_merge <- recluster(recolored_corbetti,
-                           similarity_cutoff = 60,
+                           cutoff = 60,
                            plot_hclust = TRUE,
                            refit_method = "merge")
 
@@ -112,7 +112,7 @@ kmeans_fit <- recolorize(corbetti, "k", n = 6)
 # a cutoff that's too severe will usually just produce "light",
 # "dark", and "other" colors:
 recluster_obj <- recluster(recolored_corbetti,
-                           similarity_cutoff = 100,
+                           cutoff = 100,
                            plot_hclust = TRUE)
 
 # we get the same result by specifying n_final = 6

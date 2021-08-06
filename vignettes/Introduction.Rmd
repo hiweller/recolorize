@@ -91,7 +91,7 @@ init_fit <- recolorize(img, method = "hist", bins = 2,
 3. Followed by a refinement step where we combine clusters by their similarity:
 
 ```{r, fig.width = 6}
-refined_fit <- recluster(init_fit, similarity_cutoff = 45)
+refined_fit <- recluster(init_fit, cutoff = 45)
 # pretty big improvement!
 ```
 
@@ -437,14 +437,14 @@ This is the one I use the most often, and its implementation is really simple. T
 
 ```{r}
 recluster_results <- recluster(recolorize_defaults, 
-                               similarity_cutoff = 45)
+                               cutoff = 45)
 ```
 
 Notice the color dendrogram: it lumped together clusters 4 & 7, clusters 3 & 5, and clusters 6 & 8, because their distance was less than 45. This is in CIE Lab space; if we use RGB space, the range of distances is 0-1:
 
 ```{r}
 recluster_rgb <- recluster(recolorize_defaults, color_space = "sRGB",
-                           similarity_cutoff = 0.5)
+                           cutoff = 0.5)
 ```
 
 In this case, we get the same results, but this is always worth playing around with. Despite its simplicity, this function is highly effective at producing intuitive results. This is partly because, in only using color similarity to combine clusters, it does not penalize smaller color clusters that can still retain important details. I find myself using it so often that I included a wrapper function, `recolorize2`, to run `recolorize` and `recluster` sequentially in a single step:
@@ -455,7 +455,7 @@ img <- system.file("extdata/chongi.png", package = "recolorize")
 
 # this is identical to running:
 # fit1 <- recolorize(img, bins = 3)
-# fit2 <- recluster(fit1, similarity_cutoff = 50)
+# fit2 <- recluster(fit1, cutoff = 50)
 chongi_fit <- recolorize2(img, bins = 3, cutoff = 45)
 ```
 

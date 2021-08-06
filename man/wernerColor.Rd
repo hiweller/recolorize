@@ -44,7 +44,7 @@ corbetti_werner <- wernerColor(recolored_corbetti,
 
 # we can simplify the colors and then do it again:
 corbetti_recluster <- recluster(recolored_corbetti,
-                                similarity_cutoff = 45,
+                                cutoff = 45,
                                 plot_hclust = FALSE)
 corbetti_werner <- wernerColor(corbetti_recluster,
                                which_img = "recolored")

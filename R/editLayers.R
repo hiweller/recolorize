@@ -41,7 +41,7 @@
 #' init_fit <- recolorize(img, bins = 2, plotting = FALSE)
 #'
 #' # then cluster patches by similarity
-#' re_fit <- recluster(init_fit, similarity_cutoff = 40)
+#' re_fit <- recluster(init_fit, cutoff = 40)
 #'
 #' # examine individual layers:
 #' layout(matrix(1:6, nrow = 2))
@@ -121,6 +121,9 @@ editLayer <- function(recolorize_obj,
     graphics::par(user_par)
   }
 
+  # append the call
+  recolorize_obj$call <- append(recolorize_obj$call, match.call())
+
   # return
   return(recolorize_obj)
 
@@ -172,7 +175,7 @@ editLayer <- function(recolorize_obj,
 #' init_fit <- recolorize(img, bins = 2, plotting = FALSE)
 #'
 #' # then cluster patches by similarity
-#' re_fit <- recluster(init_fit, similarity_cutoff = 40)
+#' re_fit <- recluster(init_fit, cutoff = 40)
 #'
 #' # examine individual layers:
 #' layout(matrix(1:6, nrow = 2))
@@ -246,6 +249,9 @@ editLayers <- function(recolorize_obj,
   if (plotting) {
     plot(recolorize_obj)
   }
+
+  # append the call
+  recolorize_obj$call <- append(recolorize_obj$call, match.call())
 
   # that's it!
   return(recolorize_obj)

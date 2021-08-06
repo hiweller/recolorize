@@ -180,7 +180,8 @@ recolorize <- function(img, method = "histogram",
   return_list <- list(original_img = grDevices::as.raster(original_img),
                       centers = centers,
                       sizes = sizes,
-                      pixel_assignments = pixel_assignments)
+                      pixel_assignments = pixel_assignments,
+                      call = match.call())
 
   # get residuals if TRUE
   if (resid) {

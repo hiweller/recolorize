@@ -167,7 +167,8 @@ imposeColors <- function(img, centers,
   return_list <- list(original_img = grDevices::as.raster(original_img),
                       centers = centers,
                       sizes = sizes,
-                      pixel_assignments = pixel_assignments)
+                      pixel_assignments = pixel_assignments,
+                      call = match.call())
   class(return_list) <- "recolorize"
 
   # plot result

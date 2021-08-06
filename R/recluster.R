@@ -10,12 +10,12 @@
 #'
 #' @param recolorize_obj A recolorize object from \code{\link{recolorize}},
 #'   \code{\link{recluster}}, or \code{\link{imposeColors}}.
-#' @param similarity_cutoff Numeric similarity cutoff for grouping color centers
+#' @param cutoff Numeric similarity cutoff for grouping color centers
 #'   together. The range is in absolute Euclidean distance in CIE Lab space,
 #'   which means it is greater than 0-100, but cutoff values between 20 and 80
 #'   will usually work best. See details.
 #' @param n_final Final number of desired colors; alternative to specifying
-#'  a similarity cutoff. Overrides `similarity_cutoff` if provided.
+#'  a similarity cutoff. Overrides `cutoff` if provided.
 #' @param refit_method Method for refitting the image with the new color
 #'   centers. One of either "impose" or "merge". \code{\link{imposeColors}}
 #'   refits the original image using the new colors (slow but often better
@@ -67,13 +67,13 @@
 #' # just enough!
 #' # check previous plot for clustering cutoff
 #' recluster_obj <- recluster(recolored_corbetti,
-#'                            similarity_cutoff = 60,
+#'                            cutoff = 60,
 #'                            plot_hclust = TRUE,
 #'                            refit_method = "impose")
 #'
 #' # compare to merging layers - quite different results:
 #' recluster_merge <- recluster(recolored_corbetti,
-#'                            similarity_cutoff = 60,
+#'                            cutoff = 60,
 #'                            plot_hclust = TRUE,
 #'                            refit_method = "merge")
 #'
@@ -84,7 +84,7 @@
 #' # a cutoff that's too severe will usually just produce "light",
 #' # "dark", and "other" colors:
 #' recluster_obj <- recluster(recolored_corbetti,
-#'                            similarity_cutoff = 100,
+#'                            cutoff = 100,
 #'                            plot_hclust = TRUE)
 #'
 #' # we get the same result by specifying n_final = 6
@@ -97,7 +97,7 @@
 recluster <- function(recolorize_obj,
                       color_space = "Lab",
                       ref_white = "D65",
-                       similarity_cutoff = 60,
+                       cutoff = 60,
                        n_final = NULL,
                        plot_hclust = TRUE,
                       refit_method = "impose",
@@ -151,14 +151,14 @@ recluster <- function(recolorize_obj,
 
     # plot cutoff value if provided:
     if (is.null(n_final)) {
-      graphics::abline(h = similarity_cutoff, lty = 2, col = "red", lwd = 2)
+      graphics::abline(h = cutoff, lty = 2, col = "red", lwd = 2)
     }
 
   }
 
   # form groups
   clust_groups <- stats::cutree(hc, k = n_final,
-                         h = similarity_cutoff)
+                         h = cutoff)
   merge_list <- lapply(unique(clust_groups),
                        function(i) which(clust_groups == i))
 
@@ -229,7 +229,8 @@ recluster <- function(recolorize_obj,
   final_fit <- list(original_img = grDevices::as.raster(final_fit$original_img),
                     pixel_assignments = final_fit$pixel_assignments,
                     sizes = final_fit$sizes,
-                    centers = final_fit$centers)
+                    centers = final_fit$centers,
+                    call = append(recolorize_obj$call, match.call()))
 
   class(final_fit) <- "recolorize"
   return(final_fit)
