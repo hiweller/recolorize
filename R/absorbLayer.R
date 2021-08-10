@@ -92,7 +92,7 @@
 #'                     x_range = c(0.5, 0.7),
 #'                     y_range = c(0.55, 0.75),
 #'                     highlight_color = "yellow")
-#' # looks pretty good!
+#' # looks pretty good
 #' }
 #' @export
 absorbLayer <- function(recolorize_obj,
