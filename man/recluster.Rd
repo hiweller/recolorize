@@ -6,6 +6,9 @@
 \usage{
 recluster(
   recolorize_obj,
+  dist_method = "euclidean",
+  hclust_method = "complete",
+  channels = 1:3,
   color_space = "Lab",
   ref_white = "D65",
   cutoff = 60,
@@ -21,6 +24,20 @@ recluster(
 \item{recolorize_obj}{A recolorize object from \code{\link{recolorize}},
 \code{\link{recluster}}, or \code{\link{imposeColors}}.}
 
+\item{dist_method}{Method passed to \link[stats:dist]{stats::dist} for calculating distances
+between colors. One of "euclidean", "maximum", "manhattan", "canberra",
+"binary" or "minkowski".}
+
+\item{hclust_method}{Method passed to \link[stats:hclust]{stats::hclust} for clustering colors
+by similarity. One of "ward.D", "ward.D2", "single", "complete", "average"
+(= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) or "centroid" (=
+UPGMC).}
+
+\item{channels}{Numeric: which color channels to use for clustering. Probably
+some combination of 1, 2, and 3, e.g., to consider only luminance and
+blue-yellow (b-channel) distance in CIE Lab space, channels = c(1, 3) (L
+and b).}
+
 \item{color_space}{Color space in which to cluster centers, passed to
 \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
 Default is "Lab", a perceptually uniform (for humans) color space.}
@@ -29,7 +46,8 @@ Default is "Lab", a perceptually uniform (for humans) color space.}
 D65 (the default) corresponds to standard daylight.}
 
 \item{cutoff}{Numeric similarity cutoff for grouping color centers
-together. The range is in absolute Euclidean distance in CIE Lab space,
+together. The range and value will depend on the chosen color space (see
+below), but the default is in absolute Euclidean distance in CIE Lab space,
 which means it is greater than 0-100, but cutoff values between 20 and 80
 will usually work best. See details.}
 

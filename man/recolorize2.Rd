@@ -10,6 +10,7 @@ recolorize2(
   bins = 2,
   n = 5,
   cutoff = 20,
+  channels = 1:3,
   n_final = NULL,
   color_space = "sRGB",
   recluster_color_space = "Lab",
@@ -43,7 +44,11 @@ will usually work best. In RGB space, range is 0-sqrt(3).
 See \link{recluster} details.}
 
 \item{n_final}{Final number of desired colors; alternative to specifying
-a similarity cutoff. Overrides \code{similarity_cutoff} if provided.}
+a similarity cutoff. Overrides \code{similarity_cutoff} if provided.
+@param channels Numeric: which color channels to use for clustering.
+Probably some combination of 1, 2, and 3, e.g., to consider only luminance
+and blue-yellow (b-channel) distance in CIE Lab space, channels = c(1, 3
+(L and b).}
 
 \item{color_space}{Color space in which to minimize distances, passed to
 \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".

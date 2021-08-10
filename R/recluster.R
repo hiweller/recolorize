@@ -10,10 +10,22 @@
 #'
 #' @param recolorize_obj A recolorize object from \code{\link{recolorize}},
 #'   \code{\link{recluster}}, or \code{\link{imposeColors}}.
+#' @param dist_method Method passed to [stats::dist] for calculating distances
+#'   between colors. One of "euclidean", "maximum", "manhattan", "canberra",
+#'   "binary" or "minkowski".
+#' @param hclust_method Method passed to [stats::hclust] for clustering colors
+#'   by similarity. One of "ward.D", "ward.D2", "single", "complete", "average"
+#'   (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) or "centroid" (=
+#'   UPGMC).
 #' @param cutoff Numeric similarity cutoff for grouping color centers
-#'   together. The range is in absolute Euclidean distance in CIE Lab space,
+#'   together. The range and value will depend on the chosen color space (see
+#'   below), but the default is in absolute Euclidean distance in CIE Lab space,
 #'   which means it is greater than 0-100, but cutoff values between 20 and 80
 #'   will usually work best. See details.
+#' @param channels Numeric: which color channels to use for clustering. Probably
+#'   some combination of 1, 2, and 3, e.g., to consider only luminance and
+#'   blue-yellow (b-channel) distance in CIE Lab space, channels = c(1, 3) (L
+#'   and b).
 #' @param n_final Final number of desired colors; alternative to specifying
 #'  a similarity cutoff. Overrides `cutoff` if provided.
 #' @param refit_method Method for refitting the image with the new color
@@ -95,6 +107,9 @@
 #' @export
 #'
 recluster <- function(recolorize_obj,
+                      dist_method = "euclidean",
+                      hclust_method = "complete",
+                      channels = 1:3,
                       color_space = "Lab",
                       ref_white = "D65",
                        cutoff = 60,
@@ -130,38 +145,19 @@ recluster <- function(recolorize_obj,
                       to = color_space,
                       ref_white = ref_white)
 
-  # get distance matrix
-  d <- stats::dist(lab_init)
+  # perform clustering, plot clusters, generate merge list
+  merge_list <- hclust_color(centers,
+                             dist_method = dist_method,
+                             hclust_method = hclust_method,
+                             channels = 1:3,
+                             color_space = color_space,
+                             ref_white = ref_white,
+                             cutoff = cutoff,
+                             n_final = n_final,
+                             return_list = TRUE,
+                             plotting = plot_hclust)
 
-  # perform clustering
-  # hc <- hclust(d / max(d))
-  hc <- stats::hclust(d)
-
-  # plot clustering:
-  if (plot_hclust) {
-
-    graphics::par(mfrow = c(1, 1), mar = c(1, 3, 3, 1))
-    hex_cols <- grDevices::rgb(init_fit$centers)
-    sizes <- init_fit$sizes
-    hcd <- stats::as.dendrogram(hc)
-    hcd <- stats::dendrapply(hcd, function(x) labelCol(x, hex_cols, cex = 3))
-
-    graphics::par(mar = c(3, 2, 0, 0))
-    plot(hcd, xlab = "", ylab = paste(color_space, "color distance"))
-
-    # plot cutoff value if provided:
-    if (is.null(n_final)) {
-      graphics::abline(h = cutoff, lty = 2, col = "red", lwd = 2)
-    }
-
-  }
-
-  # form groups
-  clust_groups <- stats::cutree(hc, k = n_final,
-                         h = cutoff)
-  merge_list <- lapply(unique(clust_groups),
-                       function(i) which(clust_groups == i))
-
+  # get refit method
   refit_method <- match.arg(refit_method, c("imposeColors", "mergeLayers"))
 
   if (refit_method == "imposeColors") {

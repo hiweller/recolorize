@@ -23,6 +23,10 @@
 #'   See [recluster] details.
 #' @param n_final Final number of desired colors; alternative to specifying
 #'  a similarity cutoff. Overrides `similarity_cutoff` if provided.
+#'  @param channels Numeric: which color channels to use for clustering.
+#'    Probably some combination of 1, 2, and 3, e.g., to consider only luminance
+#'    and blue-yellow (b-channel) distance in CIE Lab space, channels = c(1, 3
+#'    (L and b).
 #' @param refit_method Method for refitting the image with the new color
 #'   centers. One of either "impose" or "merge". \code{\link{imposeColors}}
 #'   refits the original image using the new colors (slow but often better
@@ -62,7 +66,8 @@
 #' @export
 recolorize2 <- function(img, method = "histogram",
                         bins = 2, n = 5,
-                        cutoff = 20, n_final = NULL,
+                        cutoff = 20, channels = 1:3,
+                        n_final = NULL,
                         color_space = "sRGB",
                         recluster_color_space = "Lab",
                         refit_method = "impose",
@@ -85,7 +90,7 @@ recolorize2 <- function(img, method = "histogram",
   # recluster
   fit2 <- recluster(fit1, color_space = recluster_color_space,
                     ref_white = ref_white,
-                    cutoff = cutoff,
+                    cutoff = cutoff, channels = channels,
                     n_final = n_final, refit_method = refit_method,
                     plot_hclust = plotting, plot_final = plotting)
   fit2$call <- match.call()

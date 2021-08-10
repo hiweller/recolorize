@@ -19,6 +19,9 @@
 #'   some combination of 1, 2, and 3, e.g., to consider only luminance and
 #'   blue-yellow (b-channel) distance in CIE Lab space, `channels = c(1, 3` (L
 #'   and b).
+#' @param ref_white Reference white for converting to different color spaces.
+#'   D65 (the default) corresponds to standard daylight. See
+#'   [grDevices::convertColor].
 #' @param color_space Color space in which to do the clustering.
 #' @param cutoff Either `NULL` or a numeric cutoff passed to [stats::cutree].
 #'   Distance below which to combine clusters, i.e. height at which the tree
@@ -27,6 +30,7 @@
 #'   both are provided.
 #' @param return_list Logical. Return a list of new group assignments from
 #'   the `cutoff` or `n_final` values?
+#' @param plotting Logical. Plot a colored dendrogram?
 #'
 #' @return A list of group assignments (i.e. which centers belong to which
 #'   groups), if `return_list = TRUE`.
@@ -67,16 +71,19 @@ hclust_color <- function(rgb_centers,
                          hclust_method = "complete",
                          channels = 1:3,
                          color_space = "Lab",
+                         ref_white = "D65",
                          cutoff = NULL,
                          n_final = NULL,
-                         return_list = TRUE) {
+                         return_list = TRUE,
+                         plotting = TRUE) {
 
   # convert to hex colors (for plotting) and specified color space (for
   # distances)
   hex_cols <- grDevices::rgb(rgb_centers)
   conv_cols <- col2col(rgb_centers,
                        from = "sRGB",
-                       to = color_space)
+                       to = color_space,
+                       ref_white = ref_white)
 
   # get distance matrix
   d <- stats::dist(conv_cols[ , channels], method = dist_method)
@@ -90,13 +97,15 @@ hclust_color <- function(rgb_centers,
   # set colors
   hcd <- stats::dendrapply(hcd, function(x) labelCol(x, hex_cols, cex = 3))
 
-  # plot
-  graphics::par(mar = c(3, 4, 0, 0))
-  plot(hcd, xlab = "", ylab = paste(color_space, "color distance"))
+  if (plotting) {
+    # plot
+    graphics::par(mar = c(3, 4, 0, 0))
+    plot(hcd, xlab = "", ylab = paste(color_space, "color distance"))
 
-  # plot cutoff value if provided:
-  if (!is.null(cutoff)) {
-    graphics::abline(h = cutoff, lty = 2, col = "red", lwd = 2)
+    # plot cutoff value if provided:
+    if (!is.null(cutoff)) {
+      graphics::abline(h = cutoff, lty = 2, col = "red", lwd = 2)
+    }
   }
 
   # get list of layers to merge
@@ -107,4 +116,5 @@ hclust_color <- function(rgb_centers,
                          function(i) which(clust_groups == i))
     return(merge_list)
   }
+
 }

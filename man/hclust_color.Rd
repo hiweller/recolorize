@@ -10,9 +10,11 @@ hclust_color(
   hclust_method = "complete",
   channels = 1:3,
   color_space = "Lab",
+  ref_white = "D65",
   cutoff = NULL,
   n_final = NULL,
-  return_list = TRUE
+  return_list = TRUE,
+  plotting = TRUE
 )
 }
 \arguments{
@@ -33,6 +35,10 @@ and b).}
 
 \item{color_space}{Color space in which to do the clustering.}
 
+\item{ref_white}{Reference white for converting to different color spaces.
+D65 (the default) corresponds to standard daylight. See
+\link[grDevices:convertColor]{grDevices::convertColor}.}
+
 \item{cutoff}{Either \code{NULL} or a numeric cutoff passed to \link[stats:cutree]{stats::cutree}.
 Distance below which to combine clusters, i.e. height at which the tree
 should be cut.}
@@ -42,6 +48,8 @@ both are provided.}
 
 \item{return_list}{Logical. Return a list of new group assignments from
 the \code{cutoff} or \code{n_final} values?}
+
+\item{plotting}{Logical. Plot a colored dendrogram?}
 }
 \value{
 A list of group assignments (i.e. which centers belong to which
