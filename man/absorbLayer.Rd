@@ -67,6 +67,8 @@ it can be helpful to plot a grid on the image first to narrow down an
 approximate region (see examples).
 }
 \examples{
+
+\dontrun{
 img <- system.file("extdata/fulgidissima.png", package = "recolorize")
 
 # get an initial fit using recolorize + recluster:
@@ -108,7 +110,8 @@ fit3 <- absorbLayer(fit2, layer_idx = 4,
                     x_range = c(0.5, 0.7),
                     y_range = c(0.55, 0.75),
                     highlight_color = "yellow")
-# looks pretty good!
+# looks pretty good
+}
 }
 \seealso{
 \link{editLayers} for editing layers using morphological operations;

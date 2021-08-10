@@ -33,6 +33,7 @@ See \url{https://www.c82.net/werner/} to check out the original colors.
 }
 \examples{
 
+
 # get an initial fit:
 corbetti <- system.file("extdata/corbetti.png", package = "recolorize")
 recolored_corbetti <- recolorize(corbetti, plotting = FALSE)
