@@ -23,7 +23,7 @@
 #'   See [recluster] details.
 #' @param n_final Final number of desired colors; alternative to specifying
 #'  a similarity cutoff. Overrides `similarity_cutoff` if provided.
-#'  @param channels Numeric: which color channels to use for clustering.
+#' @param channels Numeric: which color channels to use for clustering.
 #'    Probably some combination of 1, 2, and 3, e.g., to consider only luminance
 #'    and blue-yellow (b-channel) distance in CIE Lab space, channels = c(1, 3
 #'    (L and b).
@@ -66,7 +66,8 @@
 #' @export
 recolorize2 <- function(img, method = "histogram",
                         bins = 2, n = 5,
-                        cutoff = 20, channels = 1:3,
+                        cutoff = 20,
+                        channels = 1:3,
                         n_final = NULL,
                         color_space = "sRGB",
                         recluster_color_space = "Lab",

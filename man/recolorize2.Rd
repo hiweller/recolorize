@@ -43,12 +43,13 @@ it is greater than 0-100, but cutoff values between 20 and 80
 will usually work best. In RGB space, range is 0-sqrt(3).
 See \link{recluster} details.}
 
-\item{n_final}{Final number of desired colors; alternative to specifying
-a similarity cutoff. Overrides \code{similarity_cutoff} if provided.
-@param channels Numeric: which color channels to use for clustering.
+\item{channels}{Numeric: which color channels to use for clustering.
 Probably some combination of 1, 2, and 3, e.g., to consider only luminance
 and blue-yellow (b-channel) distance in CIE Lab space, channels = c(1, 3
 (L and b).}
+
+\item{n_final}{Final number of desired colors; alternative to specifying
+a similarity cutoff. Overrides \code{similarity_cutoff} if provided.}
 
 \item{color_space}{Color space in which to minimize distances, passed to
 \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
