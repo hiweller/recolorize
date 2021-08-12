@@ -44,8 +44,10 @@ adjust_color <- function(rgb_color,
 
   original_rgb <- rgb_color
 
-  if (which_colors == "all") {
-    which_colors <- 1:nrow(rgb_color)
+  if (length(which_colors) == 1) {
+    if (which_colors == "all") {
+      which_colors <- 1:nrow(rgb_color)
+    }
   }
 
   # convert to HSV
