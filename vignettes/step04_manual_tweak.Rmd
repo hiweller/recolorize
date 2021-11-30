@@ -19,17 +19,6 @@ knitr::opts_chunk$set(
 
 > Cleaning up the details.
 
-* [Introduction](Introduction.html)
-* [Step 0: Image acquisition and preparation](step00_prep.html)
-* [Step 1: Loading & processing images](step01_loading.html)
-* [Step 2: Initial clustering](step02_initial_cluster.html)
-* [Step 3: Refinement](step03_refinement.html)
-* Step 4: Tweaks & edits
-* [Step 5: Visualizing & exporting output](step05_visualization_export.html)
-
-> You can also tour the functions in the [function gallery](gallery.html).
-
-
 These are functions that can be called individually to address problem areas in specific images, or strung together as building blocks to do more complicated operations.
 
 ### `absorbLayer`
@@ -76,7 +65,15 @@ merge_fit <- mergeLayers(rc,
 
 You might notice this is a bit different than our `recluster` results above. That’s because internally, `recluster` actually uses `imposeColors` to refit the color map, rather than just merging layers; I have found this often produces slightly nicer results, because pixels that were on the border of one cutoff or another don’t get stranded in the wrong layer. On the other hand, `mergeLayers` is considerably faster.
 
+## Further reading
 
-```{r setup}
-library(recolorize)
-```
+* [Introduction](Introduction.html)  
+* [Step 0: Image acquisition and preparation](step00_prep.html)  
+* [Step 1: Loading & processing images](step01_loading.html)  
+* [Step 2: Initial clustering](step02_initial_cluster.html)  
+* [Step 3: Refinement](step03_refinement.html)  
+* Step 4: Tweaks & edits
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
+
+> You can also tour the functions in the [function gallery](gallery.html).
+

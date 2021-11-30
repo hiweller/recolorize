@@ -19,17 +19,6 @@ knitr::opts_chunk$set(
 
 > What to do before you use recolorize.
 
-* [Introduction](Introduction.html)
-* Step 0: Image acquisition and preparation
-* [Step 1: Loading & processing images](step01_loading.html)
-* [Step 2: Initial clustering](step02_initial_cluster.html)
-* [Step 3: Refinement](step03_refinement.html)
-* [Step 4: Tweaks & edits](step04_manual_tweak.html)
-* [Step 5: Visualizing & exporting output](step05_visualization_export.html)
-
-> You can also tour the functions in the [function gallery](gallery.html).
-
-
 ## Quick version
 
 1. A 'correct' color map depends on your question, so define your question before you start.
@@ -99,3 +88,16 @@ Once again, the corrections you have to make really depend on what you’re tryi
 If you’re masking the background, **use transparencies**. This is pretty easy to do in GIMP, Photoshop, or ImageJ. The transparency layer (or alpha channel) is the fourth channel of an image (the other three being the R, G, and B channels), and `recolorize` treats it like a binary mask: any pixel with an alpha value of 1 is retained, and any pixel with an alpha value of < 1 is ignored. This means you don’t have to worry about finding a uniform background color that is sufficiently different from your foreground object in every image, which can otherwise be a real pain. 
 
 Using transparency is unambiguous, and has the bonus benefit of making for nicer plots, too, since you don’t have to worry about the corners of your images overlapping and blocking each other. All the images in this demo have transparent backgrounds. However, you can use the lower and upper arguments to set boundaries for excluding pixels as background based on their color (see documentation). Just know that these will be set to transparent internally.
+
+## Further reading
+
+* [Introduction](Introduction.html)  
+* Step 0: Image acquisition and preparation
+* [Step 1: Loading & processing images](step01_loading.html)  
+* [Step 2: Initial clustering](step02_initial_cluster.html)  
+* [Step 3: Refinement](step03_refinement.html)  
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
+
+> You can also tour the functions in the [function gallery](gallery.html).
+

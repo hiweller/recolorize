@@ -19,17 +19,6 @@ knitr::opts_chunk$set(
 
 > How to get images into R.
 
-* [Introduction](Introduction.html)
-* [Step 0: Image acquisition and preparation](step00_prep.html)
-* Step 1: Loading & processing images
-* [Step 2: Initial clustering](step02_initial_cluster.html)
-* [Step 3: Refinement](step03_refinement.html)
-* [Step 4: Tweaks & edits](step04_manual_tweak.html)
-* [Step 5: Visualizing & exporting output](step05_visualization_export.html)
-
-> You can also tour the functions in the [function gallery](gallery.html).
-
-
 Most of the actual `recolorize` functions can take a path to an image directly as input, so these steps are entirely optional. I include it here to show the option of loading the image into R first to do some basic manipulations, and because it can be useful to understand how images are structured as arrays in R.
 
 ## Reading an image into R
@@ -72,5 +61,18 @@ blurred_img <- blurImage(img, blur_function = "blur_anisotropic",
 ```
 
 This step is optional: most of the `recolorize` functions will accept a path to an image as well as an image array.
+
+## Further reading
+
+* [Introduction](Introduction.html)  
+* [Step 0: Image acquisition and preparation](step00_prep.html)  
+* Step 1: Loading & processing images
+* [Step 2: Initial clustering](step02_initial_cluster.html)  
+* [Step 3: Refinement](step03_refinement.html)  
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
+
+> You can also tour the functions in the [function gallery](gallery.html).
+
 
 

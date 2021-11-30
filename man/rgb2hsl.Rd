@@ -25,7 +25,3 @@ coordinates (if \code{pavo_hsl = FALSE}).
 Convert RGB colors (0-1 range) to HSL (hue-saturation-luminance)
 space. Used for passing RGB colors to \link[pavo:adjacent]{pavo::adjacent}.
 }
-\examples{
-cols <- expand.grid(0:1, 0:1, 0:1)
-recolorize:::rgb2hsl(cols, radians = FALSE)
-}

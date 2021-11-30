@@ -40,15 +40,6 @@ plot(v)
 title("Color map (vector)", font.main = 1, cex.main = 1.2)
 plotColorPalette(rc$centers, rc$sizes, horiz = F)
 ```
-* Introduction
-* [Step 0: Image acquisition and preparation](step00_prep.html)
-* [Step 1: Loading & processing images](step01_loading.html)
-* [Step 2: Initial clustering](step02_initial_cluster.html)
-* [Step 3: Refinement](step03_refinement.html)
-* [Step 4: Tweaks & edits](step04_manual_tweak.html)
-* [Step 5: Visualizing & exporting output](step05_visualization_export.html)
-
-> You can also tour the functions in the [function gallery](gallery.html).
 
 The `recolorize` package is a toolbox for making color maps, essentially color-based image segmentation, using a combination of automatic, semi-automatic, and manual procedures. It has four major goals:
 
@@ -152,7 +143,7 @@ adj <- recolorize_adjacency(rc_list[[1]], coldist = "default", hsl = "default")
 print(adj[ , c(57:62)]) # just print the chromatic and achromatic boundary strength values
 ```
 
-The `recolorize` package mostly works internally with objects of class `recolorize`, which contains a few different elements that are worth understanding as you work through the rest of the documentation.
+The `recolorize` package mostly works internally with objects of class `recolorize`, which contains a few different elements that are worth understanding as you work through the rest of the documentation (linked at the bottom).
 
 ### The `recolorize` class
 
@@ -272,3 +263,16 @@ plot(v)
 ```
 
 This function is VERY experimental. If it gives you errors or looks too funky, try decreasing the size filter (which absorbs all components below some size to simplify the image) and the smoothness. Then again, sometimes you want things to look funky. If this is the case, `recolorizeVector` will happily enable you.
+
+## Further reading
+
+* Introduction
+* [Step 0: Image acquisition and preparation](step00_prep.html)  
+* [Step 1: Loading & processing images](step01_loading.html)  
+* [Step 2: Initial clustering](step02_initial_cluster.html)  
+* [Step 3: Refinement](step03_refinement.html)  
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
+
+> You can also tour the functions in the [function gallery](gallery.html).
+

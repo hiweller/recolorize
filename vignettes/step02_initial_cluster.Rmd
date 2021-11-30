@@ -19,16 +19,6 @@ knitr::opts_chunk$set(
 
 > Go from thousands of colors to a manageable number for further refinement.
 
-* [Introduction](Introduction.html)
-* [Step 0: Image acquisition and preparation](step00_prep.html)
-* [Step 1: Loading & processing images](step01_loading.html)
-* Step 2: Initial clustering
-* [Step 3: Refinement](step03_refinement.html)
-* [Step 4: Tweaks & edits](step04_manual_tweak.html)
-* [Step 5: Visualizing & exporting output](step05_visualization_export.html)
-
-> You can also tour the functions in the [function gallery](gallery.html).
-
 The color clustering in recolorize usually starts with an initial clustering step which produces more color clusters than the final color map will have, which are then edited and combined to form the final color map. We start with an over-clustering step because it is a quick way to go from an overwhelming number of colors ($256^3$ unique RGB colors) to a manageable number that can be manually inspected or automatically re-clustered. You’ll usually do this using the `recolorize` function, which is the core of the package (go figure!):
 
 ```{r setup}
@@ -63,7 +53,7 @@ Color spaces are ways to represent colors as points in multi-dimensional spaces,
 
 The `recolorize` package gives you a variety of options for color spaces, but by far the two most commonly used are RGB (`color_space = sRGB`) and CIE Lab (`color_space = Lab`). CIE Lab is popular because it approximates perceptual uniformity, which means that the distances between colors in CIE Lab space are proportional to how different they actually seem to human beings. The axes represent luminance (L, 0 = black and 100 = white), red-green (a, negative values = more green and positive values = more red), and blue-yellow (b, negative values = more blue and positive values = more yellow). The idea is that something can be greenish-blue, or reddish-yellow, but not reddish-green, etc. This can be a little confusing, but the results it provides are really intuitive. For example, in RGB space, red is as similar to yellow as it is to black. In CIE Lab, red and yellow are close together, and are about equally far from black.
 
-I've written in more detail about color spaces for another package [here](https://cran.r-project.org/web/packages/colordistance/vignettes/color-spaces.html), which I would recommend reading for a more detailed overview, but let's see what happens if we plot all of the non-background pixels from our *C. corbetti* example in RGB compared to CIE Lab color space (forgive the crummy plotting):
+I've written in more detail about color spaces for another package [here](https://CRAN.R-project.org/package=colordistance/vignettes/color-spaces.html), which I would recommend reading for a more detailed overview, but let's see what happens if we plot all of the non-background pixels from our *C. corbetti* example in RGB compared to CIE Lab color space (forgive the crummy plotting):
 
 ```{r, fig.width=6, fig.height=2.5, echo=F, message=F}
 layout(matrix(1:2, nrow = 1, byrow = TRUE))
@@ -169,6 +159,18 @@ fit2 <- imposeColors(im2, fit1$centers, adjust_centers = FALSE)
 ```
 
 I would really only recommend using this if you've gotten your color centers from another image, but I mention it here because the function takes unclustered images.
+
+## Further reading
+
+* [Introduction](Introduction.html)  
+* [Step 0: Image acquisition and preparation](step00_prep.html)  
+* [Step 1: Loading & processing images](step01_loading.html)  
+* Step 2: Initial clustering 
+* [Step 3: Refinement](step03_refinement.html)  
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
+
+> You can also tour the functions in the [function gallery](gallery.html).
 
 
 

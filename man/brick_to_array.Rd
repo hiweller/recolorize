@@ -15,5 +15,5 @@ in going from patternize to recolorize.
 }
 \details{
 This function is provided to convert from the RasterBrick objects provided
-by the alignment functions in the patternize package, e.g. \link[patternize:alignLan]{patternize::alignLan}.
+by the alignment functions in the patternize package, e.g. \code{alignLan}.
 }

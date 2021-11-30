@@ -7,7 +7,7 @@
 #'
 #' @details
 #' This function is provided to convert from the RasterBrick objects provided
-#' by the alignment functions in the patternize package, e.g. [patternize::alignLan].
+#' by the alignment functions in the patternize package, e.g. `alignLan`.
 #'
 #' @export
 brick_to_array <- function(raster_brick) {

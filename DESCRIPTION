@@ -1,5 +1,5 @@
 Package: recolorize
-Title: Color-based Image Segmentation
+Title: Color-Based Image Segmentation
 Version: 0.1.0
 Authors@R:
     person(given = "Hannah",

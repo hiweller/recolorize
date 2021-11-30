@@ -19,17 +19,6 @@ knitr::opts_chunk$set(
 
 > The whole point of this package is to make it easier to use other methods!
 
-
-* [Introduction](Introduction.html)
-* [Step 0: Image acquisition and preparation](step00_prep.html)
-* [Step 1: Loading & processing images](step01_loading.html)
-* [Step 2: Initial clustering](step02_initial_cluster.html)
-* [Step 3: Refinement](step03_refinement.html)
-* [Step 4: Tweaks & edits](step04_manual_tweak.html)
-* Step 5: Visualizing & exporting output
-
-> You can also tour the functions in the [function gallery](gallery.html).
-
 ## Visualizations
 
 Making color maps is an obviously visual process, so it’s good to use visual feedback as much as possible. We’ve already seen a few of these functions in action, specifically `plotColorPalette` and `plotImageArray`, which are used in almost every function that produces a `recolorize` object. I’ll point out three others that I think are quite useful: `imDist`, `plotColorClusters`, and `splitByColor` (which also doubles as an export function).
@@ -121,4 +110,15 @@ Because of the way patternize is structured, going from recolorize to patternize
 5. Proceed with downstream `patternize` analyses.
 
 
+## Further reading
+
+* [Introduction](Introduction.html)  
+* [Step 0: Image acquisition and preparation](step00_prep.html)  
+* [Step 1: Loading & processing images](step01_loading.html)  
+* [Step 2: Initial clustering](step02_initial_cluster.html)  
+* [Step 3: Refinement](step03_refinement.html)  
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
+* Step 5: Visualizing & exporting output 
+
+> You can also tour the functions in the [function gallery](gallery.html).
 

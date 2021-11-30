@@ -141,9 +141,6 @@ classify_recolorize <- function(recolorize_obj, imgname = "") {
 #' and one row per color (if `pavo_hsl = TRUE`) or a matrix of the HSL
 #' coordinates (if `pavo_hsl = FALSE`).
 #'
-#' @examples
-#' cols <- expand.grid(0:1, 0:1, 0:1)
-#' recolorize:::rgb2hsl(cols, radians = FALSE)
 rgb2hsl <- function(rgb_matrix,
                     radians = TRUE,
                     pavo_hsl = TRUE) {
