@@ -35,6 +35,7 @@
 #' # or, we can rerun it on a new image:
 #' rerun_chongi <- rerun_recolorize(rc, img = chongi)
 #'
+#' \dontrun{
 #' # alternatively, define a function:
 #' recolorize_custom <- function(img, bins = 2, cutoff = 45) {
 #'   fit <- recolorize(img, bins = bins, plotting = FALSE)
@@ -44,6 +45,7 @@
 #'
 #' # and run it on the new image:
 #' chongi_fit <- recolorize_custom(chongi)
+#' }
 #'
 #' @export
 rerun_recolorize <- function(recolorize_obj,

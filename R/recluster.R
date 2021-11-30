@@ -83,6 +83,7 @@
 #'                            plot_hclust = TRUE,
 #'                            refit_method = "impose")
 #'
+#' \dontrun{
 #' # compare to merging layers - quite different results:
 #' recluster_merge <- recluster(recolored_corbetti,
 #'                            cutoff = 60,
@@ -103,7 +104,7 @@
 #' recluster_obj <- recluster(recolored_corbetti,
 #'                            n_final = 6,
 #'                            plot_hclust = TRUE)
-#'
+#' }
 #' @export
 #'
 recluster <- function(recolorize_obj,

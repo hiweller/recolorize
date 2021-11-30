@@ -27,6 +27,7 @@ you won't be able to convert back to a recolorize object from this object.
 }
 \examples{
 
+\dontrun{
 # fit recolorize object:
 img <- system.file("extdata/ephippigera.png", package = "recolorize")
 rc <- recolorize2(img)
@@ -37,4 +38,5 @@ as_raster_list <- recolorize_to_patternize(rc)
 # we can plot the separate layers:
 layout(matrix(1:8, nrow = 2))
 lapply(as_raster_list, raster::plot)
+}
 }
