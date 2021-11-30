@@ -14,3 +14,4 @@ addons:
    packages:
      - libmagick++-dev
      - libglu1-mesa-dev
+     - libudunits2-dev
