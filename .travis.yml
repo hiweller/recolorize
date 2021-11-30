@@ -6,6 +6,8 @@ notifications:
 env:
  global:
    - _R_CHECK_FORCE_SUGGESTS_: false
+before_install:
+  - R -e 'install.packages("rgdal", repos="http://R-Forge.R-project.org")'
 addons:
  apt:
    update: true
@@ -15,3 +17,4 @@ addons:
      - libmagick++-dev
      - libglu1-mesa-dev
      - libudunits2-dev
+     - gdal-bin

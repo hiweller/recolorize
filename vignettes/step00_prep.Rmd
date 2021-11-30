@@ -2,7 +2,7 @@
 title: "Step 0: Image acquisition and preparation"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{step00_prep}
+  %\VignetteIndexEntry{Step 0: Image acquisition and preparation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
