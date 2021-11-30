@@ -19,6 +19,16 @@ knitr::opts_chunk$set(
 
 > Go from thousands of colors to a manageable number for further refinement.
 
+* [Introduction](Introduction.html)
+* [Step 0: Image acquisition and preparation](step00_prep.html)
+* [Step 1: Loading & processing images](step01_loading.html)
+* Step 2: Initial clustering
+* [Step 3: Refinement](step03_refinement.html)
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)
+
+> You can also tour the functions in the [function gallery](gallery.html).
+
 The color clustering in recolorize usually starts with an initial clustering step which produces more color clusters than the final color map will have, which are then edited and combined to form the final color map. We start with an over-clustering step because it is a quick way to go from an overwhelming number of colors ($256^3$ unique RGB colors) to a manageable number that can be manually inspected or automatically re-clustered. You’ll usually do this using the `recolorize` function, which is the core of the package (go figure!):
 
 ```{r setup}

@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 * [Step 2: Initial clustering](step02_initial_cluster.html)
 * [Step 3: Refinement](step03_refinement.html)
 * [Step 4: Tweaks & edits](step04_manual_tweak.html)
-* [Step 5: Visualizing & exporting output](step05_visualization_export.html)
+* Step 5: Visualizing & exporting output
 
 > You can also tour the functions in the [function gallery](gallery.html).
 

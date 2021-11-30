@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 * [Step 0: Image acquisition and preparation](step00_prep.html)
 * [Step 1: Loading & processing images](step01_loading.html)
 * [Step 2: Initial clustering](step02_initial_cluster.html)
-* [Step 3: Refinement](step03_refinement.html)
+* Step 3: Refinement
 * [Step 4: Tweaks & edits](step04_manual_tweak.html)
 * [Step 5: Visualizing & exporting output](step05_visualization_export.html)
 

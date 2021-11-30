@@ -19,6 +19,17 @@ knitr::opts_chunk$set(
 
 > Cleaning up the details.
 
+* [Introduction](Introduction.html)
+* [Step 0: Image acquisition and preparation](step00_prep.html)
+* [Step 1: Loading & processing images](step01_loading.html)
+* [Step 2: Initial clustering](step02_initial_cluster.html)
+* [Step 3: Refinement](step03_refinement.html)
+* Step 4: Tweaks & edits
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)
+
+> You can also tour the functions in the [function gallery](gallery.html).
+
+
 These are functions that can be called individually to address problem areas in specific images, or strung together as building blocks to do more complicated operations.
 
 ### `absorbLayer`
