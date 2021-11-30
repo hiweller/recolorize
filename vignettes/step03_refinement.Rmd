@@ -19,6 +19,15 @@ knitr::opts_chunk$set(
 
 > Using simple rules to improve the initial results.
 
+* [Introduction](Introduction.html)
+* [Step 0: Image acquisition and preparation](step00_prep.html)
+* [Step 1: Loading & processing images](step01_loading.html)
+* [Step 2: Initial clustering](step02_initial_cluster.html)
+* [Step 3: Refinement](step03_refinement.html)
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)
+
+> You can also tour the functions in the [function gallery](gallery.html).
 Once we’ve reduced an image down to a tractable number of colors, we can define simple procedures for how to combine them based on similarity. `recolorize` (currently) comes with two of these: `recluster`, which merges colors by perceived similarity, and `thresholdRecolor`, which drops minor colors. Both are simple, but surprisingly effective. They’re also built on top of some really simple functions we’ll see in a bit, so if you need to, you can build out a similar procedure tailored to your dataset—for example, combining layers based only on their brightness values, or only combining green layers.
 
 ### `recluster()` and `recolorize2()`
