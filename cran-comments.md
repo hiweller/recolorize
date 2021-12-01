@@ -22,11 +22,7 @@ There was 1 NOTE:
     patternize (19:12)
     pavo (19:6)
 
-  Found the following (possibly) invalid file URI:
-    URI: hannahiweller@gmail.com
-      From: README.md
-
-This is the first submission of this package. The possibly misspelled words are the names of R packages, and the URI in the README is my email address.
+This is the first submission of this package. The possibly misspelled words are the names of R packages.
 
 
 ## Downstream dependencies

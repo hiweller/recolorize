@@ -46,4 +46,4 @@ Recolorize is a toolbox of automatic, semi-automatic, and manual methods that ai
 
 Please do email me if this is something that may be relevant for you or if you have questions. Most of the features in the package are the result of feedback, and no method should be developed in a vacuum. If you include example images in your email, my likelihood of responding goes through the roof.
 
-Email: [hannahiweller@gmail.com](hannahiweller@gmail.com)
+Email: hannahiweller@gmail.com
