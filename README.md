@@ -14,6 +14,7 @@ This is a package for making color maps, which are needed (or at least useful) f
 
 To generate the images above:
 ```{r}
+# install the package
 devtools::install_github("hiweller/recolorize")
 
 for (i in 1:length(images)) {
@@ -31,10 +32,11 @@ for (i in 1:length(images)) {
     colormap_list[[i]] <- refined_fit
   }
 }
+
 lapply(colormap_list, function(i) plotImageArray(i$recolored_img))
 
 ```
-Vignettes and better documentation coming soon.
+See package vignettes for detailed documentation.
 
 ## How does it work?
 
@@ -42,6 +44,6 @@ Recolorize is a toolbox of automatic, semi-automatic, and manual methods that ai
 
 ## Contact
 
-Recolorize is in active development, and we're looking for beta testers! Please do email me if this is something that may be relevant for you or if you have questions. Most of the features in the package are the result of feedback, and no method should be developed in a vacuum. If you include example images in your email, my likelihood of responding goes through the roof.
+Please do email me if this is something that may be relevant for you or if you have questions. Most of the features in the package are the result of feedback, and no method should be developed in a vacuum. If you include example images in your email, my likelihood of responding goes through the roof.
 
 Email: [hannahiweller@gmail.com](hannahiweller@gmail.com)

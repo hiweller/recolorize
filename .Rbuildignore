@@ -7,3 +7,5 @@ recolorize.Rproj
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^revdep$
+cran-comments.md
