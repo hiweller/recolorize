@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "hannahiweller@gmail.com",
            comment = c(ORCID = "0000-0002-5252-4282"))
-Description: Automatic, semi-automatic, and manual functions for 
+Description: Automatic, semi-automatic, and manual functions for
     generating color maps from images. The idea is to simplify
     the colors of an image according to a metric that is useful for
     the user, using deterministic methods whenever possible.
@@ -35,11 +35,11 @@ Imports:
     plotfunctions,
     abind,
     colordistance,
-    scatterplot3d,
-    raster
-Depends: 
+    raster,
+    plot3D
+Depends:
     R (>= 3.50)
-Suggests: 
+Suggests:
     knitr,
     rmarkdown,
     sp,

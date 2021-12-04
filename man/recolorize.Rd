@@ -147,10 +147,14 @@ kmeans_recolor <- recolorize(img, method = "kmeans",
                              n = 8, plotting = FALSE)
 hist_recolor <- recolorize(img, method = "hist",
                            bins = 2, plotting = FALSE)
+# to reset graphical parameters:
+current_par <- graphics::par(no.readonly = TRUE)
 
 # compare binning vs. kmeans clustering
 layout(matrix(c(1, 2, 3), ncol = 3))
 plot(kmeans_recolor$original_img); title("original")
 plot(recoloredImage(kmeans_recolor, type = "raster")); title("kmeans")
 plot(recoloredImage(hist_recolor, type = "raster")); title("binning")
+
+graphics::par(current_par)
 }

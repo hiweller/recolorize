@@ -17,6 +17,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, echo=F}
+library(recolorize)
+current_par <- graphics::par(no.readonly = TRUE)
+```
+
 > The whole point of this package is to make it easier to use other methods!
 
 ## Visualizations
@@ -59,12 +64,14 @@ img <- system.file("extdata/corbetti.png", package = "recolorize")
 rc <- recolorize2(img, cutoff = 45, plotting = FALSE)
 
 layout(matrix(1:10, nrow = 2, byrow = TRUE))
-
+par(mar = c(0, 0, 2, 0))
 # 'overlay' is not always the clearest option, but it is usually the prettiest:
 layers <- splitByColor(rc, plot_method = "overlay")
 
 # layers is a list of matrices, which we can just plot:
-lapply(layers, plotImageArray)
+for (i in 1:length(layers)) {
+  plotImageArray(layers[[i]], main = i)
+}
 ```
 
 ## Exporting
@@ -122,3 +129,6 @@ Because of the way patternize is structured, going from recolorize to patternize
 
 > You can also tour the functions in the [function gallery](gallery.html).
 
+```{r, echo=F}
+graphics::par(current_par)
+```

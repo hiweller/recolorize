@@ -13,7 +13,9 @@
 #'   way too big or small on the plot, tinker with this.
 #' @param plus Value to add to each scaled cluster size; can be helpful for
 #'   seeing small or empty bins when they are swamped by larger clusters.
-#' @param ... Further parameters passed to [scatterplot3d::scatterplot3d].
+#' @param phi,theta Viewing angles (in degrees).
+#' @param alpha Transparency (0-1 range).
+#' @param ... Further parameters passed to [plot3D::scatter3D].
 #'
 #' @return Nothing; plots a 3D scatterplot of color clusters, with corresponding
 #' colors and sizes.
@@ -21,7 +23,7 @@
 #' @details This function does very little on your behalf (e.g. labeling the
 #'   axes, setting the axis ranges, trying to find nice scaling parameters,
 #'   etc). You can pass those parameters using the `...` function to
-#'   [scatterplot3d::scatterplot3d], which is probably a good idea.
+#'   [plot3D::scatter3D], which is probably a good idea.
 #'
 #' @examples
 #' corbetti <- system.file("extdata/corbetti.png", package = "recolorize")
@@ -37,23 +39,41 @@
 #'                   color_space = "Lab",
 #'                   xlab = "Luminance",
 #'                   ylab = "a (red-green)",
-#'                   zlab = "b (blue-yellow)")
+#'                   zlab = "b (blue-yellow)",
+#'                   cex.lab = 0.5)
 #' @export
 plotColorClusters <- function(centers, sizes,
                               scaling = 10,
                               plus = 0,
                               color_space = "sRGB",
+                              phi = 35, theta = 60,
+                              alpha = 0.5,
                               ...) {
 
   # get color vector in RGB
   centers_rgb <- col2col(centers, from = color_space, to = "sRGB")
-  hex_col <- grDevices::rgb(centers_rgb)
+  hex_col <- grDevices::rgb(centers_rgb, alpha = alpha)
 
-  # and plot it
-  scatterplot3d::scatterplot3d(centers, pch = 20,
-                               cex.symbols = (sizes / max(sizes)) *
-                                 scaling + plus,
-                               color = hex_col, ...)
+  # normalize sizes
+  sizes <- sizes / sum(sizes)
+
+  # make blank plot
+  plot3D::scatter3D(x = centers[ , 1],
+                    y = centers[ , 2],
+                    z = centers[ , 3],
+                    cex = 0, colkey = FALSE,
+                    phi = phi, theta = theta,
+                    ...)
+
+  # add one point at a time, setting size with the cex argument
+  for (i in 1:nrow(centers)) {
+    plot3D::scatter3D(x = centers[i , 1],
+                      y = centers[i , 2],
+                      z = centers[i , 3],
+                      cex = sizes[i] * scaling + plus,
+                      pch = 19, alpha = alpha,
+                      col = hex_col[i], add = TRUE)
+  }
 
   # BARE BONES, gang...bare bones
 }

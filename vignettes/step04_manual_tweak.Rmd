@@ -17,6 +17,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, echo=F}
+library(recolorize)
+current_par <- graphics::par(no.readonly = TRUE)
+```
+
 > Cleaning up the details.
 
 These are functions that can be called individually to address problem areas in specific images, or strung together as building blocks to do more complicated operations.
@@ -77,3 +82,6 @@ You might notice this is a bit different than our `recluster` results above. Tha
 
 > You can also tour the functions in the [function gallery](gallery.html).
 
+```{r, echo=F}
+graphics::par(current_par)
+```

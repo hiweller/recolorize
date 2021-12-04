@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 
 ```{r setup, echo=F}
 library(recolorize)
+current_par <- graphics::par(no.readonly = TRUE)
 ```
 
 > A quick reference gallery for what the most broadly useful functions do.
@@ -162,6 +163,10 @@ rc_vector <- recolorizeVector(recluster_fit, size_filter = 0.15, smoothness = 5)
 par(mar = rep(0, 4))
 v <- readRDS(system.file("extdata/msc/corbetti_vector.rds", package = "recolorize"))
 plot(v)
+```
+
+```{r, echo=F}
+graphics::par(current_par)
 ```
 
 ## Further reading

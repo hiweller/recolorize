@@ -35,6 +35,7 @@ par(mar = rep(0, 4))
 
 ```{r, echo = FALSE, fig.width=7, fig.height=4}
 library(recolorize)
+current_par <- graphics::par(no.readonly = TRUE)
 img <- system.file("extdata/corbetti.png", package = "recolorize")
 rc <- suppressMessages(recolorize2(img, 
                                   cutoff = 45, plotting = FALSE))
@@ -267,6 +268,10 @@ plot(v)
 ```
 
 This function is VERY experimental. If it gives you errors or looks too funky, try decreasing the size filter (which absorbs all components below some size to simplify the image) and the smoothness. Then again, sometimes you want things to look funky. If this is the case, `recolorizeVector` will happily enable you.
+
+```{r, echo=F}
+graphics::par(current_par)
+```
 
 ## Further reading
 

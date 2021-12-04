@@ -10,6 +10,9 @@ plotColorClusters(
   scaling = 10,
   plus = 0,
   color_space = "sRGB",
+  phi = 35,
+  theta = 60,
+  alpha = 0.5,
   ...
 )
 }
@@ -30,7 +33,11 @@ seeing small or empty bins when they are swamped by larger clusters.}
 axis ranges and for converting the colors into hex codes for plotting. The
 function assumes that the \code{centers} argument is already in this color space.}
 
-\item{...}{Further parameters passed to \link[scatterplot3d:scatterplot3d]{scatterplot3d::scatterplot3d}.}
+\item{phi, theta}{Viewing angles (in degrees).}
+
+\item{alpha}{Transparency (0-1 range).}
+
+\item{...}{Further parameters passed to \link[plot3D:scatter]{plot3D::scatter3D}.}
 }
 \value{
 Nothing; plots a 3D scatterplot of color clusters, with corresponding
@@ -43,7 +50,7 @@ Plots color clusters in a 3D color space.
 This function does very little on your behalf (e.g. labeling the
 axes, setting the axis ranges, trying to find nice scaling parameters,
 etc). You can pass those parameters using the \code{...} function to
-\link[scatterplot3d:scatterplot3d]{scatterplot3d::scatterplot3d}, which is probably a good idea.
+\link[plot3D:scatter]{plot3D::scatter3D}, which is probably a good idea.
 }
 \examples{
 corbetti <- system.file("extdata/corbetti.png", package = "recolorize")
@@ -59,5 +66,6 @@ plotColorClusters(centers, init_fit$sizes,
                   color_space = "Lab",
                   xlab = "Luminance",
                   ylab = "a (red-green)",
-                  zlab = "b (blue-yellow)")
+                  zlab = "b (blue-yellow)",
+                  cex.lab = 0.5)
 }

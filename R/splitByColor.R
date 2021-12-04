@@ -19,23 +19,25 @@
 #' corbetti <- system.file("extdata/corbetti.png", package = "recolorize")
 #' recolored_corbetti <- recolorize::recolorize(corbetti, plotting = TRUE)
 #'
+#' # to reset graphical parameters:
+#' current_par <- graphics::par(no.readonly = TRUE)
+#'
 #' # make a layout
 #' layout(matrix(c(1, 1:9), nrow = 2))
-#'
+#' par(mar = c(0, 0, 2, 0))
 #' # plot original
 #' plotImageArray(recolored_corbetti$original_img)
 #'
 #' # plot layers
 #' corbetti_layers <- splitByColor(recolored_corbetti, plot_method = "over")
 #'
-#' # plot one of the binary maps
-#' layout(matrix(1:2, nrow = 1))
-#' plotImageArray(corbetti_layers[[2]], main = "original layer")
+#' # plot binary maps
+#' plotImageArray(recolored_corbetti$original_img)
+#' for (i in 1:length(corbetti_layers)) {
+#'   plotImageArray(corbetti_layers[[i]])
+#' }
 #'
-#' # make an imager pixset
-#' px <- imager::as.cimg(corbetti_layers[[2]] == 1)
-#' px_clean <- imager::clean(px, 3)
-#'
+#' graphics::par(current_par)
 #' @export
 splitByColor <- function(recolorize_obj,
                          layers = "all",

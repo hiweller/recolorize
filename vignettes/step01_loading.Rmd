@@ -17,6 +17,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, echo=F}
+library(recolorize)
+current_par <- graphics::par(no.readonly = TRUE)
+```
+
 > How to get images into R.
 
 Most of the actual `recolorize` functions can take a path to an image directly as input, so these steps are entirely optional. I include it here to show the option of loading the image into R first to do some basic manipulations, and because it can be useful to understand how images are structured as arrays in R.
@@ -75,4 +80,7 @@ This step is optional: most of the `recolorize` functions will accept a path to 
 > You can also tour the functions in the [function gallery](gallery.html).
 
 
+```{r, echo=F}
+graphics::par(current_par)
+```
 

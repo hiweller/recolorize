@@ -59,6 +59,8 @@
 #' color_residuals_adjust <- colorResiduals(pixel_matrix = pixel_matrix,
 #'                                   pixel_assignments = reassigned$pixel_assignments,
 #'                                   centers = reassigned$centers)
+#' # to reset graphical parameters:
+#' current_par <- graphics::par(no.readonly = TRUE)
 #'
 #' layout(matrix(1:2, nrow = 2))
 #' hist(color_residuals$sq_residuals,
@@ -71,6 +73,7 @@
 #' xlim = c(0, 1), xlab = "Squared residual",
 #' main = "Adjusted centers")
 #'
+#' graphics::par(current_par)
 #' @export
 colorResiduals <- function(pixel_matrix,
                            pixel_assignments,

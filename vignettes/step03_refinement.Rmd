@@ -17,6 +17,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, echo=F}
+library(recolorize)
+current_par <- graphics::par(no.readonly = TRUE)
+```
+
 > Using simple rules to improve the initial results.
 
 Once we’ve reduced an image down to a tractable number of colors, we can define simple procedures for how to combine them based on similarity. `recolorize` (currently) comes with two of these: `recluster`, which merges colors by perceived similarity, and `thresholdRecolor`, which drops minor colors. Both are simple, but surprisingly effective. They’re also built on top of some really simple functions we’ll see in a bit, so if you need to, you can build out a similar procedure tailored to your dataset—for example, combining layers based only on their brightness values, or only combining green layers.
@@ -73,3 +78,8 @@ chongi_threshold <- thresholdRecolor(chongi_fit, pct = 0.1)
 * [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
 
 > You can also tour the functions in the [function gallery](gallery.html).
+
+
+```{r, echo=F}
+graphics::par(current_par)
+```

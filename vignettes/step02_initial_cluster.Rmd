@@ -17,6 +17,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, echo=F}
+library(recolorize)
+current_par <- graphics::par(no.readonly = TRUE)
+```
 > Go from thousands of colors to a manageable number for further refinement.
 
 The color clustering in recolorize usually starts with an initial clustering step which produces more color clusters than the final color map will have, which are then edited and combined to form the final color map. We start with an over-clustering step because it is a quick way to go from an overwhelming number of colors ($256^3$ unique RGB colors) to a manageable number that can be manually inspected or automatically re-clustered. You’ll usually do this using the `recolorize` function, which is the core of the package (go figure!):
@@ -172,6 +176,9 @@ I would really only recommend using this if you've gotten your color centers fro
 
 > You can also tour the functions in the [function gallery](gallery.html).
 
+```{r, echo=F}
+graphics::par(current_par)
+```
 
 
 
