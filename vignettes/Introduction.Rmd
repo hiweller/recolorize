@@ -42,10 +42,11 @@ rc <- suppressMessages(recolorize2(img,
 v <- system.file("extdata/msc/corbetti_vector.rds", package = "recolorize")
 v <- readRDS(v)
 layout(matrix(1:4, nrow = 1), widths = c(0.3, 0.3, 0.3, 0.1))
+par(mar = c(1, 1, 3, 1))
 plotImageArray(readImage(img))
-title("Original    ", line = 2, font.main = 1, cex.main = 1.2)
+title("Original    ", line = 1, font.main = 1, cex.main = 1.2)
 plotImageArray(recoloredImage(rc))
-title("Color map (bitmap)    ", line = 2, font.main = 1, cex.main = 1.2)
+title("Color map (bitmap)    ", line = 1, font.main = 1, cex.main = 1.2)
 par(mar = c(1, 1, 3, 1))
 plot(v)
 title("Color map (vector)", font.main = 1, cex.main = 1.2)
@@ -139,6 +140,7 @@ for (i in 1:length(images)) {
 
 # plot for comparison:
 layout(matrix(1:10, nrow = 2))
+par(mar = c(0, 0, 2, 0))
 for (i in rc_list) {
   plotImageArray(i$original_img)
   plotImageArray(recoloredImage(i))
@@ -199,6 +201,7 @@ You can get the recolored image by calling `recoloredImage`:
 # type = raster gets you a raster (like original_img); type = array gets you an 
 # image array
 recolored_img <- recoloredImage(final_fit, type = "array")
+par(mar = rep(0, 4))
 plotImageArray(recolored_img)
 ```
 
@@ -212,6 +215,7 @@ blue_beetle <- constructImage(final_fit$pixel_assignments,
                centers = t(col2rgb(colors) / 255))
 
 # a very blue beetle indeed:
+par(mar = rep(0, 4))
 plotImageArray(blue_beetle)
 ```
 
@@ -245,7 +249,7 @@ There are two fun functions in here: `wernerColor` and `recolorizeVector`.
 
 `wernerColor` remaps a recolorize object to the colors in Werner's Nomenclature of Colors by Patrick Syme (1821), one of the first attempts at an objective color reference in western science, notably used by Charles Darwin. This is always fun to try out, especially given how many things get tagged as "veinous blood red" (delightful!):
 
-```{r, fig.width = 5}
+```{r, fig.width = 5, fig.height = 4.5}
 rc_werner <- wernerColor(final_fit)
 ```
 

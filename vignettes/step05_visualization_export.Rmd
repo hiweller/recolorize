@@ -38,14 +38,17 @@ img <- system.file("extdata/ephippigera.png", package = "recolorize")
 rc <- recolorize2(img, plotting = FALSE)
 
 layout(matrix(1:2, nrow = 1))
-
+par(mar = c(0, 0, 2, 1))
 # calculates the distance matrix and plots the results
 dist_original <- imDist(readImage(img),
-                        recoloredImage(rc), color_space = "sRGB")
+                        recoloredImage(rc), 
+                        color_space = "sRGB", 
+                        main = "Unscaled distances")
 
 # more plotting options - setting the range is important for comparing 
 # across images (max is sqrt(3) in sRGB space, ~120 in Lab)
-imHeatmap(dist_original, viridisLite::inferno(100), range = c(0, sqrt(3)))
+imHeatmap(dist_original, range = c(0, sqrt(3)),
+          main = "Scaled distances")
 ```
 The resulting object is a simple matrix of distances between each pair of pixels in the given color space. These are essentially residuals:
 
@@ -59,7 +62,7 @@ A word of warning here: it is easy to look at this and decide to come up with a 
 
 This is a dual-use function: by splitting up the color map into individual layers, you not only can examine the individual layers and decide whether they need any editing or merging, but you also get out a binary mask representing each layer, so you can export individual patches.
 
-```{r}
+```{r, fig.width = 5, fig.height=4.5}
 img <- system.file("extdata/corbetti.png", package = "recolorize")
 rc <- recolorize2(img, cutoff = 45, plotting = FALSE)
 

@@ -49,6 +49,7 @@ We can plot the whole array as an image, or plot one channel at a time. Notice t
 
 ```{r}
 layout(matrix(1:5, nrow = 1))
+par(mar = c(0, 0, 2, 0))
 plotImageArray(img, main = "RGB image")
 plotImageArray(img[ , , 1], main = "R channel")
 plotImageArray(img[ , , 2], main = "G channel")

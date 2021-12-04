@@ -95,19 +95,22 @@ k-means clustering, on the other hand, is a well-known method for partitioning d
 
 To appreciate these differences, we can fit the same number of colors (64) using the histogram method and the k-means method on the same image, then view the resulting color distributions:
 
-```{r}
+```{r, fig.width = 3.5, fig.height=3.5}
 # fit 64 colors, both ways
 r_hist <- recolorize(corbetti, method = "hist", bins = 4, plotting = FALSE)
 r_k <- recolorize(corbetti, method = "k", n = 64, plotting = FALSE)
 
-plotColorClusters(r_hist$centers, r_hist$sizes, plus = .5,
+par(mar = rep(1, 4))
+plotColorClusters(r_hist$centers, r_hist$sizes, scaling = 20,
+                  plus = .05,
                   xlab = "red", ylab = "green", zlab = "blue", 
-                  mar = c(3, 3, 2, 2),
-                  main = "Histogram method")
-plotColorClusters(r_k$centers, r_k$sizes, plus = .5,
+                  main = "Histogram method",
+                  xlim = 0:1, ylim = 0:1, zlim = 0:1)
+plotColorClusters(r_k$centers, r_k$sizes, scaling = 20,
+                  plus = .05,
                   xlab = "red", ylab = "green", zlab = "blue",
-                  mar = c(3, 3, 2, 2),
-                  main = "k-means clustering")
+                  main = "k-means clustering",
+                  xlim = 0:1, ylim = 0:1, zlim = 0:1)
 ```
 
 The histogram method produced a lot of tiny, nearly-empty clusters that are evenly distributed in the color space, with only a few large clusters (like the black and white ones). The k-means clustering method, on the other hand, produced a lot more medium-sized clusters, as well as splitting the black and white patches across multiple clusters. 
