@@ -50,7 +50,7 @@
 #'
 #' @examples
 #'
-#' \donttest{
+#'
 #' img <- system.file("extdata/fulgidissima.png", package = "recolorize")
 #'
 #' # get an initial fit using recolorize + recluster:
@@ -93,7 +93,7 @@
 #'                     y_range = c(0.55, 0.75),
 #'                     highlight_color = "yellow")
 #' # looks pretty good
-#' }
+#'
 #' @export
 absorbLayer <- function(recolorize_obj,
                         layer_idx,

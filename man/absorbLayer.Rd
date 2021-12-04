@@ -68,7 +68,7 @@ approximate region (see examples).
 }
 \examples{
 
-\donttest{
+
 img <- system.file("extdata/fulgidissima.png", package = "recolorize")
 
 # get an initial fit using recolorize + recluster:
@@ -111,7 +111,7 @@ fit3 <- absorbLayer(fit2, layer_idx = 4,
                     y_range = c(0.55, 0.75),
                     highlight_color = "yellow")
 # looks pretty good
-}
+
 }
 \seealso{
 \link{editLayers} for editing layers using morphological operations;

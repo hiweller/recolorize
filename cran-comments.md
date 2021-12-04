@@ -29,3 +29,6 @@ This is the first submission of this package. The possibly misspelled words are 
 
 There are currently no downstream dependencies for this package.
 
+# Examples
+
+Four examples are not run with R CMD check (\donttest): recolorizeVector, absorbLayer, recolorize_to_patternize, and recolorize_to_png. The first three are not run because they take longer than 10 seconds to evaluate (they involve relatively complex image processing and/or conversion). recolorize_to_png is not run because it writes (and deletes) a file to the current working directory.
