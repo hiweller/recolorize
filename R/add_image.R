@@ -14,6 +14,8 @@
 #' @param angle Passed to [graphics::rasterImage]. The angle (in degrees)
 #' for rotating the image.
 #'
+#' @return Nothing; adds an image to the existing plot window.
+#'
 #' @examples
 #' images <- dir(system.file("extdata", package = "recolorize"),
 #'               ".png", full.names = TRUE)

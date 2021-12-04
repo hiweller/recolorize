@@ -11,7 +11,7 @@
 #' @param plot_method Plotting method for plotting the color layers. Options
 #'   are`"overlay"`, `"binary"`, `"colormask"`, or `"none"`.
 #'
-#' @return A list of binary masks (white = color presence, black = color
+#' @return A list of binary matrices (1/white = color presence, 0/black = color
 #'   absence), one per color center.
 #'
 #' @examples

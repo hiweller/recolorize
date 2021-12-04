@@ -15,6 +15,9 @@
 #'   seeing small or empty bins when they are swamped by larger clusters.
 #' @param ... Further parameters passed to [scatterplot3d::scatterplot3d].
 #'
+#' @return Nothing; plots a 3D scatterplot of color clusters, with corresponding
+#' colors and sizes.
+#'
 #' @details This function does very little on your behalf (e.g. labeling the
 #'   axes, setting the axis ranges, trying to find nice scaling parameters,
 #'   etc). You can pass those parameters using the `...` function to

@@ -30,6 +30,9 @@ heatmaps.}
 
 \item{...}{Parameters passed to \code{\link[graphics]{image}}.}
 }
+\value{
+Nothing; plots a heatmap of the color residuals.
+}
 \description{
 Plots the output of \code{\link{imDist}} as a heatmap.
 }

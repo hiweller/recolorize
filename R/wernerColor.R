@@ -16,7 +16,7 @@
 #'   `n_colors`; this only affects the plot.
 #'
 #' @return
-#' A recolorize object with an additional list element, `werner_names`,
+#' A `recolorize` object with an additional list element, `werner_names`,
 #' listing the Werner color names for each center.
 #'
 #' @details

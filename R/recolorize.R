@@ -41,6 +41,7 @@
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
 #'     \item `pixel_assignments`: A matrix of color center assignments for each
 #'     pixel.
+#'     \item `call`: The call(s) used to generate the `recolorize` object.
 #' }
 #'
 #' @details

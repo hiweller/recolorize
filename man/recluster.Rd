@@ -73,7 +73,7 @@ produce messier results.}
 color space should the image be reclustered in?}
 }
 \value{
-An \code{\link{imposeColors}} object with the re-fit color centers.
+A \code{recolorize} object with the re-fit color centers.
 }
 \description{
 Color mapping (as with k-means or binning) often requires over-clustering in

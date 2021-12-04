@@ -76,6 +76,7 @@ An object of S3 class \code{recolorize} with the following attributes:
 \item \code{sizes}: The number of pixels assigned to each color cluster.
 \item \code{pixel_assignments}: A matrix of color center assignments for each
 pixel.
+\item \code{call}: The call(s) used to generate the \code{recolorize} object.
 }
 }
 \description{

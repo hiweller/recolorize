@@ -9,6 +9,9 @@ brick_to_array(raster_brick)
 \arguments{
 \item{raster_brick}{An object of RasterBrick class.}
 }
+\value{
+An image array (probably 1, 3, or 4 channels).
+}
 \description{
 Converts from a RasterBrick to a numeric array. Useful
 in going from patternize to recolorize.

@@ -333,6 +333,8 @@ colorClustersHist <- function(pixel_matrix,
 #' @param to Color space to convert to.
 #' @param ref_white Reference white.
 #'
+#' @return A pixel matrix in the specified `to` color space.
+#'
 #' @details As my mother used to say: good enough for government work.
 col2col <- function(pixel_matrix,
                                from = "sRGB",

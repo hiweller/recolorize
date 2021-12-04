@@ -15,6 +15,9 @@ plotImageArray(rgb_array, main = "", ...)
 
 \item{...}{Parameters passed to \link[graphics:plot.default]{graphics::plot}.}
 }
+\value{
+No return value; plots image.
+}
 \description{
 Does what it says on the tin. An extremely simple wrapper for
 \code{\link[graphics]{rasterImage}}, but maintains aspect ratio, removes

@@ -14,6 +14,9 @@ rerun_recolorize(recolorize_obj, img = "original")
 in the recolorize object. Otherwise can be an object taken by the \code{img}
 argument of recolorize functions (a path to an image or an image array).}
 }
+\value{
+A \code{recolorize} object.
+}
 \description{
 Evaluates the series of calls in the 'call' element of a recolorize object,
 either on the original image (default) or on another image. It will almost

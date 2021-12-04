@@ -16,6 +16,9 @@ are channels.}
 
 \item{ref_white}{Reference white.}
 }
+\value{
+A pixel matrix in the specified \code{to} color space.
+}
 \description{
 Just like \link[grDevices:convertColor]{grDevices::convertColor}, but with HSV as an option.
 }

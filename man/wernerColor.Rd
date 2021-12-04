@@ -20,7 +20,7 @@ All colors are returned as a normal recolorize object regardless of
 \code{n_colors}; this only affects the plot.}
 }
 \value{
-A recolorize object with an additional list element, \code{werner_names},
+A \code{recolorize} object with an additional list element, \code{werner_names},
 listing the Werner color names for each center.
 }
 \description{

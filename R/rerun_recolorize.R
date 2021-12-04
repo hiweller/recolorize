@@ -11,6 +11,8 @@
 #'   in the recolorize object. Otherwise can be an object taken by the `img`
 #'   argument of recolorize functions (a path to an image or an image array).
 #'
+#' @return A `recolorize` object.
+#'
 #' @details This function utilizes `eval` statements to evaluate the calls
 #' that were stored in the `call` element of the specified recolorize object.
 #' This makes it potentially more unpredictable than simply defining your own

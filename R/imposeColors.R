@@ -40,6 +40,7 @@
 #'         FALSE`, this will be identical to the input `centers`.
 #'     \item `sizes`: The number of pixels assigned to each color cluster.
 #'     \item `pixel_assignments`: A vector of color center assignments for each pixel.
+#'     \item `call`: The call(s) used to generate the `recolorize` object.
 #' }
 #'
 #' @details

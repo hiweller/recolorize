@@ -14,6 +14,10 @@ a pixel assignment matrix and matrix of color centers.}
 Arrays are numeric RGB arrays (larger, but easier to do operations on),
 rasters are matrices of hex codes (smaller, only really good for plotting).}
 }
+\value{
+A numeric image array (if \code{type = array}) or a matrix of hex codes (
+if \code{type = raster}).
+}
 \description{
 \code{recolorize} objects use a numeric color map and a matrix of
 color centers to make recolored images, since this is a lighter weight

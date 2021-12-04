@@ -6,6 +6,8 @@
 #' @param recolorize_obj A recolorize object.
 #' @param filename Filename for saving the PNG.
 #'
+#' @return No return value; saves a PNG file to the specified location.
+#'
 #' @details This function saves a png with the same dimensions (in pixels) as the
 #' image that was originally provided to recolorize (meaning if you resized your original
 #' image, the resulting PNG will also be smaller). Anything more complicated can be

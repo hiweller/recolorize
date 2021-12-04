@@ -32,6 +32,10 @@ function assumes that the \code{centers} argument is already in this color space
 
 \item{...}{Further parameters passed to \link[scatterplot3d:scatterplot3d]{scatterplot3d::scatterplot3d}.}
 }
+\value{
+Nothing; plots a 3D scatterplot of color clusters, with corresponding
+colors and sizes.
+}
 \description{
 Plots color clusters in a 3D color space.
 }

@@ -143,6 +143,8 @@ imDist <- function(im1, im2,
 #' @param legend Logical. Add a continuous color legend?
 #' @param ... Parameters passed to \code{\link[graphics]{image}}.
 #'
+#' @return Nothing; plots a heatmap of the color residuals.
+#'
 #' @examples
 #' chongi <- system.file("extdata/chongi.png", package = "recolorize")
 #' chongi <- png::readPNG(chongi)
@@ -207,4 +209,3 @@ imHeatmap <- function(mat,
   # reset
   graphics::par(op)
 }
-

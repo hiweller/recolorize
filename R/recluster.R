@@ -48,7 +48,7 @@
 #' @param plot_final Logical. Plot the final color fit?
 #'
 #' @return
-#' An \code{\link{imposeColors}} object with the re-fit color centers.
+#' A `recolorize` object with the re-fit color centers.
 #'
 #' @details
 #' This function is fairly straightforward: the RGB color centers of the
@@ -258,4 +258,3 @@ labelCol <- function(x, hex_cols, pch = 20, cex = 2) {
   }
   return(x)
 }
-

@@ -11,6 +11,10 @@
 #'   Arrays are numeric RGB arrays (larger, but easier to do operations on),
 #'  rasters are matrices of hex codes (smaller, only really good for plotting).
 #'
+#' @return A numeric image array (if `type = array`) or a matrix of hex codes (
+#' if `type = raster`).
+#'
+#'
 #' @export
 recoloredImage <- function(recolorize_obj,
                            type = "array") {

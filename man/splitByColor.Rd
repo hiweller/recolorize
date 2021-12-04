@@ -17,7 +17,7 @@ return.}
 are\code{"overlay"}, \code{"binary"}, \code{"colormask"}, or \code{"none"}.}
 }
 \value{
-A list of binary masks (white = color presence, black = color
+A list of binary matrices (1/white = color presence, 0/black = color
 absence), one per color center.
 }
 \description{

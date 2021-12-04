@@ -15,6 +15,8 @@
 #'   horizontally?
 #' @param ... Additional parameters passed to \code{\link[graphics]{barplot}}.
 #'
+#' @return No return value; plots a rectangular color palette.
+#'
 #' @details
 #' `plotColorPalette` does not reorder or convert colors between color spaces,
 #' so users working in other colorspaces should convert to RGB before plotting.
@@ -38,7 +40,6 @@
 #' plotColorPalette(hex_colors, cex_text = 0)
 #'
 #' @export
-
 plotColorPalette <- function(centers, sizes = NULL,
                              cex_text = 2, horiz = TRUE, ...) {
 

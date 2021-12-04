@@ -23,6 +23,9 @@ horizontally?}
 
 \item{...}{Additional parameters passed to \code{\link[graphics]{barplot}}.}
 }
+\value{
+No return value; plots a rectangular color palette.
+}
 \description{
 Plots a color palette as a single bar, optionally scaling each color to a
 vector of sizes.

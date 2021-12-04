@@ -5,6 +5,8 @@
 #'
 #' @param raster_brick An object of RasterBrick class.
 #'
+#' @return An image array (probably 1, 3, or 4 channels).
+#'
 #' @details
 #' This function is provided to convert from the RasterBrick objects provided
 #' by the alignment functions in the patternize package, e.g. `alignLan`.

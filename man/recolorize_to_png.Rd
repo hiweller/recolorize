@@ -11,6 +11,9 @@ recolorize_to_png(recolorize_obj, filename = "")
 
 \item{filename}{Filename for saving the PNG.}
 }
+\value{
+No return value; saves a PNG file to the specified location.
+}
 \description{
 Saves a recolored image from a recolorize object to a PNG. This is
 done by calling \link{recoloredImage} and \link[png:writePNG]{png::writePNG}.

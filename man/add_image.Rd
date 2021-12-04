@@ -21,6 +21,9 @@ interpolation when scaling the image?}
 \item{angle}{Passed to \link[graphics:rasterImage]{graphics::rasterImage}. The angle (in degrees)
 for rotating the image.}
 }
+\value{
+Nothing; adds an image to the existing plot window.
+}
 \description{
 Adds a raster image (a 3D array) to an existing plot as an image.
 A silly, generic function, but nice for visualization. Sort of like

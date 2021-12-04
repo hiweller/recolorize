@@ -10,6 +10,8 @@
 #' @param main Optional title for plot.
 #' @param ... Parameters passed to [graphics::plot].
 #'
+#' @return No return value; plots image. 
+#'
 #' @examples
 #' # make a 100x100 image of random colors
 #' random_colors <- array(runif(100 * 100 * 3),
