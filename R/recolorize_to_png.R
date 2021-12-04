@@ -15,10 +15,15 @@
 #' [recolorizeVector], and then save this as a PNG of any resolution/size.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' img <- system.file("extdata/corbetti.png", package = "recolorize")
 #' rc <- recolorize2(img, cutoff = 45)
+#'
+#' # save a PNG:
 #' recolorize_to_png(rc, "corbetti_recolored.png")
+#'
+#' # remove the PNG (so this example doesn't spam your working directory)
+#' file.remove("corbetti_recolored.png")
 #' }
 #'
 #' @export

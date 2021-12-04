@@ -74,37 +74,19 @@
 #' corbetti <- system.file("extdata/corbetti.png", package = "recolorize")
 #'
 #' # too many color centers
-#' recolored_corbetti <- recolorize(corbetti, bins = 3)
+#' recolored_corbetti <- recolorize(corbetti, bins = 2)
 #'
 #' # just enough!
 #' # check previous plot for clustering cutoff
 #' recluster_obj <- recluster(recolored_corbetti,
-#'                            cutoff = 60,
+#'                            cutoff = 45,
 #'                            plot_hclust = TRUE,
 #'                            refit_method = "impose")
 #'
-#' \dontrun{
-#' # compare to merging layers - quite different results:
-#' recluster_merge <- recluster(recolored_corbetti,
-#'                            cutoff = 60,
-#'                            plot_hclust = TRUE,
-#'                            refit_method = "merge")
-#'
-#' # compare to the result using k-means clustering and the same n:
-#' kmeans_fit <- recolorize(corbetti, "k", n = 6)
-#' # (you also get different clusters every time you run this)
-#'
-#' # a cutoff that's too severe will usually just produce "light",
-#' # "dark", and "other" colors:
+#' # we get the same result by specifying n_final = 5
 #' recluster_obj <- recluster(recolored_corbetti,
-#'                            cutoff = 100,
+#'                            n_final = 5,
 #'                            plot_hclust = TRUE)
-#'
-#' # we get the same result by specifying n_final = 6
-#' recluster_obj <- recluster(recolored_corbetti,
-#'                            n_final = 6,
-#'                            plot_hclust = TRUE)
-#' }
 #' @export
 #'
 recluster <- function(recolorize_obj,

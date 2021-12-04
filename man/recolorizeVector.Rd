@@ -78,7 +78,7 @@ quite fast, and the objects themselves are smaller than the  \code{recolorize}
 objects.
 }
 \examples{
-\dontrun{
+\donttest{
 img <- system.file("extdata/corbetti.png", package = "recolorize")
 rc <- recolorize2(img, cutoff = 45)
 
@@ -93,5 +93,9 @@ height = 4, width = 2, bg = "transparent")
 par(mar = rep(0, 4))
 plot(as_vector)
 dev.off()
+
+# and to avoid spamming your working directory, run this line to remove
+# the file we just wrote:
+file.remove("recolorize_vector.svg")
 }
 }

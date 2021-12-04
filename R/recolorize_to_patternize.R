@@ -16,7 +16,6 @@
 #'
 #' @examples
 #'
-#' \dontrun{
 #' # fit recolorize object:
 #' img <- system.file("extdata/ephippigera.png", package = "recolorize")
 #' rc <- recolorize2(img)
@@ -24,10 +23,6 @@
 #' # convert to a raster list:
 #' as_raster_list <- recolorize_to_patternize(rc)
 #'
-#' # we can plot the separate layers:
-#' layout(matrix(1:8, nrow = 2))
-#' lapply(as_raster_list, raster::plot)
-#' }
 #' @export
 recolorize_to_patternize <- function(recolorize_obj,
                                      return_background = FALSE) {
@@ -56,4 +51,3 @@ recolorize_to_patternize <- function(recolorize_obj,
   return(layer_list)
 
 }
-

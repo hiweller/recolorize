@@ -56,7 +56,7 @@
 #' objects.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' img <- system.file("extdata/corbetti.png", package = "recolorize")
 #' rc <- recolorize2(img, cutoff = 45)
 #'
@@ -71,6 +71,10 @@
 #' par(mar = rep(0, 4))
 #' plot(as_vector)
 #' dev.off()
+#'
+#' # and to avoid spamming your working directory, run this line to remove
+#' # the file we just wrote:
+#' file.remove("recolorize_vector.svg")
 #' }
 #' @export
 recolorizeVector <- function(recolorize_obj,

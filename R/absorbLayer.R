@@ -50,7 +50,7 @@
 #'
 #' @examples
 #'
-#' \dontrun{
+#' \donttest{
 #' img <- system.file("extdata/fulgidissima.png", package = "recolorize")
 #'
 #' # get an initial fit using recolorize + recluster:
