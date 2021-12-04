@@ -119,6 +119,7 @@ editLayer <- function(recolorize_obj,
     on.exit(graphics::par(current_par))
 
     graphics::layout(matrix(1:3, nrow = 1))
+    graphics::par(mar = c(0, 0, 2, 0))
     plotImageArray(layer, main = "original layer")
     plotImageArray(array_layer, main = "edited layer")
     plotImageArray(recolorize_obj$recolored_img,
