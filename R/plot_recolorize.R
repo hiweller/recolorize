@@ -39,8 +39,9 @@ plot.recolorize <- function(x, ...,
                             horiz = TRUE,
                             cex_text = 2, sizes = FALSE) {
 
-  # for resetting
-  user_par <- graphics::par(no.readonly = TRUE)
+  # reset graphical parameters when function exits:
+  current_par <- graphics::par(no.readonly = TRUE)
+  on.exit(graphics::par(current_par))
 
   # layout
   if (plot_original) {
@@ -71,13 +72,13 @@ plot.recolorize <- function(x, ...,
 
   # plot original if specified
   if (plot_original) {
-    graphics::par(mar = rep(0.5, 4))
+    graphics::par(mar = c(0, 0, 2, 0))
     plotImageArray(x$original_img,
                    main = "original")
   }
 
   # plotting image
-  graphics::par(mar = rep(0.5, 4))
+  graphics::par(mar = c(0, 0, 2, 0))
   recolored_img <- constructImage(x$pixel_assignments,
                                   x$centers)
   plotImageArray(recolored_img, main = "recolored")
@@ -93,8 +94,5 @@ plot.recolorize <- function(x, ...,
 
   plotColorPalette(x$centers, horiz = h,
                    cex_text = cex_text, sizes = sizes)
-
-  # reset parameters
-  graphics::par(user_par)
 
 }

@@ -65,6 +65,9 @@ init_fit <- recolorize(img, bins = 2, plotting = FALSE)
 # then cluster patches by similarity
 re_fit <- recluster(init_fit, cutoff = 40)
 
+# to reset graphical parameters:
+current_par <- graphics::par(no.readonly = TRUE)
+
 # examine individual layers:
 layout(matrix(1:6, nrow = 2))
 layers <- splitByColor(re_fit, plot_method = "color")
@@ -95,6 +98,9 @@ edited_fit_3 <- editLayers(re_fit, layer_idx = "all",
 edited_fit_3 <- editLayers(re_fit, layer_idx = c(1:6),
                            operations = c("fill", "clean"),
                            px_sizes = c(10, 20))
+
+# reset graphical parameters:
+graphics::par(current_par)
 
 }
 \seealso{

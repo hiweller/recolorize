@@ -77,6 +77,9 @@ dist_3bin <- imDist(im1 = fulgidissima,
 # the same `zlim` scale for both
 r <- range(c(dist_2bin, dist_3bin), na.rm = TRUE)
 
+# to reset graphical parameters:
+current_par <- graphics::par(no.readonly = TRUE)
+
 # now we can plot them to compare the fits:
 layout(matrix(1:2, nrow = 1))
 imHeatmap(dist_2bin, range = r)
@@ -92,5 +95,6 @@ rgb_3bin <- imDist(fulgidissima,
 imHeatmap(rgb_3bin, range = c(0, sqrt(3)))
 # not useful for troubleshooting, but broadly reassuring!
 
-
+# reset:
+graphics::par(current_par)
 }

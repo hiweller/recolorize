@@ -59,17 +59,28 @@ thresholdRecolor <- function(recolorize_obj,
 
   # plot comparison
   if (plotting) {
-    graphics::par(mar = rep(1, 4))
+
+    # reset graphical parameters when function exits:
+    current_par <- graphics::par(no.readonly = TRUE)
+    on.exit(graphics::par(current_par))
+
     graphics::layout(matrix(1:4, nrow = 1),
                      widths = c(0.4, 0.1, 0.1, 0.4))
     initial_fit <- recoloredImage(recolorize_obj, type = "raster")
     thresholded_fit <- recoloredImage(refit, type = "raster")
 
     # plot initial fit
+    graphics::par(mar = c(0, 0, 2, 0))
     plot(initial_fit); graphics::title("initial fit")
+
+    graphics::par(mar = rep(0.5, 4))
     plotColorPalette(recolorize_obj$centers,
                      recolorize_obj$sizes, horiz = F)
+
+    # and outcome
     plotColorPalette(refit$centers, refit$sizes, horiz = F)
+
+    graphics::par(mar = c(0, 0, 2, 0))
     plot(thresholded_fit); graphics::title("thresholded fit")
   }
 

@@ -51,6 +51,9 @@
 #' # the same `zlim` scale for both
 #' r <- range(c(dist_2bin, dist_3bin), na.rm = TRUE)
 #'
+#' # to reset graphical parameters:
+#' current_par <- graphics::par(no.readonly = TRUE)
+#'
 #' # now we can plot them to compare the fits:
 #' layout(matrix(1:2, nrow = 1))
 #' imHeatmap(dist_2bin, range = r)
@@ -66,7 +69,8 @@
 #' imHeatmap(rgb_3bin, range = c(0, sqrt(3)))
 #' # not useful for troubleshooting, but broadly reassuring!
 #'
-#'
+#' # reset:
+#' graphics::par(current_par)
 #' @export
 imDist <- function(im1, im2,
                    color_space = "Lab",
@@ -185,9 +189,6 @@ imHeatmap <- function(mat,
     palette <- colorRamps::blue2red(100)
   }
 
-  # set parameters
-  op <- graphics::par(mar = c(2, 0, 2, 0))
-
   # get range if not specified
   if (is.null(range)) {
     range <- range(mat, na.rm = TRUE)
@@ -206,6 +207,4 @@ imHeatmap <- function(mat,
                                   inside = TRUE)
   }
 
-  # reset
-  graphics::par(op)
 }

@@ -27,11 +27,14 @@ you won't be able to convert back to a recolorize object from this object.
 }
 \examples{
 
+\donttest{
 # fit recolorize object:
 img <- system.file("extdata/ephippigera.png", package = "recolorize")
 rc <- recolorize2(img)
 
+# takes ~10 sec to run:
 # convert to a raster list:
 as_raster_list <- recolorize_to_patternize(rc)
+}
 
 }

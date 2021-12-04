@@ -10,7 +10,7 @@
 #' @param main Optional title for plot.
 #' @param ... Parameters passed to [graphics::plot].
 #'
-#' @return No return value; plots image. 
+#' @return No return value; plots image.
 #'
 #' @examples
 #' # make a 100x100 image of random colors
@@ -32,8 +32,6 @@ plotImageArray <- function(rgb_array, main = "", ...) {
              pixel columns, and color channels)")
   }
 
-  # Change graphical parameters for image display
-  op <- graphics::par(mar = c(0, 0, 2, 0))
   asp <- dim(rgb_array)[1] / dim(rgb_array)[2]
 
   # Initialize empty plot window
@@ -45,6 +43,4 @@ plotImageArray <- function(rgb_array, main = "", ...) {
   graphics::rasterImage(rgb_array, 0, 0, 1, 1)
   graphics::title(main, line = 0)
 
-  # Return to original graph window settings
-  graphics::par(op)
 }

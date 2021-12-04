@@ -98,6 +98,11 @@ hclust_color <- function(rgb_centers,
   hcd <- stats::dendrapply(hcd, function(x) labelCol(x, hex_cols, cex = 3))
 
   if (plotting) {
+
+    # reset graphical parameters when function exits:
+    current_par <- graphics::par(no.readonly = TRUE)
+    on.exit(graphics::par(current_par))
+
     # plot
     graphics::par(mar = c(3, 4, 0, 0))
     plot(hcd, xlab = "", ylab = paste(color_space, "color distance"))

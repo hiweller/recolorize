@@ -43,6 +43,9 @@
 #' # then cluster patches by similarity
 #' re_fit <- recluster(init_fit, cutoff = 40)
 #'
+#' # to reset graphical parameters:
+#' current_par <- graphics::par(no.readonly = TRUE)
+#'
 #' # examine individual layers:
 #' layout(matrix(1:6, nrow = 2))
 #' layers <- splitByColor(re_fit, plot_method = "color")
@@ -73,6 +76,8 @@
 #'                        px_size = 5, plotting = FALSE)
 #' }
 #' plot(new_fit)
+#'
+#' graphics::par(current_par)
 #'
 #' @seealso [editLayers] for editing multiple layers (with multiple operations)
 #'   at once; a wrapper for this function.
@@ -108,8 +113,10 @@ editLayer <- function(recolorize_obj,
 
   # plot if we're plotting
   if (plotting) {
-    # for resetting
-    user_par <- graphics::par(no.readonly = TRUE)
+
+    # reset graphical parameters when function exits:
+    current_par <- graphics::par(no.readonly = TRUE)
+    on.exit(graphics::par(current_par))
 
     graphics::layout(matrix(1:3, nrow = 1))
     plotImageArray(layer, main = "original layer")
@@ -117,8 +124,6 @@ editLayer <- function(recolorize_obj,
     plotImageArray(recolorize_obj$recolored_img,
                    main = "resulting color map")
 
-    # reset parameters
-    graphics::par(user_par)
   }
 
   # append the call
@@ -177,6 +182,9 @@ editLayer <- function(recolorize_obj,
 #' # then cluster patches by similarity
 #' re_fit <- recluster(init_fit, cutoff = 40)
 #'
+#' # to reset graphical parameters:
+#' current_par <- graphics::par(no.readonly = TRUE)
+#'
 #' # examine individual layers:
 #' layout(matrix(1:6, nrow = 2))
 #' layers <- splitByColor(re_fit, plot_method = "color")
@@ -207,6 +215,9 @@ editLayer <- function(recolorize_obj,
 #' edited_fit_3 <- editLayers(re_fit, layer_idx = c(1:6),
 #'                            operations = c("fill", "clean"),
 #'                            px_sizes = c(10, 20))
+#'
+#' # reset graphical parameters:
+#' graphics::par(current_par)
 #'
 #' @seealso [editLayer] for editing a single layer at a time.
 #'

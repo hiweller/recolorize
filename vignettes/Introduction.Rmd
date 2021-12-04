@@ -19,6 +19,16 @@ knitr::opts_chunk$set(
 )
 ```
 
+* Introduction
+* [Step 0: Image acquisition and preparation](step00_prep.html)  
+* [Step 1: Loading & processing images](step01_loading.html)  
+* [Step 2: Initial clustering](step02_initial_cluster.html)  
+* [Step 3: Refinement](step03_refinement.html)  
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
+
+> You can also tour the functions in the [function gallery](gallery.html).
+
 ```{r setup, echo=F}
 par(mar = rep(0, 4))
 ```
@@ -206,13 +216,13 @@ plotImageArray(blue_beetle)
 
 This should give you a good idea of how this package works, what it's capable of doing, and the different modular components that go into its structure. This is more of a toolbox than a single method, so you will almost certainly not need all of these options. If you'd like to learn more, I would recommend reading through the vignettes linked above (in order) on each of the steps and messing around with your own images. And check the GitHub (https://github.com/hiweller/recolorize) for links out to examples using real data!
 
-## Some advice
+## General guidelines
 
 ### This is a lot of options. How do I choose a procedure?
 
 Recolorize is a toolbox, not a single algorithm. Most things will more or less work; if it looks reasonable, it is. Keep in mind that there is a big difference between getting slightly different color maps and getting qualitatively different results. Keep your final goal in mind. You can also try lots of different things and see if it makes a real difference.
 
-I wish I could write a single function that would do all of these steps in the correct sequence and produce perfect results; the reason that function does not exist is because I find I have to do experiment a fair amount with every image set, and I often end up with a different order of operations depending on the problem. 
+I wish I could write a single function that would do all of these steps in the correct sequence and produce perfect results; the reason that function does not exist is because I find I have to experiment a fair amount with every image set, and I often end up with a different order of operations depending on the problem. 
 
 Start with `recolorize2` and identify the common problems you're encountering. Does it make sense to batch process all of your images, then refine them individually? Is it better to choose a different cutoff for each image? Luckily, these functions are relatively fast, so you can test out different options. 
 
@@ -226,13 +236,7 @@ As far as I can tell, no. This is because of the problem I pointed out at the be
 
 ### What about batch processing?
 
-Every function in this package operates on a single image at a time. This is because I've found that there is so much variation in how people go about batch processing anything: if I tried to impose what I considered to be a useful batch processing structure, within a few months I would find that it was too inflexible for some new project structure I needed to use it for. So, instead, the idea is that you can write your own batch processing functions or for loops as needed to suit your data structure. Or maybe you come up with something better than I can think of, in which case, please let me add it to the package and add you as an author!
-
-### What about machine learning approaches?
-
-Using machine learning could work, but only if you already have segmented images for use in training (which presumably you had to do by hand), and making that training set could be extremely time consuming. The amount of modification required to get a generic algorithm to work might be unjustifiable given the size of (or variance in) your image set. This problem gets a lot worse the fewer images we have and the more different they are, especially if you have a lot of variance in a small dataset (pretty typical in comparative biology). 
-
-That said, I don't have much background in ML of any stripe. If you have a handy idea in this area, I would love to know about it.
+Every function in this package operates on a single image at a time. This is because there is so much variation in how people go about batch processing anything: if I tried to impose what I considered to be a useful batch processing structure, within a few months I would find that it was too inflexible for some new project structure someone else needed to use it for. So, instead, the idea is that you can write your own batch processing functions or for loops as needed to suit your data structure. Or maybe you come up with something better than I can think of, in which case, please let me add it to the package and add you as an author!
 
 ## Just for fun
 

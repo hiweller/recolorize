@@ -82,6 +82,9 @@ objects.
 img <- system.file("extdata/corbetti.png", package = "recolorize")
 rc <- recolorize2(img, cutoff = 45)
 
+# to reset graphical parameters:
+current_par <- graphics::par(no.readonly = TRUE)
+
 # takes ~10 seconds
 as_vector <- recolorizeVector(rc, smoothness = 5,
                               size_filter = 0.05)
@@ -97,5 +100,7 @@ dev.off()
 # and to avoid spamming your working directory, run this line to remove
 # the file we just wrote:
 file.remove("recolorize_vector.svg")
+
+graphics::par(current_par)
 }
 }

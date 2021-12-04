@@ -103,9 +103,6 @@ recluster <- function(recolorize_obj,
                       plot_final = TRUE,
                       color_space_fit = "sRGB") {
 
-  # courtesy:
-  current_par <- graphics::par()
-
   # rename, to keep things clear
   init_fit <- recolorize_obj
   init_fit <- expand_recolorize(init_fit,
@@ -182,8 +179,12 @@ recluster <- function(recolorize_obj,
   # if plotting...
   if (plot_final) {
 
+    # reset graphical parameters when function exits:
+    current_par <- graphics::par(no.readonly = TRUE)
+    on.exit(graphics::par(current_par))
+
     # first, set nice margins and layout
-    graphics::par(mar = rep(0, 4))
+    graphics::par(mar = c(0, 0, 2, 0))
     graphics::layout(matrix(1:4, nrow = 1), widths = c(0.3, 0.3, 0.3, 0.1))
 
     # plot original image
@@ -198,12 +199,9 @@ recluster <- function(recolorize_obj,
                                   final_fit$centers), main = "reclustered fit")
 
     # and the new color palette
+    graphics::par(mar = rep(0.5, 4))
     plotColorPalette(final_fit$centers, sizes = final_fit$sizes, horiz = FALSE)
   }
-
-  # be nice!
-  graphics::par(mfrow = current_par$mfrow,
-      mar = current_par$mar)
 
   final_fit <- list(original_img = grDevices::as.raster(final_fit$original_img),
                     pixel_assignments = final_fit$pixel_assignments,

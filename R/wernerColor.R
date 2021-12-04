@@ -96,8 +96,12 @@ wernerColor <- function(recolorize_obj,
   labels <- gsub(" ", "\n", recolorize::werner$name[werner_idx[idx]])
   cols <- recolorize::werner$hex[werner_idx[idx]]
 
+  # reset graphical parameters when function exits:
+  current_par <- graphics::par(no.readonly = TRUE)
+  on.exit(graphics::par(current_par))
+
   # set parameters and layout
-  op <- graphics::par(mar = c(2, 0, 2, 0))
+  graphics::par(mar = c(2, 0, 2, 0))
   graphics::layout(matrix(1:3, nrow = 1), widths = c(0.2, 0.55, 0.25))
 
   # plot the palette
@@ -120,8 +124,6 @@ wernerColor <- function(recolorize_obj,
   # return the fit
   werner_fit$werner_names <- recolorize::werner$name[werner_idx]
   return(werner_fit)
-
-  graphics::par(op)
 
 }
 

@@ -189,8 +189,9 @@ mergeLayers <- function(recolorize_obj,
 
   if (plotting) {
 
-    # be polite
-    user_par <- graphics::par(no.readonly = TRUE)
+    # reset graphical parameters when function exits:
+    current_par <- graphics::par(no.readonly = TRUE)
+    on.exit(graphics::par(current_par))
 
     # set layout
     graphics::layout(matrix(1:4, nrow = 1),
@@ -207,9 +208,6 @@ mergeLayers <- function(recolorize_obj,
                                main = "Merged image")
     recolorize::plotColorPalette(merged_obj$centers,
                                  horiz = FALSE)
-
-    # reset parameters
-    graphics::par(user_par)
 
   }
 
