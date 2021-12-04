@@ -182,7 +182,7 @@ recolorizeVector <- function(recolorize_obj,
 #'
 #' @param x Object returned by [recolorizeVector].
 #' @param ... Further arguments passed to [graphics::plot].
-#'
+#' @return No return value; plots `recolorizeVector` as polygons.
 #' @rdname plot.recolorizeVector
 #' @export
 plot.recolorizeVector <- function(x, ...) {

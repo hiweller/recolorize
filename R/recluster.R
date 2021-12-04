@@ -242,6 +242,7 @@ recluster <- function(recolorize_obj,
 #' @param hex_cols Hex color codes for colors to change to.
 #' @param pch The type of point to draw.
 #' @param cex The size of the point.
+#' @return An `hclust` object with colored tips.
 labelCol <- function(x, hex_cols, pch = 20, cex = 2) {
 
   if (length(cex) == 1) {

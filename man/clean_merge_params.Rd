@@ -13,6 +13,9 @@ clean_merge_params(recolorize_obj, merge_list, color_to)
 
 \item{color_to}{Argument for coloring new layers.}
 }
+\value{
+A list of \code{mergeLayers} parameters in a standardized format.
+}
 \description{
 Internal function for tidiness.
 }

@@ -24,6 +24,10 @@ passed to \code{\link{recolorize}{plotColorPalette}}.}
 to the size of each color. If \code{FALSE}, all colors take up an equal
 amount of space, and their indices are printed for reference.}
 }
+\value{
+No return value; plots the original image, recolored image, and
+color palette.
+}
 \description{
 S3 plotting method for objects of class \code{recolorize}. Plots a side-by-side
 comparison of an original image and its recolorized version, plus the color

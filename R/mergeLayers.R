@@ -227,6 +227,7 @@ mergeLayers <- function(recolorize_obj,
 #' @param recolorize_obj Object of `recolorize` class.
 #' @param merge_list List of layers to merge.
 #' @param color_to Argument for coloring new layers.
+#' @return A list of `mergeLayers` parameters in a standardized format.
 clean_merge_params <- function(recolorize_obj,
                          merge_list,
                          color_to) {

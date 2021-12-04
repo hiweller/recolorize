@@ -16,6 +16,9 @@
 #'   passed to \code{\link{recolorize}{plotColorPalette}}.
 #' @param ... further arguments passed to `plot`.
 #'
+#' @return No return value; plots the original image, recolored image, and
+#' color palette.
+#'
 #' @examples
 #' corbetti <- system.file("extdata/corbetti.png",
 #'                          package = "recolorize")

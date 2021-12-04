@@ -15,6 +15,9 @@ labelCol(x, hex_cols, pch = 20, cex = 2)
 
 \item{cex}{The size of the point.}
 }
+\value{
+An \code{hclust} object with colored tips.
+}
 \description{
 Internal function for \link{recluster} plotting.
 }
