@@ -69,20 +69,16 @@ adjust_color <- function(rgb_color,
   if (plotting) {
 
     # courtesy:
-    current_par <- graphics::par()
+    current_par <- graphics::par(no.readonly = TRUE)
+    on.exit(graphics::par(current_par))
 
     graphics::layout(matrix(1:2, nrow = 2))
     graphics::par(mar = rep(1, 4))
     plotColorPalette(original_rgb)
     plotColorPalette(rgb_color)
 
-    # be nice!
-    graphics::par(mfrow = current_par$mfrow,
-                  mar = current_par$mar)
   }
 
   # spit out
   return(rgb_color)
 }
-
-

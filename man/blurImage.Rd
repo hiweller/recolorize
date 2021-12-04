@@ -39,9 +39,16 @@ median_img <- blurImage(img, "medianblur", n = 5, threshold = 0.5)
 anisotropic_img <- blurImage(img, "blur_anisotropic",
                              amplitude = 5, sharpness = 0.1)
 boxblur_img <- blurImage(img, "boxblur", boxsize = 5)
+
+# save current graphical parameters:
+current_par <- graphics::par(no.readonly = TRUE)
 graphics::layout(matrix(1:4, nrow = 1))
+
 plotImageArray(img, "original")
 plotImageArray(median_img, "median")
 plotImageArray(anisotropic_img, "anisotropic")
 plotImageArray(boxblur_img, "boxblur")
+
+# and reset:
+graphics::par(current_par)
 }
