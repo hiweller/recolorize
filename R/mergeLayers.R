@@ -195,19 +195,23 @@ mergeLayers <- function(recolorize_obj,
 
     # set layout
     graphics::layout(matrix(1:4, nrow = 1),
-           widths = c(0.3, 0.2, 0.3, 0.2))
+           widths = c(0.3, 0.2, 0.2, 0.3))
 
     # plot original color map & palette
+    graphics::par(mar = c(0, 0, 2, 0))
     recolorize::plotImageArray(recoloredImage(recolorize_obj),
                                main = "Recolored original")
+
+    graphics::par(mar = rep(0.5, 4))
     recolorize::plotColorPalette(recolorize_obj$centers,
                                  horiz = FALSE)
 
     # plot new color map & palette
-    recolorize::plotImageArray(recoloredImage(merged_obj),
-                               main = "Merged image")
     recolorize::plotColorPalette(merged_obj$centers,
                                  horiz = FALSE)
+    graphics::par(mar = c(0, 0, 2, 0))
+    recolorize::plotImageArray(recoloredImage(merged_obj),
+                               main = "Merged image")
 
   }
 
