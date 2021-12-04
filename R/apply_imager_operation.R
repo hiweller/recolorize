@@ -24,13 +24,6 @@
 #' @return The resulting pixset after applying the specified morphological
 #'   operation.
 #'
-#' @examples
-#' img <- system.file("extdata/chongi.png", package = "recolorize")
-#' recolorize_obj <- recolorize(img)
-#' layers <- splitByColor(recolorize_obj)
-#' init_layer <- imager::as.cimg(layers[[2]])
-#'
-#' recolorize:::apply_imager_operation(init_layer, "clean", 4)
 apply_imager_operation <- function(pixset, imager_function, ...) {
   switch(imager_function,
          fill = imager::fill(pixset, ...),

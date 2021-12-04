@@ -33,10 +33,3 @@ to spectral data.
 I have mixed feelings about this function and would like to
 replace it with something a little less hand-wavey.
 }
-\examples{
-# black and white have no chromatic contrast but maximum achromatic contrast:
-recolorize:::cielab_coldist(matrix(c(0, 0, 0,
-                        1, 1, 1),
-               ncol = 3, byrow = TRUE))
-
-}

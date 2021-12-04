@@ -20,11 +20,6 @@
 #' and the achromatic contrast (`dL`), all in units of Euclidean
 #' distance in CIE Lab space.
 #'
-#' @examples
-#' # black and white have no chromatic contrast but maximum achromatic contrast:
-#' recolorize:::cielab_coldist(matrix(c(0, 0, 0,
-#'                         1, 1, 1),
-#'                ncol = 3, byrow = TRUE))
 #'
 #' @details I have mixed feelings about this function and would like to
 #' replace it with something a little less hand-wavey.

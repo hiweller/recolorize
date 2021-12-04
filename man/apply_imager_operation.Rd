@@ -35,11 +35,3 @@ growing and then shrinking a pixset.
 Accomplished by shrinking and then growing a pixset.
 }
 }
-\examples{
-img <- system.file("extdata/chongi.png", package = "recolorize")
-recolorize_obj <- recolorize(img)
-layers <- splitByColor(recolorize_obj)
-init_layer <- imager::as.cimg(layers[[2]])
-
-recolorize:::apply_imager_operation(init_layer, "clean", 4)
-}
