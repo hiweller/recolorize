@@ -36,9 +36,6 @@
 #' px <- imager::as.cimg(corbetti_layers[[2]] == 1)
 #' px_clean <- imager::clean(px, 3)
 #'
-#' # convert back to an image for plotting
-#' plotImageArray(recolorize:::cimg_to_array(px_clean), main = "cleaned layer")
-#'
 #' @export
 splitByColor <- function(recolorize_obj,
                          layers = "all",
