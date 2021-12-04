@@ -10,3 +10,5 @@ recolorize.Rproj
 ^revdep$
 cran-comments.md
 ^CRAN-RELEASE$
+^doc$
+^Meta$

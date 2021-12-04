@@ -156,7 +156,7 @@ corbetti_layers <- splitByColor(rc_edit, plot_method = "over")
 ```
 
 
-* `classify_recolorize`: Converts a `recolorize` object to a [classify](https://rdrr.io/cran/pavo/man/classify.html) object in the [pavo](https://rdrr.io/cran/pavo/) package for linking with spectral data.
+* `classify_recolorize`: Converts a `recolorize` object to a `classify` object in the [pavo](https://rdrr.io/cran/pavo/) package for linking with spectral data.
 
 * `recolorize_adjacency`: Converts to a `classify` object using the above function, then runs the [adjacency and boundary strength analysis](https://rdrr.io/cran/pavo/man/adjacent.html) function using values for human perceptual similarity.
 

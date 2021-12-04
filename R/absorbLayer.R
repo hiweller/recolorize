@@ -50,7 +50,7 @@
 #'
 #' @examples
 #'
-#'
+#' \donttest{
 #' img <- system.file("extdata/fulgidissima.png", package = "recolorize")
 #'
 #' # get an initial fit using recolorize + recluster:
@@ -71,9 +71,7 @@
 #'
 #' # what about the orange speckles? this is more difficult, because
 #' # we want to retain the border around the brown stripes, but those patches
-#' # are quite small, so size thresholding won't work:
-#' fit_bad <- absorbLayer(fit2, layer_idx = 4,
-#'                        size_condition = function(x) x < 25)
+#' # are quite small, so size thresholding won't work
 #'
 #' # but we just want to target pixels in that one region, so we can first
 #' # determine a bounding box for it by plotting a grid:
@@ -93,7 +91,7 @@
 #'                     y_range = c(0.55, 0.75),
 #'                     highlight_color = "yellow")
 #' # looks pretty good
-#'
+#' }
 #' @export
 absorbLayer <- function(recolorize_obj,
                         layer_idx,

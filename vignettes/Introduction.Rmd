@@ -249,7 +249,7 @@ There are two fun functions in here: `wernerColor` and `recolorizeVector`.
 
 `wernerColor` remaps a recolorize object to the colors in Werner's Nomenclature of Colors by Patrick Syme (1821), one of the first attempts at an objective color reference in western science, notably used by Charles Darwin. This is always fun to try out, especially given how many things get tagged as "veinous blood red" (delightful!):
 
-```{r, fig.width = 5, fig.height = 4.5}
+```{r, fig.width=5, fig.height=3.5}
 rc_werner <- wernerColor(final_fit)
 ```
 

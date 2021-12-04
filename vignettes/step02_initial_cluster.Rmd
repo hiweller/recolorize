@@ -60,25 +60,57 @@ The `recolorize` package gives you a variety of options for color spaces, but by
 I've written in more detail about color spaces for another package [here](https://CRAN.R-project.org/package=colordistance/vignettes/color-spaces.html), which I would recommend reading for a more detailed overview, but let's see what happens if we plot all of the non-background pixels from our *C. corbetti* example in RGB compared to CIE Lab color space (forgive the crummy plotting):
 
 ```{r, fig.width=6, fig.height=2.5, echo=F, message=F}
-layout(matrix(1:2, nrow = 1, byrow = TRUE))
-colordistance::plotPixels(corbetti, lower = NULL, upper = NULL, 
-                          color.space = "rgb", main = "RGB",
-                          cex.lab = 0.7, cex.main = 0.7, cex.axis = 0.5,
-                          mar = c(3, 3, 2, 2))
-colordistance::plotPixels(corbetti, lower = NULL, upper = NULL, 
-                          color.space = "rgb", main = "RGB", angle = -45,
-                          cex.lab = 0.7, cex.main = 0.7, cex.axis = 0.5,
-                          mar = c(3, 3, 2, 2))
-colordistance::plotPixels(corbetti, lower = NULL, upper = NULL,
-                          color.space = "lab", ref.white = "D65",
-                          main = "CIE Lab", ylim = c(-100, 100), zlim = c(-60, 100),
-                          cex.lab = 0.7, cex.main = 0.7, cex.axis = 0.5,
-                          mar = c(3, 3, 2, 2))
-colordistance::plotPixels(corbetti, lower = NULL, upper = NULL,
-                          color.space = "lab", ref.white = "D65", angle = -45,
-                          main = "CIE Lab", ylim = c(-100, 100), zlim = c(-60, 100),
-                          cex.lab = 0.7, cex.main = 0.7, cex.axis = 0.5,
-                          mar = c(3, 3, 2, 2))
+img <- readImage(corbetti)
+pix <- backgroundIndex(img, 
+                       bg_condition = backgroundCondition(transparent = TRUE,
+                                                          alpha_channel = TRUE,
+                                                          quietly = TRUE))
+pix <- pix$non_bg[sample(1:nrow(pix$non_bg), 5000), ]
+
+plot_colors <- function(rgb_matrix, color_space = "sRGB",
+                        theta = 140, phi = 30, pch = 19, alpha = 0.5, 
+                        ...) {
+  
+  hex_colors <- rgb(r = rgb_matrix[ , 1], 
+                    g = rgb_matrix[ , 2], 
+                    b =  rgb_matrix[ , 3])
+  
+  pix <- recolorize:::col2col(rgb_matrix, from = "sRGB", to = color_space)
+  
+  plot3D::points3D(pix[,1], pix[,2], pix[,3],
+                   colvar = as.numeric(as.factor(hex_colors)),
+                   col = levels(as.factor(hex_colors)), colkey = FALSE,
+                   theta = theta, phi = phi, pch = pch,
+                   alpha = alpha,
+                   ...)
+}
+
+th <- 60
+layout(matrix(1:2, nrow = 1))
+par(mar = rep(1, 4))
+plot_colors(pix, color_space = "sRGB",
+            xlab = "Red",
+            ylab = "Green",
+            zlab = "Blue", theta = th, 
+            alpha = 0.8)
+title("RGB color space", line = 0)
+plot_colors(pix, color_space = "sRGB",
+            xlab = "Red",
+            ylab = "Green",
+            zlab = "Blue", 
+            alpha = 0.8, 
+            theta = th + 180)
+plot_colors(pix, color_space = "Lab",
+            xlab = "Luminance",
+            ylab = "a (red-green)",
+            zlab = "b (yellow-blue)", 
+            alpha = 0.8, theta = th)
+title("CIE Lab color space", line = 0)
+plot_colors(pix, color_space = "Lab",
+            xlab = "Luminance",
+            ylab = "a (red-green)",
+            zlab = "b (yellow-blue)", 
+            alpha = 0.8, theta = th + 180)
 ```
 
 We can identify green, red, blue, black, and white pixels in both sets of plots, but their distributions are very different.

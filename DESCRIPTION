@@ -33,7 +33,6 @@ Imports:
     colorRamps,
     plotfunctions,
     abind,
-    colordistance,
     raster,
     plot3D
 Depends:
