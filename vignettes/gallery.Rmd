@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 ```{r setup, echo=F}
 library(recolorize)
 current_par <- graphics::par(no.readonly = TRUE)
+graphics::par(mar = c(0, 0, 2, 0))
 ```
 
 > A quick reference gallery for what the most broadly useful functions do.
@@ -109,6 +110,7 @@ merged_rc <- mergeLayers(rc_hist, merge_list = list(c(4, 7),
 * `plotImageArray`: Plots a 1D or 3D array as an RGB image.
 ```{r}
 layout(matrix(1:4, nrow = 1))
+par(mar = c(0, 0, 2, 0))
 plotImageArray(loaded_image, main = "original")
 plotImageArray(loaded_image[ , , 1], main = "red")
 plotImageArray(loaded_image[ , , 2], main = "green")
@@ -132,6 +134,8 @@ par(mar = rep(1, 4))
 plotColorClusters(recluster_fit$centers, 
                   recluster_fit$sizes, 
                   color_space = "sRGB",
+                  xlim = 0:1, ylim = 0:1, zlim = 0:1,
+                  scaling = 15, plus = 0.15, alpha = 0.9,
                   xlab = "red", ylab = "green", zlab = "blue")
 ```
 
@@ -146,6 +150,7 @@ plotColorPalette(recluster_fit$centers, recluster_fit$sizes)
 * `splitByColor`: Separates color clusters into individual layers (binary masks).
 ```{r, fig.width = 7}
 layout(matrix(1:6, nrow = 1))
+par(mar = c(0, 0, 2, 0))
 plotImageArray(rc_edit$original_img)
 corbetti_layers <- splitByColor(rc_edit, plot_method = "over")
 ```

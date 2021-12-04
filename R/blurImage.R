@@ -68,6 +68,7 @@ blurImage <- function(img, blur_function = "medianblur",
     on.exit(graphics::par(current_par))
 
     graphics::layout(matrix(1:2, nrow = 1))
+    graphics::par(mar = c(0, 0, 2, 0))
     plotImageArray(img, "original")
     plotImageArray(new_img, "blurred")
 

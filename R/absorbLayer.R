@@ -226,6 +226,9 @@ absorbLayer <- function(recolorize_obj,
   # plot if we're plotting
   if (plotting) {
 
+    current_par <- graphics::par(no.readonly = TRUE)
+    on.exit(graphics::par(current_par))
+
     # get boundaries of original pixels & make highlighted array
     components <- layer_split[condition_met]
     layer_px <- imager::as.pixset(imager::add(components) > 0)
@@ -238,8 +241,10 @@ absorbLayer <- function(recolorize_obj,
 
     # plot highlighted
     graphics::layout(matrix(1:3, 1), widths = c(0.4, 0.4, 0.2))
+    graphics::par(mar = c(0, 0, 2, 0))
     plotImageArray(highlight_img, main = paste("selected components"))
     plotImageArray(new_img, paste("result"))
+    graphics::par(mar = rep(0.5, 4))
     plotColorPalette(recolorize_obj$centers,
                      recolorize_obj$sizes,
                      horiz = FALSE)
