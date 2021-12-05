@@ -82,7 +82,7 @@ rc_werner <- wernerColor(recluster_fit)
 
 ### Minor edits
 
-* `absorbLayer`: "Absorbs" all or part of a layer into the surrounding colors, optionally according to a size or location condition.
+* `absorbLayer`: "Absorbs" all or part of a layer into the surrounding colors, optionally according to a size or location condition. (Not run on CRAN.)
 ```{r, fig.width = 5, eval=FALSE}
 absorb_red <- absorbLayer(recluster_fit,
                           layer_idx = 3,
@@ -92,7 +92,7 @@ absorb_red <- absorbLayer(recluster_fit,
 
 * `editLayer`/`editLayers`: Applies one of several morphological operations from `imager` to a layer (or layers) of a `recolorize` object. This can be used to despeckle, fill in holes, or uniformly grow or shrink a color patch.
 ```{r, fig.width = 6}
-rc_edit <- editLayer(absorb_red,
+rc_edit <- editLayer(recluster_fit,
                       layer_idx = 3,
                       operation = "fill",
                       px_size = 2)
