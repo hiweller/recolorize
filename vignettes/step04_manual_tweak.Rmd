@@ -28,9 +28,10 @@ These are functions that can be called individually to address problem areas in 
 
 ### `absorbLayer`
 
-"Absorbs" all or part of a layer into the surrounding colors, optionally according to a size or location condition. 
+"Absorbs" all or part of a layer into the surrounding colors, optionally according to a size or location condition. (Output not shown in CRAN vignettes because it does
+not run on R's servers.) 
 
-```{r, fig.width=5}
+```{r, fig.width=5,eval=F}
 library(recolorize)
 img <- system.file("extdata/fulgidissima.png", package = "recolorize")
 ful_init <- recolorize2(img, bins = 3, cutoff = 60, plotting = F)
