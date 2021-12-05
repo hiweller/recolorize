@@ -26,15 +26,18 @@ current_par <- graphics::par(no.readonly = TRUE)
 
 These are functions that can be called individually to address problem areas in specific images, or strung together as building blocks to do more complicated operations.
 
+```{r}
+library(recolorize)
+img <- system.file("extdata/fulgidissima.png", package = "recolorize")
+ful_init <- recolorize2(img, bins = 3, cutoff = 60, plotting = TRUE)
+```
+
 ### `absorbLayer`
 
 "Absorbs" all or part of a layer into the surrounding colors, optionally according to a size or location condition. (Output not shown in CRAN vignettes because it does
 not run on R's servers.) 
 
 ```{r, fig.width=5,eval=F}
-library(recolorize)
-img <- system.file("extdata/fulgidissima.png", package = "recolorize")
-ful_init <- recolorize2(img, bins = 3, cutoff = 60, plotting = F)
 ful_absorb <- absorbLayer(ful_init, layer_idx = 3, 
                           function(s) s <= 250,
                           y_range = c(0, 0.8), 
@@ -49,7 +52,7 @@ Applies one of several morphological operations from `imager` to a layer (or lay
 
 ```{r, fig.width = 4}
 # cleans up some of the speckles in the above output
-ful_clean <- editLayers(ful_absorb, layer_idx = c(2, 5),
+ful_clean <- editLayers(ful_init, layer_idx = c(2, 5),
                         operations = "fill", px_sizes = 3, plotting = T)
 ```
 
