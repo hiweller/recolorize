@@ -32,7 +32,7 @@ current_par <- graphics::par(no.readonly = TRUE)
 * [Step 4: Tweaks & edits](step04_manual_tweak.html)  
 * Step 5: Visualizing & exporting output 
 
-> You can also tour the functions in the [function gallery](gallery.html).
+> You can also tour the functions in the [function gallery](https://hiweller.rbind.io/post/function-gallery-for-recolorize/).
 
 ## Visualizations
 

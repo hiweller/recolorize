@@ -32,7 +32,7 @@ current_par <- graphics::par(no.readonly = TRUE)
 * [Step 4: Tweaks & edits](step04_manual_tweak.html)  
 * [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
 
-> You can also tour the functions in the [function gallery](gallery.html).
+> You can also tour the functions in the [function gallery](https://hiweller.rbind.io/post/function-gallery-for-recolorize/).
 
 Most of the actual `recolorize` functions can take a path to an image directly as input, so these steps are entirely optional. I include it here to show the option of loading the image into R first to do some basic manipulations, and because it can be useful to understand how images are structured as arrays in R.
 

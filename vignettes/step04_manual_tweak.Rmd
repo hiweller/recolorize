@@ -32,7 +32,7 @@ current_par <- graphics::par(no.readonly = TRUE)
 * Step 4: Tweaks & edits
 * [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
 
-> You can also tour the functions in the [function gallery](gallery.html).
+> You can also tour the functions in the [function gallery](https://hiweller.rbind.io/post/function-gallery-for-recolorize/).
 
 
 These are functions that can be called individually to address problem areas in specific images, or strung together as building blocks to do more complicated operations. We'll start with this *Chrysochroa fulgidissima* image, which looks alright with a first pass using `recolorize2`:

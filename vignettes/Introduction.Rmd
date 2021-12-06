@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 * [Step 4: Tweaks & edits](step04_manual_tweak.html)  
 * [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
 
-> You can also tour the functions in the [function gallery](gallery.html).
+> You can also tour the functions in the [function gallery](https://hiweller.rbind.io/post/function-gallery-for-recolorize/).
 
 ```{r setup, echo=F}
 par(mar = rep(0, 4))
