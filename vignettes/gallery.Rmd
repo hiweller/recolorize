@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.align = "center",
-  fig.width = 6
+  fig.width = 4
 )
 ```
 
@@ -24,6 +24,14 @@ graphics::par(mar = c(0, 0, 2, 0))
 
 > A quick reference gallery for what the most broadly useful functions do.
 
+* [Introduction](Introduction.html)  
+* [Step 0: Image acquisition and preparation](step00_prep.html)  
+* [Step 1: Loading & processing images](step01_loading.html)  
+* [Step 2: Initial clustering](step02_initial_cluster.html)  
+* [Step 3: Refinement](step03_refinement.html)  
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
+
 ### Loading and pre-processing images
 
 * `readImage`: Reads in a PNG or JPEG image, optionally resizing and/or rotating it.
@@ -33,7 +41,7 @@ loaded_image <- readImage(img_path = img, resize = NULL, rotate = NULL)
 ```
 
 * `blurImage`: Applies one of several blurring filters from the `imager` package to a loaded image. Helpful for dealing with variation from textures (e.g. scales, reflections, hairs, etc).
-```{r}
+```{r, fig.width=3}
 blurred_image <- blurImage(loaded_image, blur_function = "medianblur", n = 3, threshold = 5)
 ```
 
@@ -76,14 +84,14 @@ rc_thresh <- thresholdRecolor(rc_hist, pct = 0.01)
 ```
 
 * `wernerColor`: Remaps a recolorize object to the colors in Werner's Nomenclature of Colors by Patrick Syme (1821), one of the first attempts at an objective color reference in western science, notably used by Charles Darwin. This one is mostly just for fun.
-```{r, fig.width=5, fig.height=4}
+```{r, fig.width=4,}
 rc_werner <- wernerColor(recluster_fit)
 ```
 
 ### Minor edits
 
-* `absorbLayer`: "Absorbs" all or part of a layer into the surrounding colors, optionally according to a size or location condition. (Not run on CRAN.)
-```{r, fig.width = 5, eval=FALSE}
+* `absorbLayer`: "Absorbs" all or part of a layer into the surrounding colors, optionally according to a size or location condition.
+```{r, fig.width = 4}
 absorb_red <- absorbLayer(recluster_fit,
                           layer_idx = 3,
                           size_condition = function(s) s <= 100,
@@ -129,7 +137,7 @@ imHeatmap(im_dist, palette = colorRamps::ygobb(100),
 ```
 
 * `plotColorClusters`: Plots color clusters in a 3D color space.
-```{r, fig.height=4, fig.width = 4}
+```{r, fig.height=2, fig.width = 2}
 par(mar = rep(1, 4))
 plotColorClusters(recluster_fit$centers,
                   recluster_fit$sizes,
@@ -140,7 +148,7 @@ plotColorClusters(recluster_fit$centers,
 ```
 
 * `plotColorPalette`: Alternatively, just plot as a color palette.
-```{r, fig.width = 4, fig.height = 2}
+```{r, fig.width = 4, fig.height = 1}
 par(mar = rep(0, 4))
 plotColorPalette(recluster_fit$centers, recluster_fit$sizes)
 ```
@@ -148,7 +156,7 @@ plotColorPalette(recluster_fit$centers, recluster_fit$sizes)
 ### Exporting to other packages or files
 
 * `splitByColor`: Separates color clusters into individual layers (binary masks).
-```{r, fig.width = 7}
+```{r, fig.width = 5, fig.height=2}
 layout(matrix(1:6, nrow = 1))
 par(mar = c(0, 0, 2, 0))
 plotImageArray(rc_edit$original_img)
@@ -173,13 +181,3 @@ plot(v)
 ```{r, echo=F}
 graphics::par(current_par)
 ```
-
-## Further reading
-
-* [Introduction](Introduction.html)  
-* [Step 0: Image acquisition and preparation](step00_prep.html)  
-* [Step 1: Loading & processing images](step01_loading.html)  
-* [Step 2: Initial clustering](step02_initial_cluster.html)  
-* [Step 3: Refinement](step03_refinement.html)  
-* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
-* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  

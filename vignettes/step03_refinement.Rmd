@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
   fig.align = "center",
-  fig.width = 6,
+  fig.width = 4,
   strip.white = TRUE
 )
 ```
@@ -23,6 +23,17 @@ current_par <- graphics::par(no.readonly = TRUE)
 ```
 
 > Using simple rules to improve the initial results.
+
+* [Introduction](Introduction.html)  
+* [Step 0: Image acquisition and preparation](step00_prep.html)  
+* [Step 1: Loading & processing images](step01_loading.html)  
+* [Step 2: Initial clustering](step02_initial_cluster.html)  
+* Step 3: Refinement 
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
+
+> You can also tour the functions in the [function gallery](gallery.html).
+
 
 Once we’ve reduced an image down to a tractable number of colors, we can define simple procedures for how to combine them based on similarity. `recolorize` (currently) comes with two of these: `recluster`, which merges colors by perceived similarity, and `thresholdRecolor`, which drops minor colors. Both are simple, but surprisingly effective. They’re also built on top of some really simple functions we’ll see in a bit, so if you need to, you can build out a similar procedure tailored to your dataset—for example, combining layers based only on their brightness values, or only combining green layers.
 
@@ -66,18 +77,6 @@ An even simpler rule: drop the smallest color clusters whose cumulative sum (as 
 ```{r, fig.width=5}
 chongi_threshold <- thresholdRecolor(chongi_fit, pct = 0.1)
 ```
-
-## Further reading
-
-* [Introduction](Introduction.html)  
-* [Step 0: Image acquisition and preparation](step00_prep.html)  
-* [Step 1: Loading & processing images](step01_loading.html)  
-* [Step 2: Initial clustering](step02_initial_cluster.html)  
-* Step 3: Refinement 
-* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
-* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
-
-> You can also tour the functions in the [function gallery](gallery.html).
 
 
 ```{r, echo=F}

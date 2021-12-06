@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
   fig.align = "center",
-  fig.width = 6,
+  fig.width = 4,
   strip.white = TRUE
 )
 ```
@@ -22,6 +22,16 @@ library(recolorize)
 current_par <- graphics::par(no.readonly = TRUE)
 ```
 > Go from thousands of colors to a manageable number for further refinement.
+
+* [Introduction](Introduction.html)  
+* [Step 0: Image acquisition and preparation](step00_prep.html)  
+* [Step 1: Loading & processing images](step01_loading.html)  
+* Step 2: Initial clustering 
+* [Step 3: Refinement](step03_refinement.html)  
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
+
+> You can also tour the functions in the [function gallery](gallery.html).
 
 The color clustering in recolorize usually starts with an initial clustering step which produces more color clusters than the final color map will have, which are then edited and combined to form the final color map. We start with an over-clustering step because it is a quick way to go from an overwhelming number of colors ($256^3$ unique RGB colors) to a manageable number that can be manually inspected or automatically re-clustered. You’ll usually do this using the `recolorize` function, which is the core of the package (go figure!):
 
@@ -125,20 +135,20 @@ The histogram binning method is essentially just a 3-dimensional color histogram
 
 k-means clustering, on the other hand, is a well-known method for partitioning data into n clusters. You just provide the number of clusters you want, and it will try to find the best locations for them, where ‘best’ means minimizing the squared Euclidean distances between pixels and color centers within each cluster. 
 
-To appreciate these differences, we can fit the same number of colors (64) using the histogram method and the k-means method on the same image, then view the resulting color distributions:
+To appreciate these differences, we can fit the same number of colors (27) using the histogram method and the k-means method on the same image, then view the resulting color distributions:
 
 ```{r, fig.width = 3.5, fig.height=3.5}
 # fit 64 colors, both ways
-r_hist <- recolorize(corbetti, method = "hist", bins = 4, plotting = FALSE)
-r_k <- recolorize(corbetti, method = "k", n = 64, plotting = FALSE)
+r_hist <- recolorize(corbetti, method = "hist", bins = 3, plotting = FALSE)
+r_k <- recolorize(corbetti, method = "k", n = 37, plotting = FALSE)
 
 par(mar = rep(1, 4))
-plotColorClusters(r_hist$centers, r_hist$sizes, scaling = 20,
+plotColorClusters(r_hist$centers, r_hist$sizes, scaling = 30,
                   plus = .05,
                   xlab = "red", ylab = "green", zlab = "blue", 
                   main = "Histogram method",
                   xlim = 0:1, ylim = 0:1, zlim = 0:1)
-plotColorClusters(r_k$centers, r_k$sizes, scaling = 20,
+plotColorClusters(r_k$centers, r_k$sizes, scaling = 30,
                   plus = .05,
                   xlab = "red", ylab = "green", zlab = "blue",
                   main = "k-means clustering",
@@ -198,18 +208,6 @@ fit2 <- imposeColors(im2, fit1$centers, adjust_centers = FALSE)
 ```
 
 I would really only recommend using this if you've gotten your color centers from another image, but I mention it here because the function takes unclustered images.
-
-## Further reading
-
-* [Introduction](Introduction.html)  
-* [Step 0: Image acquisition and preparation](step00_prep.html)  
-* [Step 1: Loading & processing images](step01_loading.html)  
-* Step 2: Initial clustering 
-* [Step 3: Refinement](step03_refinement.html)  
-* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
-* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
-
-> You can also tour the functions in the [function gallery](gallery.html).
 
 ```{r, echo=F}
 graphics::par(current_par)

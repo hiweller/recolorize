@@ -24,6 +24,17 @@ par(mar = c(0, 0, 2, 0))
 ```
 > What to do before you use recolorize.
 
+* [Introduction](Introduction.html)  
+* Step 0: Image acquisition and preparation
+* [Step 1: Loading & processing images](step01_loading.html)  
+* [Step 2: Initial clustering](step02_initial_cluster.html)  
+* [Step 3: Refinement](step03_refinement.html)  
+* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
+* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
+
+> You can also tour the functions in the [function gallery](gallery.html).
+
+
 ## Quick version
 
 1. A 'correct' color map depends on your question, so define your question before you start.
@@ -98,16 +109,4 @@ Using transparency is unambiguous, and has the bonus benefit of making for nicer
 ```{r, echo=F}
 graphics::par(current_par)
 ```
-
-## Further reading
-
-* [Introduction](Introduction.html)  
-* Step 0: Image acquisition and preparation
-* [Step 1: Loading & processing images](step01_loading.html)  
-* [Step 2: Initial clustering](step02_initial_cluster.html)  
-* [Step 3: Refinement](step03_refinement.html)  
-* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
-* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
-
-> You can also tour the functions in the [function gallery](gallery.html).
 

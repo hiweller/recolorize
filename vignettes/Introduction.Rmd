@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
   fig.align = "center",
-  fig.width = 6,
+  fig.width = 4,
   strip.white = TRUE
 )
 ```
@@ -33,7 +33,7 @@ knitr::opts_chunk$set(
 par(mar = rep(0, 4))
 ```
 
-```{r, echo = FALSE, fig.width=7, fig.height=4}
+```{r, echo = FALSE, fig.width=6, fig.height=3.5}
 library(recolorize)
 current_par <- graphics::par(no.readonly = TRUE)
 img <- system.file("extdata/corbetti.png", package = "recolorize")
@@ -51,8 +51,8 @@ par(mar = c(1, 1, 3, 1))
 plot(v)
 title("Color map (vector)", font.main = 1, cex.main = 1.2)
 plotColorPalette(rc$centers, rc$sizes, horiz = F)
+rm(v, rc)
 ```
-
 The `recolorize` package is a toolbox for making color maps, essentially color-based image segmentation, using a combination of automatic, semi-automatic, and manual procedures. It has four major goals:
 
 1. Provide a middle ground between automatic segmentation methods (which are hard to modify when they don't work well) and manual methods (which can be slow and subjective).
@@ -100,31 +100,32 @@ init_fit <- recolorize(img, method = "hist", bins = 2,
 
 3. Followed by a refinement step where we combine clusters by their similarity:
 
-```{r, fig.width = 6}
+```{r, fig.width=4}
 refined_fit <- recluster(init_fit, cutoff = 45)
-# pretty big improvement!
 ```
 
 The `recolorize2` function above calls these functions in sequence, since they tend to be pretty effective in combination.
 
-4. Finally, we can do manual refinements to clean up the different color layers, for example absorbing the red speckles into the surrounding color patches:
+4. Finally, we can do manual refinements to clean up the different color layers, for example performing simple morphological operations on individual layers:
 
-```{r, fig.width = 5}
-absorb_red <- absorbLayer(refined_fit, layer_idx = 3,
-                          size_condition = function(s) s <= 15,
-                          highlight_color = "cyan")
-```
-
-Or performing simple morphological operations on individual layers:
-
-```{r, fig.width=5}
-final_fit <- editLayer(absorb_red, 3,
+```{r, fig.width = 4}
+final_fit <- editLayer(refined_fit, 3,
                         operation = "fill", px_size = 4)
 ```
 
+5. Once you have a color map you're happy with, you can export to a variety of formats. For instance, if I wanted to run Endler's [adjacency and boundary strength analysis](https://rdrr.io/cran/pavo/man/adjacent.html) in the `pavo` package, using human perception:
+
+```{r}
+adj <- recolorize_adjacency(final_fit, coldist = "default", hsl = "default")
+print(adj[ , grep("m_dL|m_dS", colnames(adj))]) # just print the chromatic and achromatic boundary strength values
+```
+
+
+## Batch processing 
+
 You can also batch process images using the same parameters, although `recolorize` functions only deal with one image at a time, so you will have to use a for loop or define a new function to call the appropriate functions in the right order:
 
-```{r, fig.height = 4}
+```{r}
 # get all 5 beetle images:
 images <- dir(system.file("extdata", package = "recolorize"), "png", full.names = TRUE)
 
@@ -140,20 +141,17 @@ for (i in 1:length(images)) {
 
 # plot for comparison:
 layout(matrix(1:10, nrow = 2))
-par(mar = c(0, 0, 2, 0))
+par(mar = rep(0, 4))
 for (i in rc_list) {
   plotImageArray(i$original_img)
   plotImageArray(recoloredImage(i))
 }
+
 # given the variety of colors in the dataset, not too bad, 
 # although you might go in and refine these individually
-```
 
-Once you have a color map you're happy with, you can export to a variety of formats. For instance, if I wanted to run Endler's [adjacency and boundary strength analysis](https://rdrr.io/cran/pavo/man/adjacent.html) in the `pavo` package, using human perception:
-
-```{r}
-adj <- recolorize_adjacency(rc_list[[1]], coldist = "default", hsl = "default")
-print(adj[ , c(57:62)]) # just print the chromatic and achromatic boundary strength values
+# and clean up our working space a bit
+rm(rc_list)
 ```
 
 The `recolorize` package mostly works internally with objects of class `recolorize`, which contains a few different elements that are worth understanding as you work through the rest of the documentation (linked at the bottom).
@@ -183,17 +181,6 @@ final_fit$call
 Every time you modify a `recolorize` object, the new modification is appended as the next item down on this list, so that you can recreate exactly what you did to make a given color map.
 
 If you plot the whole `recolorize` object, you'll get back the plot you see above: the original image, the color map (where each pixel has been recolored), and the color palette. You can also plot each of these individually:
-
-```{r, fig.width = 4}
-layout(matrix(1:3, nrow = 1), widths = c(0.45, 0.45, 0.1))
-par(mar = rep(0, 4))
-plot(final_fit$original_img)
-plotImageArray(final_fit$pixel_assignments / 8)
-plotColorPalette(final_fit$centers, final_fit$sizes,
-                 horiz = FALSE)
-```
-
-You'll notice this doesn't look exactly like the function output above. Aside from some wonky scaling issues, the pixel assignment matrix plotted as a grayscale image (and we had to divide it by the number of colors in the image so it was in a 0-1 range). That's because we didn't tell R which colors to make each of those values, so layer 1 is the darkest color and layer 8 is the brightest color in the image.
 
 You can get the recolored image by calling `recoloredImage`:
 
@@ -243,49 +230,6 @@ As far as I can tell, no. This is because of the problem I pointed out at the be
 
 Every function in this package operates on a single image at a time. This is because there is so much variation in how people go about batch processing anything: if I tried to impose what I considered to be a useful batch processing structure, within a few months I would find that it was too inflexible for some new project structure someone else needed to use it for. So, instead, the idea is that you can write your own batch processing functions or for loops as needed to suit your data structure. Or maybe you come up with something better than I can think of, in which case, please let me add it to the package and add you as an author!
 
-## Just for fun
-
-There are two fun functions in here: `wernerColor` and `recolorizeVector`.
-
-`wernerColor` remaps a recolorize object to the colors in Werner's Nomenclature of Colors by Patrick Syme (1821), one of the first attempts at an objective color reference in western science, notably used by Charles Darwin. This is always fun to try out, especially given how many things get tagged as "veinous blood red" (delightful!):
-
-```{r, fig.width=5, fig.height=3.5}
-rc_werner <- wernerColor(final_fit)
-```
-
-Finally, `recolorizeVector` converts a bitmap (i.e. pixel) image to a vector image.
-
-```{r,eval=FALSE}
-rc_vector <- recolorizeVector(final_fit, 
-                              size_filter = 0.15,
-                              smoothness = 5, plotting = TRUE)
-
-# to save as an SVG:
-svg(filename = "corbett_vector.svg", width = 2, height = 4)
-plot(rc_vector)
-dev.off()
-```
-```{r, echo = FALSE, fig.height = 3, fig.width = 1.5}
-par(mar = rep(0, 4))
-v <- readRDS(system.file("extdata/msc/corbetti_vector.rds", package = "recolorize"))
-plot(v)
-```
-
-This function is VERY experimental. If it gives you errors or looks too funky, try decreasing the size filter (which absorbs all components below some size to simplify the image) and the smoothness. Then again, sometimes you want things to look funky. If this is the case, `recolorizeVector` will happily enable you.
-
 ```{r, echo=F}
 graphics::par(current_par)
 ```
-
-## Further reading
-
-* Introduction
-* [Step 0: Image acquisition and preparation](step00_prep.html)  
-* [Step 1: Loading & processing images](step01_loading.html)  
-* [Step 2: Initial clustering](step02_initial_cluster.html)  
-* [Step 3: Refinement](step03_refinement.html)  
-* [Step 4: Tweaks & edits](step04_manual_tweak.html)  
-* [Step 5: Visualizing & exporting output](step05_visualization_export.html)  
-
-> You can also tour the functions in the [function gallery](gallery.html).
-
