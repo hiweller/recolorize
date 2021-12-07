@@ -14,3 +14,4 @@ cran-comments.md
 ^Meta$
 ^CRAN-SUBMISSION$
 ^\.github$
+man/figures/
