@@ -1,2 +1,91 @@
 url: https://hiweller.github.io/recolorize/
 
+template:
+  bootstrap: 5
+  bootswatch: yeti
+
+reference:
+- title: "1. Loading and processing images"
+  desc: >
+    Functions for loading and processing (blurring) images before segmenting.
+  contents:
+  - readImage
+  - blurImage
+  - plotImageArray
+- title: "1.5 Image handling"
+  desc: >
+    Functions that recolorize uses "behind the scenes" to handle images. Useful if you have a custom image format, otherwise probably irrelevant.
+  contents:
+  - assignPixels
+  - backgroundCondition
+  - backgroundIndex
+  - colorClusters
+  - colorClustersHist
+  - colorClustersKMeans
+  - expand_recolorize
+  - pixelAssignMatrix
+  - col2col
+  - labelCol
+  - rerun_recolorize
+- title: "2. Initial color clustering"
+  desc: >
+    Functions that take in images and produce `recolorize` objects. Usually the first of 2-3 steps.
+  contents:
+  - recolorize
+  - recolorize2
+  - imposeColors
+- title: "3. Refining color segmentation"
+  desc: >
+    Functions that use simple rules to improve initial color segmentations. Take `recolorize` objects as arguments.
+  contents:
+  - hclust_color
+  - imposeColors
+  - mergeLayers
+  - recluster
+  - thresholdRecolor
+  - wernerColor
+  - clean_merge_params
+- title: "4. Manual tweaks and edits"
+  desc: >
+    Functions for editing individual color patches using spatial methods.
+  contents:
+  - apply_imager_operation
+  - absorbLayer
+  - editLayer
+  - editLayers
+- title: "5. Visualization"
+  desc: >
+    Functions for visualizing `recolorize` objects and their residuals.
+  contents:
+  - add_image
+  - adjust_color
+  - colorResiduals
+  - constructImage
+  - imDist
+  - imHeatmap
+  - plot.recolorize
+  - plot.recolorizeVector
+  - plotColorClusters
+  - plotColorPalette
+  - plotImageArray
+  - splitByColor
+  - recoloredImage
+- title: "6. Converting and exporting"
+  desc: >
+    Functions for exporting/converting `recolorize` objects into other formats.
+  contents:
+  - array_to_RasterStack
+  - array_to_cimg
+  - brick_to_array
+  - cielab_coldist
+  - cimg_to_array
+  - classify_recolorize
+  - constructImage
+  - raster_to_array
+  - recolorizeVector
+  - recolorize_adjacency
+  - recolorize_to_patternize
+  - recolorize_to_png
+  - recoloredImage
+  - rgb2hsl
+  - werner
