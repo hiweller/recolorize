@@ -1,9 +1,10 @@
-# recolorize v 0.0.0.9000 [![Build Status](https://travis-ci.org/hiweller/recolorize.svg?branch=master)](https://travis-ci.org/hiweller/recolorize)
+# recolorize v 0.1.0.9000 [![Build Status](https://travis-ci.org/hiweller/recolorize.svg?branch=master)](https://travis-ci.org/hiweller/recolorize)
 #### Color-based image segmentation (for people with other things to do).
 
 <img src="https://github.com/hiweller/graphics/blob/master/recolorize_demo.png" align="center" width="500" ></a>
 > Original image credit: Nathan P. Lord / Able Chow
 
+* **Update, Dec. 2021**: recolorize is now [on CRAN](https://cran.r-project.org/web/packages/recolorize/index.html)!
 * **Update, Sept. 2021**: A methods manuscript is in progress, but in the meantime, if you need to cite this package, please cite [this abstract](https://scholar.google.com/scholar?cluster=7568048124372269297&hl=en&oi=scholarr).
 
 ## What is this?
@@ -14,8 +15,11 @@ This is a package for making color maps, which are needed (or at least useful) f
 
 To generate the images above:
 ```{r}
-# install the package
+# install the development version of the package:
 devtools::install_github("hiweller/recolorize")
+
+# alternatively, install the CRAN release by running: 
+# install.packages("recolorize")
 
 for (i in 1:length(images)) {
   
@@ -36,7 +40,7 @@ for (i in 1:length(images)) {
 lapply(colormap_list, function(i) plotImageArray(i$recolored_img))
 
 ```
-See package vignettes for detailed documentation.
+See [package vignettes](https://cran.r-project.org/web/packages/recolorize/vignettes/Introduction.html) for detailed documentation.
 
 ## How does it work?
 
