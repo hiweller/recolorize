@@ -1,7 +1,8 @@
 # recolorize v 0.1.0.9000 [![Build Status](https://travis-ci.org/hiweller/recolorize.svg?branch=master)](https://travis-ci.org/hiweller/recolorize)
 #### Color-based image segmentation (for people with other things to do).
 
-<img src="https://github.com/hiweller/graphics/blob/master/recolorize_demo.png" align="center" width="500" ></a>
+<img src="man/figures/recolorize_demo.svg" align="center" width="500" ></a>
+
 > Original image credit: Nathan P. Lord / Able Chow
 
 * **Update, Dec. 2021**: recolorize is now [on CRAN](https://cran.r-project.org/web/packages/recolorize/index.html)!
