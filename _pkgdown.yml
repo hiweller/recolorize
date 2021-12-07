@@ -89,3 +89,15 @@ reference:
   - recoloredImage
   - rgb2hsl
   - werner
+
+figures:
+  dev: ragg::agg_png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.2
+  bg: NA
+  other.parameters: []
