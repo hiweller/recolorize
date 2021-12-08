@@ -1,2 +1,5 @@
 url: https://hiweller.github.io/recolorize/
+template:
+  bootstrap: 5
+  bootswatch: flatly
 

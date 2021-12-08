@@ -1,7 +1,8 @@
 # recolorize v 0.1.0.9000 [![Build Status](https://travis-ci.org/hiweller/recolorize.svg?branch=master)](https://travis-ci.org/hiweller/recolorize)
 #### Color-based image segmentation (for people with other things to do).
 
-<img src="https://github.com/hiweller/graphics/blob/master/recolorize_demo.png" align="center" width="500" ></a>
+<img src="man/figures/kmeans_vs_recolorize.svg" align="center" width="600" >
+
 > Original image credit: Nathan P. Lord / Able Chow
 
 * **Update, Dec. 2021**: recolorize is now [on CRAN](https://cran.r-project.org/web/packages/recolorize/index.html)!
@@ -9,25 +10,52 @@
 
 ## What is this?
 
-This is a package for making color maps, which are needed (or at least useful) for a wide range of color analysis techniques. It was born out of conversations with many biologists who found, to their surprise and mine, that generating color maps were the bottleneck step in their analyses. Fully automated methods rarely work all of the time, and are difficult to modify, while fully manual methods are subjective and time-consuming. This package tries to split the difference by giving you a mix of tools that will do a pretty good job with no user input, and then allow minor manual changes like merging and filtering layers or splitting components, before exporting them to the next step of your analysis. It's also, for the most part, totally deterministic – no arbitrary seed-setting for repeatability.
+This is a package for making color maps, which are needed (or at least useful) for a wide range of color analysis techniques. It was born out of conversations with many biologists who found, to their surprise and mine, that generating color maps were the bottleneck step in their analyses. Fully automated methods rarely work all of the time, and are difficult to modify, while fully manual methods are subjective and time-consuming. This package tries to split the difference by giving you a mix of tools that will do a pretty good job with no user input, and then allow minor manual changes like merging and filtering layers or splitting components, before exporting them to the next step of your analysis (e.g. [pavo](https://cran.r-project.org/package=pavo), [patternize](https://cran.r-project.org/package=patternize)). It's also, for the most part, totally deterministic – no arbitrary seed-setting for repeatability.
 
 ## Quick start
 
-To generate the images above:
+Install the package:
+
 ```{r}
-# install the development version of the package:
+# development version:
+install.packages("devtools")
 devtools::install_github("hiweller/recolorize")
 
-# alternatively, install the CRAN release by running: 
-# install.packages("recolorize")
+# OR 
+install.packages("recolorize") # CRAN release
+```
 
+To run `recolorize` on a single image:
+
+```{r}
+library(recolorize)
+
+# load an image that comes with the package:
+img <- system.file("extdata/corbetti.png", package = "recolorize")
+rc <- recolorize2(img, cutoff = 45)
+```
+
+This will produce the following output:
+
+<img src="man/figures/recolorize_corbetti.png" align="center" width="400" >
+
+
+
+A batch processing example:
+
+```{r}
+# get list of all PNGs that come with the package:
+images <- dir(system.file("extdata", package = "recolorize"),
+             pattern = ".png", full.names = TRUE)
+
+# for every image...
 for (i in 1:length(images)) {
   
   # get an initial fit with generic clustering
-  init_fit <- recolorize::recolorize(images[i], method = "hist", bins = 3)
+  init_fit <- recolorize2(images[i], method = "hist", bins = 2, cutoff = 25)
   
-  # cluster similar colors and fit again
-  refined_fit <- recolorize::recluster(init_fit, similarity_cutoff = 60)
+  # drop small patches
+  refined_fit <- thresholdRecolor(init_fit, pct = 0.01)
   
   # store in an output variable
   if (i == 1) {
@@ -37,9 +65,14 @@ for (i in 1:length(images)) {
   }
 }
 
-lapply(colormap_list, function(i) plotImageArray(i$recolored_img))
-
+# compare original to recolored images:
+layout(matrix(1:10, nrow = 2, byrow = TRUE))
+par(mar = rep(0, 4))
+lapply(colormap_list, function(i) plot(i$original_img))
+lapply(colormap_list, function(i) plotImageArray(recoloredImage(i)))
 ```
+<img src="man/figures/batch_processing.png" align="center" width="400" >
+
 See [package vignettes](https://cran.r-project.org/web/packages/recolorize/vignettes/Introduction.html) for detailed documentation.
 
 ## How does it work?
