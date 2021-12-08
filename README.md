@@ -3,7 +3,7 @@
 
 <img src="man/figures/kmeans_vs_recolorize.svg" align="center" width="600" >
 
-> Original image credit: Nathan P. Lord / Able Chow
+> Comparison of color maps produced using k-means clustering (center) vs. `recolorize` (right). Original image credits: Jack Randall, Nathan P. Lord, and Alison Davis-Rabosky. 
 
 * **Update, Dec. 2021**: recolorize is now [on CRAN](https://cran.r-project.org/web/packages/recolorize/index.html)!
 * **Update, Sept. 2021**: A methods manuscript is in progress, but in the meantime, if you need to cite this package, please cite [this abstract](https://scholar.google.com/scholar?cluster=7568048124372269297&hl=en&oi=scholarr).
