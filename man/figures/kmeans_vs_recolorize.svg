@@ -16,7 +16,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-   sodipodi:docname="kmeans_vs_recolorize.svg">
+   sodipodi:docname="kmeans_vs_recolorize.svg"
+   inkscape:export-filename="/home/hannah/Dropbox/color/recolorize/man/figures/kmeans_vs_recolorize.jpg.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
   <defs
      id="defs2">
     <clipPath
@@ -226,7 +229,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="285.9926"
+     inkscape:cx="462.42117"
      inkscape:cy="344.42946"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -248,7 +251,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -257,6 +260,13 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(331.19217,148.91285)">
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4.64499998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:1;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4831"
+       width="280.8363"
+       height="216.20239"
+       x="-331.19217"
+       y="-149.78081" />
     <g
        transform="matrix(0.35277777,0,0,-0.35277777,-331.19392,73.011584)"
        inkscape:label="kmeans_vs_recolorize"

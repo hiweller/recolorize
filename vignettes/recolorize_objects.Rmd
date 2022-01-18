@@ -1,0 +1,71 @@
+---
+title: "The `recolorize` class"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The `recolorize` class}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(recolorize)
+```
+
+### The `recolorize` class
+
+Objects of S3 class `recolorize` are lists with several elements:
+
+```{r}
+attributes(final_fit)
+```
+
+1. `original_img` is a a `raster` matrix, essentially a matrix of hex color codes. This is a more lightweight version of the typical 3D/4D color image array, and can be plotted easily by running `plot(final_fit$original_img)`.
+
+2. `centers` is a matrix of RGB centers (0-1 range) for each of the color patches. Their order matches the index values in the `pixel_assignments` matrix, and can be plotted as a color bar using `plotColorPalette(final_fit$centers)`.
+
+3. `sizes` is a vector of patch sizes, whose order matches the row order of `centers`.
+
+4. `pixel_assignments` is a paint-by-numbers matrix, where each pixel is coded as the color center to which it was assigned. For example, cells with a `1` have been assigned to the color represented by row 1 of `centers`. Background pixels are marked as 0.
+
+5. `call` is the set of operations that was applied to this recolorize object:
+
+```{r}
+final_fit$call
+```
+
+Every time you modify a `recolorize` object, the new modification is appended as the next item down on this list, so that you can recreate exactly what you did to make a given color map.
+
+If you plot the whole `recolorize` object, you'll get back the plot you see above: the original image, the color map (where each pixel has been recolored), and the color palette. You can also plot each of these individually:
+
+You can get the recolored image by calling `recoloredImage`:
+
+```{r, fig.width = 2}
+# type = raster gets you a raster (like original_img); type = array gets you an 
+# image array
+recolored_img <- recoloredImage(final_fit, type = "array")
+par(mar = rep(0, 4))
+plotImageArray(recolored_img)
+```
+
+`recoloredImage` is just a shortcut function for `constructImage`, which lets you decide which colors to assign to each category in case you want to swap out the palette:
+
+```{r, fig.width = 2}
+colors <- c("navy", "lightblue", "blueviolet",
+            "turquoise", "slateblue", "royalblue", 
+            "aquamarine", "dodgerblue")
+blue_beetle <- constructImage(final_fit$pixel_assignments, 
+               centers = t(col2rgb(colors) / 255))
+
+# a very blue beetle indeed:
+par(mar = rep(0, 4))
+plotImageArray(blue_beetle)
+```
+
+This should give you a good idea of how this package works, what it's capable of doing, and the different modular components that go into its structure. This is more of a toolbox than a single method, so you will almost certainly not need all of these options. If you'd like to learn more, I would recommend reading through the vignettes linked above (in order) on each of the steps and messing around with your own images. And check the GitHub (https://github.com/hiweller/recolorize) for links out to examples using real data!
