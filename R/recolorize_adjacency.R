@@ -88,7 +88,6 @@ recolorize_adjacency <- function(recolorize_obj,
                             bkgID = bkgID,
                             hsl = hsl_colors,
                             coldists = coldists,
-                            exclude = "background",
                             ...)
 
   return(img_adj)
