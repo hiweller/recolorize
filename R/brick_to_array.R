@@ -25,7 +25,14 @@ brick_to_array <- function(raster_brick) {
 
   # add alpha layer
   # divide r by 255 so it's in a 0-1 range
-  r2 <- raster::addLayer(r / 255, r_alpha)
+  # idk what's going on but here's a weird failsafe:
+  r_range <- max(raster::maxValue(r)) - min(raster::minValue(r))
+  if (r_range > 255) {
+    r2 <- raster::addLayer(r / r_range, r_alpha)
+  } else {
+    r2 <- raster::addLayer(r / 255, r_alpha)
+  }
+
 
   # convert to an array
   r3 <- raster::as.array(r2)
