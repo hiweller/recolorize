@@ -235,7 +235,7 @@ clean_merge_params <- function(recolorize_obj,
                          color_to) {
 
   # check if recolorize_obj is a correct class
-  if (class(recolorize_obj) != "recolorize") {
+  if (inherits(recolorize_obj, "recolorize")) {
     stop("Must provide an object of class 'recolorize', as output
          by recolorize(), recluster(), or imposeColors()")
   }
