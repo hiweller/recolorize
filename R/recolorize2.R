@@ -4,7 +4,7 @@
 #' very effective in combination.
 #'
 #' @param img Path to the image (a character vector) or a 3D image array as read
-#'   in by \code{\link[png]{readPNG}} \code{{readImage}}.
+#'   in by [png::readPNG()] \code{{readImage}}.
 #' @param method Method for clustering image colors. One of either `histogram`
 #'   or `kmeans`. See details.
 #' @param n If `method = "kmeans"`, the number of color clusters to fit.
@@ -12,7 +12,7 @@
 #'   channel (if a single number is provided) OR a vector of length 3 with the
 #'   number of bins for each channel.
 #' @param color_space Color space in which to minimize distances, passed to
-#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+#'   \code{[grDevices]{convertColor}}. One of "sRGB", "Lab", or "Luv".
 #'   Default is "sRGB".
 #' @param recluster_color_space Color space in which to group colors for
 #'   reclustering. Default is CIE Lab.
@@ -28,9 +28,9 @@
 #'    and blue-yellow (b-channel) distance in CIE Lab space, channels = c(1, 3
 #'    (L and b).
 #' @param refit_method Method for refitting the image with the new color
-#'   centers. One of either "impose" or "merge". \code{\link{imposeColors}}
+#'   centers. One of either "impose" or "merge". [imposeColors()]
 #'   refits the original image using the new colors (slow but often better
-#'   results). \code{\link{mergeLayers}} merges the layers of the existing
+#'   results). [mergeLayers()] merges the layers of the existing
 #'   recolored image. This is faster since it doesn't require a new fit, but can
 #'   produce messier results.
 #' @param ref_white Reference white for converting to different color spaces.

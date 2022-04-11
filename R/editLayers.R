@@ -5,8 +5,8 @@
 #' other layers of the recolorized image. This can be used to despeckle, fill in
 #' holes, or uniformly grow or shrink a color patch.
 #'
-#' @param recolorize_obj A recolorize object from \code{\link{recolorize}},
-#'   \code{\link{recluster}}, or \code{\link{imposeColors}}.
+#' @param recolorize_obj A recolorize object from [recolorize()],
+#'   [recluster()], or [imposeColors()].
 #' @param layer_idx A single index value (numeric) indicating which
 #'   layer to edit. Corresponds to the order of the colors in the `centers`
 #'   attribute of the recolorize object, and to the indices in the
@@ -25,11 +25,11 @@
 #' @details
 #' Current imager operations are:
 #' \itemize{
-#'  \item \code{\link[imager]{grow}}: Grow a pixset
-#'  \item \code{\link[imager]{shrink}}: Shrink a pixset
-#'  \item \code{\link[imager]{fill}}: Remove holes in an pixset. Accomplished by
+#'  \item [imager::grow()]: Grow a pixset
+#'  \item [imager::shrink()]: Shrink a pixset
+#'  \item [imager::fill()]: Remove holes in an pixset. Accomplished by
 #'    growing and then shrinking a pixset.
-#'  \item \code{\link[imager]{clean}}: Remove small isolated elements (speckle).
+#'  \item [imager::clean()]: Remove small isolated elements (speckle).
 #'    Accomplished by shrinking and then growing a pixset.
 #' }
 #'
@@ -141,8 +141,8 @@ editLayer <- function(recolorize_obj,
 #' to be edited at once, either with the same morphological operation
 #' or specified for each layer.
 #'
-#' @param recolorize_obj A recolorize object from \code{\link{recolorize}},
-#'   \code{\link{recluster}}, or \code{\link{imposeColors}}.
+#' @param recolorize_obj A recolorize object from [recolorize()],
+#'   [recluster()], or [imposeColors()].
 #' @param layer_idx A numeric vector of layer indices to be edited, or `"all"`
 #'   (in which case all layers are edited). Corresponds to the order of the
 #'   colors in the `centers` attribute of the recolorize object, and to the
@@ -165,11 +165,11 @@ editLayer <- function(recolorize_obj,
 #' @details
 #' Current imager operations are:
 #' \itemize{
-#'  \item \code{\link[imager]{grow}}: Grow a pixset
-#'  \item \code{\link[imager]{shrink}}: Shrink a pixset
-#'  \item \code{\link[imager]{fill}}: Remove holes in an pixset. Accomplished by
+#'  \item [imager::grow()]: Grow a pixset
+#'  \item [imager::shrink()]: Shrink a pixset
+#'  \item [imager::fill()]: Remove holes in an pixset. Accomplished by
 #'    growing and then shrinking a pixset.
-#'  \item \code{\link[imager]{clean}}: Remove small isolated elements (speckle).
+#'  \item [imager::clean()]: Remove small isolated elements (speckle).
 #'    Accomplished by shrinking and then growing a pixset.
 #' }
 #'

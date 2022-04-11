@@ -13,10 +13,10 @@
 #'   is assigned to the color in the first row of `centers`.
 #' @param color_space Color space in which to calculate distances. One of
 #'   "sRGB", "Lab", "Luv", or "XYZ". Passed to
-#'   \code{\link[grDevices]{convertColor}}.
+#'   [grDevices::convertColor()].
 #' @param metric Distance metric to be used for calculating pairwise pixel
-#'   distances in the given color space; passed to \code{\link[stats]{dist}}.
-#' @param ref_white Passed to \code{\link[grDevices]{convertColor}} if
+#'   distances in the given color space; passed to [stats::dist()].
+#' @param ref_white Passed to [grDevices::convertColor()] if
 #'   `color_space = "Lab`. Reference white for CIE Lab space.
 #'
 #' @return

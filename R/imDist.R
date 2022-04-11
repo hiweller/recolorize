@@ -7,16 +7,16 @@
 #'   will be calculated between each pair of non-transparent pixels.
 #' @param color_space Color space in which to calculate distances. One of
 #'   "sRGB", "Lab", "Luv", or "XYZ". Passed to
-#'   \code{\link[grDevices]{convertColor}}.
-#' @param ref_white Passed to \code{\link[grDevices]{convertColor}} if
+#'   [grDevices::convertColor()].
+#' @param ref_white Passed to [grDevices::convertColor()] if
 #'   `color_space = "Lab`. Reference white for CIE Lab space.
 #' @param metric Distance metric to be used for calculating pairwise pixel
-#'   distances in the given color space; passed to \code{\link[stats]{dist}}.
+#'   distances in the given color space; passed to [stats::dist()].
 #' @param plotting Logical. Plot heatmap of color distances?
 #' @param palette If plotting, the color palette to be used. Default is blue to
 #'   red (`colorRamps::blue2red(100)`).
 #' @param main Plot title.
-#' @param ... Parameters passed to \code{\link[graphics]{image}}.
+#' @param ... Parameters passed to [graphics::image()].
 #'
 #' @return A matrix of the same dimensions as the original images,
 #' with the distance between non-transparent pixels at each pixel coordinate.
@@ -134,10 +134,10 @@ imDist <- function(im1, im2,
 
 #' Plot a heatmap of a matrix of color distances
 #'
-#' Plots the output of \code{\link{imDist}} as a heatmap.
+#' Plots the output of [imDist()] as a heatmap.
 #'
 #' @param mat A color distance matrix, preferably output of
-#'   \code{\link{imDist}}.
+#'   [imDist()].
 #' @param palette The color palette to be used. Default is blue to
 #'   red (`colorRamps::blue2red(100)`).
 #' @param main Plot title.
@@ -145,7 +145,7 @@ imDist <- function(im1, im2,
 #'   matrix, but should be set to the same range for all images if comparing
 #'   heatmaps.
 #' @param legend Logical. Add a continuous color legend?
-#' @param ... Parameters passed to \code{\link[graphics]{image}}.
+#' @param ... Parameters passed to [graphics::image()].
 #'
 #' @return Nothing; plots a heatmap of the color residuals.
 #'

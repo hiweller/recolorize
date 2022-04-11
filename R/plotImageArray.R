@@ -1,11 +1,11 @@
 #' Plot a 3D array as an RGB image
 #'
 #' Does what it says on the tin. An extremely simple wrapper for
-#' \code{\link[graphics]{rasterImage}}, but maintains aspect ratio, removes
+#' [graphics::rasterImage()], but maintains aspect ratio, removes
 #' axes, and reduces margins for cleaner plotting.
 #'
 #' @param rgb_array A 3D array of RGB values. Preferably output from
-#'   \code{\link[png]{readPNG}}, \code{\link[jpeg]{readJPEG}},
+#'   [png::readPNG()], [jpeg::readJPEG()],
 #'   [recoloredImage], [constructImage], or [raster_to_array].
 #' @param main Optional title for plot.
 #' @param ... Parameters passed to [graphics::plot].

@@ -4,8 +4,8 @@
 #' cell is the index of the color in the color centers matrix to which that
 #' pixel is assigned. An index of 0 indicates a background pixel.
 #'
-#' @param bg_indexed An object returned by \code{\link{backgroundIndex}}.
-#' @param color_clusters An object returned by \code{\link{colorClusters}}.
+#' @param bg_indexed An object returned by [backgroundIndex()].
+#' @param color_clusters An object returned by [colorClusters()].
 #'
 #' @return A matrix of pixel color assignments (`pixel_assignments`)
 #' and a corresponding dataframe of color centers (`centers`).

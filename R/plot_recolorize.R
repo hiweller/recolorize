@@ -5,15 +5,15 @@
 #' palette used for recoloring.
 #'
 #' @param x An object of class `recolorize`, such as
-#' returned by \code{\link{recolorize}}, \code{\link{recluster}},
-#' \code{\link{imposeColors}}, etc.
+#' returned by [recolorize()], [recluster()],
+#' [imposeColors()], etc.
 #' @param plot_original Logical. Plot the original image for comparison?
 #' @param horiz Logical. Should plots be stacked vertically or horizontally?
 #' @param sizes Logical. If `TRUE`, color palette is plotted proportional
 #' to the size of each color. If `FALSE`, all colors take up an equal
 #' amount of space, and their indices are printed for reference.
 #' @param cex_text Text size for printing color indices. Plotting parameters
-#'   passed to \code{\link{recolorize}{plotColorPalette}}.
+#'   passed to \code{[recolorize]{plotColorPalette}}.
 #' @param ... further arguments passed to `plot`.
 #'
 #' @return No return value; plots the original image, recolored image, and

@@ -20,7 +20,7 @@ cimg_to_array <- function(x) {
 #'
 #' @param x An image array, i.e. as read in by readPNG.
 #' @param flatten_alpha Logical. Flatten the alpha channel?
-#' @param bg Passed to \code{\link[imager]{flatten.alpha}}. Pixel color for
+#' @param bg Passed to [imager::flatten.alpha()]. Pixel color for
 #'   previously transparent pixels.
 #' @param rm_alpha Logical. Remove the alpha channel?
 #'   Note this will "reveal" whatever is hidden behind

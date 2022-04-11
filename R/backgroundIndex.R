@@ -3,10 +3,10 @@
 #' Largely internal function for identifying, indexing, and removing background
 #' pixels from an image.
 #'
-#' @param img An image array, preferably the output of \code{\link[png]{readPNG}},
-#'  \code{\link[jpeg]{readJPEG}}, or \code{link[recolorize]{readImage}}.
+#' @param img An image array, preferably the output of [png::readPNG()],
+#'  [jpeg::readJPEG()], or \code{link[recolorize]{readImage}}.
 #' @param bg_condition Background condition, output of
-#'   \code{\link{backgroundCondition}}.
+#'   [backgroundCondition()].
 #'
 #' @return A list with the following elements:
 #' \enumerate{

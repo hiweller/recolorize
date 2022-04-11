@@ -1,11 +1,11 @@
 #' Split color clusters in a recolorize object into layers
 #'
-#' Separates color clusters from a \code{\link{recolorize}},
-#' \code{\link{recluster}}, or \code{\link{imposeColors}} object
+#' Separates color clusters from a [recolorize()],
+#' [recluster()], or [imposeColors()] object
 #' into binary masks.
 #'
-#' @param recolorize_obj A recolorize object from \code{\link{recolorize}},
-#'   \code{\link{recluster}}, or \code{\link{imposeColors}}.
+#' @param recolorize_obj A recolorize object from [recolorize()],
+#'   [recluster()], or [imposeColors()].
 #' @param layers Either `"all"` or a numeric vector of which color centers to
 #'   return.
 #' @param plot_method Plotting method for plotting the color layers. Options
