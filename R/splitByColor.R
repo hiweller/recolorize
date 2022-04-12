@@ -41,7 +41,10 @@
 #' @export
 splitByColor <- function(recolorize_obj,
                          layers = "all",
-                         plot_method = "overlay") {
+                         plot_method = c("overlay", "binary", "colormask", "none"))
+{
+
+  plot_method <- match.arg(plot_method)
 
   # check layers argument
   if (layers == "all") {
@@ -76,12 +79,6 @@ splitByColor <- function(recolorize_obj,
     color_masks[[i]] <- layer
 
   }
-
-  plot_method <- match.arg(plot_method,
-                           choices = c("overlay",
-                                       "binary",
-                                       "colormask",
-                                       "none"))
 
   # plot as colored overlay of grayscale image
   if (plot_method == "overlay") {

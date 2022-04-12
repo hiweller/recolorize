@@ -42,13 +42,13 @@ raster_to_array <- function(raster_obj, alpha = TRUE) {
 #' @return A Raster* object, either `RasterStack` or `RasterBrick` depending
 #' on the `type` argument.
 array_to_RasterStack <- function(img_array,
-                                 type = "stack",
+                                 type = c("stack", "brick"),
                                  alpha_mask = TRUE,
                                  return_alpha = FALSE) {
 
   requireNamespace("raster")
 
-  type <- match.arg(type, c("stack", "brick"))
+  type <- match.arg(type)
 
   r <- apply(img_array * 255, 3, raster::raster)
 

@@ -69,14 +69,14 @@
 #'
 #' @export
 colorClusters <- function(bg_indexed,
-                          method = "histogram",
+                          method = c("histogram", "kmeans"),
                           n = 10,
                           bins = 3,
                           color_space = "Lab",
                           ref_white = "D65") {
 
   # coerce method argument
-  method <- match.arg(tolower(method), c("kmeans", "histogram"))
+  method <- match.arg(method)
 
   # use clustering function appropriate to specified method
   if (method == "kmeans") {
@@ -209,14 +209,14 @@ colorClustersKMeans <- function(pixel_matrix, n = 10,
 #'   examples.
 colorClustersHist <- function(pixel_matrix,
                               bins = 3,
-                              color_space = "Lab",
+                              color_space = c("Lab", "sRGB", "Luv", "HSV"),
                               ref_white = "D65") {
 
   # make sure bins is either a number or a vector of length 3
   stopifnot(length(bins) == 1 | 3)
 
   # match argument for color space
-  color_space <- match.arg(color_space, c("sRGB", "Lab", "Luv", "HSV"))
+  color_space <- match.arg(color_space)
 
   # first, convert to color space for clustering:
   pm <- col2col(pixel_matrix,
@@ -337,13 +337,13 @@ colorClustersHist <- function(pixel_matrix,
 #'
 #' @details As my mother used to say: good enough for government work.
 col2col <- function(pixel_matrix,
-                               from = "sRGB",
-                               to = "sRGB",
+                               from = c("sRGB", "Lab", "Luv", "HSV"),
+                               to = c("sRGB", "Lab", "Luv", "HSV"),
                             ref_white = "D65") {
 
   # match color space args
-  from_color_space <- match.arg(from, c("sRGB", "Lab", "Luv", "HSV"))
-  to_color_space <- match.arg(to, c("sRGB", "Lab", "Luv", "HSV"))
+  from_color_space <- match.arg(from)
+  to_color_space <- match.arg(to)
 
   # if HSV is not in site, we can use convertColor
   if (from_color_space != "HSV" & to_color_space != "HSV") {

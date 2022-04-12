@@ -43,8 +43,11 @@
 #'
 #' @export
 wernerColor <- function(recolorize_obj,
-                        which_img = "original",
+                        which_img = c("original", "recolored"),
                         n_colors = 5) {
+
+  # re-fit either original or recolored image
+  which_img <- match.arg(which_img)
 
   # first, convert werner colors to lab
   werner_rgb <- t(grDevices::col2rgb(recolorize::werner$hex)) / 255
@@ -65,9 +68,6 @@ wernerColor <- function(recolorize_obj,
 
   # get new colors
   werner_centers <- werner_rgb[werner_idx, ]
-
-  # re-fit either original or recolored image
-  which_img <- match.arg(which_img, c("original", "recolored"))
 
   # pick the image
   if (which_img == "original") {

@@ -73,13 +73,15 @@
 #' graphics::par(current_par)
 #' @export
 imDist <- function(im1, im2,
-                   color_space = "Lab",
+                   color_space = c("Lab", "sRGB", "XYZ", "Luv"),
                    ref_white = "D65",
                    metric = "euclidean",
                    plotting = TRUE,
                    palette = "default",
                    main = "",
                    ...) {
+
+  color_space <- match.arg(color_space)
 
   # get dimensions
   dims <- dim(im1)
@@ -98,8 +100,6 @@ imDist <- function(im1, im2,
   pix_idx <- which(im1[ , 4] == 1 & im2[ , 4] == 1)
 
   # convert the non-transparent pixels
-  color_space <- match.arg(color_space,
-                           c("sRGB", "XYZ", "Lab", "Luv"))
   im1_px <- grDevices::convertColor(im1[pix_idx, 1:3],
                          "sRGB", to = color_space,
                          to.ref.white = ref_white)

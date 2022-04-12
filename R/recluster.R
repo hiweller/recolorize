@@ -29,7 +29,7 @@
 #' @param n_final Final number of desired colors; alternative to specifying
 #'  a similarity cutoff. Overrides `cutoff` if provided.
 #' @param refit_method Method for refitting the image with the new color
-#'   centers. One of either "impose" or "merge". [imposeColors()]
+#'   centers. One of either "imposeColors" or "mergeLayers". [imposeColors()]
 #'   refits the original image using the new colors (slow but often better
 #'   results). [mergeLayers()] merges the layers of the existing
 #'   recolored image. This is faster since it doesn't require a new fit, but can
@@ -98,7 +98,7 @@ recluster <- function(recolorize_obj,
                        cutoff = 60,
                        n_final = NULL,
                        plot_hclust = TRUE,
-                      refit_method = "impose",
+                      refit_method = c("imposeColors", "mergeLayers"),
                       resid = FALSE,
                       plot_final = TRUE,
                       color_space_fit = "sRGB") {
@@ -138,7 +138,7 @@ recluster <- function(recolorize_obj,
                              plotting = plot_hclust)
 
   # get refit method
-  refit_method <- match.arg(refit_method, c("imposeColors", "mergeLayers"))
+  refit_method <- match.arg(refit_method)
 
   if (refit_method == "imposeColors") {
     # get weighted avg new colors:

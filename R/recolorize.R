@@ -119,7 +119,7 @@
 #'
 #' graphics::par(current_par)
 #' @export
-recolorize <- function(img, method = "histogram",
+recolorize <- function(img, method = c("histogram", "kmeans"),
                        bins = 2, n = 5,
                        color_space = "sRGB", ref_white = "D65",
                        lower = NULL, upper = NULL,
@@ -130,7 +130,7 @@ recolorize <- function(img, method = "histogram",
                        cex_text = 1.5, scale_palette = TRUE) {
 
   # get method
-  method <- match.arg(tolower(method), c("kmeans", "histogram"))
+  method <- match.arg(method)
 
   # if 'img' is a filepath, read in image
   if (is.character(img)) {
