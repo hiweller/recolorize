@@ -4,7 +4,7 @@
 \alias{recoloredImage}
 \title{Get recolored image from a recolorize object}
 \usage{
-recoloredImage(recolorize_obj, type = "array")
+recoloredImage(recolorize_obj, type = c("array", "raster"))
 }
 \arguments{
 \item{recolorize_obj}{An object of class \code{recolorize}. Must include

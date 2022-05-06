@@ -18,7 +18,7 @@ channels).}
 \item{n}{Number of clusters to fit.}
 
 \item{color_space}{Color space in which to cluster colors, passed to
-\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+\code{[grDevices]{convertColor}}. One of "sRGB", "Lab", "Luv", or
 "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
 
 \item{ref_white}{Reference white for converting to different color spaces.
@@ -33,9 +33,9 @@ A list with the following elements:
 }
 }
 \description{
-Clusters pixel colors using \code{\link[stats]{kmeans}}.
+Clusters pixel colors using \code{\link[stats:kmeans]{stats::kmeans()}}.
 }
 \details{
-Called by \code{\link{colorClusters}}. See that documentation for
+Called by \code{\link[=colorClusters]{colorClusters()}}. See that documentation for
 examples.
 }

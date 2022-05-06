@@ -7,11 +7,11 @@
 backgroundIndex(img, bg_condition)
 }
 \arguments{
-\item{img}{An image array, preferably the output of \code{\link[png]{readPNG}},
-\code{\link[jpeg]{readJPEG}}, or \code{link[recolorize]{readImage}}.}
+\item{img}{An image array, preferably the output of \code{\link[png:readPNG]{png::readPNG()}},
+\code{\link[jpeg:readJPEG]{jpeg::readJPEG()}}, or \code{link[recolorize]{readImage}}.}
 
 \item{bg_condition}{Background condition, output of
-\code{\link{backgroundCondition}}.}
+\code{\link[=backgroundCondition]{backgroundCondition()}}.}
 }
 \value{
 A list with the following elements:

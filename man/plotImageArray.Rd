@@ -8,7 +8,7 @@ plotImageArray(rgb_array, main = "", ...)
 }
 \arguments{
 \item{rgb_array}{A 3D array of RGB values. Preferably output from
-\code{\link[png]{readPNG}}, \code{\link[jpeg]{readJPEG}},
+\code{\link[png:readPNG]{png::readPNG()}}, \code{\link[jpeg:readJPEG]{jpeg::readJPEG()}},
 \link{recoloredImage}, \link{constructImage}, or \link{raster_to_array}.}
 
 \item{main}{Optional title for plot.}
@@ -20,7 +20,7 @@ No return value; plots image.
 }
 \description{
 Does what it says on the tin. An extremely simple wrapper for
-\code{\link[graphics]{rasterImage}}, but maintains aspect ratio, removes
+\code{\link[graphics:rasterImage]{graphics::rasterImage()}}, but maintains aspect ratio, removes
 axes, and reduces margins for cleaner plotting.
 }
 \examples{

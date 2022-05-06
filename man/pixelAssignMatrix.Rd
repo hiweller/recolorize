@@ -7,9 +7,9 @@
 pixelAssignMatrix(bg_indexed, color_clusters)
 }
 \arguments{
-\item{bg_indexed}{An object returned by \code{\link{backgroundIndex}}.}
+\item{bg_indexed}{An object returned by \code{\link[=backgroundIndex]{backgroundIndex()}}.}
 
-\item{color_clusters}{An object returned by \code{\link{colorClusters}}.}
+\item{color_clusters}{An object returned by \code{\link[=colorClusters]{colorClusters()}}.}
 }
 \value{
 A matrix of pixel color assignments (\code{pixel_assignments})

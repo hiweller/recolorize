@@ -18,7 +18,7 @@ assignPixels(
 \item{pixel_matrix}{Matrix of pixel colors (rows = pixels, columns = channels).}
 
 \item{color_space}{Color space in which to minimize distances, passed to
-\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+\code{[grDevices]{convertColor}}. One of "sRGB", "Lab", "Luv", or
 "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.}
 
 \item{ref_white}{Reference white for converting to different color spaces.
@@ -39,7 +39,7 @@ A list of class \code{color_clusters}, containing:
 Assign a 2D matrix of pixels to specified colors
 }
 \details{
-This is a largely internal function called by \code{\link[recolorize]{imposeColors}}
+This is a largely internal function called by \code{\link[=imposeColors]{imposeColors()}}
 for recoloring an image based on extrinsic colors. If \code{adjust_centers = TRUE},
 then after assigning pixels to given color centers, the location of each color center
 is replaced by the average color of all the pixels assigned to that center.

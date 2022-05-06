@@ -4,7 +4,12 @@
 \alias{col2col}
 \title{Modified convertColor}
 \usage{
-col2col(pixel_matrix, from = "sRGB", to = "sRGB", ref_white = "D65")
+col2col(
+  pixel_matrix,
+  from = c("sRGB", "Lab", "Luv", "HSV"),
+  to = c("sRGB", "Lab", "Luv", "HSV"),
+  ref_white = "D65"
+)
 }
 \arguments{
 \item{pixel_matrix}{A matrix of pixel colors, rows are pixels and columns

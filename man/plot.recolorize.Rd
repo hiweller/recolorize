@@ -8,8 +8,8 @@
 }
 \arguments{
 \item{x}{An object of class \code{recolorize}, such as
-returned by \code{\link{recolorize}}, \code{\link{recluster}},
-\code{\link{imposeColors}}, etc.}
+returned by \code{\link[=recolorize]{recolorize()}}, \code{\link[=recluster]{recluster()}},
+\code{\link[=imposeColors]{imposeColors()}}, etc.}
 
 \item{...}{further arguments passed to \code{plot}.}
 
@@ -18,7 +18,7 @@ returned by \code{\link{recolorize}}, \code{\link{recluster}},
 \item{horiz}{Logical. Should plots be stacked vertically or horizontally?}
 
 \item{cex_text}{Text size for printing color indices. Plotting parameters
-passed to \code{\link{recolorize}{plotColorPalette}}.}
+passed to \code{[recolorize]{plotColorPalette}}.}
 
 \item{sizes}{Logical. If \code{TRUE}, color palette is plotted proportional
 to the size of each color. If \code{FALSE}, all colors take up an equal

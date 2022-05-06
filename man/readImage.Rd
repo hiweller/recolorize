@@ -19,7 +19,7 @@ are all scaled 0-1, not 0-255.
 }
 \description{
 Reads in and processes an image as a 3D array. Extremely simple wrapper for
-\code{\link[imager]{load.image}}, but it strips the depth channel (resulting
+\code{\link[imager:load.image]{imager::load.image()}}, but it strips the depth channel (resulting
 in a 3D, not 4D, array). This will probably change.
 }
 \examples{

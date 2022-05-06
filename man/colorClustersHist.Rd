@@ -7,7 +7,7 @@
 colorClustersHist(
   pixel_matrix,
   bins = 3,
-  color_space = "Lab",
+  color_space = c("Lab", "sRGB", "Luv", "HSV"),
   ref_white = "D65"
 )
 }
@@ -21,7 +21,7 @@ will result in 2\emph{2}3 = 12 bins (2 red, 2 green, 3 blue if you're in RGB
 color space), etc.}
 
 \item{color_space}{Color space in which to cluster colors, passed to
-\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+\code{[grDevices]{convertColor}}. One of "sRGB", "Lab", or "Luv".
 Default is "Lab", a perceptually uniform (for humans) color space.}
 
 \item{ref_white}{Reference white for converting to different color spaces.
@@ -41,6 +41,6 @@ Clusters pixel colors by dividing color space up into specified bins,
 then taking the average color of all the pixels within that bin.
 }
 \details{
-Called by \code{\link{colorClusters}}. See that documentation for
+Called by \code{\link[=colorClusters]{colorClusters()}}. See that documentation for
 examples.
 }

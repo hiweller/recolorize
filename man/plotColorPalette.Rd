@@ -15,13 +15,13 @@ channels). Assumes RGB in 0-1 range.}
 no sizes are provided, colors are plotted in equal proportions.}
 
 \item{cex_text}{Size of the numbers displayed on each color, relative to the
-default. Passed to \code{\link[graphics]{barplot}}. Text is only plotted if
+default. Passed to \code{\link[graphics:barplot]{graphics::barplot()}}. Text is only plotted if
 \code{sizes = NULL}. \code{cex_text = 0} will remove numbering.}
 
 \item{horiz}{Logical. Should the palette be plotted vertically or
 horizontally?}
 
-\item{...}{Additional parameters passed to \code{\link[graphics]{barplot}}.}
+\item{...}{Additional parameters passed to \code{\link[graphics:barplot]{graphics::barplot()}}.}
 }
 \value{
 No return value; plots a rectangular color palette.

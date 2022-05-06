@@ -6,7 +6,7 @@
 \usage{
 array_to_RasterStack(
   img_array,
-  type = "stack",
+  type = c("stack", "brick"),
   alpha_mask = TRUE,
   return_alpha = FALSE
 )

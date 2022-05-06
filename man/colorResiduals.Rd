@@ -27,12 +27,12 @@ is assigned to the color in the first row of \code{centers}.}
 
 \item{color_space}{Color space in which to calculate distances. One of
 "sRGB", "Lab", "Luv", or "XYZ". Passed to
-\code{\link[grDevices]{convertColor}}.}
+\code{\link[grDevices:convertColor]{grDevices::convertColor()}}.}
 
 \item{metric}{Distance metric to be used for calculating pairwise pixel
-distances in the given color space; passed to \code{\link[stats]{dist}}.}
+distances in the given color space; passed to \code{\link[stats:dist]{stats::dist()}}.}
 
-\item{ref_white}{Passed to \code{\link[grDevices]{convertColor}} if
+\item{ref_white}{Passed to \code{\link[grDevices:convertColor]{grDevices::convertColor()}} if
 \verb{color_space = "Lab}. Reference white for CIE Lab space.}
 }
 \value{

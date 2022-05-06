@@ -14,15 +14,15 @@ recluster(
   cutoff = 60,
   n_final = NULL,
   plot_hclust = TRUE,
-  refit_method = "impose",
+  refit_method = c("imposeColors", "mergeLayers"),
   resid = FALSE,
   plot_final = TRUE,
   color_space_fit = "sRGB"
 )
 }
 \arguments{
-\item{recolorize_obj}{A recolorize object from \code{\link{recolorize}},
-\code{\link{recluster}}, or \code{\link{imposeColors}}.}
+\item{recolorize_obj}{A recolorize object from \code{\link[=recolorize]{recolorize()}},
+\code{\link[=recluster]{recluster()}}, or \code{\link[=imposeColors]{imposeColors()}}.}
 
 \item{dist_method}{Method passed to \link[stats:dist]{stats::dist} for calculating distances
 between colors. One of "euclidean", "maximum", "manhattan", "canberra",
@@ -39,7 +39,7 @@ blue-yellow (b-channel) distance in CIE Lab space, channels = c(1, 3) (L
 and b).}
 
 \item{color_space}{Color space in which to cluster centers, passed to
-\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+\code{[grDevices]{convertColor}}. One of "sRGB", "Lab", or "Luv".
 Default is "Lab", a perceptually uniform (for humans) color space.}
 
 \item{ref_white}{Reference white for converting to different color spaces.
@@ -58,18 +58,18 @@ a similarity cutoff. Overrides \code{cutoff} if provided.}
 color similarity? Helpful for troubleshooting a cutoff.}
 
 \item{refit_method}{Method for refitting the image with the new color
-centers. One of either "impose" or "merge". \code{\link{imposeColors}}
+centers. One of either "imposeColors" or "mergeLayers". \code{\link[=imposeColors]{imposeColors()}}
 refits the original image using the new colors (slow but often better
-results). \code{\link{mergeLayers}} merges the layers of the existing
+results). \code{\link[=mergeLayers]{mergeLayers()}} merges the layers of the existing
 recolored image. This is faster since it doesn't require a new fit, but can
 produce messier results.}
 
 \item{resid}{Logical. Get final color fit residuals with
-\code{\link{colorResiduals}}?}
+\code{\link[=colorResiduals]{colorResiduals()}}?}
 
 \item{plot_final}{Logical. Plot the final color fit?}
 
-\item{color_space_fit}{Passed to \code{\link{imposeColors}}. What
+\item{color_space_fit}{Passed to \code{\link[=imposeColors]{imposeColors()}}. What
 color space should the image be reclustered in?}
 }
 \value{
@@ -88,9 +88,9 @@ can either set a similarity cutoff or a final number of colors. See examples.
 This function is fairly straightforward: the RGB color centers of the
 recolorize object are converted to CIE Lab color space (which is
 approximately perceptually uniform for human vision), clustered using
-\code{\link[stats]{hclust}}, then grouped using \code{\link[stats]{cutree}}.
+\code{\link[stats:hclust]{stats::hclust()}}, then grouped using \code{\link[stats:cutree]{stats::cutree()}}.
 The resulting groups are then passed as the assigned color centers to
-\code{\link{imposeColors}}, which re-fits the \emph{original} image using the new
+\code{\link[=imposeColors]{imposeColors()}}, which re-fits the \emph{original} image using the new
 centers.
 
 The similarity cutoff does not require the user to specify the final number
