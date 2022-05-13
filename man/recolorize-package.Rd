@@ -2,7 +2,6 @@
 % Please edit documentation in R/recolorize-package.R
 \docType{package}
 \name{recolorize-package}
-\alias{recolorize}
 \alias{recolorize-package}
 \title{recolorize: Color-Based Image Segmentation}
 \description{

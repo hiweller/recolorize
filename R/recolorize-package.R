@@ -1,3 +1,4 @@
+#' @aliases NULL recolorize-package
 #' @keywords internal
 "_PACKAGE"
 
