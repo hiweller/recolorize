@@ -3,10 +3,10 @@
 #' Largely internal function for identifying, indexing, and removing background
 #' pixels from an image.
 #'
-#' @param img An image array, preferably the output of \code{\link[png]{readPNG}},
-#'  \code{\link[jpeg]{readJPEG}}, or \code{link[recolorize]{readImage}}.
+#' @param img An image array, preferably the output of [png::readPNG()],
+#'  [jpeg::readJPEG()], or \code{link[recolorize]{readImage}}.
 #' @param bg_condition Background condition, output of
-#'   \code{\link{backgroundCondition}}.
+#'   [backgroundCondition()].
 #'
 #' @return A list with the following elements:
 #' \enumerate{
@@ -56,7 +56,7 @@ backgroundIndex <- function(img, bg_condition) {
                           img_dims[3])
 
   # mask according to background condition
-  if (class(bg_condition) == "bg_rect") {
+  if (inherits(bg_condition, "bg_rect")) {
 
     lower <- bg_condition$lower
     upper <- bg_condition$upper
@@ -68,7 +68,7 @@ backgroundIndex <- function(img, bg_condition) {
                       img[ , , 3] <= upper[3]))
 
     # transparency
-  } else if (class(bg_condition) == "bg_t") {
+  } else if (inherits(bg_condition, "bg_t")) {
 
     # if there's no transparency, oops
     if (ncol(flattened_img) != 4) {
@@ -83,11 +83,11 @@ backgroundIndex <- function(img, bg_condition) {
 
     }
 
-  } else if (class(bg_condition) == "bg_sphere") {
+  } else if (inherits(bg_condition, "bg_sphere")) {
 
     stop("Center/radius masking coming soon...")
 
-  } else if (class(bg_condition) == "bg_none") {
+  } else if (inherits(bg_condition, "bg_none")) {
 
     idx <- character(0)
 

@@ -38,12 +38,13 @@
 #' # and reset:
 #' graphics::par(current_par)
 #' @export
-blurImage <- function(img, blur_function = "medianblur",
+blurImage <- function(img,
+                      blur_function = c("medianblur", "isoblur",
+                                        "blur_anisotropic", "boxblur",
+                                        "boxblur_xy"),
                       ..., plotting = TRUE) {
 
-  blur_function <- match.arg(blur_function,
-                             c("isoblur", "blur_anisotropic",
-                               "boxblur", "boxblur_xy", "medianblur"))
+  blur_function <- match.arg(blur_function)
   c_img <- array_to_cimg(img)
   blur_img <- switch(blur_function,
                      isoblur = imager::isoblur(c_img, ...),

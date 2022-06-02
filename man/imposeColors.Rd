@@ -24,7 +24,7 @@ imposeColors(
 }
 \arguments{
 \item{img}{Path to the image (a character vector) or a 3D image array as read
-in by \code{\link[png]{readPNG}} \code{{readImage}}.}
+in by \code{\link[png:readPNG]{png::readPNG()}} \code{{readImage}}.}
 
 \item{centers}{Colors to map to, as an n x 3 matrix (rows = colors,
 columns = channels).}

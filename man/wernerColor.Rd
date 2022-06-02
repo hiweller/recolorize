@@ -4,12 +4,16 @@
 \alias{wernerColor}
 \title{Remap an image to Werner's nomenclature}
 \usage{
-wernerColor(recolorize_obj, which_img = "original", n_colors = 5)
+wernerColor(
+  recolorize_obj,
+  which_img = c("original", "recolored"),
+  n_colors = 5
+)
 }
 \arguments{
 \item{recolorize_obj}{A recolorize object as returned by
-\code{\link{recolorize}}, \code{\link{recluster}}, or
-\code{\link{imposeColors}}.}
+\code{\link[=recolorize]{recolorize()}}, \code{\link[=recluster]{recluster()}}, or
+\code{\link[=imposeColors]{imposeColors()}}.}
 
 \item{which_img}{Which image to recolor; one of either "original" or
 "recolored".}

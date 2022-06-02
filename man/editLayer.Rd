@@ -13,8 +13,8 @@ editLayer(
 )
 }
 \arguments{
-\item{recolorize_obj}{A recolorize object from \code{\link{recolorize}},
-\code{\link{recluster}}, or \code{\link{imposeColors}}.}
+\item{recolorize_obj}{A recolorize object from \code{\link[=recolorize]{recolorize()}},
+\code{\link[=recluster]{recluster()}}, or \code{\link[=imposeColors]{imposeColors()}}.}
 
 \item{layer_idx}{A single index value (numeric) indicating which
 layer to edit. Corresponds to the order of the colors in the \code{centers}
@@ -44,11 +44,11 @@ holes, or uniformly grow or shrink a color patch.
 \details{
 Current imager operations are:
 \itemize{
-\item \code{\link[imager]{grow}}: Grow a pixset
-\item \code{\link[imager]{shrink}}: Shrink a pixset
-\item \code{\link[imager]{fill}}: Remove holes in an pixset. Accomplished by
+\item \code{\link[imager:grow]{imager::grow()}}: Grow a pixset
+\item \code{\link[imager:grow]{imager::shrink()}}: Shrink a pixset
+\item \code{\link[imager:clean]{imager::fill()}}: Remove holes in an pixset. Accomplished by
 growing and then shrinking a pixset.
-\item \code{\link[imager]{clean}}: Remove small isolated elements (speckle).
+\item \code{\link[imager:clean]{imager::clean()}}: Remove small isolated elements (speckle).
 Accomplished by shrinking and then growing a pixset.
 }
 }

@@ -3,12 +3,12 @@
 #'  Merges specified layers in a recolorized image. This is a good option if you
 #'  want to manually specify which layers to merge (and what color to make the
 #'  resulting merged layer); it's also called on by other `recolorize` functions
-#'  like \code{\link{recluster}} to merge layers that have been identified
+#'  like [recluster()] to merge layers that have been identified
 #'  as highly similar in color using a given distance metric.
 #'
 #' @param recolorize_obj An object of class "recolorize", such as from
-#'   \code{\link{recolorize}}, \code{\link{recluster}}, or
-#'   \code{\link{imposeColors}}.
+#'   [recolorize()], [recluster()], or
+#'   [imposeColors()].
 #' @param merge_list A list of numeric vectors specifying which layers
 #'   to merge. Layers not included in this list are unchanged. See examples.
 #' @param color_to Color(s) for the merged layers. See examples.
@@ -235,7 +235,7 @@ clean_merge_params <- function(recolorize_obj,
                          color_to) {
 
   # check if recolorize_obj is a correct class
-  if (class(recolorize_obj) != "recolorize") {
+  if (!inherits(recolorize_obj, "recolorize")) {
     stop("Must provide an object of class 'recolorize', as output
          by recolorize(), recluster(), or imposeColors()")
   }

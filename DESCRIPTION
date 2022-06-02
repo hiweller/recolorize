@@ -43,4 +43,5 @@ Suggests:
     sp,
     smoothr
 VignetteBuilder: knitr
-URL: https://hiweller.github.io/recolorize/
+URL: https://hiweller.github.io/recolorize/, https://github.com/hiweller/recolorize
+BugReports: https://github.com/hiweller/recolorize/issues

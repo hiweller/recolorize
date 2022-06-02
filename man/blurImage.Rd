@@ -4,7 +4,13 @@
 \alias{blurImage}
 \title{Blur an image}
 \usage{
-blurImage(img, blur_function = "medianblur", ..., plotting = TRUE)
+blurImage(
+  img,
+  blur_function = c("medianblur", "isoblur", "blur_anisotropic", "boxblur",
+    "boxblur_xy"),
+  ...,
+  plotting = TRUE
+)
 }
 \arguments{
 \item{img}{An image array, as read in by \link[png:readPNG]{png::readPNG} or \link{readImage}.}

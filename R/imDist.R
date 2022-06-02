@@ -7,16 +7,16 @@
 #'   will be calculated between each pair of non-transparent pixels.
 #' @param color_space Color space in which to calculate distances. One of
 #'   "sRGB", "Lab", "Luv", or "XYZ". Passed to
-#'   \code{\link[grDevices]{convertColor}}.
-#' @param ref_white Passed to \code{\link[grDevices]{convertColor}} if
+#'   [grDevices::convertColor()].
+#' @param ref_white Passed to [grDevices::convertColor()] if
 #'   `color_space = "Lab`. Reference white for CIE Lab space.
 #' @param metric Distance metric to be used for calculating pairwise pixel
-#'   distances in the given color space; passed to \code{\link[stats]{dist}}.
+#'   distances in the given color space; passed to [stats::dist()].
 #' @param plotting Logical. Plot heatmap of color distances?
 #' @param palette If plotting, the color palette to be used. Default is blue to
 #'   red (`colorRamps::blue2red(100)`).
 #' @param main Plot title.
-#' @param ... Parameters passed to \code{\link[graphics]{image}}.
+#' @param ... Parameters passed to [graphics::image()].
 #'
 #' @return A matrix of the same dimensions as the original images,
 #' with the distance between non-transparent pixels at each pixel coordinate.
@@ -73,13 +73,15 @@
 #' graphics::par(current_par)
 #' @export
 imDist <- function(im1, im2,
-                   color_space = "Lab",
+                   color_space = c("Lab", "sRGB", "XYZ", "Luv"),
                    ref_white = "D65",
                    metric = "euclidean",
                    plotting = TRUE,
                    palette = "default",
                    main = "",
                    ...) {
+
+  color_space <- match.arg(color_space)
 
   # get dimensions
   dims <- dim(im1)
@@ -98,8 +100,6 @@ imDist <- function(im1, im2,
   pix_idx <- which(im1[ , 4] == 1 & im2[ , 4] == 1)
 
   # convert the non-transparent pixels
-  color_space <- match.arg(color_space,
-                           c("sRGB", "XYZ", "Lab", "Luv"))
   im1_px <- grDevices::convertColor(im1[pix_idx, 1:3],
                          "sRGB", to = color_space,
                          to.ref.white = ref_white)
@@ -134,10 +134,10 @@ imDist <- function(im1, im2,
 
 #' Plot a heatmap of a matrix of color distances
 #'
-#' Plots the output of \code{\link{imDist}} as a heatmap.
+#' Plots the output of [imDist()] as a heatmap.
 #'
 #' @param mat A color distance matrix, preferably output of
-#'   \code{\link{imDist}}.
+#'   [imDist()].
 #' @param palette The color palette to be used. Default is blue to
 #'   red (`colorRamps::blue2red(100)`).
 #' @param main Plot title.
@@ -145,7 +145,7 @@ imDist <- function(im1, im2,
 #'   matrix, but should be set to the same range for all images if comparing
 #'   heatmaps.
 #' @param legend Logical. Add a continuous color legend?
-#' @param ... Parameters passed to \code{\link[graphics]{image}}.
+#' @param ... Parameters passed to [graphics::image()].
 #'
 #' @return Nothing; plots a heatmap of the color residuals.
 #'

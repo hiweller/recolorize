@@ -6,7 +6,7 @@
 \usage{
 recolorize(
   img,
-  method = "histogram",
+  method = c("histogram", "kmeans"),
   bins = 2,
   n = 5,
   color_space = "sRGB",
@@ -25,7 +25,7 @@ recolorize(
 }
 \arguments{
 \item{img}{Path to the image (a character vector) or a 3D image array as read
-in by \code{\link[png]{readPNG}} \code{{readImage}}.}
+in by \code{\link[png:readPNG]{png::readPNG()}} \code{{readImage}}.}
 
 \item{method}{Method for clustering image colors. One of either \code{histogram}
 or \code{kmeans}. See details.}
@@ -37,7 +37,7 @@ number of bins for each channel.}
 \item{n}{If \code{method = "kmeans"}, the number of color clusters to fit.}
 
 \item{color_space}{Color space in which to minimize distances, passed to
-\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+\code{[grDevices]{convertColor}}. One of "sRGB", "Lab", or "Luv".
 Default is "Lab", a perceptually uniform (for humans) color space.}
 
 \item{ref_white}{Reference white for converting to different color spaces.
@@ -84,7 +84,7 @@ Clusters the colors in an RGB image according to a specified method,
 then recolors that image to the simplified color scheme.
 }
 \details{
-Method for color clustering: \code{\link[stats]{kmeans}} clustering tries to
+Method for color clustering: \code{\link[stats:kmeans]{stats::kmeans()}} clustering tries to
 find the set of \code{n} clusters that minimize overall distances. Histogram
 binning divides up color space according to set breaks; for example, bins = 2
 would divide the red, green, and blue channels into 2 bins each (> 0.5 and <

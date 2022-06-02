@@ -17,9 +17,9 @@
 #'
 #' @export
 recoloredImage <- function(recolorize_obj,
-                           type = "array") {
+                           type = c("array", "raster")) {
 
-  type <- match.arg(type, c("array", "raster"))
+  type <- match.arg(type)
   img <- constructImage(recolorize_obj$pixel_assignments,
                         recolorize_obj$centers)
   if(type == "raster") {

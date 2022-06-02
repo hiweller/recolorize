@@ -15,7 +15,7 @@ imHeatmap(
 }
 \arguments{
 \item{mat}{A color distance matrix, preferably output of
-\code{\link{imDist}}.}
+\code{\link[=imDist]{imDist()}}.}
 
 \item{palette}{The color palette to be used. Default is blue to
 red (\code{colorRamps::blue2red(100)}).}
@@ -28,13 +28,13 @@ heatmaps.}
 
 \item{legend}{Logical. Add a continuous color legend?}
 
-\item{...}{Parameters passed to \code{\link[graphics]{image}}.}
+\item{...}{Parameters passed to \code{\link[graphics:image]{graphics::image()}}.}
 }
 \value{
 Nothing; plots a heatmap of the color residuals.
 }
 \description{
-Plots the output of \code{\link{imDist}} as a heatmap.
+Plots the output of \code{\link[=imDist]{imDist()}} as a heatmap.
 }
 \examples{
 chongi <- system.file("extdata/chongi.png", package = "recolorize")

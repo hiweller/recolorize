@@ -3,7 +3,7 @@
 #' @param centers Matrix of color centers (rows = colors, columns = channels).
 #' @param pixel_matrix Matrix of pixel colors (rows = pixels, columns = channels).
 #' @param color_space Color space in which to minimize distances, passed to
-#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", "Luv", or
+#'   \code{[grDevices]{convertColor}}. One of "sRGB", "Lab", "Luv", or
 #'   "XYZ". Default is "Lab", a perceptually uniform (for humans) color space.
 #' @param ref_white Reference white for converting to different color spaces.
 #'   D65 (the default) corresponds to standard daylight.
@@ -19,7 +19,7 @@
 #' }
 #'
 #' @details
-#' This is a largely internal function called by \code{\link[recolorize]{imposeColors}}
+#' This is a largely internal function called by [recolorize::imposeColors()]
 #' for recoloring an image based on extrinsic colors. If `adjust_centers = TRUE`,
 #' then after assigning pixels to given color centers, the location of each color center
 #' is replaced by the average color of all the pixels assigned to that center.

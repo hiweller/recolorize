@@ -7,7 +7,7 @@
 imDist(
   im1,
   im2,
-  color_space = "Lab",
+  color_space = c("Lab", "sRGB", "XYZ", "Luv"),
   ref_white = "D65",
   metric = "euclidean",
   plotting = TRUE,
@@ -22,13 +22,13 @@ will be calculated between each pair of non-transparent pixels.}
 
 \item{color_space}{Color space in which to calculate distances. One of
 "sRGB", "Lab", "Luv", or "XYZ". Passed to
-\code{\link[grDevices]{convertColor}}.}
+\code{\link[grDevices:convertColor]{grDevices::convertColor()}}.}
 
-\item{ref_white}{Passed to \code{\link[grDevices]{convertColor}} if
+\item{ref_white}{Passed to \code{\link[grDevices:convertColor]{grDevices::convertColor()}} if
 \verb{color_space = "Lab}. Reference white for CIE Lab space.}
 
 \item{metric}{Distance metric to be used for calculating pairwise pixel
-distances in the given color space; passed to \code{\link[stats]{dist}}.}
+distances in the given color space; passed to \code{\link[stats:dist]{stats::dist()}}.}
 
 \item{plotting}{Logical. Plot heatmap of color distances?}
 
@@ -37,7 +37,7 @@ red (\code{colorRamps::blue2red(100)}).}
 
 \item{main}{Plot title.}
 
-\item{...}{Parameters passed to \code{\link[graphics]{image}}.}
+\item{...}{Parameters passed to \code{\link[graphics:image]{graphics::image()}}.}
 }
 \value{
 A matrix of the same dimensions as the original images,

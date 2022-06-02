@@ -4,11 +4,15 @@
 \alias{splitByColor}
 \title{Split color clusters in a recolorize object into layers}
 \usage{
-splitByColor(recolorize_obj, layers = "all", plot_method = "overlay")
+splitByColor(
+  recolorize_obj,
+  layers = "all",
+  plot_method = c("overlay", "binary", "colormask", "none")
+)
 }
 \arguments{
-\item{recolorize_obj}{A recolorize object from \code{\link{recolorize}},
-\code{\link{recluster}}, or \code{\link{imposeColors}}.}
+\item{recolorize_obj}{A recolorize object from \code{\link[=recolorize]{recolorize()}},
+\code{\link[=recluster]{recluster()}}, or \code{\link[=imposeColors]{imposeColors()}}.}
 
 \item{layers}{Either \code{"all"} or a numeric vector of which color centers to
 return.}
@@ -21,8 +25,8 @@ A list of binary matrices (1/white = color presence, 0/black = color
 absence), one per color center.
 }
 \description{
-Separates color clusters from a \code{\link{recolorize}},
-\code{\link{recluster}}, or \code{\link{imposeColors}} object
+Separates color clusters from a \code{\link[=recolorize]{recolorize()}},
+\code{\link[=recluster]{recluster()}}, or \code{\link[=imposeColors]{imposeColors()}} object
 into binary masks.
 }
 \examples{

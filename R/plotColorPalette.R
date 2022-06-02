@@ -9,11 +9,11 @@
 #' @param sizes An optional numeric vector of sizes for scaling each color. If
 #'   no sizes are provided, colors are plotted in equal proportions.
 #' @param cex_text Size of the numbers displayed on each color, relative to the
-#'   default. Passed to \code{\link[graphics]{barplot}}. Text is only plotted if
+#'   default. Passed to [graphics::barplot()]. Text is only plotted if
 #'   `sizes = NULL`. `cex_text = 0` will remove numbering.
 #' @param horiz Logical. Should the palette be plotted vertically or
 #'   horizontally?
-#' @param ... Additional parameters passed to \code{\link[graphics]{barplot}}.
+#' @param ... Additional parameters passed to [graphics::barplot()].
 #'
 #' @return No return value; plots a rectangular color palette.
 #'

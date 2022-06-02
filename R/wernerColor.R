@@ -6,8 +6,8 @@
 #' reference in western science, notably used by Charles Darwin.
 #'
 #' @param recolorize_obj A recolorize object as returned by
-#'   \code{\link{recolorize}}, \code{\link{recluster}}, or
-#'   \code{\link{imposeColors}}.
+#'   [recolorize()], [recluster()], or
+#'   [imposeColors()].
 #' @param which_img Which image to recolor; one of either "original" or
 #'   "recolored".
 #' @param n_colors Number of colors to list out in plotting, in order of
@@ -20,7 +20,7 @@
 #' listing the Werner color names for each center.
 #'
 #' @details
-#' See \url{https://www.c82.net/werner/} to check out the original colors.
+#' See <https://www.c82.net/werner/> to check out the original colors.
 #'
 #' @examples
 #'
@@ -43,8 +43,11 @@
 #'
 #' @export
 wernerColor <- function(recolorize_obj,
-                        which_img = "original",
+                        which_img = c("original", "recolored"),
                         n_colors = 5) {
+
+  # re-fit either original or recolored image
+  which_img <- match.arg(which_img)
 
   # first, convert werner colors to lab
   werner_rgb <- t(grDevices::col2rgb(recolorize::werner$hex)) / 255
@@ -65,9 +68,6 @@ wernerColor <- function(recolorize_obj,
 
   # get new colors
   werner_centers <- werner_rgb[werner_idx, ]
-
-  # re-fit either original or recolored image
-  which_img <- match.arg(which_img, c("original", "recolored"))
 
   # pick the image
   if (which_img == "original") {
@@ -141,5 +141,5 @@ wernerColor <- function(recolorize_obj,
 #'   \item{name}{The original color name.}
 #'   \item{hex}{Color hex code.}
 #' }
-#' @source \url{https://www.c82.net/werner/#colors}
+#' @source <https://www.c82.net/werner/#colors>
 "werner"

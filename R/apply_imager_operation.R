@@ -4,7 +4,7 @@
 #' `imager` morphological operations for cleaning pixsets.
 #'
 #' @param pixset An object of class `pixset`. Usually a layer from
-#'   \code{\link{splitByColor}} that has been converted to a `pixset`
+#'   [splitByColor()] that has been converted to a `pixset`
 #'   object.
 #' @param imager_function The name of an imager morphological operation that can
 #'   be performed on a pixset, passed as a string. See details.
@@ -13,11 +13,11 @@
 #' @details
 #' Current imager operations are:
 #' \itemize{
-#'  \item \code{\link[imager]{grow}}: Grow a pixset
-#'  \item \code{\link[imager]{shrink}}: Shrink a pixset
-#'  \item \code{\link[imager]{fill}}: Remove holes in an pixset. Accomplished by
+#'  \item [imager::grow()]: Grow a pixset
+#'  \item [imager::shrink()]: Shrink a pixset
+#'  \item [imager::fill()]: Remove holes in an pixset. Accomplished by
 #'    growing and then shrinking a pixset.
-#'  \item \code{\link[imager]{clean}}: Remove small isolated elements (speckle).
+#'  \item [imager::clean()]: Remove small isolated elements (speckle).
 #'    Accomplished by shrinking and then growing a pixset.
 #' }
 #'

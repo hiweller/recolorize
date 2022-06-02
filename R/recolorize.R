@@ -4,7 +4,7 @@
 #' then recolors that image to the simplified color scheme.
 #'
 #' @param img Path to the image (a character vector) or a 3D image array as read
-#'   in by \code{\link[png]{readPNG}} \code{{readImage}}.
+#'   in by [png::readPNG()] \code{{readImage}}.
 #' @param method Method for clustering image colors. One of either `histogram`
 #'   or `kmeans`. See details.
 #' @param n If `method = "kmeans"`, the number of color clusters to fit.
@@ -12,7 +12,7 @@
 #'   channel (if a single number is provided) OR a vector of length 3 with the
 #'   number of bins for each channel.
 #' @param color_space Color space in which to minimize distances, passed to
-#'   \code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+#'   \code{[grDevices]{convertColor}}. One of "sRGB", "Lab", or "Luv".
 #'   Default is "Lab", a perceptually uniform (for humans) color space.
 #' @param ref_white Reference white for converting to different color spaces.
 #'   D65 (the default) corresponds to standard daylight.
@@ -45,7 +45,7 @@
 #' }
 #'
 #' @details
-#' Method for color clustering: \code{\link[stats]{kmeans}} clustering tries to
+#' Method for color clustering: [stats::kmeans()] clustering tries to
 #' find the set of `n` clusters that minimize overall distances. Histogram
 #' binning divides up color space according to set breaks; for example, bins = 2
 #' would divide the red, green, and blue channels into 2 bins each (> 0.5 and <
@@ -119,7 +119,7 @@
 #'
 #' graphics::par(current_par)
 #' @export
-recolorize <- function(img, method = "histogram",
+recolorize <- function(img, method = c("histogram", "kmeans"),
                        bins = 2, n = 5,
                        color_space = "sRGB", ref_white = "D65",
                        lower = NULL, upper = NULL,
@@ -130,7 +130,7 @@ recolorize <- function(img, method = "histogram",
                        cex_text = 1.5, scale_palette = TRUE) {
 
   # get method
-  method <- match.arg(tolower(method), c("kmeans", "histogram"))
+  method <- match.arg(method)
 
   # if 'img' is a filepath, read in image
   if (is.character(img)) {

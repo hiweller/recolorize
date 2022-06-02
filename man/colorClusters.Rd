@@ -6,7 +6,7 @@
 \usage{
 colorClusters(
   bg_indexed,
-  method = "histogram",
+  method = c("histogram", "kmeans"),
   n = 10,
   bins = 3,
   color_space = "Lab",
@@ -14,7 +14,7 @@ colorClusters(
 )
 }
 \arguments{
-\item{bg_indexed}{A list returned by \code{\link{backgroundIndex}}.}
+\item{bg_indexed}{A list returned by \code{\link[=backgroundIndex]{backgroundIndex()}}.}
 
 \item{method}{Binning scheme to use, one of either \code{kmeans} or \code{histogram}.
 Produce very different results (see details).}
@@ -26,7 +26,7 @@ channel (if a single number is provided) OR a vector of length 3 with the
 number of bins for each channel.}
 
 \item{color_space}{Color space in which to cluster colors, passed to
-\code{\link{grDevices}{convertColor}}. One of "sRGB", "Lab", or "Luv".
+\code{[grDevices]{convertColor}}. One of "sRGB", "Lab", or "Luv".
 Default is "Lab", a perceptually uniform (for humans) color space.}
 
 \item{ref_white}{Reference white for converting to different color spaces.
@@ -46,7 +46,7 @@ Clusters all the pixels in an image according to the specified method and
 returns color centers, cluster assignments, and cluster sizes.
 }
 \details{
-\code{\link[stats]{kmeans}} clustering tries to find the set of \code{n} clusters
+\code{\link[stats:kmeans]{stats::kmeans()}} clustering tries to find the set of \code{n} clusters
 that minimize overall distances. Histogram binning divides up color space
 according to set breaks; for example, bins = 2 would divide the red, green,
 and blue channels into 2 bins each (> 0.5 and < 0 .5), resulting in 8

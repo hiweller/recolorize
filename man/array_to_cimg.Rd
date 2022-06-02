@@ -11,7 +11,7 @@ array_to_cimg(x, flatten_alpha = TRUE, bg = "white", rm_alpha = TRUE)
 
 \item{flatten_alpha}{Logical. Flatten the alpha channel?}
 
-\item{bg}{Passed to \code{\link[imager]{flatten.alpha}}. Pixel color for
+\item{bg}{Passed to \code{\link[imager:flatten.alpha]{imager::flatten.alpha()}}. Pixel color for
 previously transparent pixels.}
 
 \item{rm_alpha}{Logical. Remove the alpha channel?

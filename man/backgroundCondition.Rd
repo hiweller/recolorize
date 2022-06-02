@@ -49,7 +49,7 @@ If \code{transparency = TRUE} but there is no alpha channel (as in a JPEG image)
 this flag is ignored and other options (\code{lower} and \code{upper} or \code{center} and \code{radius})
 are used instead.
 
-This is an internal convenience function sourced by \code{\link{backgroundIndex}}.
+This is an internal convenience function sourced by \code{\link[=backgroundIndex]{backgroundIndex()}}.
 }
 \examples{
 

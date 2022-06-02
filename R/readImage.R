@@ -1,7 +1,7 @@
 #' Read in an image as a 3D array
 #'
 #' Reads in and processes an image as a 3D array. Extremely simple wrapper for
-#' \code{\link[imager]{load.image}}, but it strips the depth channel (resulting
+#' [imager::load.image()], but it strips the depth channel (resulting
 #' in a 3D, not 4D, array). This will probably change.
 #'
 #' @param img_path Path to the image (a string).

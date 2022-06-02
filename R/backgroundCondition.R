@@ -29,7 +29,7 @@
 #' this flag is ignored and other options (`lower` and `upper` or `center` and `radius`)
 #' are used instead.
 #'
-#' This is an internal convenience function sourced by \code{\link{backgroundIndex}}.
+#' This is an internal convenience function sourced by [backgroundIndex()].
 #'
 #' @examples
 #'
