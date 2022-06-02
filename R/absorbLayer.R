@@ -17,7 +17,6 @@
 #' @param remove_empty_layers Logical. If the layer is completely absorbed,
 #'   remove it from the layer indices and renumber the existing patches? (Example:
 #'   if you completely absorb layer 3, then layer 4 -> 3 and 5 -> 4, and so on).
-#' @param highlight_color Color for highlighting the affected layer.
 #' @param plotting Logical. Plot results?
 #'
 #' @return A `recolorize` object.
@@ -66,8 +65,7 @@
 #' fit2 <- absorbLayer(fit1, layer_idx = 3,
 #'                     size_condition = function(x) x <= 250 &
 #'                       x >= 50 |
-#'                       x < 20,
-#'                     highlight_color = "cyan")
+#'                       x < 20)
 #'
 #' # what about the orange speckles? this is more difficult, because
 #' # we want to retain the border around the brown stripes, but those patches
@@ -88,8 +86,7 @@
 #' fit3 <- absorbLayer(fit2, layer_idx = 4,
 #'                     size_condition = function(x) x < 100,
 #'                     x_range = c(0.5, 0.7),
-#'                     y_range = c(0.55, 0.75),
-#'                     highlight_color = "yellow")
+#'                     y_range = c(0.55, 0.75))
 #' # looks pretty good
 #' }
 #' @export
@@ -98,7 +95,6 @@ absorbLayer <- function(recolorize_obj,
                         size_condition = function(s) s <= Inf,
                         x_range = c(0, 1),
                         y_range = c(0, 1),
-                        highlight_color = "yellow",
                         remove_empty_layers = TRUE,
                         plotting = TRUE) {
 
@@ -144,6 +140,7 @@ absorbLayer <- function(recolorize_obj,
   # a bit)
   old_map <- recolorize_obj$pixel_assignments
   old_centers <- recolorize_obj$centers
+  old_sizes <- recolorize_obj$sizes
   map <- imager::as.cimg(old_map)
 
   if(length(condition_met) == 0) {
@@ -227,25 +224,46 @@ absorbLayer <- function(recolorize_obj,
     current_par <- graphics::par(no.readonly = TRUE)
     on.exit(graphics::par(current_par))
 
-    # get boundaries of original pixels & make highlighted array
-    components <- layer_split[condition_met]
-    layer_px <- imager::as.pixset(imager::add(components) > 0)
-    px_bound <- imager::boundary(imager::grow(layer_px, 1))
-    old_img <- array_to_cimg(constructImage(old_map,
-                                            old_centers))
-    highlight_img <- imager::colorise(old_img,
-                     px_bound, col = highlight_color)
-    highlight_img <- cimg_to_array(highlight_img)
+    # plot old map, new map, and color palette
+    graphics::layout(matrix(1:4, nrow = 1),
+                     widths = c(0.4, 0.1, 0.1, 0.4))
+    old_img <- constructImage(old_map, old_centers)
 
-    # plot highlighted
-    graphics::layout(matrix(1:3, 1), widths = c(0.4, 0.4, 0.2))
+    # old map and color palette
     graphics::par(mar = c(0, 0, 2, 0))
-    plotImageArray(highlight_img, main = paste("selected components"))
-    plotImageArray(new_img, paste("result"))
+    plotImageArray(old_img, main = "initial fit")
+
+    graphics::par(mar = rep(0.5, 4))
+    plotColorPalette(old_centers, old_sizes, horiz = FALSE)
+
+    # new map and color palette
     graphics::par(mar = rep(0.5, 4))
     plotColorPalette(recolorize_obj$centers,
-                     recolorize_obj$sizes,
-                     horiz = FALSE)
+                     recolorize_obj$sizes, horiz = FALSE)
+
+    graphics::par(mar = c(0, 0, 2, 0))
+    plotImageArray(new_img, main = "absorbLayer output")
+
+    # this is the old plotting method -- maybe I'll fix it someday...
+
+    # get boundaries of original pixels & make highlighted array
+    # components <- layer_split[condition_met]
+    # layer_px <- imager::as.pixset(imager::add(components) > 0)
+    # px_bound <- imager::boundary(imager::grow(layer_px, 1))
+    # old_img <- array_to_cimg(constructImage(old_map,
+    #                                         old_centers))
+    # highlight_img <- imager::colorise(old_img,
+    #                  px_bound, col = highlight_color)
+    # highlight_img <- cimg_to_array(highlight_img)
+    # plot highlighted
+    # graphics::layout(matrix(1:3, 1), widths = c(0.4, 0.4, 0.2))
+    # graphics::par(mar = c(0, 0, 2, 0))
+    # plotImageArray(highlight_img, main = paste("selected components"))
+    # plotImageArray(new_img, paste("result"))
+    # graphics::par(mar = rep(0.5, 4))
+    # plotColorPalette(recolorize_obj$centers,
+    #                  recolorize_obj$sizes,
+    #                  horiz = FALSE)
 
   }
 

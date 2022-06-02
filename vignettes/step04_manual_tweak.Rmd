@@ -52,11 +52,10 @@ However, the angle of the iridescent green causes part of this patch to be class
 ```{r, fig.width=5}
 ful_absorb <- absorbLayer(ful_init, layer_idx = 3, 
                           function(s) s <= 250,
-                          y_range = c(0, 0.8), 
-                          highlight_color = "cyan")
+                          y_range = c(0, 0.8))
 ```
 
-This function is really useful, but fair warning: it can be quite slow. It works by finding the color patch with which each highlighted component shares the longest border and switching the highlighted component to that color, which is more sophisticated than simply switching the patch color, but requires many more calculations. If you find yourself using this a lot, it's a good idea to make sure you've downsampled your images using the `resize` argument.
+This function is really useful, but fair warning: it can be quite slow. It works by finding the color patch with which each separate component shares the longest border and switching the component to that color, which is more sophisticated than simply switching the patch color, but requires many more calculations. If you find yourself using this a lot, it's a good idea to make sure you've downsampled your images using the `resize` argument.
 
 ### `editLayer`/`editLayers`
 

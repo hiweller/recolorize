@@ -10,7 +10,6 @@ absorbLayer(
   size_condition = function(s) s <= Inf,
   x_range = c(0, 1),
   y_range = c(0, 1),
-  highlight_color = "yellow",
   remove_empty_layers = TRUE,
   plotting = TRUE
 )
@@ -28,8 +27,6 @@ all components, since they all have fewer than infinity pixels.}
 image width and length) for selecting patches. Patches with at least
 partial overlap are counted. Defaults (0-1) include the entire image.
 See details.}
-
-\item{highlight_color}{Color for highlighting the affected layer.}
 
 \item{remove_empty_layers}{Logical. If the layer is completely absorbed,
 remove it from the layer indices and renumber the existing patches? (Example:
@@ -84,8 +81,7 @@ fit1 <- recolorize2(img, bins = 3, cutoff = 65, plotting = FALSE)
 fit2 <- absorbLayer(fit1, layer_idx = 3,
                     size_condition = function(x) x <= 250 &
                       x >= 50 |
-                      x < 20,
-                    highlight_color = "cyan")
+                      x < 20)
 
 # what about the orange speckles? this is more difficult, because
 # we want to retain the border around the brown stripes, but those patches
@@ -106,8 +102,7 @@ abline(v = seq(0, 1, by = 0.1),
 fit3 <- absorbLayer(fit2, layer_idx = 4,
                     size_condition = function(x) x < 100,
                     x_range = c(0.5, 0.7),
-                    y_range = c(0.55, 0.75),
-                    highlight_color = "yellow")
+                    y_range = c(0.55, 0.75))
 # looks pretty good
 }
 }
