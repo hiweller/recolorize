@@ -127,10 +127,9 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ful_absorb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/absorbLayer.html">absorbLayer</a></span><span class="op">(</span><span class="va">ful_init</span>, layer_idx <span class="op">=</span> <span class="fl">3</span>, 
                           <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="va">s</span> <span class="op">&lt;=</span> <span class="fl">250</span>,
-                          y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.8</span><span class="op">)</span>, 
-                          highlight_color <span class="op">=</span> <span class="st">"cyan"</span><span class="op">)</span></code></pre></div>
+                          y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="step04_manual_tweak_files/figure-html/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;"></p>
-<p>This function is really useful, but fair warning: it can be quite slow. It works by finding the color patch with which each highlighted component shares the longest border and switching the highlighted component to that color, which is more sophisticated than simply switching the patch color, but requires many more calculations. If you find yourself using this a lot, it’s a good idea to make sure you’ve downsampled your images using the <code>resize</code> argument.</p>
+<p>This function is really useful, but fair warning: it can be quite slow. It works by finding the color patch with which each separate component shares the longest border and switching the component to that color, which is more sophisticated than simply switching the patch color, but requires many more calculations. If you find yourself using this a lot, it’s a good idea to make sure you’ve downsampled your images using the <code>resize</code> argument.</p>
 </div>
 <div class="section level3">
 <h3 id="editlayereditlayers">

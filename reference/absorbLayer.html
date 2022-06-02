@@ -69,7 +69,6 @@
   size_condition <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="va">s</span> <span class="op">&lt;=</span> <span class="cn">Inf</span>,
   x_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,
   y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,
-  highlight_color <span class="op">=</span> <span class="st">"yellow"</span>,
   remove_empty_layers <span class="op">=</span> <span class="cn">TRUE</span>,
   plotting <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
@@ -90,8 +89,6 @@ all components, since they all have fewer than infinity pixels.</p></dd>
 image width and length) for selecting patches. Patches with at least
 partial overlap are counted. Defaults (0-1) include the entire image.
 See details.</p></dd>
-<dt>highlight_color</dt>
-<dd><p>Color for highlighting the affected layer.</p></dd>
 <dt>remove_empty_layers</dt>
 <dd><p>Logical. If the layer is completely absorbed,
 remove it from the layer indices and renumber the existing patches? (Example:
@@ -152,8 +149,7 @@ approximate region (see examples).</p>
 <span class="r-in"><span class="va">fit2</span> <span class="op">&lt;-</span> <span class="fu">absorbLayer</span><span class="op">(</span><span class="va">fit1</span>, layer_idx <span class="op">=</span> <span class="fl">3</span>,</span>
 <span class="r-in">                    size_condition <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">250</span> <span class="op">&amp;</span></span>
 <span class="r-in">                      <span class="va">x</span> <span class="op">&gt;=</span> <span class="fl">50</span> <span class="op">|</span></span>
-<span class="r-in">                      <span class="va">x</span> <span class="op">&lt;</span> <span class="fl">20</span>,</span>
-<span class="r-in">                    highlight_color <span class="op">=</span> <span class="st">"cyan"</span><span class="op">)</span></span>
+<span class="r-in">                      <span class="va">x</span> <span class="op">&lt;</span> <span class="fl">20</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="absorbLayer-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># what about the orange speckles? this is more difficult, because</span></span>
@@ -176,8 +172,7 @@ approximate region (see examples).</p>
 <span class="r-in"><span class="va">fit3</span> <span class="op">&lt;-</span> <span class="fu">absorbLayer</span><span class="op">(</span><span class="va">fit2</span>, layer_idx <span class="op">=</span> <span class="fl">4</span>,</span>
 <span class="r-in">                    size_condition <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;</span> <span class="fl">100</span>,</span>
 <span class="r-in">                    x_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.7</span><span class="op">)</span>,</span>
-<span class="r-in">                    y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.55</span>, <span class="fl">0.75</span><span class="op">)</span>,</span>
-<span class="r-in">                    highlight_color <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span></span>
+<span class="r-in">                    y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.55</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-plt img"><img src="absorbLayer-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># looks pretty good</span></span>
 <span class="r-in"><span class="co"># }</span></span>
