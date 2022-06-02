@@ -41,7 +41,13 @@ vector of sizes."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/hiweller/recolorize/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -49,7 +55,7 @@ vector of sizes."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Plot a color palette</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/hiweller/recolorize/blob/HEAD/R/plotColorPalette.R" class="external-link"><code>R/plotColorPalette.R</code></a></small>
       <div class="d-none name"><code>plotColorPalette.Rd</code></div>
     </div>
 
@@ -74,13 +80,13 @@ channels). Assumes RGB in 0-1 range.</p></dd>
 no sizes are provided, colors are plotted in equal proportions.</p></dd>
 <dt>cex_text</dt>
 <dd><p>Size of the numbers displayed on each color, relative to the
-default. Passed to <code><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></code>. Text is only plotted if
+default. Passed to <code><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">graphics::barplot()</a></code>. Text is only plotted if
 <code>sizes = NULL</code>. <code>cex_text = 0</code> will remove numbering.</p></dd>
 <dt>horiz</dt>
 <dd><p>Logical. Should the palette be plotted vertically or
 horizontally?</p></dd>
 <dt>...</dt>
-<dd><p>Additional parameters passed to <code><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">barplot</a></code>.</p></dd>
+<dd><p>Additional parameters passed to <code><a href="https://rdrr.io/r/graphics/barplot.html" class="external-link">graphics::barplot()</a></code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -126,7 +132,7 @@ so users working in other colorspaces should convert to RGB before plotting.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>
