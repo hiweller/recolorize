@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 <img src="man/figures/kmeans_vs_recolorize.svg" align="center" width="600" >
 
-> Comparison of color maps produced using k-means clustering (center) vs. `recolorize` (right). Original image credits: Jack Randall, Nathan P. Lord, and Alison Davis-Rabosky. 
+> Comparison of color maps produced using k-means clustering (center) vs. `recolorize` (right). Original image credits: Jack Randall, Nathan P. Lord, and Alison Davis-Rabosky.
 
 * **Update, Apr. 2022**: Please cite the [preprint](https://www.biorxiv.org/content/10.1101/2022.04.03.486906v1) if you're using this package! (Also, please read the preprint.)
 * **Update, Dec. 2021**: recolorize is now [on CRAN](https://cran.r-project.org/web/packages/recolorize/index.html)!
@@ -43,36 +43,38 @@ Install the package:
 install.packages("devtools")
 devtools::install_github("hiweller/recolorize")
 
-# OR 
+# OR
 install.packages("recolorize") # CRAN release
 ```
 
 To run `recolorize` on a single image:
 
-```{r}
+```{r, eval=F}
 library(recolorize)
 
 # load an image that comes with the package:
 img <- system.file("extdata/corbetti.png", package = "recolorize")
 rc <- recolorize2(img, cutoff = 45)
 ```
+<img src="man/figures/recolorize_corbetti.png" align="center" width="600" >
+
 
 A batch processing example:
 
-```{r}
+```{r, eval=F}
 # get list of all PNGs that come with the package:
 images <- dir(system.file("extdata", package = "recolorize"),
              pattern = ".png", full.names = TRUE)
 
 # for every image...
 for (i in 1:length(images)) {
-  
+
   # get an initial fit with generic clustering
   init_fit <- recolorize2(images[i], method = "hist", bins = 2, cutoff = 25, plotting = FALSE)
-  
+
   # drop small patches
   refined_fit <- thresholdRecolor(init_fit, pct = 0.01, plotting = FALSE)
-  
+
   # store in an output variable
   if (i == 1) {
     colormap_list <- list(refined_fit)
@@ -87,6 +89,8 @@ par(mar = rep(0, 4))
 o <- lapply(colormap_list, function(i) plot(i$original_img))
 r <- lapply(colormap_list, function(i) plotImageArray(recoloredImage(i)))
 ```
+<img src="man/figures/batch_processing.png" align="center" width="600" >
+
 
 See [package vignettes](https://cran.r-project.org/web/packages/recolorize/vignettes/Introduction.html) for detailed documentation.
 
