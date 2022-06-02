@@ -122,7 +122,7 @@
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"hiweller/recolorize"</span><span class="op">)</span>
 
-<span class="co"># OR </span>
+<span class="co"># OR</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"recolorize"</span><span class="op">)</span> <span class="co"># CRAN release</span></code></pre></div>
 <p>To run <code>recolorize</code> on a single image:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -131,7 +131,7 @@
 <span class="co"># load an image that comes with the package:</span>
 <span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/corbetti.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span>
 <span class="va">rc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/recolorize2.html">recolorize2</a></span><span class="op">(</span><span class="va">img</span>, cutoff <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"><img src="reference/figures/README-unnamed-chunk-3-2.png" width="100%"></p>
+<p><img src="reference/figures/recolorize_corbetti.png" align="center" width="600"></p>
 <p>A batch processing example:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get list of all PNGs that come with the package:</span>
@@ -140,13 +140,13 @@
 
 <span class="co"># for every image...</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">images</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  
+
   <span class="co"># get an initial fit with generic clustering</span>
   <span class="va">init_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/recolorize2.html">recolorize2</a></span><span class="op">(</span><span class="va">images</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, method <span class="op">=</span> <span class="st">"hist"</span>, bins <span class="op">=</span> <span class="fl">2</span>, cutoff <span class="op">=</span> <span class="fl">25</span>, plotting <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-  
+
   <span class="co"># drop small patches</span>
   <span class="va">refined_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/thresholdRecolor.html">thresholdRecolor</a></span><span class="op">(</span><span class="va">init_fit</span>, pct <span class="op">=</span> <span class="fl">0.01</span>, plotting <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-  
+
   <span class="co"># store in an output variable</span>
   <span class="kw">if</span> <span class="op">(</span><span class="va">i</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">colormap_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">refined_fit</span><span class="op">)</span>
@@ -160,7 +160,7 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
 <span class="va">o</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">colormap_list</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">i</span><span class="op">$</span><span class="va">original_img</span><span class="op">)</span><span class="op">)</span>
 <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">colormap_list</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu"><a href="reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="fu"><a href="reference/recoloredImage.html">recoloredImage</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
+<p><img src="reference/figures/batch_processing.png" align="center" width="600"></p>
 <p>See <a href="https://cran.r-project.org/web/packages/recolorize/vignettes/Introduction.html" class="external-link">package vignettes</a> for detailed documentation.</p>
 </div>
 <div class="section level2">
