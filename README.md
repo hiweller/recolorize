@@ -51,7 +51,7 @@ Install the package:
 install.packages("devtools")
 devtools::install_github("hiweller/recolorize")
 
-# OR 
+# OR
 install.packages("recolorize") # CRAN release
 ```
 
@@ -65,7 +65,7 @@ img <- system.file("extdata/corbetti.png", package = "recolorize")
 rc <- recolorize2(img, cutoff = 45)
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" /><img src="man/figures/README-unnamed-chunk-3-2.png" width="100%" />
+<img src="man/figures/recolorize_corbetti.png" align="center" width="600" >
 
 A batch processing example:
 
@@ -76,13 +76,13 @@ images <- dir(system.file("extdata", package = "recolorize"),
 
 # for every image...
 for (i in 1:length(images)) {
-  
+
   # get an initial fit with generic clustering
   init_fit <- recolorize2(images[i], method = "hist", bins = 2, cutoff = 25, plotting = FALSE)
-  
+
   # drop small patches
   refined_fit <- thresholdRecolor(init_fit, pct = 0.01, plotting = FALSE)
-  
+
   # store in an output variable
   if (i == 1) {
     colormap_list <- list(refined_fit)
@@ -98,7 +98,7 @@ o <- lapply(colormap_list, function(i) plot(i$original_img))
 r <- lapply(colormap_list, function(i) plotImageArray(recoloredImage(i)))
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/batch_processing.png" align="center" width="600" >
 
 See [package
 vignettes](https://cran.r-project.org/web/packages/recolorize/vignettes/Introduction.html)
