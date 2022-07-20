@@ -5,7 +5,7 @@ relatively uniform color being split into multiple colors, or in regions with
 greater variation (due to lighting, shape, reflection, etc) being split into
 multiple colors. This function clusters the color centers by visual
 similarity (in CIE Lab space), then returns the re-clustered object. Users
-can either set a similarity cutoff or a final number of colors. See examples."><title>Recluster color centers based on color similarity — recluster • recolorize</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Recluster color centers based on color similarity — recluster"><meta property="og:description" content="Color mapping (as with k-means or binning) often requires over-clustering in
+can either set a similarity cutoff or a final number of colors. See examples."><title>Recluster color centers based on color similarity — recluster • recolorize</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Recluster color centers based on color similarity — recluster"><meta property="og:description" content="Color mapping (as with k-means or binning) often requires over-clustering in
 order to recover details in an image. This can result in larger areas of
 relatively uniform color being split into multiple colors, or in regions with
 greater variation (due to lighting, shape, reflection, etc) being split into
@@ -81,21 +81,21 @@ can either set a similarity cutoff or a final number of colors. See examples.</p
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">recluster</span><span class="op">(</span>
-  <span class="va">recolorize_obj</span>,
-  dist_method <span class="op">=</span> <span class="st">"euclidean"</span>,
-  hclust_method <span class="op">=</span> <span class="st">"complete"</span>,
-  channels <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,
-  color_space <span class="op">=</span> <span class="st">"Lab"</span>,
-  ref_white <span class="op">=</span> <span class="st">"D65"</span>,
-  cutoff <span class="op">=</span> <span class="fl">60</span>,
-  n_final <span class="op">=</span> <span class="cn">NULL</span>,
-  plot_hclust <span class="op">=</span> <span class="cn">TRUE</span>,
-  refit_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"imposeColors"</span>, <span class="st">"mergeLayers"</span><span class="op">)</span>,
-  resid <span class="op">=</span> <span class="cn">FALSE</span>,
-  plot_final <span class="op">=</span> <span class="cn">TRUE</span>,
-  color_space_fit <span class="op">=</span> <span class="st">"sRGB"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">recluster</span><span class="op">(</span></span>
+<span>  <span class="va">recolorize_obj</span>,</span>
+<span>  dist_method <span class="op">=</span> <span class="st">"euclidean"</span>,</span>
+<span>  hclust_method <span class="op">=</span> <span class="st">"complete"</span>,</span>
+<span>  channels <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span>
+<span>  color_space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  ref_white <span class="op">=</span> <span class="st">"D65"</span>,</span>
+<span>  cutoff <span class="op">=</span> <span class="fl">60</span>,</span>
+<span>  n_final <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  plot_hclust <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  refit_method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"imposeColors"</span>, <span class="st">"mergeLayers"</span><span class="op">)</span>,</span>
+<span>  resid <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  plot_final <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  color_space_fit <span class="op">=</span> <span class="st">"sRGB"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -103,39 +103,57 @@ can either set a similarity cutoff or a final number of colors. See examples.</p
     <dl><dt>recolorize_obj</dt>
 <dd><p>A recolorize object from <code><a href="recolorize.html">recolorize()</a></code>,
 <code>recluster()</code>, or <code><a href="imposeColors.html">imposeColors()</a></code>.</p></dd>
+
+
 <dt>dist_method</dt>
 <dd><p>Method passed to <a href="https://rdrr.io/r/stats/dist.html" class="external-link">stats::dist</a> for calculating distances
 between colors. One of "euclidean", "maximum", "manhattan", "canberra",
 "binary" or "minkowski".</p></dd>
+
+
 <dt>hclust_method</dt>
 <dd><p>Method passed to <a href="https://rdrr.io/r/stats/hclust.html" class="external-link">stats::hclust</a> for clustering colors
 by similarity. One of "ward.D", "ward.D2", "single", "complete", "average"
 (= UPGMA), "mcquitty" (= WPGMA), "median" (= WPGMC) or "centroid" (=
 UPGMC).</p></dd>
+
+
 <dt>channels</dt>
 <dd><p>Numeric: which color channels to use for clustering. Probably
 some combination of 1, 2, and 3, e.g., to consider only luminance and
 blue-yellow (b-channel) distance in CIE Lab space, channels = c(1, 3) (L
 and b).</p></dd>
+
+
 <dt>color_space</dt>
 <dd><p>Color space in which to cluster centers, passed to
 <code>[grDevices]{convertColor}</code>. One of "sRGB", "Lab", or "Luv".
 Default is "Lab", a perceptually uniform (for humans) color space.</p></dd>
+
+
 <dt>ref_white</dt>
 <dd><p>Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.</p></dd>
+
+
 <dt>cutoff</dt>
 <dd><p>Numeric similarity cutoff for grouping color centers
 together. The range and value will depend on the chosen color space (see
 below), but the default is in absolute Euclidean distance in CIE Lab space,
 which means it is greater than 0-100, but cutoff values between 20 and 80
 will usually work best. See details.</p></dd>
+
+
 <dt>n_final</dt>
 <dd><p>Final number of desired colors; alternative to specifying
 a similarity cutoff. Overrides <code>cutoff</code> if provided.</p></dd>
+
+
 <dt>plot_hclust</dt>
 <dd><p>Logical. Plot the hierarchical clustering tree for
 color similarity? Helpful for troubleshooting a cutoff.</p></dd>
+
+
 <dt>refit_method</dt>
 <dd><p>Method for refitting the image with the new color
 centers. One of either "imposeColors" or "mergeLayers". <code><a href="imposeColors.html">imposeColors()</a></code>
@@ -143,18 +161,27 @@ refits the original image using the new colors (slow but often better
 results). <code><a href="mergeLayers.html">mergeLayers()</a></code> merges the layers of the existing
 recolored image. This is faster since it doesn't require a new fit, but can
 produce messier results.</p></dd>
+
+
 <dt>resid</dt>
 <dd><p>Logical. Get final color fit residuals with
 <code><a href="colorResiduals.html">colorResiduals()</a></code>?</p></dd>
+
+
 <dt>plot_final</dt>
 <dd><p>Logical. Plot the final color fit?</p></dd>
+
+
 <dt>color_space_fit</dt>
 <dd><p>Passed to <code><a href="imposeColors.html">imposeColors()</a></code>. What
 color space should the image be reclustered in?</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>recolorize</code> object with the re-fit color centers.</p>
+    
+
+<p>A <code>recolorize</code> object with the re-fit color centers.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -178,28 +205,28 @@ biologically relevant in another.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># get an image</span></span>
-<span class="r-in"><span class="va">corbetti</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/corbetti.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># too many color centers</span></span>
-<span class="r-in"><span class="va">recolored_corbetti</span> <span class="op">&lt;-</span> <span class="fu"><a href="recolorize.html">recolorize</a></span><span class="op">(</span><span class="va">corbetti</span>, bins <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># get an image</span></span></span>
+<span class="r-in"><span><span class="va">corbetti</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/corbetti.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># too many color centers</span></span></span>
+<span class="r-in"><span><span class="va">recolored_corbetti</span> <span class="op">&lt;-</span> <span class="fu"><a href="recolorize.html">recolorize</a></span><span class="op">(</span><span class="va">corbetti</span>, bins <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Using 2^3 = 8 total bins</span>
 <span class="r-plt img"><img src="recluster-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># just enough!</span></span>
-<span class="r-in"><span class="co"># check previous plot for clustering cutoff</span></span>
-<span class="r-in"><span class="va">recluster_obj</span> <span class="op">&lt;-</span> <span class="fu">recluster</span><span class="op">(</span><span class="va">recolored_corbetti</span>,</span>
-<span class="r-in">                           cutoff <span class="op">=</span> <span class="fl">45</span>,</span>
-<span class="r-in">                           plot_hclust <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span class="r-in">                           refit_method <span class="op">=</span> <span class="st">"impose"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># just enough!</span></span></span>
+<span class="r-in"><span><span class="co"># check previous plot for clustering cutoff</span></span></span>
+<span class="r-in"><span><span class="va">recluster_obj</span> <span class="op">&lt;-</span> <span class="fu">recluster</span><span class="op">(</span><span class="va">recolored_corbetti</span>,</span></span>
+<span class="r-in"><span>                           cutoff <span class="op">=</span> <span class="fl">45</span>,</span></span>
+<span class="r-in"><span>                           plot_hclust <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                           refit_method <span class="op">=</span> <span class="st">"impose"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="recluster-2.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="recluster-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># we get the same result by specifying n_final = 5</span></span>
-<span class="r-in"><span class="va">recluster_obj</span> <span class="op">&lt;-</span> <span class="fu">recluster</span><span class="op">(</span><span class="va">recolored_corbetti</span>,</span>
-<span class="r-in">                           n_final <span class="op">=</span> <span class="fl">5</span>,</span>
-<span class="r-in">                           plot_hclust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># we get the same result by specifying n_final = 5</span></span></span>
+<span class="r-in"><span><span class="va">recluster_obj</span> <span class="op">&lt;-</span> <span class="fu">recluster</span><span class="op">(</span><span class="va">recolored_corbetti</span>,</span></span>
+<span class="r-in"><span>                           n_final <span class="op">=</span> <span class="fl">5</span>,</span></span>
+<span class="r-in"><span>                           plot_hclust <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="recluster-4.png" alt="" width="700" height="433"></span>
 <span class="r-plt img"><img src="recluster-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
@@ -213,7 +240,7 @@ biologically relevant in another.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer></div>

@@ -8,8 +8,8 @@
 <meta name="description" content="recolorize">
 <title>Introduction • recolorize</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction">
 <meta property="og:description" content="recolorize">
@@ -75,7 +75,7 @@
 
 
 <script src="Introduction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Introduction</h1>
             
       
@@ -120,13 +120,13 @@
 </ol>
 <p>The color map above, for example, was generated using a single function which runs in a few seconds (and is deterministic):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://hiweller.github.io/recolorize/">recolorize</a></span><span class="op">)</span>
-
-<span class="co"># get the path to the image (comes with the package, so we use system.file):</span>
-<span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/corbetti.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span>
-
-<span class="co"># fit a color map (only provided parameter is a color similarity cutoff)</span>
-<span class="va">recolorize_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize2.html">recolorize2</a></span><span class="op">(</span><span class="va">img</span>, cutoff <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://hiweller.github.io/recolorize/">recolorize</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># get the path to the image (comes with the package, so we use system.file):</span></span>
+<span><span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/corbetti.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># fit a color map (only provided parameter is a color similarity cutoff)</span></span>
+<span><span class="va">recolorize_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize2.html">recolorize2</a></span><span class="op">(</span><span class="va">img</span>, cutoff <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span></code></pre></div>
 <p>Notice what we didn’t have to input: we didn’t have to declare how many colors we expected (5), what we expect those colors to be (red, green, blue, black, and white), which pixels to include in each color patch, or where the boundaries of those patches are.</p>
 <p>This introduction is intended to get you up and running with the <code>recolorize</code> package. Ideally, after reading it, you will have enough information to start to play around with the set of tools that it provides in a way that suits what you need it to do.</p>
 <p>I have tried not to assume too much about the reader’s background knowledge and needs, except that you are willing to use R and you have a color segmentation problem you have to solve before you can do something interesting with images. I primarily work with images of animals (beetles, fish, lizards, butterflies, snakes, birds, etc), and that will probably come through in the documentation. But it should work just as well for other kinds of images. Maybe better!</p>
@@ -145,82 +145,82 @@
 <li><p>In the initial clustering step, we bin all of the pixels into a smaller number of clusters, but still more than we expect to end up with at the end. In this case, we’ll end up with 8 clusters (<span class="math inline">\(2^3\)</span>):</p></li>
 </ol>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">init_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize.html">recolorize</a></span><span class="op">(</span><span class="va">img</span>, method <span class="op">=</span> <span class="st">"hist"</span>, bins <span class="op">=</span> <span class="fl">2</span>, 
-                       color_space <span class="op">=</span> <span class="st">"sRGB"</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Using 2^3 = 8 total bins</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">init_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize.html">recolorize</a></span><span class="op">(</span><span class="va">img</span>, method <span class="op">=</span> <span class="st">"hist"</span>, bins <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>                       color_space <span class="op">=</span> <span class="st">"sRGB"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Using 2^3 = 8 total bins</span></span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;"></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Followed by a refinement step where we combine clusters by their similarity:</li>
 </ol>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">refined_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recluster.html">recluster</a></span><span class="op">(</span><span class="va">init_fit</span>, cutoff <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">refined_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recluster.html">recluster</a></span><span class="op">(</span><span class="va">init_fit</span>, cutoff <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-5-1.png" width="384" style="display: block; margin: auto;"><img src="Introduction_files/figure-html/unnamed-chunk-5-2.png" width="384" style="display: block; margin: auto;"></p>
 <p>The <code>recolorize2</code> function above calls these functions in sequence, since they tend to be pretty effective in combination.</p>
 <ol start="4" style="list-style-type: decimal">
 <li>Finally, we can do manual refinements to clean up the different color layers, for example performing simple morphological operations on individual layers:</li>
 </ol>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">final_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/editLayer.html">editLayer</a></span><span class="op">(</span><span class="va">refined_fit</span>, <span class="fl">3</span>,
-                        operation <span class="op">=</span> <span class="st">"fill"</span>, px_size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">final_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/editLayer.html">editLayer</a></span><span class="op">(</span><span class="va">refined_fit</span>, <span class="fl">3</span>,</span>
+<span>                        operation <span class="op">=</span> <span class="st">"fill"</span>, px_size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-6-1.png" width="384" style="display: block; margin: auto;"></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Once you have a color map you’re happy with, you can export to a variety of formats. For instance, if I wanted to run Endler’s <a href="https://rdrr.io/cran/pavo/man/adjacent.html" class="external-link">adjacency and boundary strength analysis</a> in the <code>pavo</code> package, using human perception:</li>
 </ol>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">adj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize_adjacency.html">recolorize_adjacency</a></span><span class="op">(</span><span class="va">final_fit</span>, coldist <span class="op">=</span> <span class="st">"default"</span>, hsl <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span>
-<span class="co">#&gt; Warning: no DISPLAY variable so Tk is not available</span>
-<span class="co">#&gt; Using single set of coldists for all images.</span>
-<span class="co">#&gt; Using single set of hsl values for all images.</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">adj</span><span class="op">[</span> , <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"m_dL|m_dS"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">adj</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="co"># just print the chromatic and achromatic boundary strength values</span>
-<span class="co">#&gt;      m_dS     m_dL</span>
-<span class="co">#&gt;  34.76376 38.88188</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">adj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize_adjacency.html">recolorize_adjacency</a></span><span class="op">(</span><span class="va">final_fit</span>, coldist <span class="op">=</span> <span class="st">"default"</span>, hsl <span class="op">=</span> <span class="st">"default"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: no DISPLAY variable so Tk is not available</span></span>
+<span><span class="co">#&gt; Using single set of coldists for all images.</span></span>
+<span><span class="co">#&gt; Using single set of hsl values for all images.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">adj</span><span class="op">[</span> , <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"m_dL|m_dS"</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">adj</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="co"># just print the chromatic and achromatic boundary strength values</span></span>
+<span><span class="co">#&gt;      m_dS     m_dL</span></span>
+<span><span class="co">#&gt;  34.76376 38.88188</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="batch-processing">Batch processing<a class="anchor" aria-label="anchor" href="#batch-processing"></a>
 </h2>
 <p>You can also batch process images using the same parameters, although <code>recolorize</code> functions only deal with one image at a time, so you will have to use a for loop or define a new function to call the appropriate functions in the right order:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># get all 5 beetle images:</span>
-<span class="va">images</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span>, <span class="st">"png"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co"># make an empty list to store the results:</span>
-<span class="va">rc_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a></span><span class="op">(</span><span class="st">"list"</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">images</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># run `recolorize2` on each image</span>
-<span class="co"># you would probably want to add more sophisticated steps in here as well, but you get the idea</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">images</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">rc_list</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="fu"><a href="../reference/recolorize2.html">recolorize2</a></span><span class="op">(</span><span class="va">images</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, bins <span class="op">=</span> <span class="fl">2</span>, 
-                              cutoff <span class="op">=</span> <span class="fl">30</span>, plotting <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co"># plot for comparison:</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">rc_list</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">i</span><span class="op">$</span><span class="va">original_img</span><span class="op">)</span>
-  <span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="fu"><a href="../reference/recoloredImage.html">recoloredImage</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># get all 5 beetle images:</span></span>
+<span><span class="va">images</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span>, <span class="st">"png"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># make an empty list to store the results:</span></span>
+<span><span class="va">rc_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a></span><span class="op">(</span><span class="st">"list"</span>, length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">images</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># run `recolorize2` on each image</span></span>
+<span><span class="co"># you would probably want to add more sophisticated steps in here as well, but you get the idea</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">images</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">rc_list</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressMessages</a></span><span class="op">(</span><span class="fu"><a href="../reference/recolorize2.html">recolorize2</a></span><span class="op">(</span><span class="va">images</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, bins <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>                              cutoff <span class="op">=</span> <span class="fl">30</span>, plotting <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># plot for comparison:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">rc_list</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">i</span><span class="op">$</span><span class="va">original_img</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="fu"><a href="../reference/recoloredImage.html">recoloredImage</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-8-1.png" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># given the variety of colors in the dataset, not too bad, </span>
-<span class="co"># although you might go in and refine these individually</span>
-
-<span class="co"># and clean up our working space a bit</span>
-<span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">rc_list</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># given the variety of colors in the dataset, not too bad, </span></span>
+<span><span class="co"># although you might go in and refine these individually</span></span>
+<span></span>
+<span><span class="co"># and clean up our working space a bit</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">rc_list</span><span class="op">)</span></span></code></pre></div>
 <p>The <code>recolorize</code> package mostly works internally with objects of class <code>recolorize</code>, which contains a few different elements that are worth understanding as you work through the rest of the documentation (linked at the bottom).</p>
 <div class="section level3">
 <h3 id="the-recolorize-class">The <code>recolorize</code> class<a class="anchor" aria-label="anchor" href="#the-recolorize-class"></a>
 </h3>
 <p>Objects of S3 class <code>recolorize</code> are lists with several elements:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">final_fit</span><span class="op">)</span>
-<span class="co">#&gt; $names</span>
-<span class="co">#&gt; [1] "original_img"      "pixel_assignments" "sizes"            </span>
-<span class="co">#&gt; [4] "centers"           "call"              "recolored_img"    </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $class</span>
-<span class="co">#&gt; [1] "recolorize"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">final_fit</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $names</span></span>
+<span><span class="co">#&gt; [1] "original_img"      "pixel_assignments" "sizes"            </span></span>
+<span><span class="co">#&gt; [4] "centers"           "call"              "recolored_img"    </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $class</span></span>
+<span><span class="co">#&gt; [1] "recolorize"</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p><code>original_img</code> is a a <code>raster</code> matrix, essentially a matrix of hex color codes. This is a more lightweight version of the typical 3D/4D color image array, and can be plotted easily by running <code>plot(final_fit$original_img)</code>.</p></li>
 <li><p><code>centers</code> is a matrix of RGB centers (0-1 range) for each of the color patches. Their order matches the index values in the <code>pixel_assignments</code> matrix, and can be plotted as a color bar using <code>plotColorPalette(final_fit$centers)</code>.</p></li>
@@ -229,37 +229,37 @@
 <li><p><code>call</code> is the set of operations that was applied to this recolorize object:</p></li>
 </ol>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">final_fit</span><span class="op">$</span><span class="va">call</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; recolorize(img = img, method = "hist", bins = 2, color_space = "sRGB")</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; recluster(recolorize_obj = init_fit, cutoff = 45)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; editLayer(recolorize_obj = refined_fit, layer_idx = 3, operation = "fill", </span>
-<span class="co">#&gt;     px_size = 4)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">final_fit</span><span class="op">$</span><span class="va">call</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; recolorize(img = img, method = "hist", bins = 2, color_space = "sRGB")</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; recluster(recolorize_obj = init_fit, cutoff = 45)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; editLayer(recolorize_obj = refined_fit, layer_idx = 3, operation = "fill", </span></span>
+<span><span class="co">#&gt;     px_size = 4)</span></span></code></pre></div>
 <p>Every time you modify a <code>recolorize</code> object, the new modification is appended as the next item down on this list, so that you can recreate exactly what you did to make a given color map.</p>
 <p>If you plot the whole <code>recolorize</code> object, you’ll get back the plot you see above: the original image, the color map (where each pixel has been recolored), and the color palette. You can also plot each of these individually:</p>
 <p>You can get the recolored image by calling <code>recoloredImage</code>:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># type = raster gets you a raster (like original_img); type = array gets you an </span>
-<span class="co"># image array</span>
-<span class="va">recolored_img</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recoloredImage.html">recoloredImage</a></span><span class="op">(</span><span class="va">final_fit</span>, type <span class="op">=</span> <span class="st">"array"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">recolored_img</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># type = raster gets you a raster (like original_img); type = array gets you an </span></span>
+<span><span class="co"># image array</span></span>
+<span><span class="va">recolored_img</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recoloredImage.html">recoloredImage</a></span><span class="op">(</span><span class="va">final_fit</span>, type <span class="op">=</span> <span class="st">"array"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">recolored_img</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-11-1.png" width="192" style="display: block; margin: auto;"></p>
 <p><code>recoloredImage</code> is just a shortcut function for <code>constructImage</code>, which lets you decide which colors to assign to each category in case you want to swap out the palette:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"navy"</span>, <span class="st">"lightblue"</span>, <span class="st">"blueviolet"</span>,
-            <span class="st">"turquoise"</span>, <span class="st">"slateblue"</span>, <span class="st">"royalblue"</span>, 
-            <span class="st">"aquamarine"</span>, <span class="st">"dodgerblue"</span><span class="op">)</span>
-<span class="va">blue_beetle</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/constructImage.html">constructImage</a></span><span class="op">(</span><span class="va">final_fit</span><span class="op">$</span><span class="va">pixel_assignments</span>, 
-               centers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/col2rgb.html" class="external-link">col2rgb</a></span><span class="op">(</span><span class="va">colors</span><span class="op">)</span> <span class="op">/</span> <span class="fl">255</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># a very blue beetle indeed:</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">blue_beetle</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"navy"</span>, <span class="st">"lightblue"</span>, <span class="st">"blueviolet"</span>,</span>
+<span>            <span class="st">"turquoise"</span>, <span class="st">"slateblue"</span>, <span class="st">"royalblue"</span>, </span>
+<span>            <span class="st">"aquamarine"</span>, <span class="st">"dodgerblue"</span><span class="op">)</span></span>
+<span><span class="va">blue_beetle</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/constructImage.html">constructImage</a></span><span class="op">(</span><span class="va">final_fit</span><span class="op">$</span><span class="va">pixel_assignments</span>, </span>
+<span>               centers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/grDevices/col2rgb.html" class="external-link">col2rgb</a></span><span class="op">(</span><span class="va">colors</span><span class="op">)</span> <span class="op">/</span> <span class="fl">255</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># a very blue beetle indeed:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">blue_beetle</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Introduction_files/figure-html/unnamed-chunk-12-1.png" width="192" style="display: block; margin: auto;"></p>
 <p>This should give you a good idea of how this package works, what it’s capable of doing, and the different modular components that go into its structure. This is more of a toolbox than a single method, so you will almost certainly not need all of these options. If you’d like to learn more, I would recommend reading through the vignettes linked above (in order) on each of the steps and messing around with your own images. And check the GitHub (<a href="https://github.com/hiweller/recolorize" class="external-link uri">https://github.com/hiweller/recolorize</a>) for links out to examples using real data!</p>
 </div>
@@ -300,7 +300,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

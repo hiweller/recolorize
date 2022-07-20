@@ -8,8 +8,8 @@
 <meta name="description" content="recolorize">
 <title>Step 1: Loading &amp; processing images • recolorize</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Step 1: Loading &amp; processing images">
 <meta property="og:description" content="recolorize">
@@ -75,7 +75,7 @@
 
 
 <script src="step01_loading_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Step 1: Loading &amp; processing images</h1>
             
       
@@ -114,33 +114,33 @@
 </h2>
 <p>We can read in an image by passing the filepath to the <code>readImage</code> function. This is a pretty generic function (almost every image processing package in R has something similar); the <code>recolorize</code> version doesn’t even assign the output to a special class (so don’t try to print it).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://hiweller.github.io/recolorize/">recolorize</a></span><span class="op">)</span>
-
-<span class="co"># define image path - we're using an image that comes with the package</span>
-<span class="va">img_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/corbetti.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span>
-
-<span class="co"># load image</span>
-<span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readImage.html">readImage</a></span><span class="op">(</span><span class="va">img_path</span>, resize <span class="op">=</span> <span class="cn">NULL</span>, rotate <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-
-<span class="co"># it's just an array with 4 channels:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span>
-<span class="co">#&gt; [1] 243 116   4</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://hiweller.github.io/recolorize/">recolorize</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># define image path - we're using an image that comes with the package</span></span>
+<span><span class="va">img_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/corbetti.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># load image</span></span>
+<span><span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readImage.html">readImage</a></span><span class="op">(</span><span class="va">img_path</span>, resize <span class="op">=</span> <span class="cn">NULL</span>, rotate <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># it's just an array with 4 channels:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">img</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 243 116   4</span></span></code></pre></div>
 <p>An image is a numeric array with either 3 or 4 channels (R, G, B, and optionally alpha for transparency). JPG images will only have 3 channels; PNG images will have 4. This is quite a small image (243x116 pixels) with 4 channels.</p>
 <p>We can plot the whole array as an image, or plot one channel at a time. Notice that the red patches are bright in the R channel, same for blue-B channel, green-G channel, etc—and that the off-white patch is bright for all channels, while the black patches are dark in all channels. The alpha channel is essentially just a mask that tells us which parts of the image to ignore when processing it further.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">img</span>, main <span class="op">=</span> <span class="st">"RGB image"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">img</span><span class="op">[</span> , , <span class="fl">1</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"R channel"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">img</span><span class="op">[</span> , , <span class="fl">2</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"G channel"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">img</span><span class="op">[</span> , , <span class="fl">3</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"B channel"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">img</span><span class="op">[</span> , , <span class="fl">4</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Alpha channel"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html" class="external-link">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">img</span>, main <span class="op">=</span> <span class="st">"RGB image"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">img</span><span class="op">[</span> , , <span class="fl">1</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"R channel"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">img</span><span class="op">[</span> , , <span class="fl">2</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"G channel"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">img</span><span class="op">[</span> , , <span class="fl">3</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"B channel"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plotImageArray.html">plotImageArray</a></span><span class="op">(</span><span class="va">img</span><span class="op">[</span> , , <span class="fl">4</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"Alpha channel"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="step01_loading_files/figure-html/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>Optionally, when you load the image, you can resize it (highly recommended for large images) and rotate it. Image processing is computationally intensive, and R is not especially good at it, so downsampling it usually a good idea. A good rule of thumb for downsampling is that you want the smallest details you care about in the image (say, spots on a ladybug) to be about 5 pixels in diameter (so if your spots have a 20 pixel diameter, you can set <code>resize = 0.25</code>).</p>
 <p>The only other thing you might do to your images before sending them to the main <code>recolorize</code> functions is <code>blurImage</code>. This is really useful for minimizing color variation due to texture (e.g. scales on a lizard, feathers on a bird, sensory hairs on an insect), and you can apply one of several smoothing algorithms from the <code>imager</code> package, including edge-preserving blurs:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">blurred_img</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blurImage.html">blurImage</a></span><span class="op">(</span><span class="va">img</span>, blur_function <span class="op">=</span> <span class="st">"blur_anisotropic"</span>,
-                         amplitude <span class="op">=</span> <span class="fl">10</span>, sharpness <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">blurred_img</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blurImage.html">blurImage</a></span><span class="op">(</span><span class="va">img</span>, blur_function <span class="op">=</span> <span class="st">"blur_anisotropic"</span>,</span>
+<span>                         amplitude <span class="op">=</span> <span class="fl">10</span>, sharpness <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="step01_loading_files/figure-html/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;"></p>
 <p>This step is optional: most of the <code>recolorize</code> functions will accept a path to an image as well as an image array.</p>
 </div>
@@ -156,7 +156,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

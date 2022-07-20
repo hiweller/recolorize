@@ -5,7 +5,7 @@ This works by converting a matrix of RGB centers to a given color space
 in that color space (or a subset of channels of that color space),
 clustering them, and plotting them with labels and colors. If either a
 cutoff or a final number of colors is provided and return_list = TRUE,
-function also returns a list of which color centers to combine."><title>Plot and group colors by similarity — hclust_color • recolorize</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Plot and group colors by similarity — hclust_color"><meta property="og:description" content="A wrapper for stats::hclust for clustering colors by similarity.
+function also returns a list of which color centers to combine."><title>Plot and group colors by similarity — hclust_color • recolorize</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Plot and group colors by similarity — hclust_color"><meta property="og:description" content="A wrapper for stats::hclust for clustering colors by similarity.
 This works by converting a matrix of RGB centers to a given color space
 (CIE Lab is the default), generating a distance matrix for those colors
 in that color space (or a subset of channels of that color space),
@@ -81,18 +81,18 @@ function also returns a list of which color centers to combine.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">hclust_color</span><span class="op">(</span>
-  <span class="va">rgb_centers</span>,
-  dist_method <span class="op">=</span> <span class="st">"euclidean"</span>,
-  hclust_method <span class="op">=</span> <span class="st">"complete"</span>,
-  channels <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,
-  color_space <span class="op">=</span> <span class="st">"Lab"</span>,
-  ref_white <span class="op">=</span> <span class="st">"D65"</span>,
-  cutoff <span class="op">=</span> <span class="cn">NULL</span>,
-  n_final <span class="op">=</span> <span class="cn">NULL</span>,
-  return_list <span class="op">=</span> <span class="cn">TRUE</span>,
-  plotting <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">hclust_color</span><span class="op">(</span></span>
+<span>  <span class="va">rgb_centers</span>,</span>
+<span>  dist_method <span class="op">=</span> <span class="st">"euclidean"</span>,</span>
+<span>  hclust_method <span class="op">=</span> <span class="st">"complete"</span>,</span>
+<span>  channels <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span>
+<span>  color_space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  ref_white <span class="op">=</span> <span class="st">"D65"</span>,</span>
+<span>  cutoff <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  n_final <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  return_list <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  plotting <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -100,40 +100,61 @@ function also returns a list of which color centers to combine.</p>
     <dl><dt>rgb_centers</dt>
 <dd><p>A matrix of RGB centers. Rows are centers and columns
 are R, G, and B values.</p></dd>
+
+
 <dt>dist_method</dt>
 <dd><p>Method passed to <a href="https://rdrr.io/r/stats/dist.html" class="external-link">stats::dist</a>. One of  "euclidean",
 "maximum", "manhattan", "canberra", "binary" or "minkowski".</p></dd>
+
+
 <dt>hclust_method</dt>
 <dd><p>Method passed to <a href="https://rdrr.io/r/stats/hclust.html" class="external-link">stats::hclust</a>. One of "ward.D",
 "ward.D2", "single", "complete", "average" (= UPGMA), "mcquitty" (= WPGMA),
 "median" (= WPGMC) or "centroid" (= UPGMC).</p></dd>
+
+
 <dt>channels</dt>
 <dd><p>Numeric: which color channels to use for clustering. Probably
 some combination of 1, 2, and 3, e.g., to consider only luminance and
 blue-yellow (b-channel) distance in CIE Lab space, <code>channels = c(1, 3</code> (L
 and b).</p></dd>
+
+
 <dt>color_space</dt>
 <dd><p>Color space in which to do the clustering.</p></dd>
+
+
 <dt>ref_white</dt>
 <dd><p>Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight. See
 <a href="https://rdrr.io/r/grDevices/convertColor.html" class="external-link">grDevices::convertColor</a>.</p></dd>
+
+
 <dt>cutoff</dt>
 <dd><p>Either <code>NULL</code> or a numeric cutoff passed to <a href="https://rdrr.io/r/stats/cutree.html" class="external-link">stats::cutree</a>.
 Distance below which to combine clusters, i.e. height at which the tree
 should be cut.</p></dd>
+
+
 <dt>n_final</dt>
 <dd><p>Numeric. Desired number of groups. Overrides <code>cutoff</code> if
 both are provided.</p></dd>
+
+
 <dt>return_list</dt>
 <dd><p>Logical. Return a list of new group assignments from
 the <code>cutoff</code> or <code>n_final</code> values?</p></dd>
+
+
 <dt>plotting</dt>
 <dd><p>Logical. Plot a colored dendrogram?</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list of group assignments (i.e. which centers belong to which
+    
+
+<p>A list of group assignments (i.e. which centers belong to which
 groups), if <code>return_list = TRUE</code>.</p>
     </div>
     <div class="section level2">
@@ -149,50 +170,47 @@ is called by <a href="recluster.html">recluster</a> when combining layers by sim
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="co"># 50 random RGB colors</span></span>
-<span class="r-in"><span class="va">rgb_random</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">150</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">50</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># default clustering (Lab space):</span></span>
-<span class="r-in"><span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, return_list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># 50 random RGB colors</span></span></span>
+<span class="r-in"><span><span class="va">rgb_random</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">150</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">50</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># default clustering (Lab space):</span></span></span>
+<span class="r-in"><span><span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, return_list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="hclust_color-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># clustering in RGB space (note change in Y-axis scale):</span></span>
-<span class="r-in"><span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, color_space <span class="op">=</span> <span class="st">"sRGB"</span>, return_list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># clustering in RGB space (note change in Y-axis scale):</span></span></span>
+<span class="r-in"><span><span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, color_space <span class="op">=</span> <span class="st">"sRGB"</span>, return_list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="hclust_color-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># clustering using only luminance:</span></span>
-<span class="r-in"><span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, channels <span class="op">=</span> <span class="fl">1</span>, return_list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># clustering using only luminance:</span></span></span>
+<span class="r-in"><span><span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, channels <span class="op">=</span> <span class="fl">1</span>, return_list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="hclust_color-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># or only red-green ('a' channel):</span></span>
-<span class="r-in"><span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, channels <span class="op">=</span> <span class="fl">2</span>, return_list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># or only red-green ('a' channel):</span></span></span>
+<span class="r-in"><span><span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, channels <span class="op">=</span> <span class="fl">2</span>, return_list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="hclust_color-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># or only blue-yellow ('b' channel(:</span></span>
-<span class="r-in"><span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, channels <span class="op">=</span> <span class="fl">3</span>, return_list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># or only blue-yellow ('b' channel(:</span></span></span>
+<span class="r-in"><span><span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, channels <span class="op">=</span> <span class="fl">3</span>, return_list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="hclust_color-5.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># use a cutoff to get groups:</span></span>
-<span class="r-in"><span class="va">groups</span> <span class="op">&lt;-</span> <span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, cutoff <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># use a cutoff to get groups:</span></span></span>
+<span class="r-in"><span><span class="va">groups</span> <span class="op">&lt;-</span> <span class="fu">hclust_color</span><span class="op">(</span><span class="va">rgb_random</span>, cutoff <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="hclust_color-6.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">groups</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">groups</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  3 18 23 24 25 39 45 46 48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  4  6  7  8 11 12 13 18 19 22 28 38 41 49 50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  4 13 15 20 26 27 28 34 38 40 43 47 50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  3  9 15 16 20 21 23 24 25 26 31 32 33 34 35 37 44 46</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  5  6  7 11 12 16 21 30 31 32 37 41 44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  5 14 27 29 36 39 40 42 45 47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  8  9 10 49</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10 17 30 43 48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 14 17 19 22 29 33 35 36 42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -204,7 +222,7 @@ is called by <a href="recluster.html">recluster</a> when combining layers by sim
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer></div>

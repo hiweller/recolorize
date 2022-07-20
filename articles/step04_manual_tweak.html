@@ -8,8 +8,8 @@
 <meta name="description" content="recolorize">
 <title>Step 4: Tweaks &amp; edits • recolorize</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Step 4: Tweaks &amp; edits">
 <meta property="og:description" content="recolorize">
@@ -75,7 +75,7 @@
 
 
 <script src="step04_manual_tweak_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Step 4: Tweaks &amp; edits</h1>
             
       
@@ -112,11 +112,11 @@
 </blockquote>
 <p>These are functions that can be called individually to address problem areas in specific images, or strung together as building blocks to do more complicated operations. We’ll start with this <em>Chrysochroa fulgidissima</em> image, which looks alright with a first pass using <code>recolorize2</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://hiweller.github.io/recolorize/">recolorize</a></span><span class="op">)</span>
-<span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/fulgidissima.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span>
-<span class="va">ful_init</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize2.html">recolorize2</a></span><span class="op">(</span><span class="va">img</span>, bins <span class="op">=</span> <span class="fl">3</span>, cutoff <span class="op">=</span> <span class="fl">60</span>, plotting <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Using 3^3 = 27 total bins</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://hiweller.github.io/recolorize/">recolorize</a></span><span class="op">)</span></span>
+<span><span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/fulgidissima.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span></span>
+<span><span class="va">ful_init</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize2.html">recolorize2</a></span><span class="op">(</span><span class="va">img</span>, bins <span class="op">=</span> <span class="fl">3</span>, cutoff <span class="op">=</span> <span class="fl">60</span>, plotting <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Using 3^3 = 27 total bins</span></span></code></pre></div>
 <p><img src="step04_manual_tweak_files/figure-html/unnamed-chunk-3-1.png" width="384" style="display: block; margin: auto;"><img src="step04_manual_tweak_files/figure-html/unnamed-chunk-3-2.png" width="384" style="display: block; margin: auto;"></p>
 <p>However, the angle of the iridescent green causes part of this patch to be classified as dark brown/red (color 3), resulting in a long streak and asymmetrical speckles of this color in the center of the image.</p>
 <div class="section level3">
@@ -125,9 +125,9 @@
 </h3>
 <p>“Absorbs” all or part of a layer into the surrounding colors, optionally according to a size or location condition.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ful_absorb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/absorbLayer.html">absorbLayer</a></span><span class="op">(</span><span class="va">ful_init</span>, layer_idx <span class="op">=</span> <span class="fl">3</span>, 
-                          <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="va">s</span> <span class="op">&lt;=</span> <span class="fl">250</span>,
-                          y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ful_absorb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/absorbLayer.html">absorbLayer</a></span><span class="op">(</span><span class="va">ful_init</span>, layer_idx <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>                          <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="va">s</span> <span class="op">&lt;=</span> <span class="fl">250</span>,</span>
+<span>                          y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="step04_manual_tweak_files/figure-html/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>This function is really useful, but fair warning: it can be quite slow. It works by finding the color patch with which each separate component shares the longest border and switching the component to that color, which is more sophisticated than simply switching the patch color, but requires many more calculations. If you find yourself using this a lot, it’s a good idea to make sure you’ve downsampled your images using the <code>resize</code> argument.</p>
 </div>
@@ -137,9 +137,9 @@
 </h3>
 <p>Applies one of several morphological operations from <code>imager</code> to a layer (or layers) of a <code>recolorize</code> object. This can be used to despeckle, fill in holes, or uniformly grow or shrink a color patch. In practice, this is mostly only useful for fixing small imperfections; anything too drastic tends to alter the overall shape of the patch.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># cleans up some of the speckles in the above output</span>
-<span class="va">ful_clean</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/editLayers.html">editLayers</a></span><span class="op">(</span><span class="va">ful_init</span>, layer_idx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>,
-                        operations <span class="op">=</span> <span class="st">"fill"</span>, px_sizes <span class="op">=</span> <span class="fl">3</span>, plotting <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># cleans up some of the speckles in the above output</span></span>
+<span><span class="va">ful_clean</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/editLayers.html">editLayers</a></span><span class="op">(</span><span class="va">ful_init</span>, layer_idx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>                        operations <span class="op">=</span> <span class="st">"fill"</span>, px_sizes <span class="op">=</span> <span class="fl">3</span>, plotting <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="step04_manual_tweak_files/figure-html/unnamed-chunk-5-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>This function is also easy to modify. Internally, it splits the color map into individual masks using <code><a href="../reference/splitByColor.html">splitByColor()</a></code> (another recolorize function), then converts those to pixsets for use in <code>imager</code> before slotting them back in with the unchanged layers.</p>
 </div>
@@ -149,19 +149,20 @@
 </h3>
 <p>Sometimes, you don’t want to define fancy rules for deciding which layers to combine; you just want to combine layers. That’s what this function is for. It takes in a list of numeric vectors for layers to combine (layers in the same vector are combined; those in different list elements are kept separate).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">corbetti</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/corbetti.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span>
-<span class="va">rc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize.html">recolorize</a></span><span class="op">(</span><span class="va">corbetti</span>, plotting <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Using 2^3 = 8 total bins</span>
-<span class="va">merge_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mergeLayers.html">mergeLayers</a></span><span class="op">(</span><span class="va">rc</span>, 
-                         merge_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, 
-                                           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>,
-                                           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">7</span><span class="op">)</span>,
-                                           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">corbetti</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/corbetti.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span></span>
+<span><span class="va">rc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize.html">recolorize</a></span><span class="op">(</span><span class="va">corbetti</span>, plotting <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Using 2^3 = 8 total bins</span></span>
+<span><span class="va">merge_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mergeLayers.html">mergeLayers</a></span><span class="op">(</span><span class="va">rc</span>, </span>
+<span>                         merge_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, </span>
+<span>                                           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>                                           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">7</span><span class="op">)</span>,</span>
+<span>                                           <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="step04_manual_tweak_files/figure-html/unnamed-chunk-6-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>You might notice this is a bit different than our <code>recluster</code> results above. That’s because internally, <code>recluster</code> actually uses <code>imposeColors</code> to refit the color map, rather than just merging layers; I have found this often produces slightly nicer results, because pixels that were on the border of one cutoff or another don’t get stranded in the wrong layer. On the other hand, <code>mergeLayers</code> is considerably faster.</p>
 </div>
-  </main>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
@@ -173,7 +174,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>
