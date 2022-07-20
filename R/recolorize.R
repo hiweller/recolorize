@@ -170,6 +170,13 @@ recolorize <- function(img, method = c("histogram", "kmeans"),
   # returnables:
   original_img <- img
 
+  # add an alpha channel if there is none
+  if (!alpha_channel) {
+    a <- matrix(1, nrow = nrow(img), ncol = ncol(img))
+    a[bg_indexed$idx_flat] <- 0
+    original_img <- abind::abind(original_img, a, along = 3)
+  }
+
   # return binning scheme
   method <- if( method == "kmeans" ) {
     list(method = "kmeans", n = n)
