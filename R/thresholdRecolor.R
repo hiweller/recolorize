@@ -85,9 +85,11 @@ thresholdRecolor <- function(recolorize_obj,
   }
 
   # append the call
-  recolorize_obj$call <- append(recolorize_obj$call, match.call())
+  new_call <- append(recolorize_obj$call, match.call())
+  refit$call <- new_call
 
   recolorize_obj <- refit
+
   return(recolorize_obj)
 
 }
