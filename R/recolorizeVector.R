@@ -92,8 +92,6 @@ recolorizeVector <- function(recolorize_obj,
 
   size_filter <- min(round(dim(recolorize_obj$original_img) * size_filter))
 
-  rc <- recolorize_obj
-
   if (size_filter > 0) {
     for (i in 1:nrow(recolorize_obj$centers)) {
       recolorize_obj <- absorbLayer(recolorize_obj, i,

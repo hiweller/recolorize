@@ -6,8 +6,7 @@
 \usage{
 blurImage(
   img,
-  blur_function = c("medianblur", "isoblur", "blur_anisotropic", "boxblur",
-    "boxblur_xy"),
+  blur_function = c("medianblur", "isoblur", "blur_anisotropic", "boxblur", "boxblur_xy"),
   ...,
   plotting = TRUE
 )
