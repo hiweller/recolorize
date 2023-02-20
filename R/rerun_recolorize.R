@@ -44,7 +44,7 @@ rerun_recolorize <- function(recolorize_obj,
   original_call <- recolorize_obj$call
 
   # if we're using the original image, recreate it real quick
-  if(img == "original") {
+  if(length(img) == 1 && img == "original") {
     img <- raster_to_array(recolorize_obj$original_img)
   }
 
