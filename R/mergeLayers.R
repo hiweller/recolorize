@@ -177,15 +177,20 @@ mergeLayers <- function(recolorize_obj,
   # thbbt
   rownames(new_centers) <- NULL
 
-  # remove any stray empty things
+  # remove any stray empties
   if(remove_empty_centers) {
   if (any(new_sizes == 0)) {
     zero_idx <- which(new_sizes == 0)
-    new_centers <- new_centers[-which(new_sizes == 0), ]
+
+    new_px_idx <- 1:nrow(new_centers)
+    new_px_idx[-zero_idx] <- 1:length(new_px_idx[-zero_idx])
+    new_px_idx[zero_idx] <- NA
+
     for (i in 1:nrow(new_centers)) {
-      px_assign[px_assign == 1:nrow(centers)[i]] <- i
+      px_assign[px_assign == i] <- new_px_idx[i]
     }
-    new_sizes <- new_sizes[-which(new_sizes == 0)]
+    new_centers <- new_centers[-zero_idx, ]
+    new_sizes <- new_sizes[-zero_idx]
   }
   }
 
