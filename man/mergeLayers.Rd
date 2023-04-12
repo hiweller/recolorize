@@ -8,7 +8,8 @@ mergeLayers(
   recolorize_obj,
   merge_list = NULL,
   color_to = "weighted average",
-  plotting = TRUE
+  plotting = TRUE,
+  remove_empty_centers = FALSE
 )
 }
 \arguments{
@@ -23,6 +24,9 @@ to merge. Layers not included in this list are unchanged. See examples.}
 
 \item{plotting}{Logical. Plot the results of the layer merging next
 to the original color fit for comparison?}
+
+\item{remove_empty_centers}{Logical. Remove empty centers with size = 0?
+Retaining empty color centers can be helpful when batch processing.}
 }
 \value{
 A \code{recolorize} class object with merged layers. The order of the returned

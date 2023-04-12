@@ -14,7 +14,8 @@
 #' @param color_to Color(s) for the merged layers. See examples.
 #' @param plotting Logical. Plot the results of the layer merging next
 #'   to the original color fit for comparison?
-#'
+#' @param remove_empty_centers Logical. Remove empty centers with size = 0?
+#'   Retaining empty color centers can be helpful when batch processing.
 #'
 #' @return
 #' A `recolorize` class object with merged layers. The order of the returned
@@ -88,7 +89,8 @@
 mergeLayers <- function(recolorize_obj,
                         merge_list = NULL,
                         color_to = "weighted average",
-                        plotting = TRUE) {
+                        plotting = TRUE,
+                        remove_empty_centers = FALSE) {
 
   # check parameters
   pm <- clean_merge_params(recolorize_obj,
@@ -176,9 +178,15 @@ mergeLayers <- function(recolorize_obj,
   rownames(new_centers) <- NULL
 
   # remove any stray empty things
+  if(remove_empty_centers) {
   if (any(new_sizes == 0)) {
+    zero_idx <- which(new_sizes == 0)
     new_centers <- new_centers[-which(new_sizes == 0), ]
+    for (i in 1:nrow(new_centers)) {
+      px_assign[px_assign == 1:nrow(centers)[i]] <- i
+    }
     new_sizes <- new_sizes[-which(new_sizes == 0)]
+  }
   }
 
   # reconstruct the recolorize obj
