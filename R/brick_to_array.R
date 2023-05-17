@@ -18,6 +18,7 @@ brick_to_array <- function(raster_brick) {
   r <- raster_brick
 
   # get non-background pixels (> 0) and set them to have alpha = 1
+  r[is.na(r)] <- 0
   r_alpha <- raster::merge(r > 0)
 
   # adjust negative values
