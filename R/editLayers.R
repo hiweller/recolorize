@@ -255,6 +255,10 @@ editLayers <- function(recolorize_obj,
                                 operation = operations[i],
                                 px_size = px_sizes[i],
                                 plotting = FALSE)
+
+    # remove appended call - we'll append editLayers at the end
+    recolorize_obj$call <- recolorize_obj$call[-length(recolorize_obj$call)]
+
   }
 
   # plot if we're plotting
