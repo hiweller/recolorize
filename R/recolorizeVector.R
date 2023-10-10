@@ -137,7 +137,7 @@ recolorizeVector <- function(recolorize_obj,
   b <- smoothr::smooth(b, "ksmooth", smoothness = smoothness)
 
   # initialize polygon list
-  p <- list(base_layer = b,
+  p <- list(base_layer = methods::as(b, "sf"),
             layers = vector("list", length(nrow(recolorize_obj$centers))),
             layer_colors = grDevices::rgb(recolorize_obj$centers),
             base_color = base_color,
@@ -155,14 +155,14 @@ recolorizeVector <- function(recolorize_obj,
     pol <- smoothr::smooth(pol, "ksmooth", smoothness = smoothness)
 
     # add to list
-    p$layers[[i]] <- pol
+    p$layers[[i]] <- methods::as(pol, "sf")
   }
 
   # if plotting, put base layer first and then add the rest
   if (plotting) {
 
     # initialize plot
-    sp::plot(b, col = base_color, border = p$base_color,
+    plot(b, col = base_color, border = p$base_color,
          asp = dim(layers[[i]])[1] / dim(layers[[i]])[2],
          xlim = c(0, 1), ylim = c(0, 1),
          ...)
@@ -172,7 +172,7 @@ recolorizeVector <- function(recolorize_obj,
       col <- p$layer_colors[i]
 
       # add to plot
-      sp::plot(p$layers[[i]],
+      plot(p$layers[[i]],
            col = col,
            border = col,
            add = TRUE,
@@ -194,12 +194,12 @@ recolorizeVector <- function(recolorize_obj,
 #' @export
 plot.recolorizeVector <- function(x, ...) {
 
-  requireNamespace("sp", quietly = TRUE)
+  # requireNamespace("sp", quietly = TRUE)
 
   # initialize plot
-  sp::plot(x$base_layer, col = x$base_color,
+  plot(x$base_layer, col = x$base_color,
        border = x$base_color,
-       asp = x$asp,
+       asp = x$asp, reset = FALSE,
        ...)
 
   for (i in 1:length(x$layers)) {
@@ -207,10 +207,11 @@ plot.recolorizeVector <- function(x, ...) {
     col <- x$layer_colors[i]
 
     # add to plot
-    sp::plot(x$layers[[i]],
+    plot(x$layers[[i]],
          col = col,
          border = col,
          add = TRUE,
+         asp = x$asp,
          ...)
   }
 }

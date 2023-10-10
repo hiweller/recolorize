@@ -21,7 +21,7 @@ License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Imports:
     imager,
     stats,
@@ -40,10 +40,11 @@ Depends:
 Suggests:
     knitr,
     rmarkdown,
-    sp,
+    sf,
     smoothr,
     clue,
-    spatstat.geom
+    spatstat.geom,
+    methods
 VignetteBuilder: knitr
 URL: https://hiweller.github.io/recolorize/, https://github.com/hiweller/recolorize
 BugReports: https://github.com/hiweller/recolorize/issues

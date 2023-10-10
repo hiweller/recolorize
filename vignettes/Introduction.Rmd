@@ -37,7 +37,7 @@ par(mar = rep(0, 4))
 library(recolorize)
 current_par <- graphics::par(no.readonly = TRUE)
 img <- system.file("extdata/corbetti.png", package = "recolorize")
-rc <- suppressMessages(recolorize2(img, 
+rc <- suppressMessages(recolorize2(img,
                                   cutoff = 45, plotting = FALSE))
 v <- system.file("extdata/msc/corbetti_vector.rds", package = "recolorize")
 v <- readRDS(v)
@@ -48,7 +48,7 @@ title("Original    ", line = 1, font.main = 1, cex.main = 1.2)
 plotImageArray(recoloredImage(rc))
 title("Color map (bitmap)    ", line = 1, font.main = 1, cex.main = 1.2)
 par(mar = c(1, 1, 3, 1))
-plot(v)
+# plot(v)
 title("Color map (vector)", font.main = 1, cex.main = 1.2)
 plotColorPalette(rc$centers, rc$sizes, horiz = F)
 rm(v, rc)
@@ -94,6 +94,7 @@ The basic `recolorize` workflow is initial clustering step -> refinement step ->
 
 2. In the initial clustering step, we bin all of the pixels into a smaller number of clusters, but still more than we expect to end up with at the end. In this case, we'll end up with 8 clusters ($2^3$):
 ```{r, fig.width=4}
+library(recolorize)
 init_fit <- recolorize(img, method = "hist", bins = 2, 
                        color_space = "sRGB")
 ```
