@@ -173,7 +173,9 @@ recolorize <- function(img, method = c("histogram", "kmeans"),
   # add an alpha channel if there is none
   if (!alpha_channel) {
     a <- matrix(1, nrow = nrow(original_img), ncol = ncol(original_img))
-    a[bg_indexed$idx_flat] <- 0
+    if (length(bg_indexed$idx_flat != 0 )) {
+      a[bg_indexed$idx_flat] <- 0
+    }
     original_img <- abind::abind(original_img, a)
   }
 

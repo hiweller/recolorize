@@ -22,10 +22,10 @@ readImage <- function(img_path, resize = NULL, rotate = NULL) {
 
   # read in image
   img_ext <- tolower(tools::file_ext(img_path))
-  if (img_ext %in% c("jpeg", "jpg", "png", "bmp")) {
+  if (img_ext %in% c("jpeg", "jpg", "png", "bmp", "tif", "tiff")) {
     img <- imager::load.image(img_path)
   } else {
-    stop("Image must be either JPG, PNG, or BMP")
+    stop("Image must be either JPG, PNG, TIFF, or BMP")
   }
 
   # resize if specified
