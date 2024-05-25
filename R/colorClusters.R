@@ -286,27 +286,38 @@ colorClustersHist <- function(pixel_matrix,
   colnames(centers) <- strsplit(gsub("s", "", color_space), "")[[1]]
 
   # how many pixels in each bin?
-  d <- mgcv::uniquecombs(binned_image)
+  d <- mgcv::uniquecombs(binned_image, ordered = TRUE)
 
   # which bin does each pixel go in?
   pixel_assignments <- attr(d, "index")
+  pixel_assignments_2 <- rep(0, length(pixel_assignments))
 
   # make a vector for sizes
   sizes <- rep(0, prod(bins))
 
+  # for matching
+  bin_names <- apply(possible_bins, 1,
+                     \(x) paste0(x, collapse = ""))
+
   # for every color center...
   for (j in 1:dim(d)[1]) {
+
+    # match to possible_bins bin
+    bin_idx <- match(paste0(d[j, ], collapse = ""),
+          bin_names)
 
     # extract all the pixels in that bin
     pix_temp <- pm[which(pixel_assignments == j), ]
 
+    pixel_assignments_2[which(pixel_assignments == j)] <- bin_idx
+
     # if more than one pixel, use the average
     if (is.matrix(pix_temp)) {
-      centers[j, 1:3] <- colMeans(pix_temp)
-      sizes[j] <- nrow(pix_temp)
+      centers[bin_idx, 1:3] <- colMeans(pix_temp)
+      sizes[bin_idx] <- nrow(pix_temp)
     } else {
-      centers[j, 1:3] <- pix_temp
-      sizes[j] <- 1
+      centers[bin_idx, 1:3] <- pix_temp
+      sizes[bin_idx] <- 1
     }
   }
 
@@ -317,7 +328,7 @@ colorClustersHist <- function(pixel_matrix,
                      ref_white = ref_white)
 
   # return pixel assignments and centers
-  return(list(pixel_assignments = pixel_assignments,
+  return(list(pixel_assignments = pixel_assignments_2,
               centers = centers,
               sizes = sizes))
 
