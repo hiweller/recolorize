@@ -10,7 +10,8 @@ colorClusters(
   n = 10,
   bins = 3,
   color_space = "Lab",
-  ref_white = "D65"
+  ref_white = "D65",
+  bin_avg = TRUE
 )
 }
 \arguments{
@@ -31,6 +32,9 @@ Default is "Lab", a perceptually uniform (for humans) color space.}
 
 \item{ref_white}{Reference white for converting to different color spaces.
 D65 (the default) corresponds to standard daylight.}
+
+\item{bin_avg}{Logical. Return the color centers as the average of the pixels
+assigned to the bin (the default), or the geometric center of the bin?}
 }
 \value{
 A list with the following elements:

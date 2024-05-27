@@ -15,6 +15,9 @@
 #'   Default is "Lab", a perceptually uniform (for humans) color space.
 #' @param ref_white Reference white for converting to different color spaces.
 #'   D65 (the default) corresponds to standard daylight.
+#' @param bin_avg Logical. Return the color centers as the average of the pixels
+#'   assigned to the bin (the default), or the geometric center of the bin?
+#'
 #'
 #' @return
 #' A list with the following elements:
@@ -73,7 +76,8 @@ colorClusters <- function(bg_indexed,
                           n = 10,
                           bins = 3,
                           color_space = "Lab",
-                          ref_white = "D65") {
+                          ref_white = "D65",
+                          bin_avg = TRUE) {
 
   # coerce method argument
   method <- match.arg(method)
@@ -92,7 +96,8 @@ colorClusters <- function(bg_indexed,
     color_clusters <- colorClustersHist(pixel_matrix = bg_indexed$non_bg,
                                         bins = bins,
                                         color_space = color_space,
-                                        ref_white = ref_white)
+                                        ref_white = ref_white,
+                                        bin_avg = bin_avg)
     color_clusters$method <- "histogram"
 
   } else {
@@ -195,6 +200,8 @@ colorClustersKMeans <- function(pixel_matrix, n = 10,
 #'   Default is "Lab", a perceptually uniform (for humans) color space.
 #' @param ref_white Reference white for converting to different color spaces.
 #'   D65 (the default) corresponds to standard daylight.
+#' @param bin_avg Logical. Return the color centers as the average of the pixels
+#'   assigned to the bin (the default), or the geometric center of the bin?
 #'
 #' @return
 #' A list with the following elements:
@@ -210,7 +217,8 @@ colorClustersKMeans <- function(pixel_matrix, n = 10,
 colorClustersHist <- function(pixel_matrix,
                               bins = 3,
                               color_space = c("Lab", "sRGB", "Luv", "HSV"),
-                              ref_white = "D65") {
+                              ref_white = "D65",
+                              bin_avg = TRUE) {
 
   # make sure bins is either a number or a vector of length 3
   stopifnot(length(bins) == 1 | 3)
@@ -313,12 +321,13 @@ colorClustersHist <- function(pixel_matrix,
 
     # if more than one pixel, use the average
     if (is.matrix(pix_temp)) {
-      centers[bin_idx, 1:3] <- colMeans(pix_temp)
+      if (bin_avg) { centers[bin_idx, 1:3] <- colMeans(pix_temp) }
       sizes[bin_idx] <- nrow(pix_temp)
     } else {
-      centers[bin_idx, 1:3] <- pix_temp
+      if (bin_avg) { centers[bin_idx, 1:3] <- pix_temp }
       sizes[bin_idx] <- 1
     }
+
   }
 
   # convert centers

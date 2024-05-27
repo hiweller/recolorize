@@ -33,6 +33,8 @@
 #'   proportional to the size of each cluster?
 #' @param cex_text If `plotting = TRUE` and `scale_palette = FALSE`, size of
 #'   text to display on the color palette numbers.
+#' @param bin_avg Logical. Return the color centers as the average of the pixels
+#'   assigned to the bin (the default), or the geometric center of the bin?
 #'
 #' @return An object of S3 class `recolorize` with the following attributes:
 #' \enumerate{
@@ -127,7 +129,8 @@ recolorize <- function(img, method = c("histogram", "kmeans"),
                        resid = FALSE,
                        resize = NULL, rotate = NULL,
                        plotting = TRUE, horiz = TRUE,
-                       cex_text = 1.5, scale_palette = TRUE) {
+                       cex_text = 1.5, scale_palette = TRUE,
+                       bin_avg = TRUE) {
 
   # get method
   method <- match.arg(method)
@@ -161,7 +164,8 @@ recolorize <- function(img, method = c("histogram", "kmeans"),
   color_clusters <- colorClusters(bg_indexed, method = method,
                                   n = n, bins = bins,
                                   color_space = color_space,
-                                  ref_white = ref_white)
+                                  ref_white = ref_white,
+                                  bin_avg = bin_avg)
 
   # get sizes vector
   sizes <- color_clusters$sizes

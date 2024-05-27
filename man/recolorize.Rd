@@ -20,7 +20,8 @@ recolorize(
   plotting = TRUE,
   horiz = TRUE,
   cex_text = 1.5,
-  scale_palette = TRUE
+  scale_palette = TRUE,
+  bin_avg = TRUE
 )
 }
 \arguments{
@@ -67,6 +68,9 @@ text to display on the color palette numbers.}
 
 \item{scale_palette}{Logical. If plotting, plot colors in the color palette
 proportional to the size of each cluster?}
+
+\item{bin_avg}{Logical. Return the color centers as the average of the pixels
+assigned to the bin (the default), or the geometric center of the bin?}
 }
 \value{
 An object of S3 class \code{recolorize} with the following attributes:
