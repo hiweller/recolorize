@@ -51,7 +51,16 @@ readImage <- function(img_path, resize = NULL, rotate = NULL) {
   # this is a bit slow!
   # another reason to switch to all cimg objects!
   # imager is just not friendly to me
-  temp[ , , ] <- apply(temp, 3, function(mat) mat[ , ncol(mat):1, drop=FALSE])
+  if (length(dim(temp)) == 3) {
+    temp[ , , ] <- apply(temp, 3, function(mat) mat[ , ncol(mat):1, drop=FALSE])
+  } else if (length(dim(temp)) == 2) {
+    temp <- temp[ , ncol(temp):1, drop=FALSE]
+  }
+
+  if (max(temp) > 1) {
+    temp <- temp / max(temp)
+  }
+
   img <- temp
   rm(temp)
 
