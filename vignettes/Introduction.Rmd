@@ -114,7 +114,7 @@ final_fit <- editLayer(refined_fit, 3,
                         operation = "fill", px_size = 4)
 ```
 
-5. Once you have a color map you're happy with, you can export to a variety of formats. For instance, if I wanted to run Endler's [adjacency and boundary strength analysis](https://rdrr.io/cran/pavo/man/adjacent.html) in the `pavo` package, using human perception:
+5. Once you have a color map you're happy with, you can export to a variety of formats. For instance, if I wanted to run Endler's [adjacency and boundary strength analysis](https://www.rdocumentation.org/packages/pavo/versions/2.9.0/topics/adjacent) in the `pavo` package, using human perception:
 
 ```{r}
 adj <- recolorize_adjacency(final_fit, coldist = "default", hsl = "default")

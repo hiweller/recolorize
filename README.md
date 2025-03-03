@@ -17,7 +17,7 @@
 > Nathan P. Lord, and Alison Davis-Rabosky.
 
 - **Update, Feb. 2024**: Please cite the
-  [article](https://onlinelibrary.wiley.com/doi/10.1111/ele.14378) if
+  [article](https://doi.org/10.1111/ele.14378) if
   you’re using this package! (Also, please read the article)
 - **Update, Dec. 2021**: recolorize is now [on
   CRAN](https://cran.r-project.org/package=recolorize)!

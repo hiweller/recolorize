@@ -1,29 +1,24 @@
 ## Test environments
 
-* local ubuntu 20.04 install, x86_64-pc-linux-gnu, R version 4.0.3 (2020-10-10)
-* R-hub builder (Windows Server 2008 R2 SP1, R-devel, 32/64 bit)
-* ubuntu 16.04.6 LTS (travis-ci)
+* local macOS 15.3.1 install, R version 4.4.3 (2025-02-28)
+* GitHub Actions (macos-latest release, windows-latest release, ubuntu-latest devel, release, and oldrel-1)
+* win-builder (release and oldrelease)
+
 
 ## R CMD check results
 
-* local check: there were no ERRORs, WARNINGs, or NOTEs.
-* travis-ci: there were no ERRORs, WARNINGs, or NOTEs.
-* win-builder: there were no ERRORS or WARNINGS.
+* local check: 0 errors | 0 warnings | 1 note
+* GitHub Actions: 0 errors | 0 warnings | 0 notes
+* win-builder: 0 errors | 0 warnings | 0 notes
 
-There was 1 NOTE:
+- checking installed package size ... NOTE
+    installed size is 15.3Mb
+    sub-directories of 1Mb or more:
+      doc       2.9Mb
+      extdata   1.1Mb
+      help     11.2Mb
 
-* checking CRAN incoming feasibility ... NOTE
-  Maintainer: 'Hannah Weller <hannahiweller@gmail.com>'
-
-  New submission
-
-  Possibly misspelled words in DESCRIPTION:
-    colordistance (19:24)
-    patternize (19:12)
-    pavo (19:6)
-
-This is the first submission of this package. The possibly misspelled words are the names of R packages.
-
+This is an image-processing package so the vignettes include several images, hence the larger directory size. 
 
 ## Downstream dependencies
 
