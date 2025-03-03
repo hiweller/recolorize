@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 
 > Comparison of color maps produced using k-means clustering (center) vs. `recolorize` (right). Original image credits: John E. Randall, Nathan P. Lord, and Alison Davis-Rabosky.
 
-* **Update, Feb. 2024**: Please cite the [article](https://onlinelibrary.wiley.com/doi/10.1111/ele.14378) if you're using this package! (Also, please read the article)
+* **Update, Feb. 2024**: Please cite the [article](https://doi.org/10.1111/ele.14378) if you're using this package! (Also, please read the article)
 * **Update, Dec. 2021**: recolorize is now [on CRAN](https://cran.r-project.org/package=recolorize)!
 * **Update, Sept. 2021**: A methods manuscript is in progress, but in the meantime, if you need to cite this package, please cite [this abstract](https://scholar.google.com/scholar?cluster=7568048124372269297&hl=en&oi=scholarr).
 

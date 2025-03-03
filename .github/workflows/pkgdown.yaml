@@ -13,6 +13,13 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: pkgdown
+          needs: website
+          packages: |
+            local::.
+
       - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
