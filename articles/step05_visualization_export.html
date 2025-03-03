@@ -5,122 +5,125 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="recolorize">
 <title>Step 5: Exporting &amp; visualizing output • recolorize</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Step 5: Exporting &amp; visualizing output">
-<meta property="og:description" content="recolorize">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Step 5: Exporting &amp; visualizing output">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">recolorize</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/Introduction.html">Introduction</a>
-    <a class="dropdown-item" href="../articles/step00_prep.html">Step 0: Image acquisition and preparation</a>
-    <a class="dropdown-item" href="../articles/step01_loading.html">Step 1: Loading &amp; processing images</a>
-    <a class="dropdown-item" href="../articles/step02_initial_cluster.html">Step 2: Initial clustering</a>
-    <a class="dropdown-item" href="../articles/step03_refinement.html">Step 3: Refinement</a>
-    <a class="dropdown-item" href="../articles/step04_manual_tweak.html">Step 4: Tweaks &amp; edits</a>
-    <a class="dropdown-item" href="../articles/step05_visualization_export.html">Step 5: Exporting &amp; visualizing output</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/Introduction.html">Introduction</a></li>
+    <li><a class="dropdown-item" href="../articles/step00_prep.html">Step 0: Image acquisition and preparation</a></li>
+    <li><a class="dropdown-item" href="../articles/step01_loading.html">Step 1: Loading &amp; processing images</a></li>
+    <li><a class="dropdown-item" href="../articles/step02_initial_cluster.html">Step 2: Initial clustering</a></li>
+    <li><a class="dropdown-item" href="../articles/step03_refinement.html">Step 3: Refinement</a></li>
+    <li><a class="dropdown-item" href="../articles/step04_manual_tweak.html">Step 4: Tweaks &amp; edits</a></li>
+    <li><a class="dropdown-item" href="../articles/step05_visualization_export.html">Step 5: Exporting &amp; visualizing output</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/hiweller/recolorize/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/hiweller/recolorize/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
 
 
-<script src="step05_visualization_export_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>Step 5: Exporting &amp; visualizing output</h1>
+
+      <h1>Step 5: Exporting &amp; visualizing output</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/hiweller/recolorize/blob/HEAD/vignettes/step05_visualization_export.Rmd" class="external-link"><code>vignettes/step05_visualization_export.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/hiweller/recolorize/blob/master/vignettes/step05_visualization_export.Rmd" class="external-link"><code>vignettes/step05_visualization_export.Rmd</code></a></small>
       <div class="d-none name"><code>step05_visualization_export.Rmd</code></div>
     </div>
 
     
     
 <blockquote>
-<p>The whole point of this package is to make it easier to use other methods!</p>
+<p>The whole point of this package is to make it easier to use other
+methods!</p>
 </blockquote>
 <ul>
 <li>
 <a href="Introduction.html">Introduction</a><br>
 </li>
 <li>
-<a href="step00_prep.html">Step 0: Image acquisition and preparation</a><br>
+<a href="step00_prep.html">Step 0: Image acquisition and
+preparation</a><br>
 </li>
 <li>
-<a href="step01_loading.html">Step 1: Loading &amp; processing images</a><br>
+<a href="step01_loading.html">Step 1: Loading &amp; processing
+images</a><br>
 </li>
 <li>
-<a href="step02_initial_cluster.html">Step 2: Initial clustering</a><br>
+<a href="step02_initial_cluster.html">Step 2: Initial
+clustering</a><br>
 </li>
 <li>
 <a href="step03_refinement.html">Step 3: Refinement</a><br>
 </li>
 <li>
-<a href="step04_manual_tweak.html">Step 4: Tweaks &amp; edits</a><br>
+<a href="step04_manual_tweak.html">Step 4: Tweaks &amp;
+edits</a><br>
 </li>
 <li>Step 5: Visualizing &amp; exporting output</li>
 </ul>
 <blockquote>
-<p>You can also tour the functions in the <a href="https://hiweller.rbind.io/post/function-gallery-for-recolorize/" class="external-link">function gallery</a>.</p>
+<p>You can also tour the functions in the <a href="https://hiweller.rbind.io/post/function-gallery-for-recolorize/" class="external-link">function
+gallery</a>.</p>
 </blockquote>
 <div class="section level2">
 <h2 id="visualizations">Visualizations<a class="anchor" aria-label="anchor" href="#visualizations"></a>
 </h2>
-<p>Making color maps is an obviously visual process, so it’s good to use visual feedback as much as possible. We’ve already seen a few of these functions in action, specifically <code>plotColorPalette</code> and <code>plotImageArray</code>, which are used in almost every function that produces a <code>recolorize</code> object. I’ll point out three others that I think are quite useful: <code>imDist</code>, <code>plotColorClusters</code>, and <code>splitByColor</code> (which also doubles as an export function).</p>
+<p>Making color maps is an obviously visual process, so it’s good to use
+visual feedback as much as possible. We’ve already seen a few of these
+functions in action, specifically <code>plotColorPalette</code> and
+<code>plotImageArray</code>, which are used in almost every function
+that produces a <code>recolorize</code> object. I’ll point out three
+others that I think are quite useful: <code>imDist</code>,
+<code>plotColorClusters</code>, and <code>splitByColor</code> (which
+also doubles as an export function).</p>
 <div class="section level3">
 <h3 id="imdist">
 <code>imDist</code><a class="anchor" aria-label="anchor" href="#imdist"></a>
 </h3>
-<p>Compares two versions of the same image by calculating the color distance between the colors of each pair of pixels (<code>imDist</code>), and gives you a few more options for plotting the results (<code>imHeatmap</code>). You can use it to get the distances between the original image and the color map:</p>
+<p>Compares two versions of the same image by calculating the color
+distance between the colors of each pair of pixels
+(<code>imDist</code>), and gives you a few more options for plotting the
+results (<code>imHeatmap</code>). You can use it to get the distances
+between the original image and the color map:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://hiweller.github.io/recolorize/">recolorize</a></span><span class="op">)</span></span>
 <span><span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ephippigera.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span></span>
@@ -139,17 +142,29 @@
 <span><span class="co"># across images (max is sqrt(3) in sRGB space, ~120 in Lab)</span></span>
 <span><span class="fu"><a href="../reference/imHeatmap.html">imHeatmap</a></span><span class="op">(</span><span class="va">dist_original</span>, range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>          main <span class="op">=</span> <span class="st">"Scaled distances"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="step05_visualization_export_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;"> The resulting object is a simple matrix of distances between each pair of pixels in the given color space. These are essentially residuals:</p>
+<p><img src="step05_visualization_export_files/figure-html/unnamed-chunk-3-1.png" width="480" style="display: block; margin: auto;">
+The resulting object is a simple matrix of distances between each pair
+of pixels in the given color space. These are essentially residuals:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">dist_original</span>, main <span class="op">=</span> <span class="st">"sRGB distances"</span>, xlab <span class="op">=</span> <span class="st">"Distance"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="step05_visualization_export_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;"></p>
-<p>A word of warning here: it is easy to look at this and decide to come up with a procedure for automatically fitting color maps using a kind of AIC metric, trying to get the lowest SSE with the minimum set of color centers. You’re welcome to try that, but given that this is discarding spatial information, it is probably not a general solution (I haven’t had much luck with it). But there is probably some room to play here.</p>
+<p>A word of warning here: it is easy to look at this and decide to come
+up with a procedure for automatically fitting color maps using a kind of
+AIC metric, trying to get the lowest SSE with the minimum set of color
+centers. You’re welcome to try that, but given that this is discarding
+spatial information, it is probably not a general solution (I haven’t
+had much luck with it). But there is probably some room to play
+here.</p>
 </div>
 <div class="section level3">
 <h3 id="splitbycolor">
 <code>splitByColor</code><a class="anchor" aria-label="anchor" href="#splitbycolor"></a>
 </h3>
-<p>This is a dual-use function: by splitting up the color map into individual layers, you not only can examine the individual layers and decide whether they need any editing or merging, but you also get out a binary mask representing each layer, so you can export individual patches.</p>
+<p>This is a dual-use function: by splitting up the color map into
+individual layers, you not only can examine the individual layers and
+decide whether they need any editing or merging, but you also get out a
+binary mask representing each layer, so you can export individual
+patches.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">img</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/corbetti.png"</span>, package <span class="op">=</span> <span class="st">"recolorize"</span><span class="op">)</span></span>
 <span><span class="va">rc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize2.html">recolorize2</a></span><span class="op">(</span><span class="va">img</span>, cutoff <span class="op">=</span> <span class="fl">45</span>, plotting <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -173,7 +188,10 @@
 <div class="section level3">
 <h3 id="exporting-to-images">Exporting to images<a class="anchor" aria-label="anchor" href="#exporting-to-images"></a>
 </h3>
-<p>The most direct thing you can do is simply export your recolored images as images, then pass those to whatever other tool you’d like to use, although obviously this doesn’t take full advantage of the format:</p>
+<p>The most direct thing you can do is simply export your recolored
+images as images, then pass those to whatever other tool you’d like to
+use, although obviously this doesn’t take full advantage of the
+format:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># export color map</span></span>
 <span><span class="fu"><a href="../reference/recolorize_to_png.html">recolorize_to_png</a></span><span class="op">(</span><span class="va">rc</span>, filename <span class="op">=</span> <span class="st">"corbetti_recolored.png"</span><span class="op">)</span></span>
@@ -186,54 +204,76 @@
 </div>
 <div class="section level3">
 <h3 id="pavo-package">
-<a href="https://CRAN.R-project.org/package=patternize" class="external-link">pavo</a> package<a class="anchor" aria-label="anchor" href="#pavo-package"></a>
+<a href="https://CRAN.R-project.org/package=patternize" class="external-link">pavo</a>
+package<a class="anchor" aria-label="anchor" href="#pavo-package"></a>
 </h3>
-<p>You can also convert a recolorize object to a classify object in the wonderful <code>pavo</code> package and then run an adjacency analysis. Bonus points if you have reflectance spectra for each of your color patches: by combining the spatial information in the color map with the <code>coldist</code> object generated by spectral measurements, you can run adjacency analysis for the visual system(s) of your choice right out of the box!</p>
+<p>You can also convert a recolorize object to a classify object in the
+wonderful <code>pavo</code> package and then run an adjacency analysis.
+Bonus points if you have reflectance spectra for each of your color
+patches: by combining the spatial information in the color map with the
+<code>coldist</code> object generated by spectral measurements, you can
+run adjacency analysis for the visual system(s) of your choice right out
+of the box!</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># convert to a classify object</span></span>
 <span><span class="va">as_classify</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/classify_recolorize.html">classify_recolorize</a></span><span class="op">(</span><span class="va">rc</span>, imgname <span class="op">=</span> <span class="st">"corbetti"</span><span class="op">)</span></span>
-<span><span class="va">adj_analysis</span> <span class="op">&lt;-</span> <span class="fu">pavo</span><span class="fu">::</span><span class="fu"><a href="http://pavo.colrverse.com/reference/adjacent.html" class="external-link">adjacent</a></span><span class="op">(</span><span class="va">as_classify</span>, xscale <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="va">adj_analysis</span> <span class="op">&lt;-</span> <span class="fu">pavo</span><span class="fu">::</span><span class="fu"><a href="https://pavo.colrverse.com/reference/adjacent.html" class="external-link">adjacent</a></span><span class="op">(</span><span class="va">as_classify</span>, xscale <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># run adjacent directly using human perceptual color distances (i.e. no spectral data - proceed with caution)</span></span>
 <span><span class="va">adj_human</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/recolorize_adjacency.html">recolorize_adjacency</a></span><span class="op">(</span><span class="va">rc</span><span class="op">)</span></span></code></pre></div>
-<p>You can also run an adjacency analysis with <code>recolorize_adjacency</code>, but only as long as you keep your skeptic hat on. This function works by calculating a <code>coldist</code> object right from the CIE Lab colors in the color maps, which are themselves probably derived from your RGB image, which is at best a very loose representation of how these colors appear to human eyes. The only reason this is at all reasonable is that it’s producing these values for human vision, so you will be able to see if it’s completely unreasonable. This is fine for getting some preliminary results or if you’re working with aggregate data from many sources and you’re content with specifically human (not just non-UV, but only human) vision. Otherwise, it’s probably a last resort.</p>
+<p>You can also run an adjacency analysis with
+<code>recolorize_adjacency</code>, but only as long as you keep your
+skeptic hat on. This function works by calculating a
+<code>coldist</code> object right from the CIE Lab colors in the color
+maps, which are themselves probably derived from your RGB image, which
+is at best a very loose representation of how these colors appear to
+human eyes. The only reason this is at all reasonable is that it’s
+producing these values for human vision, so you will be able to see if
+it’s completely unreasonable. This is fine for getting some preliminary
+results or if you’re working with aggregate data from many sources and
+you’re content with specifically human (not just non-UV, but only human)
+vision. Otherwise, it’s probably a last resort.</p>
 </div>
 <div class="section level3">
 <h3 id="patternize">
 <a href="https://cran.r-project.org/web//packages/patternize/index.html" class="external-link">patternize</a><a class="anchor" aria-label="anchor" href="#patternize"></a>
 </h3>
-<p>Because of the way patternize is structured, going from recolorize to patternize is slightly more involved. See the GitHub (<a href="https://github.com/hiweller" class="external-link uri">https://github.com/hiweller</a>) for links to a worked example of this, but the general process is:</p>
+<p>Because of the way patternize is structured, going from recolorize to
+patternize is slightly more involved. See the GitHub (<a href="https://github.com/hiweller" class="external-link uri">https://github.com/hiweller</a>) for links to a worked
+example of this, but the general process is:</p>
 <ol style="list-style-type: decimal">
-<li>Load images into <code>patternize</code> and align them into a list of rasters, using e.g. <code>alignLan()</code>.</li>
-<li>Use <code>brick_to_array</code> to convert the list of rasters to a list of images.</li>
-<li>Cluster images as normal, ensuring that all images have the same set of colors.</li>
-<li>Use <code>recolorize_to_patternize</code> to convert clustered images back to a raster list.</li>
+<li>Load images into <code>patternize</code> and align them into a list
+of rasters, using e.g. <code>alignLan()</code>.</li>
+<li>Use <code>brick_to_array</code> to convert the list of rasters to a
+list of images.</li>
+<li>Cluster images as normal, ensuring that all images have the same set
+of colors.</li>
+<li>Use <code>recolorize_to_patternize</code> to convert clustered
+images back to a raster list.</li>
 <li>Proceed with downstream <code>patternize</code> analyses.</li>
 </ol>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p>
-<p>Developed by Hannah Weller.</p>
+  <p>Developed by Hannah Weller.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>

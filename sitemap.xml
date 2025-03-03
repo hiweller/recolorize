@@ -1,207 +1,73 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://hiweller.github.io/recolorize/404.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/articles/Introduction.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/articles/step00_prep.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/articles/step01_loading.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/articles/step02_initial_cluster.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/articles/step03_refinement.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/articles/step04_manual_tweak.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/articles/step05_visualization_export.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/index.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/absorbLayer.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/add_image.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/adjust_color.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/apply_imager_operation.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/array_to_RasterStack.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/array_to_cimg.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/assignPixels.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/backgroundCondition.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/backgroundIndex.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/blurImage.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/brick_to_array.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/cielab_coldist.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/cimg_to_array.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/classify_recolorize.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/clean_merge_params.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/col2col.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/colorClusters.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/colorClustersHist.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/colorClustersKMeans.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/colorResiduals.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/constructImage.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/editLayer.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/editLayers.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/expand_recolorize.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/hclust_color.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/imDist.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/imHeatmap.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/imposeColors.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/labelCol.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/medianColors.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/mergeLayers.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/pixelAssignMatrix.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/plot.recolorize.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/plot.recolorizeVector.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/plotColorClusters.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/plotColorPalette.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/plotImageArray.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/raster_to_array.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/readImage.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/recluster.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/recoloredImage.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/recolorize-package.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/recolorize.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/recolorize2.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/recolorizeVector.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/recolorize_adjacency.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/recolorize_to_patternize.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/recolorize_to_png.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/rerun_recolorize.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/rgb2hsl.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/splitByColor.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/thresholdRecolor.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/werner.html</loc>
-  </url>
-  <url>
-    <loc>https://hiweller.github.io/recolorize/reference/wernerColor.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://hiweller.github.io/recolorize/404.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/LICENSE.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/articles/Introduction.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/articles/index.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/articles/step00_prep.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/articles/step01_loading.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/articles/step02_initial_cluster.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/articles/step03_refinement.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/articles/step04_manual_tweak.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/articles/step05_visualization_export.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/authors.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/index.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/news/index.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/absorbLayer.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/add_image.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/adjust_color.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/apply_imager_operation.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/array_to_RasterStack.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/array_to_cimg.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/assignPixels.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/backgroundCondition.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/backgroundIndex.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/blurImage.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/brick_to_array.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/cielab_coldist.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/cimg_to_array.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/classify_recolorize.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/clean_merge_params.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/col2col.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/colorClusters.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/colorClustersHist.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/colorClustersKMeans.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/colorResiduals.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/constructImage.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/editLayer.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/editLayers.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/expand_recolorize.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/hclust_color.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/imDist.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/imHeatmap.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/imposeColors.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/index.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/labelCol.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/match_colors.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/medianColors.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/mergeLayers.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/pixelAssignMatrix.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/plot.recolorize.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/plot.recolorizeVector.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/plotColorClusters.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/plotColorPalette.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/plotImageArray.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/raster_to_array.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/readImage.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/recluster.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/recoloredImage.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/recolorize-package.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/recolorize.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/recolorize2.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/recolorizeVector.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/recolorize_adjacency.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/recolorize_to_patternize.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/recolorize_to_png.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/reorder_colors.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/rerun_recolorize.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/rgb2hsl.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/splitByColor.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/thresholdRecolor.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/werner.html</loc></url>
+<url><loc>https://hiweller.github.io/recolorize/reference/wernerColor.html</loc></url>
 </urlset>
+

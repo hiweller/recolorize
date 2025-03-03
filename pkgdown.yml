@@ -1,5 +1,5 @@
-pandoc: 2.7.3
-pkgdown: 2.0.6
+pandoc: 3.1.11
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   Introduction: Introduction.html
@@ -9,8 +9,7 @@ articles:
   step03_refinement: step03_refinement.html
   step04_manual_tweak: step04_manual_tweak.html
   step05_visualization_export: step05_visualization_export.html
-last_built: 2022-07-20T14:56Z
+last_built: 2025-03-03T15:38Z
 urls:
   reference: https://hiweller.github.io/recolorize/reference
   article: https://hiweller.github.io/recolorize/articles
-
