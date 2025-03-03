@@ -13,13 +13,6 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: pkgdown
-          needs: website
-          packages: |
-            local::.
-
       - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
@@ -37,4 +30,7 @@ jobs:
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          # Install the package first
+          Rscript -e 'install.packages(".", repos = NULL, type = "source")'
+          # Then run pkgdown
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
