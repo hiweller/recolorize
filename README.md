@@ -13,14 +13,14 @@
 <img src="man/figures/kmeans_vs_recolorize.svg" align="center" width="600" >
 
 > Comparison of color maps produced using k-means clustering (center)
-> vs. `recolorize` (right). Original image credits: Jack Randall, Nathan
-> P. Lord, and Alison Davis-Rabosky.
+> vs. `recolorize` (right). Original image credits: John E. Randall,
+> Nathan P. Lord, and Alison Davis-Rabosky.
 
-- **Update, Apr. 2022**: Please cite the
-  [preprint](https://www.biorxiv.org/content/10.1101/2022.04.03.486906v1)
-  if you’re using this package! (Also, please read the preprint.)
+- **Update, Feb. 2024**: Please cite the
+  [article](https://onlinelibrary.wiley.com/doi/10.1111/ele.14378) if
+  you’re using this package! (Also, please read the article)
 - **Update, Dec. 2021**: recolorize is now [on
-  CRAN](https://cran.r-project.org/web/packages/recolorize/index.html)!
+  CRAN](https://cran.r-project.org/package=recolorize)!
 - **Update, Sept. 2021**: A methods manuscript is in progress, but in
   the meantime, if you need to cite this package, please cite [this
   abstract](https://scholar.google.com/scholar?cluster=7568048124372269297&hl=en&oi=scholarr).
@@ -101,7 +101,7 @@ r <- lapply(colormap_list, function(i) plotImageArray(recoloredImage(i)))
 <img src="man/figures/batch_processing.png" align="center" width="600" >
 
 See [package
-vignettes](https://cran.r-project.org/web/packages/recolorize/vignettes/Introduction.html)
+vignettes](https://cran.r-project.org/package=recolorize/vignettes/Introduction.html)
 for detailed documentation.
 
 ## How does it work?
