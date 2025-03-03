@@ -90,7 +90,7 @@ If something is unclear or you find a bug, please get in touch or [file an issue
 
 The basic `recolorize` workflow is initial clustering step -> refinement step -> manual tweaks. 
 
-1. Images should first be color-corrected and have any background masked out, ideally with transparency, as in the image above, for example (*Chrysochroa corbetti*, taken by [Nathan P. Lord](https://www.thelordlab.com/), used with permission and egregiously downsampled to ~250x150 pixels by me). 
+1. Images should first be color-corrected and have any background masked out, ideally with transparency, as in the image above, for example (*Chrysochroa corbetti*, taken by Nathan P. Lord, used with permission and egregiously downsampled to ~250x150 pixels by me). 
 
 2. In the initial clustering step, we bin all of the pixels into a smaller number of clusters, but still more than we expect to end up with at the end. In this case, we'll end up with 8 clusters ($2^3$):
 ```{r, fig.width=4}
