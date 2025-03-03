@@ -30,6 +30,12 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
+      - name: Install XQuartz on macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install --cask xquartz
+          echo "XQuartz installed"
+
       - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
